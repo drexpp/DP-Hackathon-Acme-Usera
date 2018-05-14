@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.SafeHtml;
 public class ContactInfo {
 
 	private String		skype;
-	private String		comment;
+	private Collection<String>		comments;
 	private String		contactPhone;
 	private Collection<String> links;
 	
@@ -27,11 +27,11 @@ public class ContactInfo {
 	}
 	
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
-	public String getComment() {
-		return comment;
+	public Collection<String> getComment() {
+		return comments;
 	}
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setComment(Collection<String> comments) {
+		this.comments = comments;
 	}
 	
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)

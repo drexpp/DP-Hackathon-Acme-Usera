@@ -1,6 +1,7 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
@@ -32,7 +33,11 @@ public class Actor extends DomainEntity {
 	private Date		dateBirth;
 	private UserAccount	userAccount;
 	private ContactInfo	contactInfo;
+	private Collection<MailMessage>			sentMessages;
+	private Collection<MailMessage>			receivedMessages;
+	private Collection<Folder>			folders;
 
+	
 	@Past
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -85,6 +90,31 @@ public class Actor extends DomainEntity {
 	public void setAddress(final String addresses) {
 		this.address = addresses;
 	}
+	
+	public Collection<MailMessage> getSentMessages() {
+		return sentMessages;
+	}
+
+	public void setSentMessages(Collection<MailMessage> sentMessages) {
+		this.sentMessages = sentMessages;
+	}
+
+	public Collection<MailMessage> getReceivedMessages() {
+		return receivedMessages;
+	}
+
+	public void setReceivedMessages(Collection<MailMessage> receivedMessages) {
+		this.receivedMessages = receivedMessages;
+	}
+
+	public Collection<Folder> getFolders() {
+		return folders;
+	}
+
+	public void setFolders(Collection<Folder> folders) {
+		this.folders = folders;
+	}
+
 
 	@NotNull
 	@OneToOne(optional = false, cascade = CascadeType.ALL)
