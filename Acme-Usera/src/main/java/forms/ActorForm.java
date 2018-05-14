@@ -10,6 +10,7 @@ import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
@@ -93,7 +94,7 @@ public class ActorForm extends DomainEntity {
 	}
 
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
-	
+	@Pattern(regexp="\\+?([0-9]+)?")
 	public String getPhone() {
 		return this.phone;
 	}
@@ -121,5 +122,5 @@ public class ActorForm extends DomainEntity {
 	public void setUserAccount(final UserAccount userAccount) {
 		this.userAccount = userAccount;
 	}
-
+	
 }

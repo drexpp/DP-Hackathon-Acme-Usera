@@ -31,7 +31,7 @@ public class Actor extends DomainEntity {
 	private String		address;
 	private Date		dateBirth;
 	private UserAccount	userAccount;
-
+	private ContactInfo	contactInfo;
 
 	@Past
 	@Temporal(TemporalType.DATE)
@@ -96,4 +96,16 @@ public class Actor extends DomainEntity {
 	public void setUserAccount(final UserAccount userAccount) {
 		this.userAccount = userAccount;
 	}
+	
+	@NotNull
+	@Valid
+	@OneToOne(optional = false)
+	public ContactInfo getContactInfo() {
+		return contactInfo;
+	}
+
+	public void setContactInfo(ContactInfo contactInfo) {
+		this.contactInfo = contactInfo;
+	}
+	
 }
