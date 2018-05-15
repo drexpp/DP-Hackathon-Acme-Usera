@@ -1,8 +1,15 @@
 package domain;
 
+import java.util.Collection;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -16,6 +23,10 @@ public class Exam extends DomainEntity {
 	private String title;
 	private Double score;
 	private Integer mark;
+	private Collection<ExamQuestion> examQuestions;
+	private Teacher teacher;
+	private Course course;
+	private Collection<ExamPaper> examPaper;
 	
 	@NotBlank
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
@@ -38,6 +49,41 @@ public class Exam extends DomainEntity {
 	}
 	public void setMark(Integer mark) {
 		this.mark = mark;
+	}
+	
+	//Relationships
+	
+	@Valid
+	@OneToMany(mappedBy="exam", cascade = CascadeType.ALL)
+	public Collection<ExamQuestion> getExamQuestions() {
+		return examQuestions;
+	}
+	public void setExamQuestions(Collection<ExamQuestion> examQuestions) {
+		this.examQuestions = examQuestions;
+	}
+	@Valid
+	@ManyToOne(optional = false)
+	public Teacher getTeacher() {
+		return teacher;
+	}
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
+	@Valid
+	@OneToOne(optional = false)
+	public Course getCourse() {
+		return course;
+	}
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+	@Valid
+	@OneToMany(mappedBy="exam")
+	public Collection<ExamPaper> getExamPaper() {
+		return examPaper;
+	}
+	public void setExamPaper(Collection<ExamPaper> examPaper) {
+		this.examPaper = examPaper;
 	}
 	
 	

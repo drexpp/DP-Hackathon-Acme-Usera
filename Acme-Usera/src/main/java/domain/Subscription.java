@@ -3,6 +3,8 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -17,6 +19,8 @@ public class Subscription extends DomainEntity {
 	
 	private CreditCard creditCard;
 	private String subscriptionType;
+	private Course course;
+	private Student student;
 	
 	
 	// Values -----------------------------------------------------------------
@@ -43,6 +47,24 @@ public class Subscription extends DomainEntity {
 	public void setSubscriptionType(String subscriptionType) {
 		this.subscriptionType = subscriptionType;
 	}
+	
+	//Relationships
+	@Valid
+	@ManyToOne(optional = false)
+	public Course getCourse() {
+		return course;
+	}
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+	@ManyToOne(optional = false)
+	public Student getStudent() {
+		return student;
+	}
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+
 	
 	
 

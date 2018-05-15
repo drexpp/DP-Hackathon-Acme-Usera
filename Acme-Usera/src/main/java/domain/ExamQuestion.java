@@ -3,6 +3,8 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -19,6 +21,7 @@ public class ExamQuestion extends DomainEntity {
 	private String		photoURL;
 	private Integer		number;
 	private String		answer;
+	private Exam		exam;
 	
 	
 	@NotBlank
@@ -58,6 +61,16 @@ public class ExamQuestion extends DomainEntity {
 	}
 	public void setAnswer(String answer) {
 		this.answer = answer;
+	}
+	
+	//Relationships
+	@Valid
+	@ManyToOne(optional = false)
+	public Exam getExam() {
+		return exam;
+	}
+	public void setExam(Exam exam) {
+		this.exam = exam;
 	}
 	
 	

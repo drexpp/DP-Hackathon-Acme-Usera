@@ -5,8 +5,11 @@ import java.sql.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.Valid;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -23,6 +26,9 @@ public class Lesson extends DomainEntity {
 	private String		description;
 	private String		photoURL;
 	private String		videoURL;
+	
+	private Course course;
+	private Teacher teacher;
 	
 	
 	@NotBlank
@@ -71,6 +77,23 @@ public class Lesson extends DomainEntity {
 	}
 	public void setVideoURL(String videoURL) {
 		this.videoURL = videoURL;
+	}
+	
+	@Valid
+	@ManyToOne(optional = false)
+	public Course getCourse() {
+		return course;
+	}
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+	@OneToOne (optional = false)
+	@Valid
+	public Teacher getTeacher() {
+		return teacher;
+	}
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
 	}
 	
 	

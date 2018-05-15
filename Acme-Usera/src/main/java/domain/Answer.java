@@ -5,8 +5,10 @@ import java.sql.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.Valid;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -22,6 +24,8 @@ public class Answer extends DomainEntity {
 	private Date 		moment;
 	private String		photoURL;
 	private Boolean		isSolution;
+	private Question	question;
+	private	Actor		actor;
 	
 	@NotBlank
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
@@ -53,6 +57,25 @@ public class Answer extends DomainEntity {
 	public void setIsSolution(Boolean isSolution) {
 		this.isSolution = isSolution;
 	}
+	
+	//Relationships
+	@Valid
+	@ManyToOne(optional = false)
+	public Question getQuestion() {
+		return question;
+	}
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+	@Valid
+	@ManyToOne(optional = false)
+	public Actor getActor() {
+		return actor;
+	}
+	public void setActor(Actor actor) {
+		this.actor = actor;
+	}
+	
 	
 	
 }

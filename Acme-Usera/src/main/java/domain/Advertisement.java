@@ -1,8 +1,11 @@
 package domain;
 
+import java.util.Collection;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -20,6 +23,7 @@ public class Advertisement extends DomainEntity {
 	private String		targetURL;
 	private CreditCard	creditCard;
 	private Sponsor		sponsor;
+	private Collection<Course> courses;
 	
 
 	@NotBlank
@@ -51,6 +55,8 @@ public class Advertisement extends DomainEntity {
 		this.targetURL = targetURL;
 	}
 	
+	//Relationships
+	
 	@Valid
 	@NotNull
 	public CreditCard getCreditCard() {
@@ -69,4 +75,16 @@ public class Advertisement extends DomainEntity {
 	public void setSponsor(Sponsor sponsor) {
 		this.sponsor = sponsor;
 	}
+	
+	@Valid
+	@ManyToMany
+	public Collection<Course> getCourses() {
+		return courses;
+	}
+	public void setCourses(Collection<Course> courses) {
+		this.courses = courses;
+	}
+	
+	
+	
 }
