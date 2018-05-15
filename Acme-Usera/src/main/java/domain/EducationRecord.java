@@ -77,7 +77,6 @@ public class EducationRecord extends DomainEntity {
 
 	@NotNull
 	@ElementCollection
-	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
 	public List<String> getComments() {
 		return this.comments;
 	}

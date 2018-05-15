@@ -1,6 +1,6 @@
 package domain;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -16,9 +16,9 @@ import org.hibernate.validator.constraints.SafeHtml;
 public class ContactInfo extends DomainEntity {
 
 	private String		skype;
-	private Collection<String> comments;
+	private List<String> comments;
 	private String		contactPhone;
-	private Collection<String> links;
+	private List<String> links;
 	
 	
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
@@ -31,11 +31,10 @@ public class ContactInfo extends DomainEntity {
 	
 	@ElementCollection
 	@NotNull
-	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
-	public Collection<String> getComments() {
+	public List<String> getComments() {
 		return comments;
 	}
-	public void setComments(Collection<String> comments) {
+	public void setComments(List<String> comments) {
 		this.comments = comments;
 	}
 	
@@ -50,11 +49,10 @@ public class ContactInfo extends DomainEntity {
 	
 	@ElementCollection
 	@NotNull
-	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
-	public Collection<String> getLinks() {
+	public List<String> getLinks() {
 		return links;
 	}
-	public void setLinks(Collection<String> links) {
+	public void setLinks(List<String> links) {
 		this.links = links;
 	}
 	

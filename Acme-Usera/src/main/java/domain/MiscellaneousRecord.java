@@ -38,7 +38,6 @@ public class MiscellaneousRecord extends DomainEntity {
 	}
 
 	@ElementCollection
-	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
 	public List<String> getComments() {
 		return this.comments;
 	}
