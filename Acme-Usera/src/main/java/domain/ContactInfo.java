@@ -20,6 +20,7 @@ public class ContactInfo extends DomainEntity {
 	private String		contactPhone;
 	private Collection<String> links;
 	
+	
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
 	public String getSkype() {
 		return skype;
@@ -31,10 +32,10 @@ public class ContactInfo extends DomainEntity {
 	@ElementCollection
 	@NotNull
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
-	public Collection<String> getComment() {
+	public Collection<String> getComments() {
 		return comments;
 	}
-	public void setComment(Collection<String> comments) {
+	public void setComments(Collection<String> comments) {
 		this.comments = comments;
 	}
 	
@@ -56,7 +57,6 @@ public class ContactInfo extends DomainEntity {
 	public void setLinks(Collection<String> links) {
 		this.links = links;
 	}
-	
 	
 	
 	

@@ -23,8 +23,7 @@
 			<bean class="converters.Class1ToClass2" /> 
 		-->
 		
-		<bean class="converters.StringToUserConverter" />
-		<bean class="converters.UserToStringConverter" />
+
 		
 	</util:list>
 	
