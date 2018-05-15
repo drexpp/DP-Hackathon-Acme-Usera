@@ -67,6 +67,7 @@ public class Question extends DomainEntity {
 	public void setPhotoURL(String photoURL) {
 		this.photoURL = photoURL;
 	}
+	
 	public Boolean getIsAnswered() {
 		return isAnswered;
 	}

@@ -16,7 +16,7 @@ import org.hibernate.validator.constraints.SafeHtml;
 public class Folder extends DomainEntity {
 
 	private String				name;
-	private boolean				isSystem;
+	private Boolean				isSystem;
 	private Collection<MailMessage>	messages;
 	
 

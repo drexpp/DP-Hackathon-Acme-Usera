@@ -34,9 +34,8 @@ public class Teacher extends Actor {
 		this.tutorials = tutorials;
 	}
 	
-	@NotNull
 	@Valid
-	@OneToOne(optional = false)
+	@OneToOne(optional = true)
 	public ContactInfo getContactInfo() {
 		return contactInfo;
 	}

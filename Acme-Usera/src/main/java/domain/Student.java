@@ -18,7 +18,7 @@ public class Student extends Actor {
 	private Collection<Tutorial> tutorials;
 
 	private Collection<Question> questions;
-	private Collection <Subscription> subscriptions;
+	private Collection<Subscription> subscriptions;
 	private Collection<Certification> certifications;
 
 	@Min(value = 0)

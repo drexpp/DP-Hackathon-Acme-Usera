@@ -6,7 +6,6 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
@@ -38,7 +37,6 @@ public class MiscellaneousRecord extends DomainEntity {
 		this.linkAttachment = linkAttachment;
 	}
 
-	@NotNull
 	@ElementCollection
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
 	public List<String> getComments() {
