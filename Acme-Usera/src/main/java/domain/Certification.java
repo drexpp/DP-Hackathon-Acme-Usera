@@ -17,7 +17,7 @@ import org.hibernate.validator.constraints.SafeHtml;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Certification {
+public class Certification  extends DomainEntity  {
 
 	private String ticker;
 	private Date moment;

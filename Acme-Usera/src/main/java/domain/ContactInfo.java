@@ -4,7 +4,9 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.SafeHtml;
@@ -14,7 +16,7 @@ import org.hibernate.validator.constraints.SafeHtml;
 public class ContactInfo extends DomainEntity {
 
 	private String		skype;
-	private Collection<String>		comments;
+	private Collection<String> comments;
 	private String		contactPhone;
 	private Collection<String> links;
 	
@@ -26,6 +28,8 @@ public class ContactInfo extends DomainEntity {
 		this.skype = skype;
 	}
 	
+	@ElementCollection
+	@NotNull
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
 	public Collection<String> getComment() {
 		return comments;
@@ -43,6 +47,8 @@ public class ContactInfo extends DomainEntity {
 		this.contactPhone = contactPhone;
 	}
 	
+	@ElementCollection
+	@NotNull
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
 	public Collection<String> getLinks() {
 		return links;

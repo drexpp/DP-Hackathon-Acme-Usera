@@ -15,7 +15,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Tutorial {
+public class Tutorial extends DomainEntity {
 
 	private Date 	startTime;
 	private Teacher teacher;

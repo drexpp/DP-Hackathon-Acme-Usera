@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -90,22 +91,23 @@ public class Actor extends DomainEntity {
 		this.address = addresses;
 	}
 	
+	@ElementCollection
 	public Collection<MailMessage> getSentMessages() {
 		return sentMessages;
 	}
-
 	public void setSentMessages(Collection<MailMessage> sentMessages) {
 		this.sentMessages = sentMessages;
 	}
 
+	@ElementCollection
 	public Collection<MailMessage> getReceivedMessages() {
 		return receivedMessages;
 	}
-
 	public void setReceivedMessages(Collection<MailMessage> receivedMessages) {
 		this.receivedMessages = receivedMessages;
 	}
 
+	@ElementCollection
 	public Collection<Folder> getFolders() {
 		return folders;
 	}

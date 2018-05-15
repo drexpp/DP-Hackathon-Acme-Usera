@@ -1,7 +1,8 @@
 package domain;
 
-import java.sql.Date;
+
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -43,14 +44,15 @@ public class Question extends DomainEntity {
 	}
 	@NotBlank
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public String getQuestion() {
 		return question;
 	}
 	public void setQuestion(String question) {
 		this.question = question;
 	}
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	@Past
 	public Date getMoment() {
 		return moment;
