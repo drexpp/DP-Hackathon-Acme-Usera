@@ -76,7 +76,6 @@ public class ProfessionalRecord extends DomainEntity {
 
 	@NotNull
 	@ElementCollection
-	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
 	public List<String> getComments() {
 		return this.comments;
 	}
