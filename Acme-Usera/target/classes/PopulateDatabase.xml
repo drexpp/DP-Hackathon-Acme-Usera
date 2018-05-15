@@ -29,6 +29,30 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="userAccount2" class="security.UserAccount">
+		<property name="username" value="student1" />
+		<property name="password" value="5e5545d38a68148a2d5bd5ec9a89e327" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="STUDENT" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+		<bean id="userAccount3" class="security.UserAccount">
+		<property name="username" value="student2" />
+		<property name="password" value="213ee683360d88249109c2f92789dbc3" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="STUDENT" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 
 	
 	<!-- Admins -->
@@ -46,7 +70,27 @@
 	</bean>
 	
 	
+	<!-- User1 -->
+	<bean class="domain.Student" id="student1">
+		<property name="name" value="Julio" />
+		<property name="surname" value="Sanabria" />
+		<property name="email" value="illojulio@email.com"/>
+		<property name="phone" value="902242526"/>	
+		<property name="address" value="Avenida séptima nº5"/>
+		<property name="userAccount" ref="userAccount2"/>
+		<property name="score" value="200"/>	
+	</bean>
 	
+			<!-- User2 -->
+	<bean class="domain.Student" id="student2">
+		<property name="name" value="Raul" />
+		<property name="surname" value="Cassandra" />
+		<property name="email" value="raulcasa@email.com"/>
+		<property name="phone" value="+902242526"/>	
+		<property name="address" value="Calle Ernest Hemingway nº48"/>
+		<property name="userAccount" ref="userAccount3"/>
+		<property name="score" value="1000"/>	
+	</bean>
 
 
 </beans>

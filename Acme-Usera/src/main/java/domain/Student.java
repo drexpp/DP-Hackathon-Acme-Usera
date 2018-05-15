@@ -29,6 +29,9 @@ public class Student extends Actor {
 	public void setScore(Integer score) {
 		this.score = score;
 	}
+	
+	
+	//Relationships
 	@Valid
 	@OneToMany(mappedBy="student")
 	public Collection<Tutorial> getTutorials() {

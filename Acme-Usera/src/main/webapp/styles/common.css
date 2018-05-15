@@ -9,7 +9,7 @@
  */
  
  body {
- 	background-color: linear-gradient(to right, #b8daff, #ADD8E6) !important;
+ 	background: linear-gradient(to right, #b8daff, #add8e6) !important;
  }
 
 .error {
