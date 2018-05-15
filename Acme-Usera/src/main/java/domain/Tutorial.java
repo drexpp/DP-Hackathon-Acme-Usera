@@ -37,9 +37,4 @@ public class Tutorial {
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
 	}
-	
-	
-	
-	
-	
 }

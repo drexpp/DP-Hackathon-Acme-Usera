@@ -15,7 +15,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class ExamPaper {
+public class ExamPaper extends DomainEntity {
 	
 	private	Date	moment;
 	private Double 	score;

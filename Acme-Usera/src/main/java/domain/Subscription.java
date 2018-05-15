@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.SafeHtml;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Subscription {
+public class Subscription extends DomainEntity {
 	
 	private CreditCard creditCard;
 	private String subscriptionType;

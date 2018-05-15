@@ -7,6 +7,10 @@
  * http://www.tdg-seville.info/License.html
  * 
  */
+ 
+ body {
+ 	background-color: linear-gradient(to right, #b8daff, #ABC6F6) !important;
+ }
 
 .error {
 	color: red;

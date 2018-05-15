@@ -13,10 +13,9 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
-
 @Entity
 @Access(AccessType.PROPERTY)
-public class Lesson {
+public class Lesson extends DomainEntity {
 	
 	private String		title;
 	private Date 		creationDate;
@@ -35,8 +34,8 @@ public class Lesson {
 		this.title = title;
 	}
 	@Past
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getCreationDate() {
 		return creationDate;
 	}

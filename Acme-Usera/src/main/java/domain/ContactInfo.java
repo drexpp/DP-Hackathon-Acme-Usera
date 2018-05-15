@@ -11,7 +11,7 @@ import org.hibernate.validator.constraints.SafeHtml;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class ContactInfo {
+public class ContactInfo extends DomainEntity {
 
 	private String		skype;
 	private Collection<String>		comments;

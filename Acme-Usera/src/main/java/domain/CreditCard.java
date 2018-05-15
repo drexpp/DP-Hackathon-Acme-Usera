@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.SafeHtml;
 
 @Embeddable
 @Access(AccessType.PROPERTY)
-public class CreditCard {
+public class CreditCard extends DomainEntity {
 
 	private String holderName;
 	private String brandName;

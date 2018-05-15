@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Curriculum {
+public class Curriculum extends DomainEntity{
 	
 	private String ticker;
 

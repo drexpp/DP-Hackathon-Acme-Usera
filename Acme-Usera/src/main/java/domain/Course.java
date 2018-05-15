@@ -15,7 +15,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Course {
+public class Course extends DomainEntity {
 
 	private String		title;
 	private Date 		creationDate;

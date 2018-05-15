@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class ExamQuestion {
+public class ExamQuestion extends DomainEntity {
 
 	private String 		statement;
 	private Double 		maxScore;

@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.SafeHtml;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class ExamAnswer {
+public class ExamAnswer extends DomainEntity {
 
 	private Double mark;
 	private String text;

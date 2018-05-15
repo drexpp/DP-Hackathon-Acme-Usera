@@ -6,6 +6,8 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -13,7 +15,9 @@ import javax.validation.constraints.NotNull;
 public class Teacher extends Actor {
 	
 	private Collection<Tutorial> tutorials;
-
+	private ContactInfo	contactInfo;
+	
+	
 	
 	@NotNull
 	@OneToMany(mappedBy="teacher")
@@ -22,6 +26,17 @@ public class Teacher extends Actor {
 	}
 	public void setTutorials(Collection<Tutorial> tutorials) {
 		this.tutorials = tutorials;
+	}
+	
+	@NotNull
+	@Valid
+	@OneToOne(optional = false)
+	public ContactInfo getContactInfo() {
+		return contactInfo;
+	}
+
+	public void setContactInfo(ContactInfo contactInfo) {
+		this.contactInfo = contactInfo;
 	}
 	
 	
