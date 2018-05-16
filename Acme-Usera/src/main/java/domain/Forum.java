@@ -24,6 +24,7 @@ public class Forum extends DomainEntity {
 	public void setCourse(Course course) {
 		this.course = course;
 	}
+	@Valid
 	@OneToMany(mappedBy="forum")
 	public Collection<Question> getQuestions() {
 		return questions;

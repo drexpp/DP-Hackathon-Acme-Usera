@@ -176,11 +176,14 @@
 		<property name="questions">
 			<list>
 				<ref bean="question1" />
+				<ref bean="question2" />
+				<ref bean="question3" />
 			</list>
 		</property>	
 		<property name="subscriptions">
 			<list>
 				<ref bean="subscription1" />
+				<ref bean="subscription2" />
 			</list>
 		</property>	
 		<property name="certifications">
@@ -228,6 +231,7 @@
 		</property>	
 		<property name="subscriptions">
 			<list>
+			<ref bean="subscription3" />
 			</list>
 		</property>	
 		<property name="certifications">
@@ -332,6 +336,7 @@
 		<property name="coursesCreated">
 			<list>
 				<ref bean="course1"/>
+				<ref bean="course2"/>
 			</list>
 		</property>
 		<property name="coursesJoined">
@@ -341,6 +346,7 @@
 		</property>
 		<property name="answers">
 			<list>
+			<ref bean="answer3"/>
 			</list>
 		</property>	
 		<property name="curriculum" ref="curriculum1"/>
@@ -376,14 +382,18 @@
 		</property>
 		<property name="lessons">
 			<list>
+			<ref bean="lesson2"/>
+			<ref bean="lesson3"/>
 			</list>
 		</property>
 		<property name="exams">
 			<list>
+			<ref bean="exam2"/>
 			</list>
 		</property>
 		<property name="coursesCreated">
 			<list>
+			<ref bean="course3"/>
 			</list>
 		</property>
 		<property name="coursesJoined">
@@ -755,6 +765,7 @@
 		<property name="courses">
 			<list>
 				<ref bean="course1"/>
+				<ref bean="course3"/>
 			</list>
 		</property>
 	</bean>
@@ -808,6 +819,15 @@
 		<property name="expirationMonth" value="8" />
 		<property name="expirationYear" value="22" />
 		<property name="CVV" value="211" />
+	</bean>
+	
+		<bean class="domain.CreditCard" id="creditCard3">
+		<property name="holderName" value="Persona Ficticia" />
+		<property name="brandName" value="Visa" />
+		<property name="number" value="1111222233334444"  />
+		<property name="expirationMonth" value="2" />
+		<property name="expirationYear" value="24" />
+		<property name="CVV" value="531" />
 	</bean>
 		
 		
@@ -1091,7 +1111,7 @@
 			<ref bean="subscription1" />
 		</list>
 	</property>
-	<property name="category" ref="category1"/>
+	<property name="category" ref="category2"/>
 	<property name="exam" ref="exam1"/>
 	<property name="advertisements">
 		<list>
@@ -1102,6 +1122,75 @@
 	</property>
 	<property name="forum" ref="forum1" />
 	</bean>
+	
+	
+	
+	
+	
+		<!-- Course2 -->
+	<bean class="domain.Course" id="course2">
+	<property name="title" value="Desarrollo de APIs REST" />
+	<property name="description" value="En este curso aprenderás a crear una API REST utilizando java" />
+	<property name="creationDate" value="2018/05/15" />
+	<property name="photoURL" value="https://accessusergroups.org/access-latino/wp-content/uploads/sites/3/2018/03/ApiRest.png" />
+	<property name="isClosed" value="false"/>
+	<property name="creator" ref="teacher1"/>
+	<property name="teachers">
+		<list>
+		</list>
+	</property>
+	<property name="lessons">
+		<list>
+		</list>
+	</property>
+	<property name="subscriptions">
+		<list>
+		</list>
+	</property>
+	<property name="category" ref="category2"/>
+	<property name="advertisements">
+		<list>
+		</list>
+	</property>
+	<property name="forum" ref="forum2" />
+	</bean>
+	
+	
+			<!-- Course3 -->
+	<bean class="domain.Course" id="course3">
+	<property name="title" value="Curso de inglés B1" />
+	<property name="description" value="En este curso aprenderás todo lo necesario para obtener el B1 en inglés" />
+	<property name="creationDate" value="2011/02/10" />
+	<property name="photoURL" value="" />
+	<property name="isClosed" value="true"/>
+	<property name="creator" ref="teacher2"/>
+	<property name="teachers">
+		<list>
+		</list>
+	</property>
+	<property name="lessons">
+		<list>
+		<ref bean="lesson2" />
+		<ref bean="lesson3" />
+		</list>
+	</property>
+	<property name="subscriptions">
+		<list>
+		<ref bean="subscription2" />
+		<ref bean="subscription3" />
+		</list>
+	</property>
+	<property name="category" ref="category3"/>
+	<property name="advertisements">
+		<list>
+		<ref bean="advertisement1" />
+		</list>
+	</property>
+	<property name="forum" ref="forum3" />
+	<property name="exam" ref="exam2"/>
+	</bean>
+	
+	
 	
 <!-- LESSONS -->
 	<!-- lesson1 -->
@@ -1114,6 +1203,31 @@
 	<property name="videoURL" value="https://www.youtube.com/watch?v=xxRMtgVPX6A"/>
 	<property name="course" ref="course1"/>
 	<property name="teacher" ref="teacher1"/>
+	</bean>
+	
+	<!-- lesson2 -->
+	<bean class="domain.Lesson" id="lesson2">
+	<property name="title" value="Verbo to be"/>
+	<property name="creationDate" value="2015/06/22" />
+	<property name="description" value="En esta lección daremos el verbo to be y sus usos"/>
+	<property name="body" value="El verbo to be (Ser/estar) es uno de los más importantes porque está presente en todo el..."/>
+	<property name="photoURL" value=""/>
+	<property name="videoURL" value=""/>
+	<property name="course" ref="course2"/>
+	<property name="teacher" ref="teacher2"/>
+	</bean>
+	
+	
+	<!-- lesson3 -->
+	<bean class="domain.Lesson" id="lesson3">
+	<property name="title" value="El pasado simple"/>
+	<property name="creationDate" value="2015/06/23" />
+	<property name="description" value="En esta lección daremos el pasado simple y sus usos"/>
+	<property name="body" value="El pasado simple del verbo to be es Was/Were dependiendo si es tercera persona o no..."/>
+	<property name="photoURL" value=""/>
+	<property name="videoURL" value="https://www.youtube.com/watch?v=moYDA4jbPy4"/>
+	<property name="course" ref="course2"/>
+	<property name="teacher" ref="teacher2"/>
 	</bean>
 
 <!-- EXAM -->
@@ -1136,6 +1250,27 @@
 	</property>
 	</bean>
 	
+		<!-- Exam2 -->
+	<bean class="domain.Exam" id="exam2">
+	<property name="title" value="Examen de ingles"/>
+	<property name="score" value="100"/>
+	<property name="mark" value="100"/>
+	<property name="examQuestions">
+		<list>
+			<ref bean="examQuestion2" />
+			<ref bean="examQuestion3" />
+		</list>
+	</property>
+	<property name="teacher" ref="teacher2"/>
+	<property name="course" ref="course3"/>
+	<property name="examPaper">
+		<list>
+			<ref bean="examPaper2" />
+			<ref bean="examPaper3" />
+		</list>
+	</property>
+	</bean>
+	
 <!-- EXAM PAPERS -->
 	<!-- Exam Paper 1 -->
 	<bean class="domain.ExamPaper" id="examPaper1">
@@ -1147,6 +1282,33 @@
 	<property name="examAnswer">
 		<list>
 			<ref bean="examAnswer1" />
+		</list>
+	</property>
+	</bean>
+	
+		<!-- Exam Paper 2 -->
+	<bean class="domain.ExamPaper" id="examPaper2">
+	<property name="moment" value="2017/05/13 18:45" />
+	<property name="score" value="2" />
+	<property name="mark" value="20"/>
+	<property name="exam" ref="exam2"/> 
+	<property name="examAnswer">
+		<list>
+			<ref bean="examAnswer2" />
+		</list>
+	</property>
+	</bean>
+	
+			<!-- Exam Paper 2 -->
+	<bean class="domain.ExamPaper" id="examPaper3">
+	<property name="moment" value="2017/05/13 18:45" />
+	<property name="score" value="3.5" />
+	<property name="mark" value="35"/>
+	<property name="exam" ref="exam2"/> 
+	<property name="examAnswer">
+		<list>
+			<ref bean="examAnswer3" />
+			<ref bean="examAnswer4" />
 		</list>
 	</property>
 	</bean>
@@ -1168,6 +1330,30 @@
 	<property name="examPaper" ref="examPaper1"/>
 	</bean>
 	
+	
+		<!-- Exam Answer 2 -->
+	<bean class="domain.ExamAnswer" id="examAnswer2">
+	<property name="mark" value="100"/>
+	<property name="text" value="No."/>
+	<property name="examPaper" ref="examPaper2"/>
+	</bean>
+	
+			<!-- Exam Answer 3 -->
+	<bean class="domain.ExamAnswer" id="examAnswer3">
+	<property name="mark" value="10"/>
+	<property name="text" value="Maybe"/>
+	<property name="examPaper" ref="examPaper3"/>
+	</bean>
+	
+				<!-- Exam Answer 4 -->
+	<bean class="domain.ExamAnswer" id="examAnswer4">
+	<property name="mark" value="2.5"/>
+	<property name="text" value="Minecraft"/>
+	<property name="examPaper" ref="examPaper3"/>
+	</bean>
+	
+	
+	
 <!-- EXAM QUESTIONS -->
 	<!-- Exam Question 1 -->
 	<bean class="domain.ExamQuestion" id="examQuestion1">
@@ -1179,6 +1365,28 @@
 	<property name="exam" ref="exam1"/>
 	</bean>
 	
+		<!-- Exam Question 2 -->
+	<bean class="domain.ExamQuestion" id="examQuestion2">
+	<property name="statement" value="Do you believe in magic?"/>
+	<property name="maxScore" value="50"/>
+	<property name="photoURL" value=""/>
+	<property name="number" value="1"/>
+	<property name="answer" value="Yes"/>
+	<property name="exam" ref="exam2"/>
+	</bean>
+	
+	
+			<!-- Exam Question 3 -->
+	<bean class="domain.ExamQuestion" id="examQuestion3">
+	<property name="statement" value="What do you like to play?"/>
+	<property name="maxScore" value="50"/>
+	<property name="photoURL" value="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1200px-International_Pok%C3%A9mon_logo.svg.png"/>
+	<property name="number" value="1"/>
+	<property name="answer" value="Pokemon"/>
+	<property name="exam" ref="exam2"/>
+	</bean>
+	
+	
 <!-- FORUMS -->
 	<!-- Forum1 -->
 	<bean class="domain.Forum" id="forum1">
@@ -1186,6 +1394,27 @@
 	<property name="questions">
 		<list>
 			<ref bean="question1" />  
+		</list>
+	</property>
+	</bean>
+	
+	
+	<!-- Forum2 -->
+	<bean class="domain.Forum" id="forum2">
+	<property name="course" ref="course2"/>
+	<property name="questions">
+		<list>
+		</list>
+	</property>
+	</bean>
+	
+		<!-- Forum3 -->
+	<bean class="domain.Forum" id="forum3">
+	<property name="course" ref="course3"/>
+	<property name="questions">
+		<list>
+	<ref bean="question2" />  
+	<ref bean="question3" />  
 		</list>
 	</property>
 	</bean>
@@ -1204,6 +1433,39 @@
 		<list>
 			<ref bean="answer1" />  
 			<ref bean="answer2" />  
+		</list>
+	</property>
+	</bean>
+	
+	
+		<!-- Question2 -->
+	<bean class="domain.Question" id="question2">
+	<property name="title" value="Meaning of DP"/>
+	<property name="question" value="What's the meaning of DP?"/>
+	<property name="moment" value="2016/10/14 08:35"/>
+	<property name="photoURL" value="https://previews.123rf.com/images/mayrum/mayrum1407/mayrum140700029/31646119-web-proceso-de-desarrollo-de-concepto-la-planificaci%C3%B3n-dise%C3%B1o-desarrollo-pruebas-puesta-en-marcha-vector-p.jpg"/>
+	<property name="isAnswered" value="false"/>
+	<property name="forum" ref="forum3"/>
+	<property name="student" ref="student1"/>
+	<property name="answers">
+		<list>
+		</list>
+	</property>
+	</bean>
+	
+	
+				<!-- Question3 -->
+	<bean class="domain.Question" id="question3">
+	<property name="title" value="Diference between listen and hear?"/>
+	<property name="question" value="I don't know the diference between listen and hear. Do they have the same meaning?"/>
+	<property name="moment" value="2016/10/14 12:32"/>
+	<property name="photoURL" value=""/>
+	<property name="isAnswered" value="true"/>
+	<property name="forum" ref="forum3"/>
+	<property name="student" ref="student1"/>
+	<property name="answers">
+		<list>
+		<ref bean="answer3" />  
 		</list>
 	</property>
 	</bean>
@@ -1228,6 +1490,17 @@
 	<property name="question" ref="question1"/>
 	<property name="actor" ref="student3"/>
 	</bean>
+	
+		
+	<!-- Answer3 -->
+	<bean class="domain.Answer" id="answer3">
+	<property name="text" value="No, the meaning is different. You must use listen when you pay attention."/>
+	<property name="moment" value="2016/10/19 11:40"/>
+	<property name="photoURL" value=""/>
+	<property name="isSolution" value="true"/>
+	<property name="question" ref="question3"/>
+	<property name="actor" ref="teacher2"/>
+	</bean>
 
 <!-- SUBSCRIPTIONS -->	
 	<!-- Subscription1 -->
@@ -1236,6 +1509,22 @@
 	<property name="subscriptionType" value="STANDARD"/>
 	<property name="course" ref="course1"/>
 	<property name="student" ref="student1"/>
+	</bean>
+	
+	<!-- Subscription2 -->
+	<bean class="domain.Subscription" id="subscription2">
+	<property name="creditCard" ref="creditCard2"/>
+	<property name="subscriptionType" value="PREMIUM"/>
+	<property name="course" ref="course3"/>
+	<property name="student" ref="student1"/>
+	</bean>
+	
+		<!-- Subscription3 -->
+	<bean class="domain.Subscription" id="subscription3">
+	<property name="creditCard" ref="creditCard3"/>
+	<property name="subscriptionType" value="FREE"/>
+	<property name="course" ref="course3"/>
+	<property name="student" ref="student2"/>
 	</bean>
 	
 <!-- CATEGORIES -->	
@@ -1260,7 +1549,7 @@
 	
 	<!-- Category2 -->
 	<bean class="domain.Category" id="category2">
-	<property name="name" value="Cleanup "/>
+	<property name="name" value="Web"/>
 	<property name="parentCategories">
 	<list>
 	<ref bean="category1" />
@@ -1273,13 +1562,14 @@
 	<property name="courses">
 	<list>
 	<ref bean="course1"/>
+	<ref bean="course2"/>
 	</list>
 	</property>
 	</bean>
 	
 	<!-- Category3 -->
 	<bean class="domain.Category" id="category3">
-	<property name="name" value="Cookery"/>
+	<property name="name" value="Languajes"/>
 	<property name="parentCategories">
 	<list>
 	<ref bean="category1" />
@@ -1292,14 +1582,13 @@
 	</property>
 	<property name="courses">
 	<list>
-	<ref bean="course1"/>
 	</list>
 	</property>
 	</bean>
 	
 	<!-- Category4 -->
 	<bean class="domain.Category" id="category4">
-	<property name="name" value="Desserts"/>
+	<property name="name" value="English"/>
 	<property name="parentCategories">
 	<list>
 	<ref bean="category3"/>
@@ -1311,7 +1600,7 @@
 	</property>
 	<property name="courses">
 	<list>
- 	<ref bean="course1"/>
+ 	<ref bean="course3"/>
 	</list>
 	</property>
 	</bean>

@@ -76,7 +76,7 @@ public class Question extends DomainEntity {
 	}
 	
 	@Valid
-	@OneToOne(optional = false)
+	@OneToOne
 	public Forum getForum() {
 		return forum;
 	}

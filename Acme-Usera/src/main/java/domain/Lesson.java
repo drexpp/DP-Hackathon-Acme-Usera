@@ -87,7 +87,7 @@ public class Lesson extends DomainEntity {
 	public void setCourse(Course course) {
 		this.course = course;
 	}
-	@OneToOne (optional = false)
+	@ManyToOne (optional = false)
 	@Valid
 	public Teacher getTeacher() {
 		return teacher;
