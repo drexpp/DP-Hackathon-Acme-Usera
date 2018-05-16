@@ -5,39 +5,55 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
 public class Customisation extends DomainEntity {
 	
-	private String banner;
-	private Integer normalPrize;
-	private Integer premiumPrize;
+	private String bannerEs;
+	private String bannerEn;
+	private Integer standardPrice;
+	private Integer premiumPrice;
 	
 	@URL
-	public String getBanner() {
-		return banner;
+	@NotBlank
+	public String getBannerEs() {
+		return bannerEs;
 	}
-	public void setBanner(String banner) {
-		this.banner = banner;
-	}
-	
-	
-	public Integer getNormalPrize() {
-		return normalPrize;
-	}
-	public void setNormalPrize(Integer normalPrize) {
-		this.normalPrize = normalPrize;
+	public void setBannerEs(String bannerEs) {
+		this.bannerEs = bannerEs;
 	}
 	
-	
-	public Integer getPremiumPrize() {
-		return premiumPrize;
+	@URL
+	@NotBlank
+	public String getBannerEn() {
+		return bannerEn;
 	}
-	public void setPremiumPrize(Integer premiumPrize) {
-		this.premiumPrize = premiumPrize;
+	public void setBannerEn(String bannerEn) {
+		this.bannerEn = bannerEn;
+	}
+	
+	@NotNull
+	@Range(min=0)
+	public Integer getStandardPrice() {
+		return standardPrice;
+	}
+	public void setStandardPrize(Integer standardPrice) {
+		this.standardPrice = standardPrice;
+	}
+	
+	@NotNull
+	@Range(min=0)
+	public Integer getPremiumPrice() {
+		return premiumPrice;
+	}
+	public void setPremiumPrice(Integer premiumPrice) {
+		this.premiumPrice = premiumPrice;
 	}
 	
 }

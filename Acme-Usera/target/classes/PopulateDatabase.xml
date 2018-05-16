@@ -320,7 +320,7 @@
 		<property name="name" value="Juana" />
 		<property name="surname" value="Fito" />
 		<property name="email" value="juanaFito@email.com"/>
-		<property name="phone" value="654445634"/>	
+		<property name="phone" value="+654445634"/>	
 		<property name="address" value="Calle de los Mares"/>
 		<property name="userAccount" ref="userAccount7"/>
 		<property name="contactInfo"> <null/></property>
@@ -614,6 +614,92 @@
 			</list>
 		</property>
 	</bean>
+	
+	<!-- Advertisements (FALTA cursos) -->
+	
+	<bean class="domain.Advertisement" id="advertisement1">
+		<property name="title" value="anuncio 1" />
+		<property name="bannerURL" value="https://images.telepizza.com/vol/es/images/content/productos/pule_c.png"/>
+		<property name="targetPageURL" value="https://www.telepizza.es/productos/pizzas"/>
+		<property name="creditCard" ref="creditCard1"/>
+		<property name="sponsor" ref="sponsor1"/>
+		<property name="courses">
+			<list>
+				<ref bean=""/>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean class="domain.Advertisement" id="advertisement2">
+		<property name="title" value="anuncio 2" />
+		<property name="bannerURL" value="https://cdn.adguard.com/public/Adguard/En/Articles/fake-popup.png"/>
+		<property name="targetPageURL" value="https://adguard.com/en/article/popups-blocker.html"/>
+		<property name="creditCard" ref="creditCard2"/>
+		<property name="sponsor" ref="sponsor2"/>
+		<property name="courses">
+			<list>
+				<ref bean=""/>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean class="domain.Advertisement" id="advertisement3">
+		<property name="title" value="anuncio 3" />
+		<property name="bannerURL" value="http://www.nyx.net/~cmeador/public/snakesonmyplane.jpg"/>
+		<property name="targetPageURL" value="https://www.reddit.com/r/fakebadads/"/>
+		<property name="creditCard" ref="creditCard1"/>
+		<property name="sponsor" ref="sponsor1"/>
+		<property name="courses">
+			<list>
+				<ref bean=""/>
+			</list>
+		</property>
+</bean>
+	
+<!-- CreditCards -->
+
+	<!-- CreditCard1 -->
+	
+	<bean class="domain.CreditCard" id="creditCard1">
+		<property name="holderName" value="Manuel Estéban" />
+		<property name="brandName" value="MasterCard" />
+		<property name="number" value="342737357334600"  />
+		<property name="expirationMonth" value="11" />
+		<property name="expirationYear" value="25" />
+		<property name="CVV" value="341" />
+	</bean>
+	<!-- CreditCard2 -->
+	
+	<bean class="domain.CreditCard" id="creditCard2">
+		<property name="holderName" value="Violeta Morón" />
+		<property name="brandName" value="American Express" />
+		<property name="number" value="373695017560885"  />
+		<property name="expirationMonth" value="8" />
+		<property name="expirationYear" value="22" />
+		<property name="CVV" value="211" />
+	</bean>
+		
+		
+		
+	<!-- Customisation -->
+
+	<bean class="domain.Customisation" id="customisation">
+		<property name="bannerEs" value = "Bienvenidos a Acme-Usera" />
+		<property name="bannerEn" value = "Welcome to Acme-Usera" />
+		<property name="standardPrice" value = "30" />
+		<property name="premiumPrice" value = "70" />
+	</bean>
+
+	
+	
+	
+	
+	
+
+	
+	
 	
 <!-- FOLDERS -->
 	<!-- Folders -->
