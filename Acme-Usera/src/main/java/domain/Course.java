@@ -107,6 +107,7 @@ public class Course extends DomainEntity {
 	public void setTeachers(Collection<Teacher> teachers) {
 		this.teachers = teachers;
 	}
+	
 	@OneToMany(mappedBy="course", cascade = CascadeType.ALL)
 	@Valid
 	public Collection<Lesson> getLessons() {

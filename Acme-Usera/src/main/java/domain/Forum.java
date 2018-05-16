@@ -17,7 +17,7 @@ public class Forum extends DomainEntity {
 	private Collection<Question> questions;
 	
 	@Valid
-	@OneToOne(optional = false)
+	@OneToOne(optional = true)
 	public Course getCourse() {
 		return course;
 	}

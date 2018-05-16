@@ -9,6 +9,7 @@ import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,7 +37,10 @@ public class Actor extends DomainEntity {
 	private Collection<MailMessage>			sentMessages;
 	private Collection<MailMessage>			receivedMessages;
 	private Collection<Folder>			folders;
+	private Collection<Answer>	answers;
+	
 
+	
 	
 	@Past
 	@Temporal(TemporalType.DATE)
@@ -92,6 +96,7 @@ public class Actor extends DomainEntity {
 	}
 	
 	@ElementCollection
+	@OneToMany(mappedBy = "sender")
 	public Collection<MailMessage> getSentMessages() {
 		return sentMessages;
 	}
@@ -100,6 +105,7 @@ public class Actor extends DomainEntity {
 	}
 
 	@ElementCollection
+	@OneToMany(mappedBy = "recipient")
 	public Collection<MailMessage> getReceivedMessages() {
 		return receivedMessages;
 	}
@@ -108,6 +114,7 @@ public class Actor extends DomainEntity {
 	}
 
 	@ElementCollection
+	@OneToMany
 	public Collection<Folder> getFolders() {
 		return folders;
 	}
@@ -127,5 +134,16 @@ public class Actor extends DomainEntity {
 	public void setUserAccount(final UserAccount userAccount) {
 		this.userAccount = userAccount;
 	}
+	
+	@ElementCollection
+	@OneToMany
+	public Collection<Answer> getAnswers() {
+		return answers;
+	}
+
+	public void setAnswers(Collection<Answer> answers) {
+		this.answers = answers;
+	}
+
 	
 }

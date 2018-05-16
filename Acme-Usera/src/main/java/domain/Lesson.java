@@ -80,7 +80,7 @@ public class Lesson extends DomainEntity {
 	}
 	
 	@Valid
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	public Course getCourse() {
 		return course;
 	}

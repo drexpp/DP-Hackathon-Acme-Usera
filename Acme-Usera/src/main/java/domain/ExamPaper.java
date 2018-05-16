@@ -28,7 +28,7 @@ public class ExamPaper extends DomainEntity {
 	private Integer mark;
 	private Exam exam;
 	private Certification certification;
-	private Collection<ExamAnswer> exmanAnswer;
+	private Collection<ExamAnswer> examAnswer;
 	
 	@Past
 	@Temporal(TemporalType.TIMESTAMP)
@@ -76,11 +76,11 @@ public class ExamPaper extends DomainEntity {
 	
 	@Valid
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "examPaper")
-	public Collection<ExamAnswer> getExmanAnswer() {
-		return exmanAnswer;
+	public Collection<ExamAnswer> getExamAnswer() {
+		return examAnswer;
 	}
-	public void setExmanAnswer(Collection<ExamAnswer> exmanAnswer) {
-		this.exmanAnswer = exmanAnswer;
+	public void setExamAnswer(Collection<ExamAnswer> examAnswer) {
+		this.examAnswer = examAnswer;
 	}
 
 	

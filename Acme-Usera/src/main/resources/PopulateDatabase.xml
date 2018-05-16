@@ -173,6 +173,25 @@
 				<ref bean="tutorial2" />
 			</list>
 		</property>	
+		<property name="questions">
+			<list>
+				<ref bean="question1" />
+			</list>
+		</property>	
+		<property name="subscriptions">
+			<list>
+				<ref bean="subscription1" />
+			</list>
+		</property>	
+		<property name="certifications">
+			<list>
+				<ref bean="certification1" />
+			</list>
+		</property>	
+		<property name="answers">
+			<list>
+			</list>
+		</property>	
 		<property name="folders">
 		<list>
 			<ref bean="folder2"/>
@@ -203,6 +222,23 @@
 			<list>
 			</list>
 		</property>	
+		<property name="questions">
+			<list>
+			</list>
+		</property>	
+		<property name="subscriptions">
+			<list>
+			</list>
+		</property>	
+		<property name="certifications">
+			<list>
+			</list>
+		</property>	
+		<property name="answers">
+			<list>
+				<ref bean="answer1"/>	
+			</list>
+		</property>	
 		<property name="folders">
 		<list>
 			<ref bean="folder3"/>
@@ -231,6 +267,23 @@
 		<property name="score" value="1000"/>
 		<property name="tutorials">
 			<list>
+			</list>
+		</property>	
+		<property name="questions">
+			<list>
+			</list>
+		</property>	
+		<property name="subscriptions">
+			<list>
+			</list>
+		</property>	
+		<property name="certifications">
+			<list>
+			</list>
+		</property>	
+		<property name="answers">
+			<list>
+				<ref bean="answer2"/>	
 			</list>
 		</property>	
 		<property name="folders">
@@ -266,6 +319,30 @@
 				<ref bean="tutorial2" />
 			</list>
 		</property>
+		<property name="lessons">
+			<list>
+				<ref bean="lesson1" />
+			</list>
+		</property>
+		<property name="exams">
+			<list>
+				<ref bean="exam1" />
+			</list>
+		</property>
+		<property name="coursesCreated">
+			<list>
+				<ref bean="course1"/>
+			</list>
+		</property>
+		<property name="coursesJoined">
+			<list>
+				<ref bean="course1"/>
+			</list>
+		</property>
+		<property name="answers">
+			<list>
+			</list>
+		</property>	
 		<property name="curriculum" ref="curriculum1"/>
 		<property name="folders">
 		<list>
@@ -297,6 +374,27 @@
 			<list>
 			</list>
 		</property>
+		<property name="lessons">
+			<list>
+			</list>
+		</property>
+		<property name="exams">
+			<list>
+			</list>
+		</property>
+		<property name="coursesCreated">
+			<list>
+			</list>
+		</property>
+		<property name="coursesJoined">
+			<list>
+				<ref bean="course1"/>
+			</list>
+		</property>
+		<property name="answers">
+			<list>
+			</list>
+		</property>	
 		<property name="curriculum" ref="curriculum2"/>
 		<property name="folders">
 		<list>
@@ -328,6 +426,26 @@
 			<list>
 			</list>
 		</property>
+		<property name="lessons">
+			<list>
+			</list>
+		</property>
+		<property name="exams">
+			<list>
+			</list>
+		</property>
+		<property name="coursesCreated">
+			<list>
+			</list>
+		</property>
+		<property name="coursesJoined">
+			<list>
+			</list>
+		</property>
+		<property name="answers">
+			<list>
+			</list>
+		</property>	
 		<property name="curriculum"> <null/></property>
 		<property name="folders">
 		<list>
@@ -370,6 +488,12 @@
 		<list>
 		</list>
 		</property>
+		<property name="advertisements">
+		<list>
+			<ref bean="advertisement1"/>
+			<ref bean="advertisement3"/>
+		</list>
+		</property>
 	</bean>
 	
 	<!-- Sponsor2 -->
@@ -393,6 +517,11 @@
 		</property>
 		<property name="receivedMessages">
 		<list>
+		</list>
+		</property>
+		<property name="advertisements">
+		<list>
+			<ref bean="advertisement2"/>
 		</list>
 		</property>
 	</bean>
@@ -615,17 +744,17 @@
 		</property>
 	</bean>
 	
-	<!-- Advertisements (FALTA cursos) -->
+	<!-- Advertisements -->
 	
 	<bean class="domain.Advertisement" id="advertisement1">
 		<property name="title" value="anuncio 1" />
 		<property name="bannerURL" value="https://images.telepizza.com/vol/es/images/content/productos/pule_c.png"/>
-		<property name="targetPageURL" value="https://www.telepizza.es/productos/pizzas"/>
+		<property name="targetURL" value="https://www.telepizza.es/productos/pizzas"/>
 		<property name="creditCard" ref="creditCard1"/>
 		<property name="sponsor" ref="sponsor1"/>
 		<property name="courses">
 			<list>
-				<ref bean=""/>
+				<ref bean="course1"/>
 			</list>
 		</property>
 	</bean>
@@ -634,12 +763,12 @@
 	<bean class="domain.Advertisement" id="advertisement2">
 		<property name="title" value="anuncio 2" />
 		<property name="bannerURL" value="https://cdn.adguard.com/public/Adguard/En/Articles/fake-popup.png"/>
-		<property name="targetPageURL" value="https://adguard.com/en/article/popups-blocker.html"/>
+		<property name="targetURL" value="https://adguard.com/en/article/popups-blocker.html"/>
 		<property name="creditCard" ref="creditCard2"/>
 		<property name="sponsor" ref="sponsor2"/>
 		<property name="courses">
 			<list>
-				<ref bean=""/>
+				<ref bean="course1"/>
 			</list>
 		</property>
 	</bean>
@@ -648,12 +777,12 @@
 	<bean class="domain.Advertisement" id="advertisement3">
 		<property name="title" value="anuncio 3" />
 		<property name="bannerURL" value="http://www.nyx.net/~cmeador/public/snakesonmyplane.jpg"/>
-		<property name="targetPageURL" value="https://www.reddit.com/r/fakebadads/"/>
+		<property name="targetURL" value="https://www.reddit.com/r/fakebadads/"/>
 		<property name="creditCard" ref="creditCard1"/>
 		<property name="sponsor" ref="sponsor1"/>
 		<property name="courses">
 			<list>
-				<ref bean=""/>
+				<ref bean="course1"/>
 			</list>
 		</property>
 </bean>
@@ -663,7 +792,7 @@
 	<!-- CreditCard1 -->
 	
 	<bean class="domain.CreditCard" id="creditCard1">
-		<property name="holderName" value="Manuel Estéban" />
+		<property name="holderName" value="Manuel Esteban" />
 		<property name="brandName" value="MasterCard" />
 		<property name="number" value="342737357334600"  />
 		<property name="expirationMonth" value="11" />
@@ -673,7 +802,7 @@
 	<!-- CreditCard2 -->
 	
 	<bean class="domain.CreditCard" id="creditCard2">
-		<property name="holderName" value="Violeta Morón" />
+		<property name="holderName" value="Violeta Moron" />
 		<property name="brandName" value="American Express" />
 		<property name="number" value="373695017560885"  />
 		<property name="expirationMonth" value="8" />
@@ -682,23 +811,15 @@
 	</bean>
 		
 		
-		
-	<!-- Customisation -->
+<!-- Customisation -->
 
-	<bean class="domain.Customisation" id="customisation">
+	<bean class="domain.Customisation" id="customisation1">
 		<property name="bannerEs" value = "Bienvenidos a Acme-Usera" />
 		<property name="bannerEn" value = "Welcome to Acme-Usera" />
 		<property name="standardPrice" value = "30" />
 		<property name="premiumPrice" value = "70" />
 	</bean>
 
-	
-	
-	
-	
-	
-
-	
 	
 	
 <!-- FOLDERS -->
@@ -945,4 +1066,254 @@
 		</list>
 	</property>
 	</bean>	
+	
+<!-- COURSES -->
+	<!-- Course1 -->
+	<bean class="domain.Course" id="course1">
+	<property name="title" value="Desarrollo Web Completo con HTML5 y CSS3" />
+	<property name="description" value="En este curso aprenderás a desarrollar y programar una página web desde cero con un diseño atractivo y totalmente personalizado." />
+	<property name="creationDate" value="2017/03/22" />
+	<property name="photoURL" value="http://quochoc.vn/caches/cc_large/cou_avatar/2016/01_19/1c172081cde3a2d0cd6dc0c8ec18f7b3.png" />
+	<property name="isClosed" value="false"/>
+	<property name="creator" ref="teacher1"/>
+	<property name="teachers">
+		<list>
+			<ref bean="teacher2" />
+		</list>
+	</property>
+	<property name="lessons">
+		<list>
+			<ref bean="lesson1" />
+		</list>
+	</property>
+	<property name="subscriptions">
+		<list>
+			<ref bean="subscription1" />
+		</list>
+	</property>
+	<property name="category" ref="category1"/>
+	<property name="exam" ref="exam1"/>
+	<property name="advertisements">
+		<list>
+			<ref bean="advertisement1" />
+			<ref bean="advertisement2" />
+			<ref bean="advertisement3" />
+		</list>
+	</property>
+	<property name="forum" ref="forum1" />
+	</bean>
+	
+<!-- LESSONS -->
+	<!-- lesson1 -->
+	<bean class="domain.Lesson" id="lesson1">
+	<property name="title" value="Primeros pasos"/>
+	<property name="creationDate" value="2017/03/22" />
+	<property name="description" value="En esta lección daremos los primeros pasos para aprender a programar html. Manos a la obra!"/>
+	<property name="body" value="En esta lección daremos los primeros pasos para aprender a programar html. Mírate el vídeo y si tienes dudas pregunta en el foro."/>
+	<property name="photoURL" value="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/1200px-HTML5_logo_and_wordmark.svg.png"/>
+	<property name="videoURL" value="https://www.youtube.com/watch?v=xxRMtgVPX6A"/>
+	<property name="course" ref="course1"/>
+	<property name="teacher" ref="teacher1"/>
+	</bean>
+
+<!-- EXAM -->
+	<!-- Exam1 -->
+	<bean class="domain.Exam" id="exam1">
+	<property name="title" value="Examen curso 1"/>
+	<property name="score" value="100"/>
+	<property name="mark" value="100"/>
+	<property name="examQuestions">
+		<list>
+			<ref bean="examQuestion1" />
+		</list>
+	</property>
+	<property name="teacher" ref="teacher1"/>
+	<property name="course" ref="course1"/>
+	<property name="examPaper">
+		<list>
+			<ref bean="examPaper1" />
+		</list>
+	</property>
+	</bean>
+	
+<!-- EXAM PAPERS -->
+	<!-- Exam Paper 1 -->
+	<bean class="domain.ExamPaper" id="examPaper1">
+	<property name="moment" value="2017/05/13 18:45" />
+	<property name="score" value="10" />
+	<property name="mark" value="100"/>
+	<property name="exam" ref="exam1"/>
+	<property name="certification" ref="certification1"/> 
+	<property name="examAnswer">
+		<list>
+			<ref bean="examAnswer1" />
+		</list>
+	</property>
+	</bean>
+	
+<!-- CERTIFICATIONS -->
+	<!-- Certification1 -->
+	<bean class="domain.Certification" id="certification1">
+	<property name="ticker" value="ticker1"/>
+	<property name="moment" value="2017/05/18"/>
+	<property name="examPaper" ref="examPaper1"/>
+	<property name="student" ref="student1"/>
+	</bean>
+	
+<!-- EXAM ANSWERS -->
+	<!-- Exam Answer 1 -->
+	<bean class="domain.ExamAnswer" id="examAnswer1">
+	<property name="mark" value="100"/>
+	<property name="text" value="Esta es la respuesta correcta, quiero mis puntos."/>
+	<property name="examPaper" ref="examPaper1"/>
+	</bean>
+	
+<!-- EXAM QUESTIONS -->
+	<!-- Exam Question 1 -->
+	<bean class="domain.ExamQuestion" id="examQuestion1">
+	<property name="statement" value="¿Qué crees que hay que responder en esta pregunta?"/>
+	<property name="maxScore" value="100"/>
+	<property name="photoURL" value="http://images.slideplayer.es/42/11423160/slides/slide_2.jpg"/>
+	<property name="number" value="1"/>
+	<property name="answer" value="Esta es la respuesta correcta, quiero mis puntos."/>
+	<property name="exam" ref="exam1"/>
+	</bean>
+	
+<!-- FORUMS -->
+	<!-- Forum1 -->
+	<bean class="domain.Forum" id="forum1">
+	<property name="course" ref="course1"/>
+	<property name="questions">
+		<list>
+			<ref bean="question1" />  
+		</list>
+	</property>
+	</bean>
+
+<!-- QUESTIONS -->	
+	<!-- Question1 -->
+	<bean class="domain.Question" id="question1">
+	<property name="title" value="Comentarios html"/>
+	<property name="question" value="¿Sabéis cómo poner un heading 1?"/>
+	<property name="moment" value="2017/10/19 08:35"/>
+	<property name="photoURL" value=""/>
+	<property name="isAnswered" value="true"/>
+	<property name="forum" ref="forum1"/>
+	<property name="student" ref="student1"/>
+	<property name="answers">
+		<list>
+			<ref bean="answer1" />  
+			<ref bean="answer2" />  
+		</list>
+	</property>
+	</bean>
+	
+<!-- ANSWERS -->	
+	<!-- Answer1 -->
+	<bean class="domain.Answer" id="answer1">
+	<property name="text" value="Sí, con h1"/>
+	<property name="moment" value="2017/10/19 22:40"/>
+	<property name="photoURL" value=""/>
+	<property name="isSolution" value="true"/>
+	<property name="question" ref="question1"/>
+	<property name="actor" ref="student2"/>
+	</bean>
+	
+	<!-- Answer2 -->
+	<bean class="domain.Answer" id="answer2">
+	<property name="text" value="Sí, con hh1"/>
+	<property name="moment" value="2017/10/19 11:40"/>
+	<property name="photoURL" value=""/>
+	<property name="isSolution" value="false"/>
+	<property name="question" ref="question1"/>
+	<property name="actor" ref="student3"/>
+	</bean>
+
+<!-- SUBSCRIPTIONS -->	
+	<!-- Subscription1 -->
+	<bean class="domain.Subscription" id="subscription1">
+	<property name="creditCard" ref="creditCard1"/>
+	<property name="subscriptionType" value="STANDARD"/>
+	<property name="course" ref="course1"/>
+	<property name="student" ref="student1"/>
+	</bean>
+	
+<!-- CATEGORIES -->	
+	<!-- Category1 -->		
+	<bean class="domain.Category" id="category1">
+	<property name="name" value="CATEGORY" />	
+	<property name="parentCategories">
+	<list>
+	</list>
+	</property>
+	<property name="childCategories">
+	<list>
+	<ref bean="category2" />
+	<ref bean="category3"/>
+	</list>
+	</property>
+	<property name="courses">
+	<list>
+	</list>
+	</property>
+	</bean>		
+	
+	<!-- Category2 -->
+	<bean class="domain.Category" id="category2">
+	<property name="name" value="Cleanup "/>
+	<property name="parentCategories">
+	<list>
+	<ref bean="category1" />
+	</list>
+	</property>
+	<property name="childCategories">
+	<list>
+	</list>
+	</property>
+	<property name="courses">
+	<list>
+	<ref bean="course1"/>
+	</list>
+	</property>
+	</bean>
+	
+	<!-- Category3 -->
+	<bean class="domain.Category" id="category3">
+	<property name="name" value="Cookery"/>
+	<property name="parentCategories">
+	<list>
+	<ref bean="category1" />
+	</list>
+	</property>
+	<property name="childCategories">
+	<list>
+	<ref bean="category4"/>
+	</list>
+	</property>
+	<property name="courses">
+	<list>
+	<ref bean="course1"/>
+	</list>
+	</property>
+	</bean>
+	
+	<!-- Category4 -->
+	<bean class="domain.Category" id="category4">
+	<property name="name" value="Desserts"/>
+	<property name="parentCategories">
+	<list>
+	<ref bean="category3"/>
+	</list>
+	</property>
+	<property name="childCategories">
+	<list>
+	</list>
+	</property>
+	<property name="courses">
+	<list>
+ 	<ref bean="course1"/>
+	</list>
+	</property>
+	</bean>
+	
 </beans>
