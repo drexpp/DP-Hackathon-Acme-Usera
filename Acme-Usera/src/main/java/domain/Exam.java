@@ -10,7 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
@@ -21,7 +20,6 @@ import org.hibernate.validator.constraints.SafeHtml;
 public class Exam extends DomainEntity {
 	
 	private String title;
-	private Double score;
 	private Integer mark;
 	private Collection<ExamQuestion> examQuestions;
 	private Teacher teacher;
@@ -36,13 +34,7 @@ public class Exam extends DomainEntity {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	@Min(value = 0)
-	public Double getScore() {
-		return score;
-	}
-	public void setScore(Double score) {
-		this.score = score;
-	}
+	
 	@Range(min = 0, max = 100)
 	public Integer getMark() {
 		return mark;

@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -17,7 +18,7 @@ public class Forum extends DomainEntity {
 	private Collection<Question> questions;
 	
 	@Valid
-	@OneToOne(optional = true)
+	@OneToOne(mappedBy="forum", optional=false)
 	public Course getCourse() {
 		return course;
 	}
@@ -25,7 +26,7 @@ public class Forum extends DomainEntity {
 		this.course = course;
 	}
 	@Valid
-	@OneToMany(mappedBy="forum")
+	@OneToMany(mappedBy="forum", cascade = CascadeType.ALL)
 	public Collection<Question> getQuestions() {
 		return questions;
 	}

@@ -17,7 +17,7 @@ import org.hibernate.validator.constraints.URL;
 public class ExamQuestion extends DomainEntity {
 
 	private String 		statement;
-	private Double 		maxScore;
+	private Integer		maxScore;
 	private String		photoURL;
 	private Integer		number;
 	private String		answer;
@@ -33,10 +33,10 @@ public class ExamQuestion extends DomainEntity {
 		this.statement = statement;
 	}
 	@NotNull
-	public Double getMaxScore() {
+	public Integer getMaxScore() {
 		return maxScore;
 	}
-	public void setMaxScore(Double maxScore) {
+	public void setMaxScore(Integer maxScore) {
 		this.maxScore = maxScore;
 	}
 	@URL

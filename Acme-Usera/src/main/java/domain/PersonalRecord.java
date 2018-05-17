@@ -59,7 +59,7 @@ public class PersonalRecord extends DomainEntity {
 		this.email = email;
 	}
 
-	@Pattern(regexp = "^$|^\\d{4,}|\\+[1-9]\\d{0,2}\\([1-9]\\d{0,2}\\)\\d{4,}|\\+[1-9]\\d{0,2} \\([1-9]\\d{0,2}\\) \\d{4,}|\\+[1-9]\\d{0,2}\\d{4,}|\\+[1-9]\\d{0,2} \\d{4,}$")
+	@Pattern(regexp = "\\+?([0-9]+)?")
 	public String getPhone() {
 		return this.phone;
 	}
