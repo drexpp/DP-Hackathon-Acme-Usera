@@ -1234,7 +1234,6 @@
 	<!-- Exam1 -->
 	<bean class="domain.Exam" id="exam1">
 	<property name="title" value="Examen curso 1"/>
-	<property name="score" value="100"/>
 	<property name="mark" value="100"/>
 	<property name="examQuestions">
 		<list>
@@ -1253,7 +1252,6 @@
 		<!-- Exam2 -->
 	<bean class="domain.Exam" id="exam2">
 	<property name="title" value="Examen de ingles"/>
-	<property name="score" value="100"/>
 	<property name="mark" value="100"/>
 	<property name="examQuestions">
 		<list>
@@ -1275,7 +1273,6 @@
 	<!-- Exam Paper 1 -->
 	<bean class="domain.ExamPaper" id="examPaper1">
 	<property name="moment" value="2017/05/13 18:45" />
-	<property name="score" value="10" />
 	<property name="mark" value="100"/>
 	<property name="exam" ref="exam1"/>
 	<property name="certification" ref="certification1"/> 
@@ -1289,7 +1286,6 @@
 		<!-- Exam Paper 2 -->
 	<bean class="domain.ExamPaper" id="examPaper2">
 	<property name="moment" value="2017/05/13 18:45" />
-	<property name="score" value="2" />
 	<property name="mark" value="20"/>
 	<property name="exam" ref="exam2"/> 
 	<property name="examAnswer">
@@ -1299,11 +1295,10 @@
 	</property>
 	</bean>
 	
-			<!-- Exam Paper 2 -->
+			<!-- Exam Paper 3 -->
 	<bean class="domain.ExamPaper" id="examPaper3">
 	<property name="moment" value="2017/05/13 18:45" />
-	<property name="score" value="3.5" />
-	<property name="mark" value="35"/>
+	<property name="mark" value="85"/>
 	<property name="exam" ref="exam2"/> 
 	<property name="examAnswer">
 		<list>
@@ -1327,6 +1322,7 @@
 	<bean class="domain.ExamAnswer" id="examAnswer1">
 	<property name="mark" value="100"/>
 	<property name="text" value="Esta es la respuesta correcta, quiero mis puntos."/>
+	<property name="number" value="1"/>
 	<property name="examPaper" ref="examPaper1"/>
 	</bean>
 	
@@ -1335,6 +1331,7 @@
 	<bean class="domain.ExamAnswer" id="examAnswer2">
 	<property name="mark" value="100"/>
 	<property name="text" value="No."/>
+	<property name="number" value="2"/>
 	<property name="examPaper" ref="examPaper2"/>
 	</bean>
 	
@@ -1342,13 +1339,15 @@
 	<bean class="domain.ExamAnswer" id="examAnswer3">
 	<property name="mark" value="10"/>
 	<property name="text" value="Maybe"/>
+	<property name="number" value="3"/>
 	<property name="examPaper" ref="examPaper3"/>
 	</bean>
 	
 				<!-- Exam Answer 4 -->
 	<bean class="domain.ExamAnswer" id="examAnswer4">
-	<property name="mark" value="2.5"/>
+	<property name="mark" value="75"/>
 	<property name="text" value="Minecraft"/>
+	<property name="number" value="4"/>
 	<property name="examPaper" ref="examPaper3"/>
 	</bean>
 	

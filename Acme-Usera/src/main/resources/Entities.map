@@ -1,5 +1,5 @@
 #./src/main/resources/Entities.map
-#Thu May 17 00:12:13 CEST 2018
+#Thu May 17 12:37:31 CEST 2018
 tutorial2=1461
 tutorial1=1460
 exam2=1526
@@ -18,15 +18,15 @@ professionalRecord1=1467
 course3=1523
 course2=1522
 course1=1521
-forum3=1510
+forum3=1513
 teacher3=1455
-forum2=1509
+forum2=1512
 teacher2=1454
 forum1=1508
 teacher1=1453
 answer3=1516
-answer2=1513
-answer1=1512
+answer2=1511
+answer1=1510
 contactInfo2=1459
 contactInfo1=1458
 folder27=1504
@@ -76,7 +76,7 @@ admin1=1449
 subscription3=1539
 question2=1514
 subscription2=1538
-question1=1511
+question1=1509
 subscription1=1537
 examAnswer4=1535
 examAnswer3=1534

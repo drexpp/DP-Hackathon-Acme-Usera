@@ -13,7 +13,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.Range;
@@ -24,7 +23,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class ExamPaper extends DomainEntity {
 	
 	private	Date	moment;
-	private Double 	score;
 	private Integer mark;
 	private Exam exam;
 	private Certification certification;
@@ -39,13 +37,7 @@ public class ExamPaper extends DomainEntity {
 	public void setMoment(Date moment) {
 		this.moment = moment;
 	}
-	@Min(value = 0)
-	public Double getScore() {
-		return score;
-	}
-	public void setScore(Double score) {
-		this.score = score;
-	}
+	
 	@Range(min = 0, max = 100)
 	public Integer getMark() {
 		return mark;

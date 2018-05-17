@@ -10,7 +10,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -76,7 +75,7 @@ public class Question extends DomainEntity {
 	}
 	
 	@Valid
-	@OneToOne
+	@ManyToOne
 	public Forum getForum() {
 		return forum;
 	}
