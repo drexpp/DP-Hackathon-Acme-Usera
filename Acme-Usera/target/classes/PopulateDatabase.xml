@@ -1581,6 +1581,7 @@
 	</property>
 	<property name="courses">
 	<list>
+	<ref bean="course3"/>
 	</list>
 	</property>
 	</bean>

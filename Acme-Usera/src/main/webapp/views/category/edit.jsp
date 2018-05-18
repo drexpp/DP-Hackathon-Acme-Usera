@@ -46,7 +46,6 @@
 
 	<form:hidden path="courses"/>
 	
-	
 
 	<spring:message code="category.save" var="saveCategory"  />
 	<spring:message code="category.delete" var="deleteCategory"  />

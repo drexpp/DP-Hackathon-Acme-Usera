@@ -24,6 +24,8 @@
 		-->
 		<bean class="converters.CategoryToStringConverter"/>
 		<bean class="converters.StringToCategoryConverter"/>
+		<bean class="converters.CourseToStringConverter"/>
+		<bean class="converters.StringToCourseConverter"/>
 		
 	</util:list>
 	

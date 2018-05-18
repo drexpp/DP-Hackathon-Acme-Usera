@@ -3,8 +3,6 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,18 +39,14 @@ public class CategoryService {
 	public Category create() {
 		Category result;
 		Admin principal;
-		Collection<Course> courses;
-		Collection<Category> childCategories;
 
 		principal = this.adminService.findByPrincipal();
 		Assert.notNull(principal);
 
 		result = new Category();
 		Assert.notNull(result);
-		courses = new ArrayList<Course>();
-		result.setCourses(courses);
-		childCategories = new ArrayList<Category>();
-		result.setChildCategories(childCategories);
+		result.setCourses(new ArrayList<Course>());
+		result.setChildCategories(new ArrayList<Category>());
 
 		return result;
 
@@ -60,11 +54,7 @@ public class CategoryService {
 
 	public Collection<Category> findAll() {
 		Collection<Category> result;
-		//	Administrator principal;
-
-		//	principal = this.administratorService.findByPrincipal();
-		//	Assert.notNull(principal); // Checks if the principal is an administrator
-
+		
 		result = this.categoryRepository.findAll();
 
 		Assert.notNull(result);
@@ -97,7 +87,6 @@ public class CategoryService {
 		Admin principal;
 		Collection<Category> parentCategories;
 		Collection<Category> childCategories;
-		Boolean isNameUniqueRoot;
 		Category root;
 
 		Assert.notNull(category);
@@ -109,25 +98,6 @@ public class CategoryService {
 		root = this.findRootCategory();
 
 		Assert.isTrue(category.getId() != root.getId());
-
-		final Set<Category> forbiddenNamesCategories = new HashSet<Category>();
-
-		parentCategories = new ArrayList<Category>(category.getParentCategories());
-		for (final Category parent : parentCategories) {
-			final Collection<Category> children = parent.getChildCategories();
-			forbiddenNamesCategories.addAll(children);
-		}
-
-		isNameUniqueRoot = true;
-
-		forbiddenNamesCategories.remove(category);
-
-		for (final Category cat : forbiddenNamesCategories)
-			if (cat.getName().equals(category.getName())) {
-				isNameUniqueRoot = false;
-				break;
-			}
-		Assert.isTrue(isNameUniqueRoot);
 
 		result = this.categoryRepository.save(category);
 		Assert.notNull(result);
