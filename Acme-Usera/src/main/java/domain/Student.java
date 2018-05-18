@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -16,10 +17,12 @@ public class Student extends Actor {
 	
 	private Integer score;
 	private Collection<Tutorial> tutorials;
-
+	private Collection<Lesson>	lessons;
 	private Collection<Question> questions;
 	private Collection<Subscription> subscriptions;
 	private Collection<Certification> certifications;
+
+	
 
 	@Min(value = 0)
 	public Integer getScore() {
@@ -42,6 +45,16 @@ public class Student extends Actor {
 		this.tutorials = tutorials;
 	}
 
+	@Valid
+	@ManyToMany
+	public Collection<Lesson> getLessons() {
+		return lessons;
+	}
+
+	public void setLessons(Collection<Lesson> lessons) {
+		this.lessons = lessons;
+	}
+	
 	@Valid
 	@OneToMany (mappedBy="student")
 	public Collection<Question> getQuestions() {

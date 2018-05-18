@@ -17,6 +17,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Certification;
+import domain.Lesson;
 import domain.MailMessage;
 import domain.Question;
 import domain.Student;
@@ -55,6 +56,7 @@ public class StudentService {
 		result.setScore(0);
 		result.setSubscriptions(new ArrayList<Subscription>());
 		result.setTutorials(new ArrayList<Tutorial>());
+		result.setLessons(new ArrayList<Lesson>());
 		result.setCertifications(new ArrayList<Certification>());
 		result.setQuestions(new ArrayList<Question>());
 		result.setReceivedMessages(new ArrayList<MailMessage>());

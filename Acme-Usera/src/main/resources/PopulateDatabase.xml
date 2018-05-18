@@ -173,6 +173,11 @@
 				<ref bean="tutorial2" />
 			</list>
 		</property>	
+		<property name="lessons"> <!-- Estos son las lecciones leidas por un estudiante -->
+			<list>
+				<ref bean="lesson1" />
+			</list>
+		</property>	
 		<property name="questions">
 			<list>
 				<ref bean="question1" />
@@ -225,6 +230,12 @@
 			<list>
 			</list>
 		</property>	
+		<property name="lessons"> 
+			<list>
+				<ref bean="lesson2" />
+				<ref bean="lesson3" />				
+			</list>
+		</property>	
 		<property name="questions">
 			<list>
 			</list>
@@ -270,6 +281,10 @@
 		<property name="userAccount" ref="userAccount4"/>
 		<property name="score" value="1000"/>
 		<property name="tutorials">
+			<list>
+			</list>
+		</property>	
+		<property name="lessons"> 
 			<list>
 			</list>
 		</property>	
@@ -1153,6 +1168,7 @@
 		</list>
 	</property>
 	<property name="forum" ref="forum2" />
+	<property name="exam"> <null/></property>
 	</bean>
 	
 	
