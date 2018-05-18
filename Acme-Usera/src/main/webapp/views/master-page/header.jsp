@@ -26,6 +26,10 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="dashboard/admin/display.do"><spring:message code="master.page.administrator.dashboard" /></a></li>
+					<li><a href="customisation/admin/display.do"><spring:message
+								code="master.page.administrator.customisation" /></a></li>
+					<li><a href="category/admin/list.do"><spring:message
+								code="master.page.administrator.categories" /></a></li>
 						
 				</ul>
 			</li>
@@ -45,7 +49,6 @@
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 		</security:authorize>
-		
 		
 		
 		<security:authorize access="isAuthenticated()">
