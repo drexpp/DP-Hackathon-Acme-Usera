@@ -51,6 +51,17 @@
 			</li>
 		</security:authorize>
 		
+		<security:authorize access="hasRole('TEACHER')">
+			<li><a class="fNiv"><spring:message
+						code="master.page.teacher" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="curriculum/teacher/search.do"><spring:message
+								code="master.page.teacher.curriculum" /></a></li>
+
+				</ul></li>
+		</security:authorize>
+		
 		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>

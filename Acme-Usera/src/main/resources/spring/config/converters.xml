@@ -26,6 +26,18 @@
 		<bean class="converters.StringToCategoryConverter"/>
 		<bean class="converters.CourseToStringConverter"/>
 		<bean class="converters.StringToCourseConverter"/>
+		<bean class="converters.CurriculumToStringConverter"/>
+		<bean class="converters.StringToCurriculumConverter"/>
+		<bean class="converters.EducationRecordToStringConverter"/>
+		<bean class="converters.StringToEducationRecordConverter"/>
+		<bean class="converters.MiscellaneousRecordToStringConverter"/>
+		<bean class="converters.StringToMiscellaneousRecordConverter"/>
+		<bean class="converters.PersonalRecordToStringConverter"/>
+		<bean class="converters.StringToPersonalRecordConverter"/>
+		<bean class="converters.ProfessionalRecordToStringConverter"/>
+		<bean class="converters.StringToProfessionalRecordConverter"/>
+		<bean class="converters.TeacherToStringConverter"/>
+		<bean class="converters.StringToTeacherConverter"/>
 		
 	</util:list>
 	
