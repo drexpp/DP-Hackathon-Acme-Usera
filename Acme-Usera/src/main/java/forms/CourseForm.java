@@ -1,6 +1,5 @@
 package forms;
 
-import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
