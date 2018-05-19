@@ -25,6 +25,7 @@
 		<value>/views/admin/messages</value>
 		<value>/views/student/messages</value>
 		<value>/views/category/messages</value>
+		<value>/views/course/messages</value>
 
 	</util:list>
 

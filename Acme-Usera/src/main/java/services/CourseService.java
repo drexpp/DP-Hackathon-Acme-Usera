@@ -4,20 +4,25 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+import org.springframework.validation.Validator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 
 import repositories.CourseRepository;
 import domain.Admin;
 import domain.Advertisement;
+import domain.Forum;
 import domain.Lesson;
 import domain.Student;
 import domain.Subscription;
 import domain.Teacher;
 
 import domain.Course;
+import forms.CourseForm;
 
 
 @Service
@@ -34,12 +39,18 @@ public class CourseService {
 
 	@Autowired
 	private AdminService			adminService;
+	
+	@Autowired
+	private ForumService			forumService;
 
 	@Autowired
 	private SubscriptionService			subscriptionService;
 	
 	@Autowired
 	private StudentService	studentService;
+	
+	@Autowired
+	private Validator	validator;
 
 	// Constructors
 
@@ -56,6 +67,7 @@ public class CourseService {
 
 		principal = this.teacherService.findByPrincipal();
 		Assert.notNull(principal);
+		course.setCreator(principal);
 		course.setCreationDate(new Date(System.currentTimeMillis()));
 		course.setIsClosed(false);
 		course.setAdvertisements(new ArrayList<Advertisement>());
@@ -131,12 +143,16 @@ public class CourseService {
 		if (courseToSave.getId() != 0){
 		Assert.isTrue(principal.getCoursesCreated().contains(courseToSave));
 		}
-		
 	
 		result = this.courseRepository.save(courseToSave);
 	
 
 		if (courseToSave.getId() == 0) {
+			
+			Forum forum = this.forumService.create();
+			forum.setCourse(result);
+			this.forumService.save(forum);
+			
 			final Collection<Teacher> teachers = new ArrayList<Teacher>();
 			teachers.add(principal);
 			result.setCreator(principal);
@@ -223,5 +239,19 @@ public class CourseService {
 	}
 	public void flush(){
 		this.courseRepository.flush();
+	}
+
+	public Course reconstruct(CourseForm courseForm, BindingResult binding) {
+		Course course = new Course();
+		if(courseForm.getId()== 0){
+		course = this.create();
+		course.setTitle(courseForm.getTitle());
+		course.setDescription(courseForm.getDescription());
+		course.setPhotoURL(courseForm.getPhotoURL());
+		course.setCategory(courseForm.getCategory());
+		}
+		this.validator.validate(courseForm, binding);
+		
+		return course;
 	}
 }

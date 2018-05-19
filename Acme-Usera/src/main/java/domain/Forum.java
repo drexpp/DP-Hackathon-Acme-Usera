@@ -18,7 +18,7 @@ public class Forum extends DomainEntity {
 	private Collection<Question> questions;
 	
 	@Valid
-	@OneToOne(mappedBy="forum", optional=false)
+	@OneToOne(optional = false)
 	public Course getCourse() {
 		return course;
 	}
