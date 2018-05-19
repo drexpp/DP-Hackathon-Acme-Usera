@@ -16,9 +16,9 @@
        
 <tiles-definitions>
 
-	<definition name="student/register" extends="master.page">
-		<put-attribute name="title" value="Register as a student" />
-		<put-attribute name="body" value="/views/student/register.jsp" />
+	<definition name="teacher/register" extends="master.page">
+		<put-attribute name="title" value="Register as a teacher" />
+		<put-attribute name="body" value="/views/teacher/register.jsp" />
 	</definition>
 		
 </tiles-definitions>

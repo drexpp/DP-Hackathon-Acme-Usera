@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <!-- 
- * tiles.xml
+ * tiles_es.xml
  *
  * Copyright (C) 2017 Universidad de Sevilla
- * 
+ *
  * The use of this project is hereby constrained to the conditions of the 
  * TDG Licence, a copy of which you may download from 
  * http://www.tdg-seville.info/License.html
@@ -16,9 +16,9 @@
        
 <tiles-definitions>
 
-	<definition name="student/register" extends="master.page">
-		<put-attribute name="title" value="Register as a student" />
-		<put-attribute name="body" value="/views/student/register.jsp" />
+	<definition name="teacher/register" extends="master.page">
+		<put-attribute name="title" value="Registrar como profesor" />
+		<put-attribute name="body" value="/views/teacher/register.jsp" />
 	</definition>
-		
+	
 </tiles-definitions>
