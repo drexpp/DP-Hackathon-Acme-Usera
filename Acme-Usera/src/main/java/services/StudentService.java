@@ -130,7 +130,7 @@ public class StudentService {
 		student.setUserAccount(actorForm.getUserAccount());
 		final Collection<Authority> authorities = new ArrayList<Authority>();
 		final Authority auth = new Authority();
-		auth.setAuthority("TEACHER");
+		auth.setAuthority("STUDENT");
 		authorities.add(auth);
 		student.getUserAccount().setAuthorities(authorities);
 

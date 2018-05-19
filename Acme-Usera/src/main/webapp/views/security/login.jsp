@@ -41,8 +41,8 @@
 	<input type="submit" value="<spring:message code="security.login" />" />
 	<br />
 	<br />
-	<a href="user/register.do"> <spring:message
-					code="security.login.regiser" />
+	<a href="student/register.do"> <spring:message
+					code="security.login.register.student" />
 			</a>
 	
 	
