@@ -245,13 +245,25 @@ public class CourseService {
 		Course course = new Course();
 		if(courseForm.getId()== 0){
 		course = this.create();
+		}else{
+		course = this.findOne(courseForm.getId());	
+		}
 		course.setTitle(courseForm.getTitle());
 		course.setDescription(courseForm.getDescription());
 		course.setPhotoURL(courseForm.getPhotoURL());
 		course.setCategory(courseForm.getCategory());
-		}
 		this.validator.validate(courseForm, binding);
 		
 		return course;
+	}
+
+	public CourseForm reconstructForm(Course course) {
+		CourseForm courseForm = new CourseForm();
+		courseForm.setCategory(course.getCategory());
+		courseForm.setDescription(course.getDescription());
+		courseForm.setPhotoURL(course.getPhotoURL());
+		courseForm.setTitle(course.getTitle());
+		courseForm.setId(course.getId());
+		return courseForm;
 	}
 }

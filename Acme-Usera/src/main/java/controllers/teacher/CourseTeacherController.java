@@ -4,13 +4,17 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import domain.Category;
 import domain.Course;
+import domain.Teacher;
 
 import forms.CourseForm;
 
@@ -65,7 +69,7 @@ public class CourseTeacherController {
 				else
 					try {
 						this.courseService.save(course);
-						result = new ModelAndView("redirect:/list.do");
+						result = new ModelAndView("redirect:/course/list.do");
 					} catch (final Throwable oops) {
 						String errorMessage = "course.commit.error";
 						result = this.createEditModelAndView(courseForm, errorMessage);
@@ -74,6 +78,28 @@ public class CourseTeacherController {
 				return result;
 			}
 			
+			
+			@RequestMapping(value = "/edit", method = RequestMethod.GET)
+			public ModelAndView edit(@RequestParam final int courseId, final RedirectAttributes redir) {
+				ModelAndView result;
+				Course course;
+				CourseForm courseForm;
+				final Teacher principal = this.teacherService.findByPrincipal();
+				try {
+					course = this.courseService.findOne(courseId);
+					Assert.isTrue(course.getCreator().equals(principal));
+					courseForm = this.courseService.reconstructForm(course);
+					result = this.createEditModelAndView(courseForm);
+					
+				} catch (final Throwable oops) {
+					result = new ModelAndView("redirect:/article/list.do");
+					redir.addFlashAttribute("message", "article.permision");
+
+				}
+
+				return result;
+
+			}		
 
 	private ModelAndView createEditModelAndView(CourseForm courseForm) {
 		ModelAndView result;

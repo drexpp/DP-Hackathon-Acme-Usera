@@ -62,7 +62,7 @@
 <security:authorize access="hasRole('TEACHER')">
 	<display:column>
 	<jstl:if test="${principal.coursesCreated.contains(row)}">
-		<a href="course/teacher/display.do?courseId=${row.id}"> <spring:message
+		<a href="course/teacher/edit.do?courseId=${row.id}"> <spring:message
 			code="course.edit" />
 		</a>
 	</jstl:if>	
