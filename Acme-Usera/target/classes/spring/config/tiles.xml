@@ -28,6 +28,11 @@
 		<value>/views/teacher/tiles.xml</value>
 		<value>/views/sponsor/tiles.xml</value>
 		<value>/views/course/tiles.xml</value>
+		<value>/views/curriculum/tiles.xml</value>
+		<value>/views/educationRecord/tiles.xml</value>
+		<value>/views/miscellaneousRecord/tiles.xml</value>
+		<value>/views/professionalRecord/tiles.xml</value>
+		<value>/views/advertisement/tiles.xml</value>
 
 
 

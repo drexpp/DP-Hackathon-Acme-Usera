@@ -60,10 +60,42 @@
 			access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/category/admin/create.do"
 			access="hasRole('ADMIN')" />
-		
+			
+			
+		<security:intercept-url pattern="/curriculum/display.do"
+			access="permitAll" />
 
-		
+
+<security:intercept-url pattern="/curriculum/teacher/display.do"
+			access="hasRole('TEACHER')" />
+		<security:intercept-url pattern="/curriculum/teacher/create.do"
+			access="hasRole('TEACHER')" />
+		<security:intercept-url pattern="/curriculum/teacher/edit.do"
+			access="hasRole('TEACHER')" />
+		<security:intercept-url pattern="/curriculum/teacher/search.do"
+			access="hasRole('TEACHER')" />
+				
+		<security:intercept-url pattern="/professionalRecord/teacher/create.do"
+			access="hasRole('TEACHER')" />
+			
+		<security:intercept-url pattern="/professionalRecord/teacher/edit.do"
+			access="hasRole('TEACHER')" />
+			
+		<security:intercept-url pattern="/educationRecord/teacher/create.do"
+			access="hasRole('TEACHER')" />
+			
+		<security:intercept-url pattern="/educationRecord/teacher/edit.do"
+			access="hasRole('TEACHER')" />
 	
+		<security:intercept-url pattern="/miscellaneousRecord/teacher/create.do"
+			access="hasRole('TEACHER')" />
+			
+		<security:intercept-url pattern="/miscellaneousRecord/teacher/edit.do"
+			access="hasRole('TEACHER')" />
+			
+			<!-- Advertisement -->
+		<security:intercept-url pattern="/advertisement/sponsor/**" access="hasRole('SPONSOR')" /> 
+		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 

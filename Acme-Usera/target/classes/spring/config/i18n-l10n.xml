@@ -29,6 +29,12 @@
 		<value>/views/sponsor/messages</value>
 		<value>/views/category/messages</value>
 		<value>/views/course/messages</value>
+		<value>/views/lesson/messages</value>
+		<value>/views/curriculum/messages</value>
+		<value>/views/educationRecord/messages</value>
+		<value>/views/miscellaneousRecord/messages</value>
+		<value>/views/professionalRecord/messages</value>
+		<value>/views/advertisement/messages</value>
 
 	</util:list>
 

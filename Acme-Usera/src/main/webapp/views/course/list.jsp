@@ -41,6 +41,41 @@
 		<img src="${row.photoURL}" alt="${pictureError}"  width="200" height="200"> 
 	</display:column>
 	
+	<!-- isClose -->
+		<spring:message code="course.isClose"
+		var="isCloseHeader" />
+	<display:column title="${isCloseHeader}"> 
+	<security:authorize access="hasRole('TEACHER')" var ="isTeacher"/>
+	<jstl:choose>
+	<jstl:when test="${isTeacher}">
+	<jstl:if test="${principal.coursesCreated.contains(row)}">
+		<jstl:choose>
+		<jstl:when test="${row.isClosed == false}">
+			<a href="course/user/close.do?courseId=${row.id}"> <spring:message
+			code="course.makeClose" />
+		</a>
+		</jstl:when>
+		<jstl:otherwise>
+		<img class="alarmImg" src="images/cancel.png" width="30" height="auto"/>
+		</jstl:otherwise>
+		 </jstl:choose>
+	</jstl:if>
+	</jstl:when>
+	
+	<jstl:otherwise>
+	<jstl:choose>
+			<jstl:when test="${row.isClosed == true}">
+			<img class="alarmImg" src="images/cancel.png" width="30" height="auto"/>
+		</jstl:when>
+		
+		<jstl:otherwise>
+			<spring:message code="course.isOpen"/>
+		</jstl:otherwise>
+		</jstl:choose>
+	</jstl:otherwise>
+		</jstl:choose>
+	</display:column>
+	
 	<!-- Category -->
 	<spring:message code="course.category"
 		var="category" />
