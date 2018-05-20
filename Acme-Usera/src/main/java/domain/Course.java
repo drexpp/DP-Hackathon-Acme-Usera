@@ -153,7 +153,7 @@ public class Course extends DomainEntity {
 	public void setAdvertisements(Collection<Advertisement> advertisements) {
 		this.advertisements = advertisements;
 	}
-	@OneToOne(optional = false)
+	@OneToOne(optional = false, mappedBy="course")
 	@Valid
 	public Forum getForum() {
 		return forum;

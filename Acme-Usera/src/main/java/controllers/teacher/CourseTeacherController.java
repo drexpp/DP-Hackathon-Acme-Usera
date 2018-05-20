@@ -68,7 +68,7 @@ public class CourseTeacherController {
 				else
 					try {
 						this.courseService.save(course);
-						result = new ModelAndView("redirect:/course/list.do");
+						result = new ModelAndView("redirect:/course/teacher/list.do");
 					} catch (final Throwable oops) {
 						String errorMessage = "course.commit.error";
 						result = this.createEditModelAndView(courseForm, errorMessage);
