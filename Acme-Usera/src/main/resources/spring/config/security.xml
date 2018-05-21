@@ -42,10 +42,13 @@
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
 
 
-		<!-- System's registers -->
+		<!-- System's registers and edit personal profile -->
 		<security:intercept-url pattern="/student/register.do" access="isAnonymous()" /> 
 		<security:intercept-url pattern="/teacher/register.do" access="isAnonymous()" /> 
 		<security:intercept-url pattern="/sponsor/register.do" access="isAnonymous()" /> 
+		
+		<security:intercept-url pattern="/student/display.do" access="hasRole('STUDENT')" /> 
+		
 		<!-- Course -->
 		<security:intercept-url pattern="/course/list.do" access="permitAll" /> 
 		<security:intercept-url pattern="/course/teacher/edit.do" access="hasRole('TEACHER')" />

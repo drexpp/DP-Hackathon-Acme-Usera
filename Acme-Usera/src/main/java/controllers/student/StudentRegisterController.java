@@ -33,6 +33,19 @@ public class StudentRegisterController extends AbstractController {
 
 		return result;
 	}
+	
+	@RequestMapping(value="/display", method = RequestMethod.GET)
+	public ModelAndView display(){
+		ModelAndView result;
+		Student principal;
+		
+		principal = this.studentService.findByPrincipal();
+		
+		result = new ModelAndView("actor/display");
+		result.addObject("actor", principal);
+		
+		return result;
+	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(final ActorForm actorForm, final BindingResult binding) {

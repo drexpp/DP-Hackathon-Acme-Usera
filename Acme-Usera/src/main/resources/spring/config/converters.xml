@@ -38,6 +38,8 @@
 		<bean class="converters.StringToProfessionalRecordConverter"/>
 		<bean class="converters.TeacherToStringConverter"/>
 		<bean class="converters.StringToTeacherConverter"/>
+		<bean class="converters.StudentToStringConverter"/>
+		<bean class="converters.StringToStudentConverter"/>
 		
 	</util:list>
 	

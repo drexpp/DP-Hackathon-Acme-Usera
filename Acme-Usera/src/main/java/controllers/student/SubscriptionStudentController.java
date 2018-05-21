@@ -13,11 +13,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import services.CategoryService;
 import services.CourseService;
+import services.CustomisationService;
+import services.StudentService;
 import services.SubscriptionService;
 import services.TeacherService;
 
 import controllers.AbstractController;
 import domain.Course;
+import domain.Customisation;
+import domain.Student;
 import domain.Subscription;
 import forms.CourseForm;
 
@@ -31,10 +35,13 @@ public class SubscriptionStudentController extends AbstractController{
 				private CourseService	courseService;
 				
 				@Autowired
-				private TeacherService	teacherService;
+				private StudentService	studentService;
 				
 				@Autowired
 				private SubscriptionService	subscriptionService;
+				
+				@Autowired
+				private CustomisationService	customisationService;
 				
 				
 				// Constructors
@@ -67,8 +74,9 @@ public class SubscriptionStudentController extends AbstractController{
 	//Edit
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(final @Valid Subscription subscription, final BindingResult binding) {
+	public ModelAndView save(Subscription subscription, final BindingResult binding) {
 		ModelAndView result;
+		subscription = this.subscriptionService.checkSubscriptionType(subscription, binding);
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(subscription);
 		} else
@@ -92,9 +100,13 @@ public class SubscriptionStudentController extends AbstractController{
 	private ModelAndView createEditModelAndView(Subscription subscription,
 			String message) {
 		ModelAndView result;
+		Student principal = this.studentService.findByPrincipal();
+		Customisation customisation = this.customisationService.find();
 		
 		result = new ModelAndView("subscription/edit");
 		result.addObject("subscription", subscription);
+		result.addObject("customisation", customisation);
+		result.addObject("principal", principal);
 		result.addObject("message", message);
 		
 		return result;
