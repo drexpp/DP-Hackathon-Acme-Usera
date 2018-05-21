@@ -127,6 +127,7 @@ public class StudentService {
 		student.setAddress(actorForm.getAddress());
 		student.setVersion(actorForm.getVersion());
 		student.setPhone(actorForm.getPhone());
+		student.setDateBirth(actorForm.getDateBirth());
 		student.setUserAccount(actorForm.getUserAccount());
 		final Collection<Authority> authorities = new ArrayList<Authority>();
 		final Authority auth = new Authority();
