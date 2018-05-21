@@ -51,6 +51,6 @@
 	<acme:selectMultiple items="${courses}" itemLabel="title" code="advertisement.courses" path="courses"/>
 
 	<acme:submit name="save" code="advertisement.save"/>
-	<acme:cancel url="/advertisement/sponsor/listPlacedAds.do" code="advertisement.cancel"/>
+	<acme:cancel url="/advertisement/sponsor/list.do" code="advertisement.cancel"/>
 
 </form:form>

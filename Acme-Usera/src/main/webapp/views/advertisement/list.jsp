@@ -40,14 +40,14 @@
 	
 	<spring:message code="advertisement.urlBanner" var="pictureHeader" />
 	<spring:message code="advertisement.altPicture" var="altPic" />
-	<display:column title="${pictureHeader}"><img src ="${row.bannerURL}" alt="altPic"></display:column>
+	<display:column title="${pictureHeader}"><img class="advert-img" src ="${row.bannerURL}" alt="altPic"></display:column>
 	
 	<spring:message code="advertisement.courses" var="coursesHeader" />
 	<display:column title="${coursesHeader}">
 		<jstl:forEach items="${row.courses}" var="courses">
 			<ul>
 				<li>
-					<jstl:out value="${newspaper.title}"/>	
+					<jstl:out value="${courses.title}"/>	
 				</li>
 			</ul>
 		</jstl:forEach>
