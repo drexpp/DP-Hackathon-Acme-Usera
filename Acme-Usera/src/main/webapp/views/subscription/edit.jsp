@@ -18,7 +18,7 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="course" />
-	
+<div class="creditCard-form">
 <fieldset>
  <legend><spring:message code="subscription.creditCard" /></legend>
 
@@ -36,14 +36,14 @@
 
 
 </fieldset>
-
+</div>
 
 <form:label path="subscriptionType">
 		<spring:message code="subscription.subscriptionType" />:
 	</form:label>
-	<form:radiobutton path="subscriptionType" value="FREE" checked="checked" /><spring:message code="subscription.subscriptionType.free" />
-	<form:radiobutton path="subscriptionType" value="STANDARD"/><spring:message code="subscription.subscriptionType.standard" />
-	<form:radiobutton path="subscriptionType" value="PREMIUM"/><spring:message code="subscription.subscriptionType.premium" />
+	<form:radiobutton path="subscriptionType" value="FREE" onclick="hideCreditCard()"/><spring:message code="subscription.subscriptionType.free" />
+	<form:radiobutton path="subscriptionType" value="STANDARD" onclick="createCreditCard()"/><spring:message code="subscription.subscriptionType.standard" />
+	<form:radiobutton path="subscriptionType" value="PREMIUM" onclick="createCreditCard()"/><spring:message code="subscription.subscriptionType.premium" />
 	<br>
 	<br>
 
@@ -62,3 +62,14 @@
 		onclick="javascript: relativeRedir('course/list.do');" />
 	<br />
 </form:form>
+
+<script>
+$(".creditCard-form").hide();
+
+function hideCreditCard(){
+	$(".creditCard-form").hide();
+}	
+function createCreditCard(){
+	$(".creditCard-form").show();
+}
+</script>
