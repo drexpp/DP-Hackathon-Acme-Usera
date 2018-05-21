@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,13 +15,16 @@ import domain.Actor;
 import domain.Advertisement;
 import domain.Course;
 import domain.Lesson;
+import domain.Student;
+import domain.Teacher;
 
 import services.ActorService;
+import services.AdvertisementService;
 import services.CourseService;
 
 @Controller
 @RequestMapping("/course")
-public class CourseController {
+public class CourseController extends AbstractController{
 	
 	
 	// Services
@@ -30,6 +34,9 @@ public class CourseController {
 		
 		@Autowired
 		private ActorService	actorService;
+	
+		@Autowired
+		private AdvertisementService advertisementService;
 		
 		
 		// Constructors
@@ -54,6 +61,10 @@ public class CourseController {
 			if(principal != null){
 				result.addObject("principal",principal);
 			}
+			if(principal instanceof Student){
+				Collection<Course> subscribed = this.courseService.selectCoursesSubscriptedByUser(principal.getId());
+				result.addObject("subscribed",subscribed);
+			}
 
 			return result;
 
@@ -62,22 +73,32 @@ public class CourseController {
 		//Display
 				@RequestMapping(value = "/display", method = RequestMethod.GET)
 				public ModelAndView display(@RequestParam final int courseId, RedirectAttributes redir) {
-					ModelAndView result;
+					ModelAndView result = new ModelAndView();
 					Course course;
 					Collection<Lesson> lessons;
-				//	Advertisement advertChoosen;
+					Advertisement advertChoosen;
 					Actor principal;
 
 					try{
 					course = this.courseService.findOne(courseId);
 					lessons = course.getLessons();
 					principal = this.actorService.findByPrincipal();
-
+					advertChoosen = this.advertisementService.findRandomAdvertisement(course);
 					result = new ModelAndView("course/display");
+					
+					if(principal instanceof Teacher){
+						Teacher principalT = (Teacher) principal;
+						Assert.isTrue(principalT.getCoursesJoined().contains(course));
+			}
+			if (principal instanceof Student) {
+				Collection<Course> subscribed = this.courseService.selectCoursesSubscriptedByUser(principal.getId()); 
+				Assert.isTrue(subscribed.contains(course));
+			} 
 					result.addObject("lessons", lessons);
 					result.addObject("course", course);
 					result.addObject("principal", principal);
-					//result.addObject("advert", advertChoosen);
+					result.addObject("advert", advertChoosen);
+				
 					}catch (Throwable oops){
 						result = new ModelAndView("redirect:/course/list.do");	
 						redir.addFlashAttribute("message", "course.permision"); 

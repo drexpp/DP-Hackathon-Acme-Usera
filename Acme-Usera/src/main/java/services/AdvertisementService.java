@@ -2,6 +2,8 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Random;
 
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -171,5 +173,31 @@ public class AdvertisementService {
 			binding.rejectValue("creditCard.expirationMonth", "advertisement.creditCard.expired");
 		}
 		
+	}
+
+	public Collection<Advertisement> findAll() {
+		Collection<Advertisement> advertisements;
+		
+		advertisements = this.advertisementRepository.findAll();
+		
+		return advertisements;
+	}
+	
+
+	public Advertisement findRandomAdvertisement(Course course) {
+		Advertisement result = null;
+		List<Advertisement> adverts = new ArrayList<Advertisement>();
+		adverts = (List<Advertisement>) course.getAdvertisements();
+
+		if (adverts.size() >= 2) {
+			int selectedOne;
+			final int limit = adverts.size();
+			final Random rand = new Random();
+			selectedOne = rand.nextInt(limit);
+			result = adverts.get(selectedOne);
+		} else if (adverts.size() == 1)
+			result = adverts.get(0);
+
+		return result;
 	}
 }

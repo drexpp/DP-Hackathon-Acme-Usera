@@ -58,6 +58,8 @@
 
 </table>
 
+
+
 <spring:message code="course.lessons" var="lessons"/> 
 <h3> <jstl:out value="${lessons}"> </jstl:out> </h3>
 
@@ -95,3 +97,11 @@
 	<jstl:out value="${createLesson}"></jstl:out>	</a>
 </jstl:if>
 </security:authorize>
+
+
+<jstl:if test="${advert != null}">
+	<spring:message code ="course.imageBannerNotFound" var = "imageBannerNotFound"></spring:message>
+	<a href="${advert.targetURL}">
+		<img src="${advert.bannerURL}" alt="${imageBanner}">
+	</a>
+</jstl:if>

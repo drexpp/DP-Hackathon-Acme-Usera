@@ -104,7 +104,7 @@
 	
 	<bean id="userAccount8" class="security.UserAccount">
 		<property name="username" value="sponsor1" />
-		<property name="password" value="2063032a154002439158390320edc4c5" />
+		<property name="password" value="42c63ad66d4dc07ed17753772bef96d6" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -357,6 +357,7 @@
 		<property name="coursesJoined">
 			<list>
 				<ref bean="course1"/>
+				<ref bean="course2"/>
 			</list>
 		</property>
 		<property name="answers">
@@ -414,6 +415,7 @@
 		<property name="coursesJoined">
 			<list>
 				<ref bean="course1"/>
+				<ref bean="course3"/>
 			</list>
 		</property>
 		<property name="answers">

@@ -14,62 +14,62 @@
 <jstl:choose>
 <jstl:when test="${permiso}">
 
-<spring:message code="student.terms" var="terms"/>
+<spring:message code="actor.terms" var="terms"/>
 
 <script type="text/javascript">
 function Terms(){
 	alert("${terms}");
 }
 </script>
-<form:form action="student/register.do" modelAttribute="actorForm" >
+<form:form action="${formURL}" modelAttribute="actorForm" >
 
 
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 
-	<acme:textbox code="student.name" path="name"/>
+	<acme:textbox code="actor.name" path="name"/>
 	<br />
 	
-	<acme:textbox code="student.surname" path="surname"/>
+	<acme:textbox code="actor.surname" path="surname"/>
 	<br />
 	
-	<acme:textbox code="student.email" path="email"/>
+	<acme:textbox code="actor.email" path="email"/>
 	<br />
 	
 	<!-- Input del form con el formato antiguo para permitir el pattern -->
 	<form:label path="phone">
-		<spring:message code="student.phone" />
+		<spring:message code="actor.phone" />
 	</form:label>	
 	<form:input path="phone" pattern="[0-9]{9}"/>	
 	<form:errors path="phone" cssClass="error" />
 	<br />
 	<br />
-	<acme:textbox code="student.address" path="address"/>
+	<acme:textbox code="actor.address" path="address"/>
 	<br />
 	
-	<acme:textbox code="student.dateBirth" path="dateBirth"/>
+	<acme:textbox code="actor.dateBirth" path="dateBirth"/>
 	<br />
 	
 	
-	<acme:textbox code="student.username" path="userAccount.username"/>
+	<acme:textbox code="actor.username" path="userAccount.username"/>
 	<br />
 	
-	<acme:password code="student.password" path="userAccount.password"/>
+	<acme:password code="actor.password" path="userAccount.password"/>
 	<br />
 	
-	<acme:password code="student.confirmPassword" path="confirmPassword"/>
+	<acme:password code="actor.confirmPassword" path="confirmPassword"/>
 	<br />
 	
-	<spring:message code ="student.check"/>
+	<spring:message code ="actor.check"/>
 	<form:checkbox path="check"/>
 	<form:errors path="check" cssClass="error" />
 	<br />
 	
 
 	<input type="submit" name="save" id="save"
-		value="<spring:message code="student.save" />" />&nbsp; 
+		value="<spring:message code="actor.save" />" />&nbsp; 
 	<input type="button" name="cancel"
-		value="<spring:message code="student.cancel" />"
+		value="<spring:message code="actor.cancel" />"
 		onclick="javascript: relativeRedir('');" />
 	<br />
 <jstl:out value="${message}"/>
@@ -77,7 +77,7 @@ function Terms(){
 
 </jstl:when>
 <jstl:otherwise>
-<spring:message code="student.permision" />
+<spring:message code="actor.permision" />
 </jstl:otherwise>
 </jstl:choose>
 

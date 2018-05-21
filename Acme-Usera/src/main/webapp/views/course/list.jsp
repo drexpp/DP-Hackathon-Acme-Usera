@@ -84,11 +84,31 @@
 	
 		
 	<!-- Display -->
+<security:authorize access="hasRole('TEACHER')" var="isTeacher"/>
+<security:authorize access="hasRole('STUDENT')" var="isStudent"/>
 <security:authorize access="isAuthenticated()">
 	<display:column>
+	<jstl:choose>
+	<jstl:when test="${isTeacher }">
+	<jstl:if test="${principal.coursesJoined.contains(row) }">
 		<a href="course/display.do?courseId=${row.id}"> <spring:message
 			code="course.display" />
 		</a>
+	</jstl:if>
+	</jstl:when>
+	<jstl:when test="${isStudent and subscribed.contains(row)}">
+	<a href="course/display.do?courseId=${row.id}"> <spring:message
+			code="course.display" />
+		</a>
+	</jstl:when>
+	
+	<jstl:when test="${isStudent and !subscribed.contains(row)}">
+	<a href="subscription/student/create.do?courseId=${row.id}"> <spring:message
+			code="course.subscribe" />
+		</a>
+	</jstl:when>
+	
+	</jstl:choose>
 	</display:column>
 </security:authorize>	
 

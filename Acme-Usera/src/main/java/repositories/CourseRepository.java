@@ -21,6 +21,15 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	@Query("select distinct co from Category c join c.courses co where c.id=?1")	
     public Collection<Course> findCourseByCategory(Integer categoryId);
 	
+	@Query("select s.course from Subscription s where s.student.id = ?1 and s.subscriptionType = 'FREE'")	
+    public Collection<Course> findCoursesSubscribedFreeByUser(Integer idUser);
+	
+	@Query("select s.course from Subscription s where s.student.id = ?1 and s.subscriptionType = 'STANDARD'")	
+    public Collection<Course> findCoursesSubscribedStandardByUser(Integer idUser);
+	
+	@Query("select s.course from Subscription s where s.student.id = ?1 and s.subscriptionType = 'PREMIUM'")	
+    public Collection<Course> findCoursesSubscribedPremiumByUser(Integer idUser);
+	
 
 
 }

@@ -266,4 +266,27 @@ public class CourseService {
 		courseForm.setId(course.getId());
 		return courseForm;
 	}
+	
+	  public Collection<Course> findCoursesSubscribedFreeByUser(Integer idUser){
+		  Student principal = this.studentService.findByPrincipal();
+		  Assert.notNull(principal);
+		  Collection<Course> res = this.courseRepository.findCoursesSubscribedFreeByUser(idUser);
+		  return res;
+	  }
+	  
+	  public Collection<Course> findCoursesSubscribedStandardByUser(Integer idUser){
+		  Student principal = this.studentService.findByPrincipal();
+		  Assert.notNull(principal);
+		  Collection<Course> res = this.courseRepository.findCoursesSubscribedStandardByUser(idUser);
+		  return res;
+	  }
+	  
+	  public Collection<Course> findCoursesSubscribedPremiumByUser(Integer idUser){
+		  Student principal = this.studentService.findByPrincipal();
+		  Assert.notNull(principal);
+		  Collection<Course> res = this.courseRepository.findCoursesSubscribedPremiumByUser(idUser);
+		  return res;
+	  }
+	
+	
 }

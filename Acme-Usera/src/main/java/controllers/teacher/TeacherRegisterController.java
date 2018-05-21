@@ -67,10 +67,12 @@ public class TeacherRegisterController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final ActorForm actorForm, final String message) {
 		final ModelAndView result;
+		final String formURL = "teacher/register.do";
 
-		result = new ModelAndView("teacher/register");
+		result = new ModelAndView("actor/register");
 		result.addObject("actorForm", actorForm);
 		result.addObject("message", message);
+		result.addObject("formURL", formURL);
 		return result;
 	}
 }

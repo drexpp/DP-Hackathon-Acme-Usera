@@ -61,6 +61,7 @@ public class SubscriptionService {
 		principal = this.studentService.findByPrincipal();
 
 		Assert.notNull(principal);
+		subscription.setStudent(principal);
 		Assert.isTrue(subscription.getCourse().getIsClosed() == false);
 		Collection<Course> subscribed = this.courseService.selectCoursesSubscriptedByUser(principal.getId());
 		Assert.isTrue(!subscribed.contains(subscription.getCourse()));
