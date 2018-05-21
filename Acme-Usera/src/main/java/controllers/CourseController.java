@@ -80,7 +80,7 @@ public class CourseController {
 					//result.addObject("advert", advertChoosen);
 					}catch (Throwable oops){
 						result = new ModelAndView("redirect:/course/list.do");	
-						redir.addFlashAttribute("message", "course.permission"); 
+						redir.addFlashAttribute("message", "course.permision"); 
 					}//da igual que sea de artículo, el mensaje es el mismo
 					
 					return result;
