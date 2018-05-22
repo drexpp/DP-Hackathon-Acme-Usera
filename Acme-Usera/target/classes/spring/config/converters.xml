@@ -38,6 +38,10 @@
 		<bean class="converters.StringToProfessionalRecordConverter"/>
 		<bean class="converters.TeacherToStringConverter"/>
 		<bean class="converters.StringToTeacherConverter"/>
+		<bean class="converters.StringToActorConverter"/>
+		<bean class="converters.ActorToStringConverter"/>
+		<bean class="converters.StringToFolderConverter"/>
+		<bean class="converters.FolderToStringConverter"/>
 		
 	</util:list>
 	

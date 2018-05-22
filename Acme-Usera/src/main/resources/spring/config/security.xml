@@ -65,11 +65,24 @@
 			access="hasRole('ADMIN')" />
 			
 			
+		<!-- Folder -->	
+		<security:intercept-url pattern="/folder/actor/list.do"
+			access="isAuthenticated()" />
+			
+		<!-- Message -->
+		<security:intercept-url pattern="/message/actor/create.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/message/actor/edit.do"
+			access="isAuthenticated()" />
+			
+			
+			
+			
+		
+		<!-- Curriculum -->	
 		<security:intercept-url pattern="/curriculum/display.do"
 			access="permitAll" />
-
-
-<security:intercept-url pattern="/curriculum/teacher/display.do"
+		<security:intercept-url pattern="/curriculum/teacher/display.do"
 			access="hasRole('TEACHER')" />
 		<security:intercept-url pattern="/curriculum/teacher/create.do"
 			access="hasRole('TEACHER')" />

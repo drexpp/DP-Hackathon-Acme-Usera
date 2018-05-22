@@ -27,6 +27,11 @@
 			</li>
 		</security:authorize>
 		
+		<security:authorize access="hasAnyRole('STUDENT', 'SPONSOR', 'TEACHER', 'ADMIN')">
+			<li><a href="folder/actor/list.do"><spring:message code="master.page.mail" /></a>
+			</li>
+		</security:authorize>
+		
 		<security:authorize access="hasRole('ADMIN')">
 			<li><a class="fNiv"><spring:message	code="master.page.administrator" /></a>
 				<ul>
