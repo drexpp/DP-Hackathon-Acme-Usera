@@ -1219,7 +1219,7 @@
 	<property name="description" value="En esta lección daremos los primeros pasos para aprender a programar html. Manos a la obra!"/>
 	<property name="body" value="En esta lección daremos los primeros pasos para aprender a programar html. Mírate el vídeo y si tienes dudas pregunta en el foro."/>
 	<property name="photoURL" value="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/1200px-HTML5_logo_and_wordmark.svg.png"/>
-	<property name="videoURL" value="https://www.youtube.com/watch?v=xxRMtgVPX6A"/>
+	<property name="videoURL" value="https://www.youtube.com/embed/cqMfPS8jPys"/>
 	<property name="course" ref="course1"/>
 	<property name="teacher" ref="teacher1"/>
 	</bean>
@@ -1232,7 +1232,7 @@
 	<property name="body" value="El verbo to be (Ser/estar) es uno de los más importantes porque está presente en todo el..."/>
 	<property name="photoURL" value=""/>
 	<property name="videoURL" value=""/>
-	<property name="course" ref="course2"/>
+	<property name="course" ref="course3"/>
 	<property name="teacher" ref="teacher2"/>
 	</bean>
 	
@@ -1244,8 +1244,8 @@
 	<property name="description" value="En esta lección daremos el pasado simple y sus usos"/>
 	<property name="body" value="El pasado simple del verbo to be es Was/Were dependiendo si es tercera persona o no..."/>
 	<property name="photoURL" value=""/>
-	<property name="videoURL" value="https://www.youtube.com/watch?v=moYDA4jbPy4"/>
-	<property name="course" ref="course2"/>
+	<property name="videoURL" value="https://www.youtube.com/embed/tgbNymZ7vqY"/>
+	<property name="course" ref="course3"/>
 	<property name="teacher" ref="teacher2"/>
 	</bean>
 

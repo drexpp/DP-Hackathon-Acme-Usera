@@ -18,32 +18,41 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 
-<form:form action="course/teacher/edit.do" modelAttribute="courseForm">
+<form:form action="lesson/teacher/edit.do" modelAttribute="lessonForm">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
+	<form:hidden path="course" />
 	
-<acme:textbox code="course.title" path="title"/>
+<acme:textbox code="lesson.title" path="title"/>
 
-<acme:textbox code="course.description" path="description"/>
+<acme:textarea code="lesson.description" path="description"/>
 
-<acme:textbox code="course.pictureURL" path="photoURL"/>
+<acme:textarea code="lesson.body" path="body"/>
 
-<acme:select items="${categories}" itemLabel="name" code="course.category" path="category"/>
+<acme:textbox code="lesson.pictureURL" path="photoURL"/>
+
+<acme:textbox code="lesson.videoURL" path="videoURL"/>
+
 	
 	
 
-	<spring:message code="course.save" var="saveCourse"  />
-	<spring:message code="course.delete" var="deleteCourse"  />
-	<spring:message code="course.confirm.delete" var="confirmDeleteCourse"  />
-	<spring:message code="course.cancel" var="cancelCourse"  />
+	<spring:message code="lesson.save" var="saveCourse"  />
+	<spring:message code="lesson.delete" var="deleteCourse"  />
+	<spring:message code="lesson.confirm.delete" var="confirmDeleteCourse"  />
+	<spring:message code="lesson.cancel" var="cancelCourse"  />
 	
 	<input type="submit" id="submit" name="save"
 		value="${saveCourse}" />&nbsp; 
 				
+	<jstl:if test="${lessonForm.id != 0}">
+		<input type="submit" name="delete"
+			value="${deleteCourse}"
+			onclick="return confirm('${confirmDeleteCourse}')" />&nbsp;
+	</jstl:if>
 	<input type="button" name="cancel"
 		value="${cancelCourse}"
-		onclick="javascript: relativeRedir('course/list.do');" />
+		onclick="javascript: relativeRedir('course/display.do?courseId=${lessonForm.course.id}');" />
 	<br />
 
 

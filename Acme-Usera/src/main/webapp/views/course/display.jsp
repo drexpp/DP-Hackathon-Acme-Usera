@@ -38,10 +38,10 @@
 </tr>
 
 
-
+<spring:message code="master.page.date.pattern" var ="pattern"/>
 <tr>
 <td> <strong> <spring:message code="course.creation.date" /> : </strong> </td>
-<td> <jstl:out value="${ course.creationDate}"></jstl:out> </td>
+<td> <fmt:formatDate value="${course.creationDate}" pattern="${pattern}"/> </td>
 </tr>
 
 
@@ -80,7 +80,7 @@
 	<display:column>
 	<jstl:choose>
 	<jstl:when test="${not principal.lessons.contains(row)}">
-	<a href="lesson/readed.do?lessonId=${row.id}"> <img class="eyeImg" src="images/eye.png" width="30" height="auto"/>
+	<a href="lesson/student/read.do?lessonId=${row.id}"> <img class="eyeImg" src="images/eye.png" width="30" height="auto"/>
 		</a>	
 	</jstl:when>
 <jstl:otherwise>
@@ -89,7 +89,15 @@
 	</jstl:choose>
 	</display:column>
 </security:authorize>
+<security:authorize access="hasRole('TEACHER')">
+<display:column>
+<a href="lesson/teacher/edit.do?lessonId=${row.id}"><spring:message code="lesson.edit"/> </a>	
+</display:column>
+</security:authorize>
+
+
 </display:table>
+
 <security:authorize access="hasRole('TEACHER')">
 <jstl:if test="${principal.coursesJoined.contains(course) }">
 <spring:message code="lesson.create" var="createLesson" />
@@ -97,8 +105,8 @@
 	<jstl:out value="${createLesson}"></jstl:out>	</a>
 </jstl:if>
 </security:authorize>
-
-
+<br/>
+<br/>
 <jstl:if test="${advert != null}">
 	<spring:message code ="course.imageBannerNotFound" var = "imageBannerNotFound"></spring:message>
 	<a href="${advert.targetURL}">
