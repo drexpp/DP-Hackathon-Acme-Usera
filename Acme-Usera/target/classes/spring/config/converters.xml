@@ -42,6 +42,9 @@
 		<bean class="converters.ActorToStringConverter"/>
 		<bean class="converters.StringToFolderConverter"/>
 		<bean class="converters.FolderToStringConverter"/>
+		<bean class="converters.StudentToStringConverter"/>
+		<bean class="converters.StringToStudentConverter"/>
+
 		
 	</util:list>
 	

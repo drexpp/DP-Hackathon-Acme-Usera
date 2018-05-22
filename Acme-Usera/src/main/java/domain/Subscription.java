@@ -30,7 +30,6 @@ public class Subscription extends DomainEntity {
 		//-----------------------------------------------------------------	
 	
 	@Valid
-	@NotNull
 	public CreditCard getCreditCard() {
 		return creditCard;
 	}
@@ -50,6 +49,7 @@ public class Subscription extends DomainEntity {
 	//Relationships
 	@Valid
 	@ManyToOne(optional = false)
+	@NotNull
 	public Course getCourse() {
 		return course;
 	}
@@ -57,6 +57,8 @@ public class Subscription extends DomainEntity {
 		this.course = course;
 	}
 	@ManyToOne(optional = false)
+	@Valid
+	@NotNull
 	public Student getStudent() {
 		return student;
 	}
