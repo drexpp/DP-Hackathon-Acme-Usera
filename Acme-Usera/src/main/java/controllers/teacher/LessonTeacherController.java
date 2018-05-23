@@ -83,7 +83,6 @@ public class LessonTeacherController extends AbstractController{
 		return result;
 	}
 	
-	
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int lessonId, final RedirectAttributes redir) {
 		ModelAndView result;

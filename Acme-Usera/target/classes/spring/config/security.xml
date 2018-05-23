@@ -123,6 +123,12 @@
 		<security:intercept-url pattern="/lesson/teacher/delete.do" access="hasRole('TEACHER')" /> 		
 		<security:intercept-url pattern="/lesson/display.do" access="hasAnyRole('TEACHER','STUDENT')" /> 
 		<security:intercept-url pattern="/lesson/student/read.do" access="hasRole('STUDENT')" /> 
+		<!-- Tutorial -->
+		<security:intercept-url pattern="/tutorial/student/create.do" access="hasRole('STUDENT')" /> 
+		<security:intercept-url pattern="/tutorial/student/edit.do" access="hasRole('STUDENT')" /> 
+		<security:intercept-url pattern="/tutorial/list.do" access="hasAnyRole('STUDENT','TEACHER')" /> 
+		<security:intercept-url pattern="/tutorial/teacher/cancel.do" access="hasRole('TEACHER')" /> 
+		
 		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 

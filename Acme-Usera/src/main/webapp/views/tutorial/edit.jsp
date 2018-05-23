@@ -18,36 +18,27 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 
-<form:form action="lesson/teacher/edit.do" modelAttribute="lessonForm">
+<form:form action="tutorial/student/edit.do" modelAttribute="tutorial">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:hidden path="course" />
-	
-<acme:textbox code="lesson.title" path="title"/>
-
-<acme:textarea code="lesson.description" path="description"/>
-
-<acme:textarea code="lesson.body" path="body"/>
-
-<acme:textbox code="lesson.pictureURL" path="photoURL"/>
-
-<acme:textbox code="lesson.videoURL" path="videoURL"/>
-
+	<form:hidden path="student"/>
+	<form:hidden path="teacher"/>
 	
 	
+<acme:textbox code="tutorial.start.time" path="startTime"/>
+	
 
-	<spring:message code="lesson.save" var="saveCourse"  />
-	<spring:message code="lesson.delete" var="deleteCourse"  />
-	<spring:message code="lesson.confirm.delete" var="confirmDeleteCourse"  />
-	<spring:message code="lesson.cancel" var="cancelCourse"  />
+	<spring:message code="tutorial.save" var="savetutorial"  />
+	<spring:message code="tutorial.confirm.delete" var="confirmDeletetutorial"  />
+	<spring:message code="tutorial.cancel" var="canceltutorial"  />
 	
 	<input type="submit" id="submit" name="save"
-		value="${saveCourse}" />&nbsp; 
+		value="${savetutorial}" />&nbsp; 
 				
 	<input type="button" name="cancel"
-		value="${cancelCourse}"
-		onclick="javascript: relativeRedir('course/display.do?courseId=${lessonForm.course.id}');" />
+		value="${canceltutorial}"
+		onclick="javascript: relativeRedir('course/list.do');" />
 	<br />
 
 

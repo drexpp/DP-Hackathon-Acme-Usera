@@ -102,12 +102,11 @@
 		</a>
 	</jstl:when>
 	
-	<jstl:when test="${isStudent and !subscribed.contains(row) and !row.isClosed}">
+	<jstl:when test="${isStudent and !subscribed.contains(row)}">
 	<a href="subscription/student/create.do?courseId=${row.id}"> <spring:message
 			code="course.subscribe" />
 		</a>
 	</jstl:when>
-	
 	
 	</jstl:choose>
 	</display:column>

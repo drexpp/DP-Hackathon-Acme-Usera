@@ -23,6 +23,7 @@ public class Tutorial extends DomainEntity {
 
 	
 	@Temporal(TemporalType.TIMESTAMP)
+	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getStartTime() {
 		return startTime;
