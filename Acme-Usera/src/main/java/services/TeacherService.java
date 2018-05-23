@@ -145,5 +145,11 @@ public class TeacherService {
 	public void flush() {
 		this.teacherRepository.flush();
 	}
+	
+	public Collection<Teacher> findTutorsByStudent (Integer studentId){
+		Collection<Teacher> res = this.teacherRepository.findTutorsByStudent(studentId);
+		return res;
+		
+	}
 
 }

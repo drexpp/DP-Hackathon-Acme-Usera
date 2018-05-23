@@ -86,23 +86,6 @@ public class LessonTeacherController extends AbstractController{
 		return result;
 	}
 	
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final LessonForm lessonForm, final BindingResult binding) {
-		ModelAndView result;
-		Lesson lesson = this.lessonService.reconstruct(lessonForm,binding);
-			try {
-				int id = lesson.getCourse().getId();
-				this.lessonService.delete(lesson);
-				result = new ModelAndView("redirect:/course/display.do?courseId="+ id);
-			} catch (final Throwable oops) {
-				String errorMessage = "lesson.commit.error";
-				result = this.createEditModelAndView(lessonForm, errorMessage);
-			}
-
-		return result;
-	}
-	
-	
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int lessonId, final RedirectAttributes redir) {
 		ModelAndView result;

@@ -198,4 +198,12 @@ a:visited{
 	
 }
 
+.menu-folders{
+ 	float:left !important;
+ }
+ 
+ .messages-list{
+ 	float:right !important;
+ }
+
 

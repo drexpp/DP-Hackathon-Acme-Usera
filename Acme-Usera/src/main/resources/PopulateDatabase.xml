@@ -1117,6 +1117,7 @@
 	<property name="teachers">
 		<list>
 			<ref bean="teacher2" />
+			<ref bean="teacher1" />
 		</list>
 	</property>
 	<property name="lessons">
@@ -1155,6 +1156,7 @@
 	<property name="creator" ref="teacher1"/>
 	<property name="teachers">
 		<list>
+		<ref bean="teacher1" />
 		</list>
 	</property>
 	<property name="lessons">
@@ -1185,6 +1187,7 @@
 	<property name="creator" ref="teacher2"/>
 	<property name="teachers">
 		<list>
+	<ref bean="teacher2" />
 		</list>
 	</property>
 	<property name="lessons">

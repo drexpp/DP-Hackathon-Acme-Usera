@@ -8,6 +8,20 @@
  * 
  */
  
+ .messages-table{
+ 	overflow: auto;
+ }
+ 
+ .menu-folders{
+ 	float:left !important;
+ 	
+ }
+ 
+ .messages-list{
+ 	float:right !important;
+ 	width: 86%;
+ }
+ 
  body {
  	background: linear-gradient(to right, #b8daff, #add8e6) !important;
  }
@@ -41,4 +55,8 @@ h4{
 .advert-img {
 	height: 300px;
 	width:	400px;
+}
+
+.titles{
+	color : black;
 }

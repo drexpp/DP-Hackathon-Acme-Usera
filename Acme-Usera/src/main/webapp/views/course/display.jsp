@@ -24,6 +24,8 @@
 
 
 <h2> <jstl:out value="${course.title}"> </jstl:out> </h2>
+<spring:message code="subscription.subscriptionType" var ="subscriptionTypeHeader"/> 
+<strong> <jstl:out value="${subscriptionTypeHeader}"></jstl:out>: ${subscriptionType} </strong>
 
 <jstl:if test="${course.isClosed == true }">
 <jstl:out value="${ course.isClosed}"></jstl:out>
@@ -65,7 +67,7 @@
 
 
 
-<display:table name="lessons" id="row" requestURI="course/display.do" pagesize="5" class="displaytag">
+<display:table name="lessons" id="row" requestURI="course/display.do?courseId=${course.id}" pagesize="5" class="displaytag">
 <spring:message code="course.title" var="titleHeader" />
 	<display:column property="title" title="${titleHeader}" sortable="true" />
 	<spring:message code="course.description" var="description" />
@@ -94,19 +96,44 @@
 <a href="lesson/teacher/edit.do?lessonId=${row.id}"><spring:message code="lesson.edit"/> </a>	
 </display:column>
 </security:authorize>
-
-
 </display:table>
 
 <security:authorize access="hasRole('TEACHER')">
 <jstl:if test="${principal.coursesJoined.contains(course) }">
-<spring:message code="lesson.create" var="createLesson" />
+
 <a href="lesson/teacher/create.do?courseId=${course.id}"> 
 	<jstl:out value="${createLesson}"></jstl:out>	</a>
 </jstl:if>
 </security:authorize>
 <br/>
 <br/>
+
+
+<!-- Tabla de profesores para solicitar una tutoría -->
+<security:authorize access="hasRole('STUDENT')">
+<jstl:if test="${subscriptionType.equals('PREMIUM') }">
+
+<spring:message code="course.tutors" var="teachers"/> 
+<h3> <jstl:out value="${teachers}"> </jstl:out> </h3>
+<display:table name="course.teachers" id="tutor" requestURI="course/display.do?courseId=${course.id}" pagesize="5" class="displaytag">
+<!-- Name -->
+<spring:message code ="teacher.name" var="teacherName"/>
+<display:column property="name" title="${teacherName}" sortable="true" />
+<!-- Surname -->
+<spring:message code ="teacher.surname" var="teacherSurname"/>
+<display:column property="surname" title="${teacherSurname}" sortable="true" />
+<!-- Create Tutorial -->
+<display:column>    
+<spring:message code="tutorial.create" var="createTutorial" />
+<a href="tutorial/student/create.do?teacherId=${tutor.id}"> 
+	<jstl:out value="${createTutorial}"></jstl:out>	</a>
+</display:column>
+</display:table>
+
+
+</jstl:if>
+</security:authorize>
+
 <jstl:if test="${advert != null}">
 	<spring:message code ="course.imageBannerNotFound" var = "imageBannerNotFound"></spring:message>
 	<a href="${advert.targetURL}">

@@ -21,6 +21,7 @@ import domain.Teacher;
 import services.ActorService;
 import services.AdvertisementService;
 import services.CourseService;
+import services.StudentService;
 
 @Controller
 @RequestMapping("/course")
@@ -34,6 +35,9 @@ public class CourseController extends AbstractController{
 		
 		@Autowired
 		private ActorService	actorService;
+		
+		@Autowired
+		private StudentService	studentService;
 	
 		@Autowired
 		private AdvertisementService advertisementService;
@@ -89,15 +93,21 @@ public class CourseController extends AbstractController{
 					if(principal instanceof Teacher){
 						Teacher principalT = (Teacher) principal;
 						Assert.isTrue(principalT.getCoursesJoined().contains(course));
+						result.addObject("advert", advertChoosen);
 			}
 			if (principal instanceof Student) {
 				Collection<Course> subscribed = this.courseService.selectCoursesSubscriptedByUser(principal.getId()); 
 				Assert.isTrue(subscribed.contains(course));
+				String subscriptionType = this.studentService.checkSubscription(course);
+				result.addObject("subscriptionType", subscriptionType);
+				if(subscriptionType.equals("FREE")){
+					result.addObject("advert", advertChoosen);
+				}
+				
 			} 
 					result.addObject("lessons", lessons);
 					result.addObject("course", course);
 					result.addObject("principal", principal);
-					result.addObject("advert", advertChoosen);
 				
 					}catch (Throwable oops){
 						result = new ModelAndView("redirect:/course/list.do");	
