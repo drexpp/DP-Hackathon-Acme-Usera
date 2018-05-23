@@ -32,7 +32,7 @@
 	
 	<jstl:if test="${not empty messages}">
 	<display:table name="messages" id="row"
-		requestURI="messages/actor/list.do" pagesize="5"
+		requestURI="messages/actor/list.do"
 		class="displaytag">
 				<spring:message code="folder.message.subject" var="subject"/>
 				<display:column title="subject">
@@ -42,10 +42,11 @@
 				<display:column title="body">
 					<jstl:out value = "${row.body}"/>
 				</display:column>
+				
 				<spring:message code="folder.message.moment" var="moment"/>
-				<display:column title="moment">
-					<jstl:out value = "${row.moment}"/>
-				</display:column>
+				<spring:message code="folder.moment.format" var="formatMoment" />
+ 				<display:column property="moment" title="${moment}" format = "${formatMoment}"/>
+ 				
 				<spring:message code="folder.message.sender" var="sender"/>
 				<display:column title="sender">
 					<jstl:out value = "${row.sender.userAccount.username}"/>
@@ -72,7 +73,7 @@
 <spring:message code="datatables.moment.format" var="tableFormatMoment"/>
 <script>
 $(document).ready( function () {	
-	$.fn.dataTable.moment('${tableFormatMoment}');
+	
 	
     $('#row').dataTable( {
     	"language": {
