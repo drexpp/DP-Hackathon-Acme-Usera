@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import services.CategoryService;
 import services.CourseService;
 import services.LessonService;
 import services.TeacherService;
@@ -17,8 +16,6 @@ import services.TeacherService;
 import controllers.AbstractController;
 import domain.Course;
 import domain.Lesson;
-import domain.Subscription;
-import domain.Teacher;
 import forms.LessonForm;
 
 @Controller

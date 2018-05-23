@@ -77,7 +77,9 @@
 			access="isAuthenticated()" />
 			
 			
-			
+		<!-- Customisation -->
+		<security:intercept-url pattern="/customisation/admin/display.do" access="hasRole('ADMIN')"/>
+		<security:intercept-url pattern="/customisation/admin/edit.do" access="hasRole('ADMIN')"/>
 			
 		
 		<!-- Curriculum -->	

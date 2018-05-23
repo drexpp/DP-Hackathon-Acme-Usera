@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.ActorService;
 import services.FolderService;
 import controllers.AbstractController;
-import domain.Actor;
 import domain.Folder;
 import domain.MailMessage;
 
@@ -27,8 +25,6 @@ public class FolderActorController extends AbstractController {
 	@Autowired
 	private FolderService	folderService;
 
-	@Autowired
-	private ActorService	actorService;
 
 
 	// Constructors
@@ -45,22 +41,38 @@ public class FolderActorController extends AbstractController {
 		final ArrayList<Folder> folders;
 		Folder currentFolder;
 		Collection<MailMessage> messages;
+		Integer currentFolderId;
 		
 
 		folders = (ArrayList<Folder>) this.folderService.findAllByPrincipal();
 		currentFolder =   this.folderService.findOne(folders.get(0).getId());
 		messages = currentFolder.getMessages();
 		
+		currentFolderId = findFolderId(currentFolder);
 		
 		result = new ModelAndView("folder/list");
 		result.addObject("folders", folders);
 		result.addObject("currentFolder", currentFolder);
+		result.addObject("currentFolderId", currentFolderId);
 		result.addObject("messages", messages);
 		
 
 		return result;
 	}
 	
+	protected Integer findFolderId(Folder currentFolder) {
+		Integer result;
+		
+		if(currentFolder.getName().contains("in"))
+			result = 0;
+		else if(currentFolder.getName().contains("out"))
+			result = 1;
+		else
+			result = 2;
+		
+		return result;
+	}
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET, params = {
 			"folderId"
 		})
@@ -69,16 +81,19 @@ public class FolderActorController extends AbstractController {
 			Folder currentFolder;
 			Collection<MailMessage> messages;
 			final Collection<Folder> folders;
+			Integer currentFolderId;
 
 			try{
 			currentFolder = this.folderService.findOne(folderId);
 			messages = currentFolder.getMessages();
 			folders = this.folderService.findAllByPrincipal();
 
-
+			currentFolderId = findFolderId(currentFolder);
+			
 			result = new ModelAndView("folder/list");
 			result.addObject("folders", folders);
 			result.addObject("currentFolder", currentFolder);
+			result.addObject("currentFolderId", currentFolderId);
 			result.addObject("messages", messages);
 
 			} catch (Throwable oops){
@@ -87,50 +102,4 @@ public class FolderActorController extends AbstractController {
 			return result;
 
 		}
-
-	//Ancillary methods
-	protected ModelAndView createEditModelAndView(final Folder folder) {
-		ModelAndView result;
-
-		result = this.createEditModelAndView(folder, null);
-
-		return result;
-	}
-
-	protected ModelAndView createEditModelAndView(final Folder folder, final String messageCode) {
-		ModelAndView result;
-		Collection<MailMessage> messages;
-		String name;
-		Actor principal;
-		boolean permission = false;
-
-		principal = this.actorService.findByPrincipal();
-
-		if (folder.getId() == 0)
-			permission = true;
-		else
-			for (final Folder fol : principal.getFolders())
-				if (fol.getId() == folder.getId()) {
-					permission = true;
-					break;
-				}
-
-		messages = folder.getMessages();
-
-		if (folder.getName() == null)
-			name = null;
-		else
-			name = folder.getName();
-
-		result = new ModelAndView("folder/edit");
-		result.addObject("folder", folder);
-		result.addObject("name", name);
-		result.addObject("messages", messages);
-		result.addObject("permission", permission);
-
-		result.addObject("message", messageCode);
-
-		return result;
-
-	}
 }

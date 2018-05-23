@@ -8,11 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import services.CurriculumService;
 import services.LessonService;
 
 import controllers.AbstractController;
-import domain.Curriculum;
 import domain.Lesson;
 
 @Controller

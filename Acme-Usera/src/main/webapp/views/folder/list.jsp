@@ -11,35 +11,32 @@
 <div class="messages-table">
 	<div class="menu-folders">
 	<h3 class="titles"> <spring:message code="folder.listFolders" /></h3>
-	<display:table class="displaytag" 
-		name="folders" requestURI="folder/actor/list.do" id="folder">
-		
-		<spring:message code="folder.folder.name" var="name" />
-		<display:column >
-			<a href="folder/actor/list.do?folderId=${folder.id}"><jstl:out value = "${folder.name}"/></a>
-		</display:column>
-	
-	</display:table>
+	<table class="displayStyle" >
+		<jstl:forEach items="${folders}" var="folder" varStatus="loop">
+		<tr>
+			<td>
+				<a href="folder/actor/list.do?folderId=${folder.id}"><spring:message code="folder${loop.index}"/></a>
+			</td>
+		</tr>
+		</jstl:forEach>
+	</table>
 	</div>
 	
 	<%-- La lista de mensajes de la carpeta seleccionada: --%>
 	
 	<div class="messages-list">
-	<h3 class="titles"> <spring:message code="folder.messages" /> ${currentFolder.name}</h3>
+	<h3 class="titles"> <spring:message code="folder.messages" /> <spring:message code="folder${currentFolderId}"></spring:message></h3>
 	
-	
-	
-	
-	<jstl:if test="${not empty messages}">
+
 	<display:table name="messages" id="row"
 		requestURI="messages/actor/list.do"
 		class="displaytag">
 				<spring:message code="folder.message.subject" var="subject"/>
-				<display:column title="subject">
+				<display:column title="${subject}">
 					<jstl:out value = "${row.subject}"/>
 				</display:column>
 				<spring:message code="folder.message.body" var="body"/>
-				<display:column title="body">
+				<display:column title="${body}">
 					<jstl:out value = "${row.body}"/>
 				</display:column>
 				
@@ -48,7 +45,7 @@
  				<display:column property="moment" title="${moment}" format = "${formatMoment}"/>
  				
 				<spring:message code="folder.message.sender" var="sender"/>
-				<display:column title="sender">
+				<display:column title="${sender}">
 					<jstl:out value = "${row.sender.userAccount.username}"/>
 				</display:column>
 				<spring:message code="folder.editFolder" var="edit"/>
@@ -57,7 +54,8 @@
 					<a href="message/actor/edit.do?messageId=${row.id}"><jstl:out value="${edit}"/></a>
 				</display:column>
 	</display:table>
-	</jstl:if>
+	<br/>
+	<br/>
 	
 	<a href="message/actor/create.do"><spring:message code="folder.writeMessage" /></a>
 	<br/>
