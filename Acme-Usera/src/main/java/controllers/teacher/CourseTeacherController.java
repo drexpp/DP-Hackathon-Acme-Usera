@@ -89,6 +89,7 @@ public class CourseTeacherController extends AbstractController{
 				try {
 					course = this.courseService.findOne(courseId);
 					Assert.isTrue(course.getCreator().equals(principal));
+					Assert.isTrue(!course.getIsClosed());
 					courseForm = this.courseService.reconstructForm(course);
 					result = this.createEditModelAndView(courseForm);
 					

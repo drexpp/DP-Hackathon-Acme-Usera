@@ -22,7 +22,9 @@
 
 
 <jstl:if test="${course.isClosed == true }">
-<img src="images/cancel.png" width="60" height="auto"/>
+		<spring:message code="course.isClose"
+		var="isCloseHeader" />
+<img src="images/cancel.png" width="60" height="auto" title="${isCloseHeader}"/>
 </jstl:if>
 
 <h2> <jstl:out value="${course.title}"> </jstl:out> </h2>
@@ -83,24 +85,31 @@
 	<display:column>
 	<jstl:choose>
 	<jstl:when test="${not principal.lessons.contains(row)}">
-	<a href="lesson/student/read.do?lessonId=${row.id}"> <img class="eyeImg" src="images/eye.png" width="30" height="auto"/>
+			<spring:message code="lesson.read"
+		var="readHeader" />
+	<a href="lesson/student/read.do?lessonId=${row.id}"> <img class="eyeImg" src="images/eye.png" width="30" height="auto" title="${readHeader}"/>
 		</a>	
 	</jstl:when>
 <jstl:otherwise>
-<img class="eyeImg" src="images/notEye.png" width="30" height="auto"/>
+		<spring:message code="lesson.readed"
+		var="readedHeader" />
+<img class="eyeImg" src="images/notEye.png" width="30" height="auto" title="${readedHeader}"/>
 </jstl:otherwise>	
 	</jstl:choose>
 	</display:column>
 </security:authorize>
+<!-- Edit Lesson -->
 <security:authorize access="hasRole('TEACHER')">
 <display:column>
+<jstl:if test="${principal.coursesJoined.contains(course) and !course.isClosed }">
 <a href="lesson/teacher/edit.do?lessonId=${row.id}"><spring:message code="lesson.edit"/> </a>	
+</jstl:if>
 </display:column>
 </security:authorize>
 </display:table>
-
+<!-- Create Lesson -->
 <security:authorize access="hasRole('TEACHER')">
-<jstl:if test="${principal.coursesJoined.contains(course) }">
+<jstl:if test="${principal.coursesJoined.contains(course) and !course.isClosed }">
 <spring:message code="lesson.create" var="createLesson"/> 
 <a href="lesson/teacher/create.do?courseId=${course.id}"> 
 	<jstl:out value="${createLesson}"></jstl:out>	</a>

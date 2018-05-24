@@ -38,7 +38,9 @@
 	<spring:message code="course.pictureError" var="pictureError" />
 	<display:column title="${pictureURL}"
 		sortable="false" >
+		<jstl:if test="${row.photoURL != '' }">
 		<img src="${row.photoURL}" alt="${pictureError}"  width="200" height="200"> 
+		</jstl:if>
 	</display:column>
 	
 	<!-- isClose -->
@@ -48,24 +50,26 @@
 	<security:authorize access="hasRole('TEACHER')" var ="isTeacher"/>
 	<jstl:choose>
 	<jstl:when test="${isTeacher}">
-	<jstl:if test="${principal.coursesCreated.contains(row)}">
 		<jstl:choose>
-		<jstl:when test="${row.isClosed == false}">
+		<jstl:when test="${row.isClosed == false and principal.coursesJoined.contains(row)}">
 			<a href="course/user/close.do?courseId=${row.id}"> <spring:message
 			code="course.makeClose" />
 		</a>
 		</jstl:when>
+		
+		<jstl:when test="${row.isClosed == false and !principal.coursesJoined.contains(row)}">
+		<spring:message code="course.isOpen"/>
+		</jstl:when>
 		<jstl:otherwise>
-		<img class="alarmImg" src="images/cancel.png" width="30" height="auto"/>
+		<img class="alarmImg" src="images/cancel.png" title="${isCloseHeader}" width="30" height="auto"/>
 		</jstl:otherwise>
 		 </jstl:choose>
-	</jstl:if>
 	</jstl:when>
 	
 	<jstl:otherwise>
 	<jstl:choose>
 			<jstl:when test="${row.isClosed == true}">
-			<img class="alarmImg" src="images/cancel.png" width="30" height="auto"/>
+			<img class="alarmImg" src="images/cancel.png" title="${isCloseHeader}" width="30" height="auto"/>
 		</jstl:when>
 		
 		<jstl:otherwise>
@@ -117,7 +121,7 @@
 <!-- Edit -->
 <security:authorize access="hasRole('TEACHER')">
 	<display:column>
-	<jstl:if test="${principal.coursesCreated.contains(row)}">
+	<jstl:if test="${principal.coursesCreated.contains(row)and !row.isClosed}">
 		<a href="course/teacher/edit.do?courseId=${row.id}"> <spring:message
 			code="course.edit" />
 		</a>

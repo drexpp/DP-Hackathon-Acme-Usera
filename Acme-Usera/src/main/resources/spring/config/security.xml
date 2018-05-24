@@ -54,7 +54,8 @@
 		<security:intercept-url pattern="/course/teacher/edit.do" access="hasRole('TEACHER')" />
 		<security:intercept-url pattern="/course/admin/delete.do" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/course/teacher/create.do" access="hasRole('TEACHER')" />
-		<security:intercept-url pattern="/course/display.do" access="hasAnyRole('TEACHER','STUDENT')" />  
+		<security:intercept-url pattern="/course/display.do" access="hasAnyRole('TEACHER','STUDENT')" />
+		<security:intercept-url pattern="/course/myCourses.do" access="hasAnyRole('TEACHER','STUDENT')" />   
 
 		<security:intercept-url pattern="/category/list.do"
 			access="permitAll" />

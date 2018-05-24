@@ -2,6 +2,7 @@ package controllers.teacher;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,7 @@ import services.TeacherService;
 import controllers.AbstractController;
 import domain.Course;
 import domain.Lesson;
+import domain.Teacher;
 import forms.LessonForm;
 
 @Controller
@@ -48,16 +50,20 @@ public class LessonTeacherController extends AbstractController{
 	public ModelAndView create(@RequestParam Integer courseId, RedirectAttributes redir) {
 		ModelAndView result;
 		LessonForm lesson = new LessonForm();
+		Teacher principal = this.teacherService.findByPrincipal();
 		try{
 			Course course = this.courseService.findOne(courseId);
+			Assert.isTrue(!course.getIsClosed());
+			Assert.isTrue(principal.getCoursesJoined().contains(course));
 			lesson.setCourse(course);
+			result = this.createEditModelAndView(lesson);
 		} catch(Throwable oops){
 			result = new ModelAndView("redirect:/course/list.do");	
 			redir.addFlashAttribute("message", "course.permision"); 
 		}
 		
 
-		result = this.createEditModelAndView(lesson);
+	
 
 		return result;
 	}
@@ -88,9 +94,11 @@ public class LessonTeacherController extends AbstractController{
 		ModelAndView result;
 		Lesson lesson;
 		LessonForm lessonForm;
-		this.teacherService.findByPrincipal();
+		Teacher principal = this.teacherService.findByPrincipal();
 		try {
 			lesson = this.lessonService.findOne(lessonId);
+			Assert.isTrue(!lesson.getCourse().getIsClosed());
+			Assert.isTrue(principal.getCoursesJoined().contains(lesson.getCourse()));			
 			lessonForm = this.lessonService.reconstructForm(lesson);
 			result = this.createEditModelAndView(lessonForm);
 			

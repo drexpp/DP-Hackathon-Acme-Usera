@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
@@ -49,6 +50,7 @@ public class CreditCard {
 
 	@NotBlank
 	@CreditCardNumber
+	@Pattern(regexp = "^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14})$")
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
 	public String getNumber() {
 		return this.number;

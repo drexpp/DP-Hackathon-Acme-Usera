@@ -23,7 +23,15 @@
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
 		
 		<security:authorize access="permitAll">
-			<li><a href="course/list.do"><spring:message code="master.page.courses" /></a>
+			<li><a class="fNiv" href="course/list.do"><spring:message code="master.page.courses" /></a>
+			<security:authorize access="hasAnyRole('TEACHER','STUDENT')"> 
+			<ul>
+					<li class="arrow"></li>
+					<li><a href="course/myCourses.do"><spring:message code="master.page.my.courses" /></a></li>
+
+						
+				</ul>
+			</security:authorize>
 			</li>
 		</security:authorize>
 		

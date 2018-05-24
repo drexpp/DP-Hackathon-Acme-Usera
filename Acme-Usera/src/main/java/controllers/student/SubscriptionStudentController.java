@@ -1,8 +1,11 @@
 package controllers.student;
 
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -53,16 +56,18 @@ public class SubscriptionStudentController extends AbstractController{
 	public ModelAndView create(@RequestParam Integer courseId, RedirectAttributes redir) {
 		ModelAndView result;
 		Subscription subscription = this.subscriptionService.create();
+		Student principal = this.studentService.findByPrincipal();
 		try{
 			Course course = this.courseService.findOne(courseId);
+			Assert.isTrue(!course.getIsClosed());
+			Collection<Course> subscribed = this.courseService.selectCoursesSubscriptedByUser(principal.getId());
+			Assert.isTrue(!subscribed.contains(course));
 			subscription.setCourse(course);
+			result = this.createEditModelAndView(subscription);
 		} catch(Throwable oops){
 			result = new ModelAndView("redirect:/course/list.do");	
 			redir.addFlashAttribute("message", "course.permision"); 
 		}
-		
-
-		result = this.createEditModelAndView(subscription);
 
 		return result;
 	}

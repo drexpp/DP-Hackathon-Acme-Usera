@@ -1,8 +1,10 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,6 +71,29 @@ public class CourseController extends AbstractController{
 				Collection<Course> subscribed = this.courseService.selectCoursesSubscriptedByUser(principal.getId());
 				result.addObject("subscribed",subscribed);
 			}
+
+			return result;
+
+		}
+		
+		@RequestMapping(value = "/myCourses", method = RequestMethod.GET)
+		public ModelAndView MyCourses() {
+			ModelAndView result = new ModelAndView();
+			Collection<Course> courses = new ArrayList<Course>();
+			Actor principal = this.actorService.findByPrincipal();
+			if (principal instanceof Student){
+				Student student = (Student) principal;
+				courses = this.courseService.selectCoursesSubscriptedByUser(student.getId());
+				
+				Collection<Course> subscribed = this.courseService.selectCoursesSubscriptedByUser(principal.getId());
+				result.addObject("subscribed",subscribed);
+			} else if (principal instanceof Teacher){
+				Teacher teacher = (Teacher) principal;
+				courses = teacher.getCoursesJoined();
+			}
+			result = new ModelAndView("course/list");
+			result.addObject("courses", courses);
+			result.addObject("principal",principal);
 
 			return result;
 

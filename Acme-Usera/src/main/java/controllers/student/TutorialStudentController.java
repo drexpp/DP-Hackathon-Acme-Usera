@@ -59,13 +59,14 @@ public class TutorialStudentController extends AbstractController{
 		try{
 			Teacher teacher = this.teacherService.findOne(teacherId);
 			tutorial.setTeacher(teacher);
+			result = this.createEditModelAndView(tutorial);
 		} catch(Throwable oops){
 			result = new ModelAndView("redirect:/course/list.do");	
 			redir.addFlashAttribute("message", "course.permision"); 
 		}
 		
 
-		result = this.createEditModelAndView(tutorial);
+
 
 		return result;
 	}

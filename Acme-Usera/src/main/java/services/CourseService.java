@@ -185,7 +185,6 @@ public class CourseService {
 
 	public Course findOne(final int CourseId) {
 
-
 		Course result = this.courseRepository.findOne(CourseId);
 		Assert.notNull(result);
 
@@ -242,7 +241,9 @@ public class CourseService {
 	}
 
 	public Course reconstruct(CourseForm courseForm, BindingResult binding) {
+		this.validator.validate(courseForm, binding);
 		Course course = new Course();
+		if (!binding.hasErrors()){
 		if(courseForm.getId()== 0){
 		course = this.create();
 		}else{
@@ -252,8 +253,7 @@ public class CourseService {
 		course.setDescription(courseForm.getDescription());
 		course.setPhotoURL(courseForm.getPhotoURL());
 		course.setCategory(courseForm.getCategory());
-		this.validator.validate(courseForm, binding);
-		
+		} 
 		return course;
 	}
 
