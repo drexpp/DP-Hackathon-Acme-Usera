@@ -1,18 +1,22 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -31,8 +35,14 @@ public class Actor extends DomainEntity {
 	private String		address;
 	private Date		dateBirth;
 	private UserAccount	userAccount;
-	private ContactInfo	contactInfo;
+	private Collection<MailMessage>			sentMessages;
+	private Collection<MailMessage>			receivedMessages;
+	private Collection<Folder>			folders;
+	private Collection<Answer>	answers;
+	
 
+	
+	
 	@Past
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -69,7 +79,7 @@ public class Actor extends DomainEntity {
 		this.email = emails;
 	}
 
-	
+	@Pattern(regexp = "\\+?([0-9]+)?")	
 	public String getPhone() {
 		return this.phone;
 	}
@@ -85,6 +95,35 @@ public class Actor extends DomainEntity {
 	public void setAddress(final String addresses) {
 		this.address = addresses;
 	}
+	
+	@ElementCollection
+	@OneToMany(mappedBy = "sender")
+	public Collection<MailMessage> getSentMessages() {
+		return sentMessages;
+	}
+	public void setSentMessages(Collection<MailMessage> sentMessages) {
+		this.sentMessages = sentMessages;
+	}
+
+	@ElementCollection
+	@OneToMany(mappedBy = "recipient")
+	public Collection<MailMessage> getReceivedMessages() {
+		return receivedMessages;
+	}
+	public void setReceivedMessages(Collection<MailMessage> receivedMessages) {
+		this.receivedMessages = receivedMessages;
+	}
+
+	@ElementCollection
+	@OneToMany
+	public Collection<Folder> getFolders() {
+		return folders;
+	}
+
+	public void setFolders(Collection<Folder> folders) {
+		this.folders = folders;
+	}
+
 
 	@NotNull
 	@OneToOne(optional = false, cascade = CascadeType.ALL)
@@ -97,15 +136,15 @@ public class Actor extends DomainEntity {
 		this.userAccount = userAccount;
 	}
 	
-	@NotNull
-	@Valid
-	@OneToOne(optional = false)
-	public ContactInfo getContactInfo() {
-		return contactInfo;
+	@ElementCollection
+	@OneToMany
+	public Collection<Answer> getAnswers() {
+		return answers;
 	}
 
-	public void setContactInfo(ContactInfo contactInfo) {
-		this.contactInfo = contactInfo;
+	public void setAnswers(Collection<Answer> answers) {
+		this.answers = answers;
 	}
+
 	
 }

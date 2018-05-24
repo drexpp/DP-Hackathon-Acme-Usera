@@ -1,22 +1,25 @@
 package domain;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.SafeHtml;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class ContactInfo {
+public class ContactInfo extends DomainEntity {
 
 	private String		skype;
-	private String		comment;
+	private List<String> comments;
 	private String		contactPhone;
-	private Collection<String> links;
+	private List<String> links;
+	
 	
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
 	public String getSkype() {
@@ -26,12 +29,13 @@ public class ContactInfo {
 		this.skype = skype;
 	}
 	
-	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
-	public String getComment() {
-		return comment;
+	@ElementCollection
+	@NotNull
+	public List<String> getComments() {
+		return comments;
 	}
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setComments(List<String> comments) {
+		this.comments = comments;
 	}
 	
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
@@ -43,14 +47,14 @@ public class ContactInfo {
 		this.contactPhone = contactPhone;
 	}
 	
-	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
-	public Collection<String> getLinks() {
+	@ElementCollection
+	@NotNull
+	public List<String> getLinks() {
 		return links;
 	}
-	public void setLinks(Collection<String> links) {
+	public void setLinks(List<String> links) {
 		this.links = links;
 	}
-	
 	
 	
 	

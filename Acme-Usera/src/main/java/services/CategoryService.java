@@ -1,0 +1,247 @@
+
+package services;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
+
+import repositories.CategoryRepository;
+import domain.Admin;
+import domain.Category;
+import domain.Course;
+
+@Service
+@Transactional
+public class CategoryService {
+
+	// Managed Repository
+	@Autowired
+	private CategoryRepository		categoryRepository;
+
+	// Supporting services
+
+	@Autowired
+	private AdminService	adminService;
+
+
+	// Constructors
+
+	public CategoryService() {
+		super();
+	}
+
+	// Simple CRUD methods
+
+	public Category create() {
+		Category result;
+		Admin principal;
+
+		principal = this.adminService.findByPrincipal();
+		Assert.notNull(principal);
+
+		result = new Category();
+		Assert.notNull(result);
+		result.setCourses(new ArrayList<Course>());
+		result.setChildCategories(new ArrayList<Category>());
+
+		return result;
+
+	}
+
+	public Collection<Category> findAll() {
+		Collection<Category> result;
+		
+		result = this.categoryRepository.findAll();
+
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	public Category findOne(final int categoryId) {
+		Category result;
+
+		result = this.categoryRepository.findOne(categoryId);
+
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	public Category findRootCategory() {
+		Category result;
+
+		result = this.categoryRepository.findRootCategory();
+
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	public Category save(final Category category) {
+		Category result;
+		Admin principal;
+		Collection<Category> parentCategories;
+		Collection<Category> childCategories;
+		Category root;
+
+		Assert.notNull(category);
+
+		principal = this.adminService.findByPrincipal();
+
+		Assert.notNull(principal); // Checks if the principal is an administrator
+
+		root = this.findRootCategory();
+
+		Assert.isTrue(category.getId() != root.getId());
+
+		result = this.categoryRepository.save(category);
+		Assert.notNull(result);
+
+		if (category.getId() != 0) {
+			Collection<Course> courses;
+			courses = result.getCourses();
+			for (final Course course : courses)
+				course.setCategory(result);
+		}
+
+		parentCategories = category.getParentCategories();
+		for (final Category c : parentCategories) {
+			childCategories = new ArrayList<Category>(c.getChildCategories());
+			if (category.getId() != 0)
+				childCategories.remove(category);
+			childCategories.add(result);
+			c.setChildCategories(childCategories);
+		}
+
+		childCategories = category.getChildCategories();
+		for (final Category c : childCategories) {
+			parentCategories = new ArrayList<Category>(c.getParentCategories());
+			if (category.getId() != 0)
+				parentCategories.remove(category);
+			parentCategories.add(result);
+			c.setParentCategories(parentCategories);
+		}
+
+		return result;
+
+	}
+
+	// An actor who is authenticated as an administrator must be able to delete a category
+	public void delete(final Category category) {
+		Admin principal;
+
+		Collection<Category> childCategories;
+		final Collection<Category> parentCategories;
+		final Collection<Course> courses;
+		Category root;
+
+		Assert.notNull(category);
+		Assert.isTrue(category.getId() != 0);
+
+		principal = this.adminService.findByPrincipal();
+
+		Assert.notNull(principal); // Checks if the principal is an administrator
+
+		root = this.findRootCategory();
+
+		Assert.isTrue(category.getId() != root.getId());
+
+		childCategories = category.getChildCategories();
+		for (final Category child : childCategories) {
+			Collection<Category> parents;
+			parents = new ArrayList<Category>(child.getParentCategories());
+			parents.remove(category);
+			if (parents.isEmpty())
+				parents.add(this.findRootCategory());
+			child.setParentCategories(parents);
+		}
+
+		parentCategories = category.getParentCategories();
+		for (final Category parent : parentCategories) {
+			Collection<Category> children;
+			children = new ArrayList<Category>(parent.getParentCategories());
+			children.remove(category);
+			parent.setParentCategories(children);
+		}
+
+		courses = category.getCourses();
+		for (final Course course : courses)
+			course.setCategory(root);
+
+		this.categoryRepository.delete(category);
+
+	}
+
+	// Other business methods
+	public Collection<Category> findChildByParent(final int categoryId) {
+		Collection<Category> result;
+		result = this.categoryRepository.findChildCategoriesByParent(categoryId);
+		Assert.notNull(result);
+		return result;
+	}
+
+	public Collection<Category> findAllDescendants(final Category ancestor) {
+		final Collection<Category> result = new ArrayList<Category>();
+		if (ancestor.getId() != 0) {
+			Collection<Category> children;
+			children = ancestor.getChildCategories();
+			for (final Category child : children)
+				if (child.getChildCategories().isEmpty())
+					result.add(child);
+				else {
+					result.add(child);
+					Collection<Category> grandChildren = new ArrayList<Category>();
+					grandChildren = this.findAllDescendants(child);
+					result.addAll(grandChildren);
+				}
+		}
+		return result;
+
+	}
+
+	public Collection<Category> findAllAncestors(final Category descendant) {
+		final Collection<Category> result = new ArrayList<Category>();
+		if (descendant.getId() != 0) {
+			Collection<Category> ancestors;
+			ancestors = descendant.getParentCategories();
+			for (final Category parent : ancestors)
+				if (parent.getParentCategories().isEmpty())
+					result.add(parent);
+				else {
+					result.add(parent);
+					Collection<Category> grandParents = new ArrayList<Category>();
+					grandParents = this.findAllAncestors(parent);
+					result.addAll(grandParents);
+				}
+		}
+		return result;
+
+	}
+
+	public Collection<Category> findAllPossibleParrentCategories(final Category category) {
+		Admin principal;
+
+		Collection<Category> allCategories;
+		Collection<Category> descendants;
+
+		principal = this.adminService.findByPrincipal();
+		Assert.notNull(principal);
+
+		allCategories = new ArrayList<Category>(this.findAll());
+
+		if (category.getId() != 0) {
+			descendants = this.findAllDescendants(category);
+			allCategories.remove(category);
+			allCategories.removeAll(descendants);
+		}
+
+		return allCategories;
+
+	}
+
+}

@@ -19,13 +19,28 @@
 </div>
 
 <div>
-	<ul id="jMenu">
+	<ul id="jMenu">	
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
+		
+		<security:authorize access="permitAll">
+			<li><a href="course/list.do"><spring:message code="master.page.courses" /></a>
+			</li>
+		</security:authorize>
+		
+		<security:authorize access="hasAnyRole('STUDENT', 'SPONSOR', 'TEACHER', 'ADMIN')">
+			<li><a href="folder/actor/list.do"><spring:message code="master.page.mail" /></a>
+			</li>
+		</security:authorize>
+		
 		<security:authorize access="hasRole('ADMIN')">
 			<li><a class="fNiv"><spring:message	code="master.page.administrator" /></a>
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="dashboard/admin/display.do"><spring:message code="master.page.administrator.dashboard" /></a></li>
+					<li><a href="customisation/admin/display.do"><spring:message
+								code="master.page.administrator.customisation" /></a></li>
+					<li><a href="category/admin/list.do"><spring:message
+								code="master.page.administrator.categories" /></a></li>
 						
 				</ul>
 			</li>
@@ -41,11 +56,35 @@
 			</li>
 		</security:authorize>
 		
+		<security:authorize access="hasRole('TEACHER')">
+			<li><a class="fNiv"><spring:message
+						code="master.page.teacher" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="curriculum/teacher/search.do"><spring:message
+								code="master.page.teacher.curriculum" /></a></li>
+
+				</ul></li>
+		</security:authorize>
+		
+		
+		<security:authorize access="hasRole('SPONSOR')">
+			<li><a class="fNiv"><spring:message
+						code="master.page.sponsor" /></a>
+				<ul>
+					<li class="arrow"></li>
+						<li><a href="advertisement/sponsor/create.do"><spring:message
+									code="master.page.sponsor.edit" /></a></li>
+						<li><a href="advertisement/sponsor/list.do"><spring:message
+									code="master.page.sponsor.list" /></a></li>
+				</ul>
+			</li>
+		</security:authorize>
+		
 		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 		</security:authorize>
-		
 		
 		
 		<security:authorize access="isAuthenticated()">
@@ -56,6 +95,7 @@
 				</a>
 				<ul>
 					<li class="arrow"></li>
+					<li><a href="student/display.do"><spring:message code="master.page.personalProfile" /> </a></li>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>
 			</li>

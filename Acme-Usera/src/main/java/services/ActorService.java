@@ -23,7 +23,13 @@ public class ActorService {
 
 	// Supporting services
 	@Autowired
-	private UserService		userService;
+	private StudentService		studentService;
+	
+	@Autowired
+	private TeacherService		teacherService;
+	
+	@Autowired
+	private SponsorService		sponsorService;
 
 	@Autowired
 	private AdminService	adminService;
@@ -35,7 +41,7 @@ public class ActorService {
 		super();
 	}
 
-	// Simple CRUD methods
+	// Simple methods
 
 	//findOne realizado de esta manera debido a que en ActorServiceTest daba null el findOne 
 	//para las clases extendidas de Actor 
@@ -43,9 +49,13 @@ public class ActorService {
 		Actor result;
 		result = this.actorRepository.findOne(actorId);
 		if (result == null) {
-			result = this.userService.findOne(actorId);
-			if (result == null)
-				result = this.adminService.findOne(actorId);
+			result = this.teacherService.findOne(actorId);
+			if (result == null) 
+				result = this.studentService.findOne(actorId);
+				if (result == null) 
+					result = this.sponsorService.findOne(actorId);
+					if (result == null)
+						result = this.adminService.findOne(actorId);
 		}
 		return result;
 	}
@@ -75,16 +85,19 @@ public class ActorService {
 	// Other business methods
 
 	public Actor findByPrincipal() {
+
 		Actor result;
 		UserAccount userAccount;
-
+		try{
 		userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
 		result = this.findByUserAccount(userAccount);
 		Assert.notNull(result);
+		}catch(Throwable oops){
+			result = null;
+		}
 
 		return result;
-
 	}
 
 	public Actor findByUserAccount(final UserAccount userAccount) {

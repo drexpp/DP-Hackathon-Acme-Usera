@@ -7,6 +7,24 @@
  * http://www.tdg-seville.info/License.html
  * 
  */
+ 
+ .messages-table{
+ 	overflow: auto;
+ }
+ 
+ .menu-folders{
+ 	float:left !important;
+ 	
+ }
+ 
+ .messages-list{
+ 	float:right !important;
+ 	width: 86%;
+ }
+ 
+ body {
+ 	background: linear-gradient(to right, #b8daff, #add8e6) !important;
+ }
 
 .error {
 	color: red;
@@ -34,3 +52,11 @@ h4{
 	display:inline-block;
 }
 
+.advert-img {
+	height: 300px;
+	width:	400px;
+}
+
+.titles{
+	color : black;
+}
