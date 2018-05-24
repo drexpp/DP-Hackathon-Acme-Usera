@@ -38,7 +38,6 @@ public class CourseTeacherController {
 			private CategoryService	categoryService;
 	
 	
-	
 			// Constructors
 
 			public CourseTeacherController() {

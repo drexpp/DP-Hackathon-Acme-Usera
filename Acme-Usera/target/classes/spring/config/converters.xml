@@ -38,6 +38,12 @@
 		<bean class="converters.StringToProfessionalRecordConverter"/>
 		<bean class="converters.TeacherToStringConverter"/>
 		<bean class="converters.StringToTeacherConverter"/>
+		<bean class="converters.ForumToStringConverter"/>
+		<bean class="converters.StringToForumConverter"/>
+		<bean class="converters.QuestionToStringConverter"/>
+		<bean class="converters.StringToQuestionConverter"/>
+		<bean class="converters.AnswerToStringConverter"/>
+		<bean class="converters.StringToAnswerConverter"/>
 		
 	</util:list>
 	

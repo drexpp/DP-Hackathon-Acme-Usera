@@ -35,6 +35,9 @@
 		<value>/views/miscellaneousRecord/messages</value>
 		<value>/views/professionalRecord/messages</value>
 		<value>/views/advertisement/messages</value>
+		<value>/views/forum/messages</value>
+		<value>/views/question/messages</value>
+		<value>/views/answer/messages</value>
 
 	</util:list>
 

@@ -96,6 +96,44 @@
 		<security:intercept-url pattern="/miscellaneousRecord/teacher/edit.do"
 			access="hasRole('TEACHER')" />
 			
+			
+		<security:intercept-url pattern="/actor/display.do"
+			access="permitAll" />
+			
+			
+		<!-- Forum -->
+		<security:intercept-url pattern="/forum/display.do"
+			access="permitAll" />
+		<security:intercept-url pattern="/question/display.do"
+			access="permitAll" />
+		<security:intercept-url pattern="/question/student/create.do"
+			access="hasRole('STUDENT')" />
+		<security:intercept-url pattern="/question/student/edit.do"
+			access="hasRole('STUDENT')" />
+		<security:intercept-url pattern="/question/student/list.do"
+			access="hasRole('STUDENT')" />
+		<security:intercept-url pattern="/question/student/delete.do"
+			access="hasRole('STUDENT')" />
+		<security:intercept-url pattern="/question/admin/delete.do"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/question/list.do"
+			access="permitAll" />
+		<security:intercept-url pattern="/answer/student/create.do"
+			access="hasRole('STUDENT')" />
+		<security:intercept-url pattern="/answer/student/edit.do"
+			access="hasRole('STUDENT')" />
+		<security:intercept-url pattern="/answer/student/list.do"
+			access="hasRole('STUDENT')" />
+		<security:intercept-url pattern="/answer/student/delete.do"
+			access="hasRole('STUDENT')" />
+		<security:intercept-url pattern="/answer/admin/delete.do"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/answer/teacher/solution.do"
+			access="hasRole('TEACHER')" />
+		<security:intercept-url pattern="/answer/list.do"
+			access="permitAll" />
+			
+			
 			<!-- Advertisement -->
 		<security:intercept-url pattern="/advertisement/sponsor/**" access="hasRole('SPONSOR')" /> 
 		

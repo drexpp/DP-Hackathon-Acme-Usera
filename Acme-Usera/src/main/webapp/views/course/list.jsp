@@ -92,6 +92,15 @@
 	</display:column>
 </security:authorize>	
 
+<!-- Foro -->
+<security:authorize access="isAuthenticated()">
+	<display:column>
+		<a href="forum/display.do?forumId=${row.forum.id}"> <spring:message
+			code="course.forum" />
+		</a>
+	</display:column>
+</security:authorize>
+
 
 <!-- Edit -->
 <security:authorize access="hasRole('TEACHER')">
@@ -112,3 +121,6 @@
 			code="course.create" />
 		</a>
 </security:authorize>	
+
+
+

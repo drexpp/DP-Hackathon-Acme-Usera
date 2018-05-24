@@ -83,6 +83,7 @@ public class Question extends DomainEntity {
 		this.forum = forum;
 	}
 	@ManyToOne(optional = false)
+	@Valid
 	public Student getStudent() {
 		return student;
 	}
@@ -90,6 +91,7 @@ public class Question extends DomainEntity {
 		this.student = student;
 	}
 	@OneToMany(mappedBy="question", cascade = CascadeType.ALL)
+	@Valid
 	public Collection<Answer> getAnswers() {
 		return answers;
 	}

@@ -33,10 +33,9 @@
 		<value>/views/miscellaneousRecord/tiles.xml</value>
 		<value>/views/professionalRecord/tiles.xml</value>
 		<value>/views/advertisement/tiles.xml</value>
-
-
-
-
+		<value>/views/forum/tiles.xml</value>
+		<value>/views/question/tiles.xml</value>
+		<value>/views/answer/tiles.xml</value>
 
 	</util:list>
 
