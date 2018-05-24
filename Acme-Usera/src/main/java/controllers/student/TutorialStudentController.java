@@ -1,8 +1,5 @@
 package controllers.student;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,37 +11,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import services.CourseService;
-import services.CustomisationService;
-import services.StudentService;
-import services.SubscriptionService;
 import services.TeacherService;
 import services.TutorialService;
 
 import controllers.AbstractController;
-import domain.Course;
-import domain.Subscription;
 import domain.Teacher;
 import domain.Tutorial;
-import forms.LessonForm;
+
 
 @Controller
 @RequestMapping("/tutorial/student")
 public class TutorialStudentController extends AbstractController{
 
 	// Services
-
-	@Autowired
-	private CourseService	courseService;
-	
 	@Autowired
 	private TeacherService	teacherService;
 	
 	@Autowired
 	private TutorialService	tutorialService;
 	
-	@Autowired
-	private CustomisationService	customisationService;
 	
 	// Constructors
 

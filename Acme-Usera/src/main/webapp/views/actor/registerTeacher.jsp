@@ -59,13 +59,82 @@ function Terms(){
 	<br />
 	
 	<acme:password code="actor.confirmPassword" path="confirmPassword"/>
+	<br/>
+	<br/>
+	
+	<fieldset>
+		
+	<h3 class="titles"><spring:message code="actor.contactInfo"/></h3>
+	
+	
+	<acme:textbox code="actor.skype" path="skype"/>
 	<br />
+	
+	<acme:textbox code="actor.contactPhone" path="contactPhone"/>
+	<br />
+	
+	<fieldset>
+	<legend> <form:label path="comments"> <spring:message code="actor.comments" />: </form:label> </legend>
+
+		<div id="list1">
+		<table class="displayStyle">
+			
+			<jstl:forEach begin="0" end="0" var="comments" varStatus="i" step="1">
+	  			 <tr class="list-item">
+			<td> <form:input path="comments[${i.index}]" /></td>
+	    		<td>	<a href="#" onclick="event.preventDefault();"
+					class="list-remove"> <spring:message code="actor.comment.remove" /> </a> </td>
+		    </tr>
+	            <br />
+	        </jstl:forEach>
+		        
+		</table>
+		
+		<a href="#" onclick="event.preventDefault();" class="list-add"><spring:message code="actor.comment.add" /></a>
+		</div>
+		<br />
+		<form:errors cssClass="error" path="comments" />
+
+	</fieldset>
+	
+	<fieldset>
+
+	
+	<form:label path="links"> <spring:message code="actor.links" />: </form:label>
+
+
+
+		<div id="list2">
+		<table class="displayStyle">
+
+			
+			<jstl:forEach begin="0" end="0" var="links" varStatus="i" step="1">
+	  			 <tr class="list-item">
+			<td> <form:input path="links[${i.index}]" /></td>
+	    		<td>	<a href="#" onclick="event.preventDefault();"
+					class="list-remove"> <spring:message code="actor.links.remove" /> </a> </td>
+		    </tr>
+	            <br />
+	        </jstl:forEach>
+		        
+		</table>
+		
+		<a href="#" onclick="event.preventDefault();" class="list-add"><spring:message code="actor.links.add" /></a>
+		</div>
+		<br />
+		<form:errors cssClass="error" path="links" />
+
+	</fieldset>
+	</fieldset>
+	<br/>
+	<br/>
 	
 	<spring:message code ="actor.check"/>
 	<form:checkbox path="check"/>
 	<form:errors path="check" cssClass="error" />
 	<br />
 	
+	<br />
 
 	<input type="submit" name="save" id="save"
 		value="<spring:message code="actor.save" />" />&nbsp; 
@@ -73,6 +142,14 @@ function Terms(){
 		value="<spring:message code="actor.cancel" />"
 		onclick="javascript: relativeRedir('');" />
 	<br />
+	<script>
+    $(document).ready(function() {
+        $("#list1").dynamiclist();
+    });
+    $(document).ready(function() {
+        $("#list2").dynamiclist();
+    });
+</script>
 </form:form>
 
 </jstl:when>
