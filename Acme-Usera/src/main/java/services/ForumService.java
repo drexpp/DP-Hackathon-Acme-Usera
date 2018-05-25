@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.Admin;
 import domain.Course;
 import domain.Forum;
 import domain.Question;
@@ -25,6 +26,12 @@ public class ForumService {
 		
 		@Autowired
 		private TeacherService			teacherService;
+		
+		@Autowired
+		private AdminService			adminService;
+		@Autowired
+		private QuestionService			questionService;
+
 
 	
 		public Forum create() {
@@ -72,7 +79,41 @@ public class ForumService {
 			return result;
 		}
 			
+		public Forum delete(final Forum forumToDelete) {
+			Teacher principal;
+			Forum result;
+			Assert.notNull(forumToDelete);
+			principal = this.teacherService.findByPrincipal();
+
+			Assert.notNull(principal);
+			Assert.isTrue(forumToDelete.getCourse().getCreator().equals(principal));
 			
+			result = this.forumRepository.save(forumToDelete);
+			
+			Course course = result.getCourse();
+			course.setForum(result);
+			
+			return result;
+		}	
+		
+		public void deleteByAdmin(final Forum forumToDelete) {
+			Admin principal;
+			Assert.notNull(forumToDelete);
+			principal = this.adminService.findByPrincipal();
+
+			Assert.notNull(principal);
+			
+			Course course = forumToDelete.getCourse();
+			course.setForum(null);
+			
+			Collection<Question> questionsToDelete = new ArrayList<Question>(forumToDelete.getQuestions());
+			for (Question q : questionsToDelete){
+				this.questionService.deleteByAdmin(q);
+			}
+			
+			this.forumRepository.delete(forumToDelete);
+	
+		}
 			
 			
 			

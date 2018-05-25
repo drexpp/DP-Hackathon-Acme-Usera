@@ -67,14 +67,18 @@ public class LessonController extends AbstractController{
 				if(principal instanceof Teacher){
 					Teacher principalT = (Teacher) principal;
 					Assert.isTrue(principalT.getCoursesJoined().contains(lesson.getCourse()));
+					result.addObject("advert", advertChoosen);
 		}
 		if (principal instanceof Student) {
 			Collection<Course> subscribed = this.courseService.selectCoursesSubscriptedByUser(principal.getId()); 
 			Assert.isTrue(subscribed.contains(lesson.getCourse()));
+			Collection<Course> subFree = this.courseService.findCoursesSubscribedFreeByUser(principal.getId());
+			if (subFree.contains(lesson.getCourse())){
+				result.addObject("advert", advertChoosen);
+			}
 		} 
 				result.addObject("lesson", lesson);
 				result.addObject("principal", principal);
-				result.addObject("advert", advertChoosen);
 			
 				}catch (Throwable oops){
 					result = new ModelAndView("redirect:/course/list.do");	

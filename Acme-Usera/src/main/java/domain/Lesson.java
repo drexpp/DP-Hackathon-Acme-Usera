@@ -1,10 +1,12 @@
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,8 +30,9 @@ public class Lesson extends DomainEntity {
 	
 	private Course course;
 	private Teacher teacher;
+	private Collection<Student> students;
 	
-	
+
 	@NotBlank
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
 	public String getTitle() {
@@ -93,6 +96,15 @@ public class Lesson extends DomainEntity {
 	}
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
+	}
+	
+	@ManyToMany
+	@Valid
+	public Collection<Student> getStudents() {
+		return students;
+	}
+	public void setStudents(Collection<Student> students) {
+		this.students = students;
 	}
 	
 	

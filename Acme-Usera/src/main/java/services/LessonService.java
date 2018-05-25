@@ -3,6 +3,8 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,7 +51,7 @@ public class LessonService {
 			lesson.setTeacher(principal);
 			Assert.notNull(principal);
 			lesson.setCreationDate(new Date(System.currentTimeMillis()));
-
+			lesson.setStudents(new ArrayList<Student>());
 			return lesson;
 		}
 
@@ -85,11 +87,14 @@ public class LessonService {
 			updated2.remove(lesson);
 			teacher.setLessons(updated2);
 			
-			
-			
-			
-			
-			
+			Collection<Student> studentsToRemove = new ArrayList<Student>(lesson.getStudents());
+			for (Student s: studentsToRemove ){
+				Collection<Lesson> toUpdate3 = s.getLessons();
+				Collection<Lesson> updated3 = new ArrayList<Lesson> (toUpdate3);
+				updated3.remove(lesson);
+				s.setLessons(updated3);
+			}
+					
 
 			this.lessonRepository.delete(lesson);
 		}
@@ -153,7 +158,8 @@ public class LessonService {
 			lesson.setBody(lessonForm.getBody());
 			lesson.setPhotoURL(lessonForm.getPhotoURL());
 			lesson.setCourse(lessonForm.getCourse());
-			lesson.setVideoURL(lessonForm.getVideoURL());
+			lesson.setVideoURL(this.ReconstructYoutubeURL(lessonForm.getVideoURL()));
+			
 			 
 			validator.validate(lessonForm, binding);
 			
@@ -186,6 +192,17 @@ public class LessonService {
 		}
 			
 			
-		
+		private String ReconstructYoutubeURL (String url){
+			String pattern = "(?<=watch\\?v=|/videos/|embed\\/|youtu.be\\/|\\/v\\/|\\/e\\/|watch\\?v%3D|watch\\?feature=player_embedded&v=|%2Fvideos%2F|embed%\u200C\u200B2F|youtu.be%2F|%2Fv%2F)[^#\\&\\?\\n]*";
+			String youtubeId ="";
+	        Pattern compiledPattern = Pattern.compile(pattern);
+	        Matcher matcher = compiledPattern.matcher(url); //url is youtube url for which you want to extract the id.
+	        if (matcher.find()) {
+	             youtubeId= matcher.group();
+	        }
+	        String res = "https://www.youtube.com/embed/" + youtubeId;
+			
+			return res;
+		}
 	
 }

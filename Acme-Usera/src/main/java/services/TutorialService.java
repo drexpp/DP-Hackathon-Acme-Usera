@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.MailMessage;
 import domain.Student;
 import domain.Teacher;
 import domain.Tutorial;
@@ -28,6 +29,8 @@ public class TutorialService {
 	@Autowired
 	private StudentService			studentService;
 
+	@Autowired
+	private MessageService			mailMessageService;
 	
 	
 	
@@ -93,6 +96,15 @@ public class TutorialService {
 		Assert.notNull(principal);
 		Assert.isTrue(tutorialToDelete.getTeacher().equals(principal));
 		
+		MailMessage message = this.mailMessageService.create();
+		message.setSubject("Tutorial canceled / Tutoría cancelada");
+		message.setBody("The tutorial of the student " + tutorialToDelete.getStudent().getName() + " with the teacher "
+				+ tutorialToDelete.getTeacher().getName() + " has been refused / La tutoría del estudiante " + tutorialToDelete.getStudent().getName() + " con el profesor "
+						+ tutorialToDelete.getTeacher().getName() + " ha sido rechazada");
+		message.setPriority("HIGH");
+		message.setRecipient(tutorialToDelete.getStudent());
+		this.mailMessageService.save(message);
+		
 		Collection<Tutorial> toUpdate = principal.getTutorials();
 		Collection<Tutorial> updated = new ArrayList<Tutorial>(toUpdate);
 		updated.remove(tutorialToDelete);
@@ -102,6 +114,8 @@ public class TutorialService {
 		Collection<Tutorial> updated2 = new ArrayList<Tutorial>(toUpdate2);
 		updated2.remove(tutorialToDelete);
 		tutorialToDelete.getTeacher().setTutorials(updated);
+		
+		
 		
 		this.tutorialRepository.delete(tutorialToDelete);
 		

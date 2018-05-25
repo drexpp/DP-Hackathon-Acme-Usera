@@ -119,7 +119,7 @@
 <br/>
 
 
-<!-- Tabla de profesores para solicitar una tutoría -->
+<!-- Tabla de profesores para solicitar una tutoría (STUDENT) -->
 <security:authorize access="hasRole('STUDENT')">
 <jstl:if test="${subscriptionType.equals('PREMIUM') }">
 
@@ -142,6 +142,34 @@
 
 
 </jstl:if>
+</security:authorize>
+
+
+<!-- Tabla de profesores (TEACHER) -->
+<security:authorize access="hasRole('TEACHER')">
+
+<spring:message code="course.tutors" var="teachers"/> 
+<h3> <jstl:out value="${teachers}"> </jstl:out> </h3>
+<display:table name="course.teachers" id="tutor" requestURI="course/display.do?courseId=${course.id}" class="displaytag">
+<!-- Name -->
+<spring:message code ="teacher.name" var="teacherName"/>
+<display:column property="name" title="${teacherName}" sortable="true" />
+<!-- Surname -->
+<spring:message code ="teacher.surname" var="teacherSurname"/>
+<display:column property="surname" title="${teacherSurname}" sortable="true" />
+<!-- Create Tutorial -->
+<jstl:if test="${principal.equals(course.creator)}">
+<display:column>    
+<jstl:if test="${!principal.equals(tutor)}">
+<spring:message code="course.delete" var="deleteTutor" />
+<a href="course/teacher/remove.do?courseId=${course.id}&teacherId=${tutor.id}"> 
+	<jstl:out value="${deleteTutor}"></jstl:out>	</a>
+</jstl:if>
+</display:column>
+</jstl:if>
+
+</display:table>
+
 </security:authorize>
 
 <jstl:if test="${advert != null}">

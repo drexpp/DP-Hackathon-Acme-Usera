@@ -1230,6 +1230,12 @@
 	<property name="videoURL" value="https://www.youtube.com/embed/cqMfPS8jPys"/>
 	<property name="course" ref="course1"/>
 	<property name="teacher" ref="teacher1"/>
+	<property name="students">
+		<list>
+		<ref bean="student1" />
+		</list>
+	</property>
+	
 	</bean>
 	
 	<!-- lesson2 -->
@@ -1242,6 +1248,12 @@
 	<property name="videoURL" value=""/>
 	<property name="course" ref="course3"/>
 	<property name="teacher" ref="teacher2"/>
+		<property name="students">
+		<list>
+		<ref bean="student2" />
+		</list>
+	</property>
+	
 	</bean>
 	
 	
@@ -1255,6 +1267,12 @@
 	<property name="videoURL" value="https://www.youtube.com/embed/tgbNymZ7vqY"/>
 	<property name="course" ref="course3"/>
 	<property name="teacher" ref="teacher2"/>
+		<property name="students">
+		<list>
+		<ref bean="student2" />
+		</list>
+	</property>
+	
 	</bean>
 
 <!-- EXAM -->

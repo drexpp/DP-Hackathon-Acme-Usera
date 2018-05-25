@@ -99,6 +99,7 @@ public class CourseService {
 
 		final Collection<Subscription> subscriptionsToRemove = course.getSubscriptions();
 		Collection<Teacher> teachers = course.getTeachers();
+		
 
 
 		for (final Advertisement ad : adversToRemove){
@@ -126,7 +127,7 @@ public class CourseService {
 		final Collection<Course> courses = teacher.getCoursesCreated();
 		final Collection<Course> updated2 = new ArrayList<Course>(courses);
 		teacher.setCoursesCreated(updated2);
-
+		this.forumService.deleteByAdmin(course.getForum());
 		this.courseRepository.delete(course);
 
 	}
@@ -198,6 +199,7 @@ public class CourseService {
 		Teacher result;
 		Teacher principal = this.teacherService.findByPrincipal();
 		Assert.isTrue(!principal.getCoursesJoined().contains(course)&& !principal.getCoursesCreated().contains(course));
+		Assert.isTrue(course.getIsClosed() == false);
 		if (!course.getTeachers().contains(teacher)) {
 			course.getTeachers().add(teacher);
 			teacher.getCoursesJoined().add(course);
@@ -206,11 +208,12 @@ public class CourseService {
 		return result;
 	}
 
-	public Teacher cancelJoin(final Course course, final Teacher teacher) {
+	public Teacher remove(final Course course, final Teacher teacher) {
 		Teacher result;
 		Teacher principal = this.teacherService.findByPrincipal();
-		Assert.isTrue(!principal.getCoursesCreated().contains(course)&& principal.getCoursesJoined().contains(course));
-		
+		Assert.isTrue(course.getCreator().equals(principal));
+		Assert.isTrue(course.getIsClosed() == false);
+		Assert.isTrue(teacher.getCoursesJoined().contains(course));
 		if (course.getTeachers().contains(teacher)) {
 			course.getTeachers().remove(teacher);
 			teacher.getCoursesJoined().remove(course);

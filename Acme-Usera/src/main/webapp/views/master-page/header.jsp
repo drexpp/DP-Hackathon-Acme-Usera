@@ -71,6 +71,8 @@
 					<li class="arrow"></li>
 					<li><a href="curriculum/teacher/search.do"><spring:message
 								code="master.page.teacher.curriculum" /></a></li>
+					<li><a href="tutorial/list.do"><spring:message
+									code="master.page.my.tutorials" /></a></li>
 
 				</ul></li>
 		</security:authorize>
@@ -99,6 +101,8 @@
 									code="master.page.question.list" /></a></li>
 						<li><a href="answer/student/list.do"><spring:message
 									code="master.page.answer.list" /></a></li>
+						<li><a href="tutorial/list.do"><spring:message
+									code="master.page.my.tutorials" /></a></li>
 				</ul>
 			</li>
 		</security:authorize>

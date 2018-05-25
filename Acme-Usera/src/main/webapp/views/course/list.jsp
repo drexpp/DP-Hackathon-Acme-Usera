@@ -51,13 +51,13 @@
 	<jstl:choose>
 	<jstl:when test="${isTeacher}">
 		<jstl:choose>
-		<jstl:when test="${row.isClosed == false and principal.coursesJoined.contains(row)}">
+		<jstl:when test="${row.isClosed == false and principal.coursesCreated.contains(row)}">
 			<a href="course/user/close.do?courseId=${row.id}"> <spring:message
 			code="course.makeClose" />
 		</a>
 		</jstl:when>
 		
-		<jstl:when test="${row.isClosed == false and !principal.coursesJoined.contains(row)}">
+		<jstl:when test="${row.isClosed == false and !principal.coursesCreated.contains(row)}">
 		<spring:message code="course.isOpen"/>
 		</jstl:when>
 		<jstl:otherwise>
@@ -99,6 +99,11 @@
 			code="course.display" />
 		</a>
 	</jstl:if>
+	<jstl:if test="${!principal.coursesJoined.contains(row) and row.isClosed == false }">
+		<a href="course/teacher/join.do?courseId=${row.id}"> <spring:message
+			code="course.join" />
+		</a>
+	</jstl:if>
 	</jstl:when>
 	<jstl:when test="${isStudent and subscribed.contains(row)}">
 	<a href="course/display.do?courseId=${row.id}"> <spring:message
@@ -130,13 +135,21 @@
 <!-- Edit -->
 <security:authorize access="hasRole('TEACHER')">
 	<display:column>
-	<jstl:if test="${principal.coursesCreated.contains(row)and !row.isClosed}">
+	<jstl:if test="${principal.coursesJoined.contains(row)and !row.isClosed}">
 		<a href="course/teacher/edit.do?courseId=${row.id}"> <spring:message
 			code="course.edit" />
 		</a>
 	</jstl:if>	
 	</display:column>
 </security:authorize>	
+<!-- Delete -->
+<security:authorize access="hasRole('ADMIN')">
+	<display:column>
+		<a href="course/admin/delete.do?courseId=${row.id}"> <spring:message
+			code="course.delete" />
+		</a>
+	</display:column>
+</security:authorize>
 	
 </display:table>
 

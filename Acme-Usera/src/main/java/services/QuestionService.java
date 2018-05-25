@@ -146,7 +146,7 @@ public class QuestionService {
 		student.setQuestions(updated);
 		
 		for (final Answer a : question.getAnswers())
-			this.answerService.delete(a);
+			this.answerService.deleteByAdmin(a);
 		
 		this.questionRepository.delete(question);
 

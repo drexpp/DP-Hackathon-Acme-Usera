@@ -16,119 +16,47 @@
 
 
 <display:table pagesize="5" class="displaytag" 
-	name="courses" requestURI="course/list.do" id="row">
+	name="tutorials" requestURI="tutorial/list.do" id="row">
 	
 	
-	<!-- title -->
-	<spring:message code="course.title"
-		var="title" />
-	<display:column property="title" title="${title}"
+	<!-- startTime -->
+	<spring:message code="tutorial.pattern" var ="pattern"/>
+	<spring:message code="tutorial.start.time"
+		var="startTime" />
+	<display:column title="${startTime}"
+		sortable="true">
+	<fmt:formatDate value="${row.startTime}" pattern="${pattern}"/>	
+		</display:column>
+		
+<security:authorize access="hasRole('TEACHER')">		
+	<!-- student -->
+	<spring:message code="tutorial.student"
+		var="student" />
+	<display:column property="student.name" title="${student}"
 		sortable="true" />
-		
-		
-	<!-- description -->
-	<spring:message code="course.description"
-		var="description" />
-	<display:column property="description" title="${description}"
-		sortable="false" />
+</security:authorize>
 
-	<!-- image -->
-	<spring:message code="course.pictureURL"
-		var="pictureURL" />
-	<spring:message code="course.pictureError" var="pictureError" />
-	<display:column title="${pictureURL}"
-		sortable="false" >
-		<img src="${row.photoURL}" alt="${pictureError}"  width="200" height="200"> 
-	</display:column>
-	
-	<!-- isClose -->
-		<spring:message code="course.isClose"
-		var="isCloseHeader" />
-	<display:column title="${isCloseHeader}"> 
-	<security:authorize access="hasRole('TEACHER')" var ="isTeacher"/>
-	<jstl:choose>
-	<jstl:when test="${isTeacher}">
-	<jstl:if test="${principal.coursesCreated.contains(row)}">
-		<jstl:choose>
-		<jstl:when test="${row.isClosed == false}">
-			<a href="course/user/close.do?courseId=${row.id}"> <spring:message
-			code="course.makeClose" />
-		</a>
-		</jstl:when>
-		<jstl:otherwise>
-		<img class="alarmImg" src="images/cancel.png" width="30" height="auto"/>
-		</jstl:otherwise>
-		 </jstl:choose>
-	</jstl:if>
-	</jstl:when>
-	
-	<jstl:otherwise>
-	<jstl:choose>
-			<jstl:when test="${row.isClosed == true}">
-			<img class="alarmImg" src="images/cancel.png" width="30" height="auto"/>
-		</jstl:when>
-		
-		<jstl:otherwise>
-			<spring:message code="course.isOpen"/>
-		</jstl:otherwise>
-		</jstl:choose>
-	</jstl:otherwise>
-		</jstl:choose>
-	</display:column>
-	
-	<!-- Category -->
-	<spring:message code="course.category"
-		var="category" />
-	<display:column property="category.name" title="${category}"
+
+<security:authorize access="hasRole('STUDENT')">		
+	<!-- teacher -->
+	<spring:message code="tutorial.teacher"
+		var="teacher" />
+	<display:column property="teacher.name" title="${teacher}"
 		sortable="true" />
+</security:authorize>
 	
-		
-	<!-- Display -->
-<security:authorize access="hasRole('TEACHER')" var="isTeacher"/>
-<security:authorize access="hasRole('STUDENT')" var="isStudent"/>
-<security:authorize access="isAuthenticated()">
-	<display:column>
-	<jstl:choose>
-	<jstl:when test="${isTeacher }">
-	<jstl:if test="${principal.coursesJoined.contains(row) }">
-		<a href="course/display.do?courseId=${row.id}"> <spring:message
-			code="course.display" />
-		</a>
-	</jstl:if>
-	</jstl:when>
-	<jstl:when test="${isStudent and subscribed.contains(row)}">
-	<a href="course/display.do?courseId=${row.id}"> <spring:message
-			code="course.display" />
-		</a>
-	</jstl:when>
-	
-	<jstl:when test="${isStudent and !subscribed.contains(row)}">
-	<a href="subscription/student/create.do?courseId=${row.id}"> <spring:message
-			code="course.subscribe" />
-		</a>
-	</jstl:when>
-	
-	</jstl:choose>
-	</display:column>
-</security:authorize>	
 
 
-<!-- Edit -->
+<!-- Refuse -->
 <security:authorize access="hasRole('TEACHER')">
+<jsp:useBean id="now" class="java.util.Date"/>
 	<display:column>
-	<jstl:if test="${principal.coursesCreated.contains(row)}">
-		<a href="course/teacher/edit.do?courseId=${row.id}"> <spring:message
-			code="course.edit" />
+	<jstl:if test="${principal.tutorials.contains(row) and row.startTime gt now}">
+		<a href="tutorial/teacher/refuse.do?tutorialId=${row.id}"> <spring:message
+			code="tutorial.refuse" />
 		</a>
 	</jstl:if>	
 	</display:column>
 </security:authorize>	
 	
 </display:table>
-
-<!-- Create -->
-<security:authorize access="hasRole('TEACHER')">
-		<a href="course/teacher/create.do"> <spring:message
-			code="course.create" />
-		</a>
-</security:authorize>	
