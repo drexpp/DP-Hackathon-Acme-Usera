@@ -30,7 +30,7 @@
 <jstl:choose>
 <jstl:when test="${not empty forum.questions}"> 
 
-<display:table name="questions" id="row" requestURI="forum/display.do" pagesize="5" class="displaytag">
+<display:table name="questions" id="row" requestURI="forum/display.do" class="displaytag">
 
 	<security:authorize access="hasRole('ADMIN')">
 		<spring:message code="question.confirm" var="confirmQuestion"  />
@@ -106,3 +106,4 @@
 
 </jstl:otherwise>
 </jstl:choose>
+

@@ -66,7 +66,7 @@
 
 
 
-<display:table name="answers" id="row" requestURI="question/display.do" pagesize="5" class="displaytag">
+<display:table name="answers" id="row" requestURI="question/display.do" class="displaytag">
 
 	<security:authorize access="hasRole('ADMIN')">
 		<spring:message code="question.confirm" var="confirmQuestion"  />
@@ -143,3 +143,17 @@
 </jstl:otherwise>
 </jstl:choose>
 
+<spring:message code="datatables.locale.lang" var="tableLang"/>
+<spring:message code="datatables.moment.format" var="tableFormatMoment"/>
+<script>
+$(document).ready( function () {	
+	
+	
+    $('#row').dataTable( {
+    	"language": {
+        	"url": '${tableLang}'
+    	},
+		"lengthMenu": [ 5, 10, 25, 50, 100 ]
+    } );
+} );
+</script>
