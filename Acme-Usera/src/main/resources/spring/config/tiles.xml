@@ -29,6 +29,7 @@
 		<value>/views/sponsor/tiles.xml</value>
 		<value>/views/course/tiles.xml</value>
 		<value>/views/curriculum/tiles.xml</value>
+		<value>/views/lesson/tiles.xml</value>
 		<value>/views/educationRecord/tiles.xml</value>
 		<value>/views/miscellaneousRecord/tiles.xml</value>
 		<value>/views/professionalRecord/tiles.xml</value>
@@ -36,6 +37,13 @@
 		<value>/views/forum/tiles.xml</value>
 		<value>/views/question/tiles.xml</value>
 		<value>/views/answer/tiles.xml</value>
+		<value>/views/folder/tiles.xml</value>
+		<value>/views/message/tiles.xml</value>
+		<value>/views/subscription/tiles.xml</value>
+		<value>/views/customisation/tiles.xml</value>		
+		<value>/views/tutorial/tiles.xml</value>
+
+
 
 	</util:list>
 

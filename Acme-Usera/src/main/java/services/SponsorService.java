@@ -127,9 +127,9 @@ public class SponsorService {
 
 		this.validator.validate(actorForm, binding);
 		if (!(actorForm.getConfirmPassword().equals((actorForm.getUserAccount().getPassword()))) || actorForm.getConfirmPassword() == null)
-			binding.rejectValue("confirmPassword", "user.passwordMiss");
+			binding.rejectValue("confirmPassword", "student.passwordMiss");
 		if ((actorForm.getCheck() == false))
-			binding.rejectValue("check", "user.uncheck");
+			binding.rejectValue("check", "student.uncheck");
 		return sponsor;
 	}
 

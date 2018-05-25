@@ -21,13 +21,18 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
-
+<jstl:if test="${course.isClosed == true }">
+		<spring:message code="course.isClose"
+		var="isCloseHeader" />
+<img src="images/cancel.png" width="60" height="auto" title="${isCloseHeader}"/>
+</jstl:if>
 
 <h2> <jstl:out value="${course.title}"> </jstl:out> </h2>
+<spring:message code="subscription.subscriptionType" var ="subscriptionTypeHeader"/> 
+<strong> <jstl:out value="${subscriptionTypeHeader}"></jstl:out>: ${subscriptionType} </strong>
 
-<jstl:if test="${course.isClosed == true }">
-<jstl:out value="${ course.isClosed}"></jstl:out>
-</jstl:if>
+<br/>
+<br/>
 
 <table class="displayStyle">
 
@@ -38,10 +43,10 @@
 </tr>
 
 
-
+<spring:message code="master.page.date.pattern" var ="pattern"/>
 <tr>
 <td> <strong> <spring:message code="course.creation.date" /> : </strong> </td>
-<td> <jstl:out value="${ course.creationDate}"></jstl:out> </td>
+<td> <fmt:formatDate value="${course.creationDate}" pattern="${pattern}"/> </td>
 </tr>
 
 
@@ -65,7 +70,7 @@
 
 
 
-<display:table name="lessons" id="row" requestURI="course/display.do" pagesize="5" class="displaytag">
+<display:table name="lessons" id="row" requestURI="course/display.do?courseId=${course.id}" class="displaytag">
 <spring:message code="course.title" var="titleHeader" />
 	<display:column property="title" title="${titleHeader}" sortable="true" />
 	<spring:message code="course.description" var="description" />
@@ -80,24 +85,64 @@
 	<display:column>
 	<jstl:choose>
 	<jstl:when test="${not principal.lessons.contains(row)}">
-	<a href="lesson/readed.do?lessonId=${row.id}"> <img class="eyeImg" src="images/eye.png" width="30" height="auto"/>
+			<spring:message code="lesson.read"
+		var="readHeader" />
+	<a href="lesson/student/read.do?lessonId=${row.id}"> <img class="eyeImg" src="images/eye.png" width="30" height="auto" title="${readHeader}"/>
 		</a>	
 	</jstl:when>
 <jstl:otherwise>
-<img class="eyeImg" src="images/notEye.png" width="30" height="auto"/>
+		<spring:message code="lesson.readed"
+		var="readedHeader" />
+<img class="eyeImg" src="images/notEye.png" width="30" height="auto" title="${readedHeader}"/>
 </jstl:otherwise>	
 	</jstl:choose>
 	</display:column>
 </security:authorize>
-</display:table>
+<!-- Edit Lesson -->
 <security:authorize access="hasRole('TEACHER')">
-<jstl:if test="${principal.coursesJoined.contains(course) }">
-<spring:message code="lesson.create" var="createLesson" />
+<display:column>
+<jstl:if test="${principal.coursesJoined.contains(course) and !course.isClosed }">
+<a href="lesson/teacher/edit.do?lessonId=${row.id}"><spring:message code="lesson.edit"/> </a>	
+</jstl:if>
+</display:column>
+</security:authorize>
+</display:table>
+<!-- Create Lesson -->
+<security:authorize access="hasRole('TEACHER')">
+<jstl:if test="${principal.coursesJoined.contains(course) and !course.isClosed }">
+<spring:message code="lesson.create" var="createLesson"/> 
 <a href="lesson/teacher/create.do?courseId=${course.id}"> 
 	<jstl:out value="${createLesson}"></jstl:out>	</a>
 </jstl:if>
 </security:authorize>
+<br/>
+<br/>
 
+
+<!-- Tabla de profesores para solicitar una tutoría -->
+<security:authorize access="hasRole('STUDENT')">
+<jstl:if test="${subscriptionType.equals('PREMIUM') }">
+
+<spring:message code="course.tutors" var="teachers"/> 
+<h3> <jstl:out value="${teachers}"> </jstl:out> </h3>
+<display:table name="course.teachers" id="tutor" requestURI="course/display.do?courseId=${course.id}" class="displaytag">
+<!-- Name -->
+<spring:message code ="teacher.name" var="teacherName"/>
+<display:column property="name" title="${teacherName}" sortable="true" />
+<!-- Surname -->
+<spring:message code ="teacher.surname" var="teacherSurname"/>
+<display:column property="surname" title="${teacherSurname}" sortable="true" />
+<!-- Create Tutorial -->
+<display:column>    
+<spring:message code="tutorial.create" var="createTutorial" />
+<a href="tutorial/student/create.do?teacherId=${tutor.id}"> 
+	<jstl:out value="${createTutorial}"></jstl:out>	</a>
+</display:column>
+</display:table>
+
+
+</jstl:if>
+</security:authorize>
 
 <jstl:if test="${advert != null}">
 	<spring:message code ="course.imageBannerNotFound" var = "imageBannerNotFound"></spring:message>
@@ -105,3 +150,32 @@
 		<img src="${advert.bannerURL}" alt="${imageBanner}">
 	</a>
 </jstl:if>
+
+<spring:message code="datatables.locale.lang" var="tableLang"/>
+<spring:message code="datatables.moment.format" var="tableFormatMoment"/>
+<script>
+$(document).ready( function () {	
+	
+	
+    $('#row').dataTable( {
+    	"language": {
+        	"url": '${tableLang}'
+    	},
+		"lengthMenu": [ 5, 10, 25, 50, 100 ]
+    } );
+} );
+</script>
+
+
+<script>
+$(document).ready( function () {	
+	
+	
+    $('#tutor').dataTable( {
+    	"language": {
+        	"url": '${tableLang}'
+    	},
+		"lengthMenu": [ 5, 10, 25, 50, 100 ]
+    } );
+} );
+</script>

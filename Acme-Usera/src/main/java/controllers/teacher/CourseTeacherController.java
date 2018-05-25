@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import controllers.AbstractController;
+
 import domain.Category;
 import domain.Course;
 import domain.Teacher;
@@ -24,7 +26,7 @@ import services.TeacherService;
 
 @Controller
 @RequestMapping("/course/teacher")
-public class CourseTeacherController {
+public class CourseTeacherController extends AbstractController{
 
 	// Services
 
@@ -67,7 +69,7 @@ public class CourseTeacherController {
 				else
 					try {
 						this.courseService.save(course);
-						result = new ModelAndView("redirect:/course/teacher/list.do");
+						result = new ModelAndView("redirect:/course/list.do");
 					} catch (final Throwable oops) {
 						String errorMessage = "course.commit.error";
 						result = this.createEditModelAndView(courseForm, errorMessage);
@@ -86,12 +88,13 @@ public class CourseTeacherController {
 				try {
 					course = this.courseService.findOne(courseId);
 					Assert.isTrue(course.getCreator().equals(principal));
+					Assert.isTrue(!course.getIsClosed());
 					courseForm = this.courseService.reconstructForm(course);
 					result = this.createEditModelAndView(courseForm);
 					
 				} catch (final Throwable oops) {
-					result = new ModelAndView("redirect:/article/list.do");
-					redir.addFlashAttribute("message", "article.permision");
+					result = new ModelAndView("redirect:/course/list.do");
+					redir.addFlashAttribute("message", "course.permision");
 
 				}
 

@@ -185,7 +185,6 @@ public class CourseService {
 
 	public Course findOne(final int CourseId) {
 
-
 		Course result = this.courseRepository.findOne(CourseId);
 		Assert.notNull(result);
 
@@ -242,7 +241,9 @@ public class CourseService {
 	}
 
 	public Course reconstruct(CourseForm courseForm, BindingResult binding) {
+		this.validator.validate(courseForm, binding);
 		Course course = new Course();
+		if (!binding.hasErrors()){
 		if(courseForm.getId()== 0){
 		course = this.create();
 		}else{
@@ -252,8 +253,7 @@ public class CourseService {
 		course.setDescription(courseForm.getDescription());
 		course.setPhotoURL(courseForm.getPhotoURL());
 		course.setCategory(courseForm.getCategory());
-		this.validator.validate(courseForm, binding);
-		
+		} 
 		return course;
 	}
 
@@ -266,4 +266,27 @@ public class CourseService {
 		courseForm.setId(course.getId());
 		return courseForm;
 	}
+	
+	  public Collection<Course> findCoursesSubscribedFreeByUser(Integer idUser){
+		  Student principal = this.studentService.findByPrincipal();
+		  Assert.notNull(principal);
+		  Collection<Course> res = this.courseRepository.findCoursesSubscribedFreeByUser(idUser);
+		  return res;
+	  }
+	  
+	  public Collection<Course> findCoursesSubscribedStandardByUser(Integer idUser){
+		  Student principal = this.studentService.findByPrincipal();
+		  Assert.notNull(principal);
+		  Collection<Course> res = this.courseRepository.findCoursesSubscribedStandardByUser(idUser);
+		  return res;
+	  }
+	  
+	  public Collection<Course> findCoursesSubscribedPremiumByUser(Integer idUser){
+		  Student principal = this.studentService.findByPrincipal();
+		  Assert.notNull(principal);
+		  Collection<Course> res = this.courseRepository.findCoursesSubscribedPremiumByUser(idUser);
+		  return res;
+	  }
+	
+	
 }

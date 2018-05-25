@@ -44,6 +44,13 @@
 		<bean class="converters.StringToQuestionConverter"/>
 		<bean class="converters.AnswerToStringConverter"/>
 		<bean class="converters.StringToAnswerConverter"/>
+		<bean class="converters.StringToActorConverter"/>
+		<bean class="converters.ActorToStringConverter"/>
+		<bean class="converters.StringToFolderConverter"/>
+		<bean class="converters.FolderToStringConverter"/>
+		<bean class="converters.StudentToStringConverter"/>
+		<bean class="converters.StringToStudentConverter"/>
+
 		
 	</util:list>
 	

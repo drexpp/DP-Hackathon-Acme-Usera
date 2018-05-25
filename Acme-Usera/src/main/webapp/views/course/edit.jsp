@@ -41,11 +41,6 @@
 	<input type="submit" id="submit" name="save"
 		value="${saveCourse}" />&nbsp; 
 				
-	<jstl:if test="${course.id != 0}">
-		<input type="submit" name="delete"
-			value="${deleteCourse}"
-			onclick="return confirm('${confirmDeleteCourse}')" />&nbsp;
-	</jstl:if>
 	<input type="button" name="cancel"
 		value="${cancelCourse}"
 		onclick="javascript: relativeRedir('course/list.do');" />

@@ -22,7 +22,7 @@ import domain.MailMessage;
 import domain.Course;
 import domain.Teacher;
 import domain.Tutorial;
-import forms.ActorForm;
+import forms.ActorFormTeacher;
 
 @Service
 @Transactional
@@ -118,32 +118,38 @@ public class TeacherService {
 		return result;
 	}
 
-	public Teacher reconstruct(final ActorForm actorForm, final BindingResult binding) {
+	public Teacher reconstruct(final ActorFormTeacher actorFormTeacher, final BindingResult binding) {
 		final Teacher teacher = this.create();
-		teacher.setName(actorForm.getName());
-		teacher.setSurname(actorForm.getSurname());
-		teacher.setEmail(actorForm.getEmail());
-		teacher.setId(actorForm.getId());
-		teacher.setAddress(actorForm.getAddress());
-		teacher.setVersion(actorForm.getVersion());
-		teacher.setPhone(actorForm.getPhone());
-		teacher.setUserAccount(actorForm.getUserAccount());
+		teacher.setName(actorFormTeacher.getName());
+		teacher.setSurname(actorFormTeacher.getSurname());
+		teacher.setEmail(actorFormTeacher.getEmail());
+		teacher.setId(actorFormTeacher.getId());
+		teacher.setAddress(actorFormTeacher.getAddress());
+		teacher.setVersion(actorFormTeacher.getVersion());
+		teacher.setPhone(actorFormTeacher.getPhone());
+		teacher.setUserAccount(actorFormTeacher.getUserAccount());
 		final Collection<Authority> authorities = new ArrayList<Authority>();
 		final Authority auth = new Authority();
 		auth.setAuthority("TEACHER");
 		authorities.add(auth);
 		teacher.getUserAccount().setAuthorities(authorities);
 
-		this.validator.validate(actorForm, binding);
-		if (!(actorForm.getConfirmPassword().equals((actorForm.getUserAccount().getPassword()))) || actorForm.getConfirmPassword() == null)
-			binding.rejectValue("confirmPassword", "user.passwordMiss");
-		if ((actorForm.getCheck() == false))
-			binding.rejectValue("check", "user.uncheck");
+		this.validator.validate(actorFormTeacher, binding);
+		if (!(actorFormTeacher.getConfirmPassword().equals((actorFormTeacher.getUserAccount().getPassword()))) || actorFormTeacher.getConfirmPassword() == null)
+			binding.rejectValue("confirmPassword", "student.passwordMiss");
+		if ((actorFormTeacher.getCheck() == false))
+			binding.rejectValue("check", "student.uncheck");
 		return teacher;
 	}
 
 	public void flush() {
 		this.teacherRepository.flush();
+	}
+	
+	public Collection<Teacher> findTutorsByStudent (Integer studentId){
+		Collection<Teacher> res = this.teacherRepository.findTutorsByStudent(studentId);
+		return res;
+		
 	}
 
 }

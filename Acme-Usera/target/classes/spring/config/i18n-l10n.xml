@@ -39,6 +39,15 @@
 		<value>/views/question/messages</value>
 		<value>/views/answer/messages</value>
 
+		<value>/views/folder/messages</value>
+		<value>/views/datatables/messages</value>
+		<value>/views/message/messages</value>
+		<value>/views/subscription/messages</value>
+
+		<value>/views/customisation/messages</value>
+		<value>/views/tutorial/messages</value>
+
+
 	</util:list>
 
 </beans>

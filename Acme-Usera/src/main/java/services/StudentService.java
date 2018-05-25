@@ -17,6 +17,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Certification;
+import domain.Course;
 import domain.Lesson;
 import domain.MailMessage;
 import domain.Question;
@@ -32,6 +33,9 @@ public class StudentService {
 	// Managed Repository
 	@Autowired
 	private StudentRepository	studentRepository;
+	
+	@Autowired
+	private CourseService	courseService;
 	
 	@Autowired
 	private FolderService folderService;
@@ -137,14 +141,33 @@ public class StudentService {
 
 		this.validator.validate(actorForm, binding);
 		if (!(actorForm.getConfirmPassword().equals((actorForm.getUserAccount().getPassword()))) || actorForm.getConfirmPassword() == null)
-			binding.rejectValue("confirmPassword", "user.passwordMiss");
+			binding.rejectValue("confirmPassword", "student.passwordMiss");
 		if ((actorForm.getCheck() == false))
-			binding.rejectValue("check", "user.uncheck");
+			binding.rejectValue("check", "student.uncheck");
 		return student;
 	}
 
 	public void flush() {
 		this.studentRepository.flush();
+	}
+	
+	public String checkSubscription (Course course){
+		String subscriptionType = null;
+		Student principal = this.findByPrincipal();
+		Assert.notNull(principal);
+		Collection<Course> freeCourses = this.courseService.findCoursesSubscribedFreeByUser(principal.getId());
+		Collection<Course> standardCourses = this.courseService.findCoursesSubscribedStandardByUser(principal.getId());
+		Collection<Course> premiumCourses = this.courseService.findCoursesSubscribedPremiumByUser(principal.getId());
+		if(freeCourses.contains(course)){
+			subscriptionType = "FREE";
+		} else if (standardCourses.contains(course)){
+			subscriptionType = "STANDARD";
+		} else if (premiumCourses.contains(course)){
+			subscriptionType = "PREMIUM";
+		}
+		
+		return subscriptionType;
+		
 	}
 
 }

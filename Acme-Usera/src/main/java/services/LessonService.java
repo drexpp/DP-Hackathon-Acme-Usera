@@ -8,10 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import domain.Course;
 import domain.Lesson;
+import domain.Student;
 import domain.Teacher;
+import forms.LessonForm;
 
 import repositories.LessonRepository;
 
@@ -24,7 +28,16 @@ public class LessonService {
 		private LessonRepository			lessonRepository;
 		
 		@Autowired
+		private StudentService				studentService;
+		
+		@Autowired
 		private TeacherService				teacherService;
+		
+		@Autowired
+		private CourseService				courseService;
+		
+		@Autowired
+		private Validator	validator;
 
 
 		
@@ -75,6 +88,8 @@ public class LessonService {
 			
 			
 			
+			
+			
 
 			this.lessonRepository.delete(lesson);
 		}
@@ -87,6 +102,10 @@ public class LessonService {
 			principal = this.teacherService.findByPrincipal();
 
 			Assert.notNull(principal);
+			if(lessonToSave.getId()==0){
+				Assert.isTrue(lessonToSave.getTeacher().equals(principal));
+			}
+			
 			
 			if (lessonToSave.getId() != 0){
 			Assert.isTrue(principal.getCoursesJoined().contains(lessonToSave.getCourse()));
@@ -119,16 +138,54 @@ public class LessonService {
 			return result;
 
 		}
+
+
+		public Lesson reconstruct(LessonForm lessonForm, BindingResult binding) {
+			Lesson lesson = this.create();
+			if (lessonForm.getId() == 0){
+				lesson = this.create();
+
+			} else {
+				lesson = this.findOne(lessonForm.getId());
+			}
+			lesson.setTitle(lessonForm.getTitle());
+			lesson.setDescription(lessonForm.getDescription());
+			lesson.setBody(lessonForm.getBody());
+			lesson.setPhotoURL(lessonForm.getPhotoURL());
+			lesson.setCourse(lessonForm.getCourse());
+			lesson.setVideoURL(lessonForm.getVideoURL());
+			 
+			validator.validate(lessonForm, binding);
+			
+			return lesson;
+		}
+
+
+		public LessonForm reconstructForm(Lesson lesson) {
+			LessonForm lessonForm = new LessonForm();
+			lessonForm.setTitle(lesson.getTitle());
+			lessonForm.setDescription(lesson.getDescription());
+			lessonForm.setBody(lesson.getBody());
+			lessonForm.setId(lesson.getId());
+			lessonForm.setPhotoURL(lesson.getPhotoURL());
+			lessonForm.setVideoURL(lesson.getVideoURL());
+			lessonForm.setCourse(lesson.getCourse());
+			return lessonForm;
+		}
 		
-	/*	public void updateWatched(){
+		public void readLesson(Lesson lesson){
 			Student student = this.studentService.findByPrincipal();
+			Assert.isTrue(!student.getLessons().contains(lesson));
+			Collection<Course> subscribed = this.courseService.selectCoursesSubscriptedByUser(student.getId()); 
+			Assert.isTrue(subscribed.contains(lesson.getCourse()));
 			
-			Collection<Lesson> toUpdate2 = student.get();
+			Collection<Lesson> toUpdate2 = student.getLessons();
 			Collection<Lesson> updated2 = new ArrayList<Lesson> (toUpdate2);
-			updated2.add(result);
-			teacher.setLessons(updated2);
+			updated2.add(lesson);
+			student.setLessons(updated2);
+		}
 			
 			
-		}*/
+		
 	
 }

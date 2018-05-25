@@ -73,7 +73,6 @@ function Terms(){
 		value="<spring:message code="actor.cancel" />"
 		onclick="javascript: relativeRedir('');" />
 	<br />
-<jstl:out value="${message}"/>
 </form:form>
 
 </jstl:when>
