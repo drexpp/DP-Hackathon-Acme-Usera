@@ -1,5 +1,6 @@
 package controllers.student;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,10 +50,14 @@ public class QuestionStudentController {
 		public ModelAndView list() {
 			final ModelAndView result;
 			Boolean permission = true;
-			final Collection<Question> questions;
+			final Collection<Question> questions = new ArrayList<>();
 			Student principal = this.studentService.findByPrincipal();
 			
-			questions = principal.getQuestions(); //Listar las preguntas del student.
+			for(Question question: principal.getQuestions()) {
+				if(question.getForum().getCourse().getIsClosed() == false){
+					questions.add(question); //Listar las respuestas del student.
+				}
+			}
 			
 			result = new ModelAndView("question/list");
 			result.addObject("questions", questions);
@@ -177,6 +182,7 @@ public class QuestionStudentController {
 			ModelAndView result;
 
 			result = new ModelAndView("question/edit");
+			result.addObject("permission", true);
 			result.addObject("questionForm", questionForm);
 			result.addObject("message", message);
 

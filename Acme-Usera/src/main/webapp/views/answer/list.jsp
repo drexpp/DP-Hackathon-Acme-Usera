@@ -13,7 +13,7 @@
 
 <!-- Listing grid -->
 
-<display:table name="answers" id="row" requestURI="answer${uri}/list.do" pagesize="5" class="displaytag">
+<display:table name="answers" id="row" requestURI="answer${uri}/list.do" class="displaytag">
 	<spring:message code="answer.text" var="textHeader" />
 	<display:column property="text" title="${textHeader}" sortable="true" />
 	<spring:message code="answer.format" var="format" />
@@ -29,3 +29,18 @@
 	<display:column property="actor.name" title="${actorHeader}" sortable="true" />
 
 </display:table>
+
+<spring:message code="datatables.locale.lang" var="tableLang"/>
+<spring:message code="datatables.moment.format" var="tableFormatMoment"/>
+<script>
+$(document).ready( function () {	
+	
+	
+    $('#row').dataTable( {
+    	"language": {
+        	"url": '${tableLang}'
+    	},
+		"lengthMenu": [ 5, 10, 25, 50, 100 ]
+    } );
+} );
+</script>
