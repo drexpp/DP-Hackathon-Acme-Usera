@@ -20,8 +20,6 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<jstl:choose>
-<jstl:when test="${question.forum.course.isClosed == false}"> 
 
 <h2> <jstl:out value="${question.title}"> </jstl:out> </h2>
 
@@ -137,11 +135,6 @@
 </jstl:if>
 </security:authorize>
 
-</jstl:when>
-<jstl:otherwise>
-<spring:message code="question.permission" />
-</jstl:otherwise>
-</jstl:choose>
 
 <spring:message code="datatables.locale.lang" var="tableLang"/>
 <spring:message code="datatables.moment.format" var="tableFormatMoment"/>

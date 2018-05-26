@@ -102,7 +102,7 @@ public class AnswerService {
 		principal = this.studentService.findByPrincipal();
 		Assert.notNull(principal);
 		
-		if(principal.getAnswers().contains(answer)){ //si soy el creador de esa respuesta
+		if(principal.getAnswers().contains(answer) || principal.getQuestions().contains(answer.getQuestion())){ //si soy el creador de esa respuesta
 			final Question question = answer.getQuestion();
 			final Collection<Answer> answer1 = question.getAnswers();
 			updated = new ArrayList<Answer>(answer1);

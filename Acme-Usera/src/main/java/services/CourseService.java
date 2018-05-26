@@ -3,6 +3,7 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 
 import org.springframework.validation.Validator;
 
@@ -15,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import repositories.CourseRepository;
 import domain.Admin;
 import domain.Advertisement;
+import domain.Exam;
 import domain.Forum;
 import domain.Lesson;
 import domain.Student;
@@ -41,7 +43,13 @@ public class CourseService {
 	private AdminService			adminService;
 	
 	@Autowired
+	private LessonService			lessonService;
+	
+	@Autowired
 	private ForumService			forumService;
+	
+	@Autowired
+	private ExamService			examService;
 
 	@Autowired
 	private SubscriptionService			subscriptionService;
@@ -97,10 +105,14 @@ public class CourseService {
 
 		final Collection<Advertisement> adversToRemove = course.getAdvertisements();
 
-		final Collection<Subscription> subscriptionsToRemove = course.getSubscriptions();
-		Collection<Teacher> teachers = course.getTeachers();
+		final Collection<Subscription> subscriptionsToRemove = new ArrayList<Subscription>(course.getSubscriptions());
+		Collection<Teacher> teachers = new ArrayList<Teacher>(course.getTeachers());
+		Collection<Lesson> lessons = new ArrayList<Lesson>(course.getLessons());
 		
-
+		
+		for(Lesson l : lessons){
+			this.lessonService.delete(l);
+		}
 
 		for (final Advertisement ad : adversToRemove){
 			Collection<Course> toUpdate = ad.getCourses();
@@ -122,6 +134,7 @@ public class CourseService {
 			updated2.remove(course);
 			t.setCoursesJoined(updated2);
 		}
+		
 		
 		Teacher teacher = course.getCreator();
 		final Collection<Course> courses = teacher.getCoursesCreated();
@@ -291,5 +304,14 @@ public class CourseService {
 		  return res;
 	  }
 	
-	
+	public Collection<Course> findCoursesStandardAndPremium (Integer idUser){
+		 Student principal = this.studentService.findByPrincipal();
+		  Assert.notNull(principal);
+		  Collection<Course> all = new HashSet<Course>();
+			Collection<Course> subscribedStandard = this.findCoursesSubscribedStandardByUser(principal.getId());
+			Collection<Course> subscribedPremium = this.findCoursesSubscribedPremiumByUser(principal.getId());
+			all.addAll(subscribedPremium);
+			all.addAll(subscribedStandard);
+			return all;
+	}
 }

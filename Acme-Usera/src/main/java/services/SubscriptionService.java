@@ -109,17 +109,19 @@ public class SubscriptionService {
 	public void delete (Subscription subcription){
 		Admin admin = this.adminService.findByPrincipal();
 		Assert.notNull(admin);
-		Collection<Subscription> update,update2;
+		Collection<Subscription> toUpdate,toUpdate2,updated,updated2;
 		
 		Student c = subcription.getStudent();
-		update = c.getSubscriptions();
-		update.remove(subcription);
-		subcription.getStudent().setSubscriptions(update);
+		toUpdate = c.getSubscriptions();
+		updated = new ArrayList<Subscription>(toUpdate);
+		updated.remove(subcription);
+		subcription.getStudent().setSubscriptions(updated);
 		
 		Course news = subcription.getCourse();
-		update2 = news.getSubscriptions();
-		update2.remove(subcription);
-		subcription.getCourse().setSubscriptions(update2);
+		toUpdate2 = news.getSubscriptions();
+		updated2 = new ArrayList<Subscription>(toUpdate2);
+		updated2.remove(subcription);
+		subcription.getCourse().setSubscriptions(updated2);
 		
 		this.subscriptionRepository.delete(subcription);
 		
