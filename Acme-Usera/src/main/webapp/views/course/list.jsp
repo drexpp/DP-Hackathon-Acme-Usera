@@ -123,15 +123,31 @@
 </security:authorize>	
 
 <!-- Foro -->
-<security:authorize access="isAuthenticated()">
+<security:authorize access="hasRole('TEACHER')" var="isTeacher"/>
+<jstl:choose>
+<jstl:when test="${isTeacher}">
 	<display:column>
-		<jstl:if test="${row.isClosed == false}">
+	<jstl:if test="${principal.coursesJoined.contains(row) && row.isClosed == false}">
 		<a href="forum/display.do?forumId=${row.forum.id}"> <spring:message
 			code="course.forum" />
 		</a>
-		</jstl:if>
+	</jstl:if>
 	</display:column>
-</security:authorize>
+
+</jstl:when>
+<jstl:otherwise>
+	<display:column>
+	<jstl:if test="${accessForum.contains(row)}">
+		<a href="forum/display.do?forumId=${row.forum.id}"> <spring:message
+			code="course.forum" />
+		</a>
+	</jstl:if>
+	</display:column>
+</jstl:otherwise>
+
+</jstl:choose>
+
+
 
 <!-- Exam -->
 	<display:column>

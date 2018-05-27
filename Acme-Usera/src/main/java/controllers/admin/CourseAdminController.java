@@ -2,6 +2,7 @@ package controllers.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,7 +14,6 @@ import controllers.AbstractController;
 import domain.Course;
 import domain.Admin;
 
-import services.CategoryService;
 import services.CourseService;
 import services.AdminService;
 
@@ -28,9 +28,6 @@ public class CourseAdminController extends AbstractController{
 			
 			@Autowired
 			private AdminService	adminService;
-			
-			@Autowired
-			private CategoryService	categoryService;
 	
 	
 			// Constructors
@@ -52,6 +49,7 @@ public class CourseAdminController extends AbstractController{
 			try {
 				Course course = this.courseService.findOne(courseId);
 				Admin admin = this.adminService.findByPrincipal();
+				Assert.notNull(admin);
 				this.courseService.deleteByAdmin(course);
 				result = new ModelAndView("redirect:/course/list.do");
 			} catch (final Throwable oops) {

@@ -104,11 +104,8 @@ public class QuestionService {
 		
 		if(principal.getQuestions().contains(question)){ //si soy el creador de esa respuesta
 			
-			final Forum forum = question.getForum();
-			final Collection<Question> question1 = forum.getQuestions();
-			updated = new ArrayList<Question>(question1);
-			updated.remove(question);
-			forum.setQuestions(updated);
+			for (final Answer a : question.getAnswers())
+				this.answerService.delete(a);
 			
 			final Student student = question.getStudent();
 			final Collection<Question> question2 = student.getQuestions();
@@ -116,9 +113,11 @@ public class QuestionService {
 			updated2.remove(question);
 			student.setQuestions(updated2);
 			
-			
-			for (final Answer a : question.getAnswers())
-				this.answerService.delete(a);
+			final Forum forum = question.getForum();
+			final Collection<Question> question1 = forum.getQuestions();
+			updated = new ArrayList<Question>(question1);
+			updated.remove(question);
+			forum.setQuestions(updated);
 			
 			this.questionRepository.delete(question);
 		}
@@ -145,7 +144,8 @@ public class QuestionService {
 		updated.remove(question);
 		student.setQuestions(updated);
 		
-		for (final Answer a : question.getAnswers())
+		Collection<Answer> answersToDelete = new ArrayList<Answer>(question.getAnswers());
+		for (final Answer a : answersToDelete)
 			this.answerService.deleteByAdmin(a);
 		
 		this.questionRepository.delete(question);

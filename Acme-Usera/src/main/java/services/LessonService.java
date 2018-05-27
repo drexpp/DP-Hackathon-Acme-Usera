@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
+import domain.Admin;
 import domain.Course;
 import domain.Lesson;
 import domain.Student;
@@ -34,6 +35,9 @@ public class LessonService {
 		
 		@Autowired
 		private TeacherService				teacherService;
+		
+		@Autowired
+		private AdminService				adminService;
 		
 		@Autowired
 		private CourseService				courseService;
@@ -65,15 +69,12 @@ public class LessonService {
 
 		// Other business methods
 		public void delete(final Lesson lesson) {
-			Teacher principal;
+			Admin principal;
 			Assert.notNull(lesson);
 			Assert.isTrue(lesson.getId() != 0);
 
-			principal = this.teacherService.findByPrincipal();
+			principal = this.adminService.findByPrincipal();
 			Assert.notNull(principal);
-
-			Assert.isTrue(principal.getCoursesCreated().contains(lesson.getCourse()));
-			Assert.isTrue(lesson.getCourse().getIsClosed() == false);
 			
 			Course course = lesson.getCourse();
 			Collection<Lesson> toUpdate1 = course.getLessons();

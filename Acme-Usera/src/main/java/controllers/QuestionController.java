@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,8 +14,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import domain.Actor;
 import domain.Answer;
 import domain.Question;
+import domain.Student;
+import domain.Teacher;
 import services.ActorService;
 import services.QuestionService;
+import services.StudentService;
 
 @Controller
 @RequestMapping("/question")
@@ -28,6 +32,9 @@ public class QuestionController {
 		
 		@Autowired
 		private ActorService	actorService;
+		
+		@Autowired
+		private StudentService	studentService;
 		
 		// Constructors
 
@@ -70,6 +77,17 @@ public class QuestionController {
 			try{
 				answers = question.getAnswers();
 				principal = this.actorService.findByPrincipal();
+				if (principal instanceof Student) {
+					String subscription = this.studentService
+							.checkSubscription(question.getForum().getCourse());
+					Assert.isTrue(subscription.equals("STANDARD")
+							|| subscription.equals("PREMIUM"));
+
+				} else if (principal instanceof Teacher) {
+					Teacher teacher = (Teacher) principal;
+					Assert.isTrue(teacher.getCoursesJoined().contains(
+							question.getForum().getCourse()));
+				}
 				result = new ModelAndView("question/display");
 				result.addObject("question", question);
 				result.addObject("answers", answers);

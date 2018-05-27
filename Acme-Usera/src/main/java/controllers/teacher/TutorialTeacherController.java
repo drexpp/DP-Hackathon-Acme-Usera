@@ -5,22 +5,18 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import services.CourseService;
 import services.TutorialService;
 import services.TeacherService;
 
 import controllers.AbstractController;
-import domain.Course;
 import domain.Tutorial;
 import domain.Teacher;
-import forms.LessonForm;
 
 @Controller
 @RequestMapping("/tutorial/teacher")
@@ -30,9 +26,6 @@ public class TutorialTeacherController extends AbstractController{
 
 	@Autowired
 	private TutorialService	tutorialService;
-	
-	@Autowired
-	private CourseService	courseService;
 	
 	@Autowired
 	private TeacherService	teacherService;

@@ -68,6 +68,8 @@ public class CourseController extends AbstractController{
 			}
 			if(principal instanceof Student){
 				Collection<Course> subscribed = this.courseService.selectCoursesSubscriptedByUser(principal.getId());
+				Collection<Course> accessForum = this.courseService.findCoursesStandardAndPremium(principal.getId());
+				result.addObject("accessForum", accessForum);
 				result.addObject("subscribed",subscribed);
 			}
 
@@ -120,8 +122,6 @@ public class CourseController extends AbstractController{
 						result.addObject("advert", advertChoosen);
 			}
 			if (principal instanceof Student) {
-				Collection<Course> subscribed = this.courseService.selectCoursesSubscriptedByUser(principal.getId()); 
-				Assert.isTrue(subscribed.contains(course));
 				String subscriptionType = this.studentService.checkSubscription(course);
 				result.addObject("subscriptionType", subscriptionType);
 				if(subscriptionType.equals("FREE")){
