@@ -28,10 +28,11 @@ public class ExamQuestionService {
 			
 	public ExamQuestion create() {
 		Teacher principal;
-		ExamQuestion exam = new ExamQuestion();
+		ExamQuestion examQuestion = new ExamQuestion();
 		principal = this.teacherService.findByPrincipal();
 		Assert.notNull(principal);
-		return exam;
+		examQuestion.setNumber(0);
+		return examQuestion;
 	}
 	
 	public Collection<ExamQuestion> findAll() {
@@ -43,6 +44,8 @@ public class ExamQuestionService {
 	public ExamQuestion save(final ExamQuestion examQuestion) {
 		Teacher principal;
 		ExamQuestion result;
+		Integer number = 0;
+
 		Assert.notNull(examQuestion);
 
 		principal = this.teacherService.findByPrincipal();
@@ -53,15 +56,25 @@ public class ExamQuestionService {
 		Assert.isTrue(principal.getCoursesJoined().contains(examQuestion.getExam().getCourse()));
 		}
 		
-	
+		Exam examen = examQuestion.getExam();
+		
+		number = examen.getExamQuestions().size()+1;
+		examQuestion.setNumber(number);
+		
 		result = this.examQuestionRepository.save(examQuestion);
 	
 		if(examQuestion.getId() == 0){
 			Exam exam = result.getExam();
+			Integer puntuacion = exam.getMark();
 			Collection<ExamQuestion> toUpdate = exam.getExamQuestions();
 			Collection<ExamQuestion> updated = new ArrayList<ExamQuestion>(toUpdate);
 			toUpdate.add(result);
 			exam.setExamQuestions(updated);
+			
+			puntuacion = puntuacion + examQuestion.getMaxScore();
+			exam.setMark(puntuacion);
+			
+			
 		}	
 		
 		return result;

@@ -125,11 +125,31 @@
 <!-- Foro -->
 <security:authorize access="isAuthenticated()">
 	<display:column>
+		<jstl:if test="${row.isClosed == false}">
 		<a href="forum/display.do?forumId=${row.forum.id}"> <spring:message
 			code="course.forum" />
 		</a>
+		</jstl:if>
 	</display:column>
 </security:authorize>
+
+<!-- Exam -->
+	<display:column>
+	<security:authorize access="hasRole('TEACHER') || hasRole('STUDENT')">
+		<jstl:if test="${row.exam != null && row.isClosed == false}">
+			<a href="exam/display.do?examId=${row.exam.id}"> <spring:message
+			code="course.exam" />
+			</a>
+		</jstl:if>
+	</security:authorize>
+	<security:authorize access="hasRole('TEACHER')">
+		<jstl:if test="${row.exam == null}">
+			<a href="exam/teacher/create.do?courseId=${row.id}"> <spring:message
+			code="course.createExam" />
+			</a>
+		</jstl:if>
+	</security:authorize>
+	</display:column>
 
 
 <!-- Edit -->

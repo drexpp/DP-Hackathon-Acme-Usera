@@ -50,6 +50,10 @@
 		<bean class="converters.FolderToStringConverter"/>
 		<bean class="converters.StudentToStringConverter"/>
 		<bean class="converters.StringToStudentConverter"/>
+		<bean class="converters.ExamToStringConverter"/>
+		<bean class="converters.StringToExamConverter"/>
+		<bean class="converters.ExamQuestionToStringConverter"/>
+		<bean class="converters.StringToExamQuestionConverter"/>
 
 		
 	</util:list>

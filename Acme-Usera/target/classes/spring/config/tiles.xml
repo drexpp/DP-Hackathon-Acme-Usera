@@ -42,6 +42,8 @@
 		<value>/views/subscription/tiles.xml</value>
 		<value>/views/customisation/tiles.xml</value>		
 		<value>/views/tutorial/tiles.xml</value>
+		<value>/views/exam/tiles.xml</value>
+		<value>/views/examQuestion/tiles.xml</value>
 
 
 

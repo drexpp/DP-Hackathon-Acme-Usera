@@ -33,6 +33,7 @@ public class ExamQuestion extends DomainEntity {
 		this.statement = statement;
 	}
 	@NotNull
+	@Min(value=0)
 	public Integer getMaxScore() {
 		return maxScore;
 	}
@@ -47,7 +48,7 @@ public class ExamQuestion extends DomainEntity {
 		this.photoURL = photoURL;
 	}
 	@NotNull
-	@Min(value=1)
+	@Min(value=0)
 	public Integer getNumber() {
 		return number;
 	}

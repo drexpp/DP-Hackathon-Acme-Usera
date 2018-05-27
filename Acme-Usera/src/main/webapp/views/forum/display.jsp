@@ -107,3 +107,17 @@
 </jstl:otherwise>
 </jstl:choose>
 
+<spring:message code="datatables.locale.lang" var="tableLang"/>
+<spring:message code="datatables.moment.format" var="tableFormatMoment"/>
+<script>
+$(document).ready( function () {	
+	
+	
+    $('#row').dataTable( {
+    	"language": {
+        	"url": '${tableLang}'
+    	},
+		"lengthMenu": [ 5, 10, 25, 50, 100 ]
+    } );
+} );
+</script>

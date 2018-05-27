@@ -152,18 +152,33 @@
 		<security:intercept-url pattern="/answer/list.do"
 			access="permitAll" />
 			
+		<!-- Exam -->	
+		<security:intercept-url pattern="/exam/display.do"
+			access="permitAll" />
+		<security:intercept-url pattern="/exam/teacher/create.do"
+			access="hasRole('TEACHER')" />
+		<security:intercept-url pattern="/exam/teacher/edit.do"
+			access="hasRole('TEACHER')" />
+		<security:intercept-url pattern="/examQuestion/teacher/create.do"
+			access="hasRole('TEACHER')" />	
+		<security:intercept-url pattern="/examQuestion/teacher/edit.do"
+			access="hasRole('TEACHER')" />	
 			
-			<!-- Advertisement -->
+			
+		<!-- Advertisement -->
 		<security:intercept-url pattern="/advertisement/sponsor/**" access="hasRole('SPONSOR')" /> 
+		
 		<!-- Subscription -->
 		<security:intercept-url pattern="/subscription/student/create.do" access="hasRole('STUDENT')" /> 
 		<security:intercept-url pattern="/subscription/student/edit.do" access="hasRole('STUDENT')" /> 
+		
 		<!-- Lesson -->
 		<security:intercept-url pattern="/lesson/teacher/edit.do" access="hasRole('TEACHER')" /> 
 		<security:intercept-url pattern="/lesson/teacher/create.do" access="hasRole('TEACHER')" /> 
 		<security:intercept-url pattern="/lesson/teacher/delete.do" access="hasRole('TEACHER')" /> 		
 		<security:intercept-url pattern="/lesson/display.do" access="hasAnyRole('TEACHER','STUDENT')" /> 
 		<security:intercept-url pattern="/lesson/student/read.do" access="hasRole('STUDENT')" /> 
+		
 		<!-- Tutorial -->
 		<security:intercept-url pattern="/tutorial/student/create.do" access="hasRole('STUDENT')" /> 
 		<security:intercept-url pattern="/tutorial/student/edit.do" access="hasRole('STUDENT')" /> 
