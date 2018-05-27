@@ -20,6 +20,7 @@ import domain.Advertisement;
 import domain.MailMessage;
 import domain.Sponsor;
 import forms.ActorForm;
+import forms.EditActorForm;
 
 @Service
 @Transactional
@@ -135,6 +136,43 @@ public class SponsorService {
 
 	public void flush() {
 		this.sponsorRepository.flush();
+	}
+
+
+	public EditActorForm construct(EditActorForm editActorForm,
+			Sponsor principal) {
+		
+		editActorForm.setId(principal.getId());
+		editActorForm.setVersion(principal.getVersion());
+		editActorForm.setName(principal.getName());
+		editActorForm.setSurname(principal.getSurname());
+		editActorForm.setEmail(principal.getEmail());
+		editActorForm.setPhone(principal.getPhone());
+		editActorForm.setAddress(principal.getAddress());
+		
+		
+		return editActorForm;
+	}
+
+	public Sponsor reconstruct(EditActorForm editActorForm,
+			BindingResult binding) {
+		Sponsor result;
+		
+		result = this.findByPrincipal();
+		
+		result.setName(editActorForm.getName());
+		result.setSurname(editActorForm.getSurname());
+		result.setEmail(editActorForm.getEmail());
+		result.setId(editActorForm.getId());
+		result.setAddress(editActorForm.getAddress());
+		result.setVersion(editActorForm.getVersion());
+		result.setPhone(editActorForm.getPhone());
+	
+		
+		this.validator.validate(editActorForm, binding);
+
+		
+		return result;
 	}
 
 }

@@ -14,6 +14,7 @@ import services.SponsorService;
 import controllers.AbstractController;
 import domain.Sponsor;
 import forms.ActorForm;
+import forms.EditActorForm;
 
 
 @Controller
@@ -50,12 +51,107 @@ public class SponsorRegisterController extends AbstractController {
 				this.sponsorService.save(sponsor);
 				result = new ModelAndView("redirect:../");
 			} catch (final DataIntegrityViolationException oops) {
-				binding.rejectValue("userAccount.username", "user.username.error");
+				binding.rejectValue("userAccount.username", "actor.username.error");
 				result = this.createEditModelAndView(actorForm);
 				result.addObject("permiso", true);
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(actorForm, "user.commit.error");
+				result = this.createEditModelAndView(actorForm, "actor.commit.error");
 			}
+		return result;
+	}
+	
+	
+	@RequestMapping(value="/display", method = RequestMethod.GET)
+	public ModelAndView display(){
+		ModelAndView result;
+		Sponsor principal;
+		
+		principal = this.sponsorService.findByPrincipal();
+		
+		result = new ModelAndView("actor/display");
+		result.addObject("actor", principal);
+		
+		return result;
+	}
+	
+	@RequestMapping(value="/edit", method=RequestMethod.GET)
+	public ModelAndView edit(){
+		ModelAndView result;
+		EditActorForm editActorForm;
+		Sponsor principal;
+		
+		editActorForm = new EditActorForm();
+		principal = this.sponsorService.findByPrincipal();
+			
+		editActorForm = this.sponsorService.construct(editActorForm, principal);
+		
+		result = this.createEditModelAndView(editActorForm);
+		
+		return result;
+		
+	}
+	
+	@RequestMapping(value="/edit", method=RequestMethod.POST, params="save")
+	public ModelAndView edit(final EditActorForm editActorForm, BindingResult binding){
+		ModelAndView result;
+		Sponsor sponsor;
+		
+		if(!editActorForm.getName().isEmpty() && !editActorForm.getSurname().isEmpty() && !editActorForm.getEmail().isEmpty())
+			sponsor = this.sponsorService.reconstruct(editActorForm, binding);
+		else{
+			result = this.createEditModelAndView(editActorForm, "actor.commit.error");
+			return result;
+		}
+			
+		
+		sponsor = this.sponsorService.reconstruct(editActorForm, binding);
+		
+		if(binding.hasErrors()){
+			result = this.createEditModelAndView(editActorForm);
+		}else{
+			try{
+				this.sponsorService.save(sponsor);
+				result = new ModelAndView("redirect:/sponsor/display.do");
+			}catch (Throwable oops){
+				result = this.createEditModelAndView(editActorForm);
+			}
+		}
+		
+		return result;
+	}
+	
+	protected ModelAndView createEditModelAndView(EditActorForm editActorForm) {
+		ModelAndView result;
+		
+		result = this.createEditModelAndView(editActorForm, null);
+		
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(EditActorForm editActorForm,
+			String message) {
+		ModelAndView result;
+		String requestURI;
+		Sponsor principal;
+		Boolean permiso;
+		
+		permiso = false;
+		
+		principal = this.sponsorService.findByPrincipal();
+		
+		if(principal.getId() == editActorForm.getId()){
+			permiso = true;
+		}
+		
+		requestURI = "student/student/editProfile.do";
+		
+		result = new ModelAndView("actor/edit");
+		result.addObject("editActorForm", editActorForm);
+		result.addObject("message", message);
+		result.addObject("requestURI", requestURI);
+		result.addObject("permiso", permiso);
+		
+		
 		return result;
 	}
 

@@ -66,7 +66,7 @@
 <security:authorize access="hasRole('ADMIN')">
 <tr>
 <td class ="left-display"> <strong> <spring:message code="actor.address" /> : </strong> </td>
-<td class="right-display">  <jstl:out value="${actor.postalAddress}" /> &nbsp; </td>
+<td class="right-display">  <jstl:out value="${actor.address}" /> &nbsp; </td>
 </tr>
 
 </security:authorize>

@@ -23,6 +23,7 @@ import domain.Course;
 import domain.Teacher;
 import domain.Tutorial;
 import forms.ActorFormTeacher;
+import forms.EditActorForm;
 
 @Service
 @Transactional
@@ -152,4 +153,40 @@ public class TeacherService {
 		
 	}
 
+	public EditActorForm construct(EditActorForm editActorForm,
+			Teacher principal) {
+		
+		editActorForm.setId(principal.getId());
+		editActorForm.setVersion(principal.getVersion());
+		editActorForm.setName(principal.getName());
+		editActorForm.setSurname(principal.getSurname());
+		editActorForm.setEmail(principal.getEmail());
+		editActorForm.setPhone(principal.getPhone());
+		editActorForm.setAddress(principal.getAddress());
+		
+		
+		return editActorForm;
+	}
+
+	public Teacher reconstruct(EditActorForm editActorForm,
+			BindingResult binding) {
+		Teacher result;
+		
+		result = this.findByPrincipal();
+		
+		result.setName(editActorForm.getName());
+		result.setSurname(editActorForm.getSurname());
+		result.setEmail(editActorForm.getEmail());
+		result.setId(editActorForm.getId());
+		result.setAddress(editActorForm.getAddress());
+		result.setVersion(editActorForm.getVersion());
+		result.setPhone(editActorForm.getPhone());
+	
+		
+		this.validator.validate(editActorForm, binding);
+
+		
+		return result;
+	}
+	
 }

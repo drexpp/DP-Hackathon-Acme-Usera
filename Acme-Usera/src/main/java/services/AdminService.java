@@ -7,11 +7,14 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.AdminRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Admin;
+import forms.EditActorForm;
 
 @Service
 @Transactional
@@ -23,6 +26,8 @@ public class AdminService {
 
 
 	// Supporting services
+	@Autowired
+	private Validator		validator;
 
 	// Constructors
 
@@ -85,6 +90,42 @@ public class AdminService {
 		Assert.notNull(userAccount);
 		Admin result;
 		result = this.adminRepository.findByUserAccountId(userAccount.getId());
+		return result;
+	}
+
+
+	public EditActorForm construct(EditActorForm editActorForm,
+			Admin principal) {
+		
+		editActorForm.setId(principal.getId());
+		editActorForm.setVersion(principal.getVersion());
+		editActorForm.setName(principal.getName());
+		editActorForm.setSurname(principal.getSurname());
+		editActorForm.setEmail(principal.getEmail());
+		editActorForm.setPhone(principal.getPhone());
+		editActorForm.setAddress(principal.getAddress());
+		
+		
+		return editActorForm;
+	}
+
+	public Admin reconstruct(EditActorForm editActorForm,
+			BindingResult binding) {
+		Admin result;
+		
+		result = this.findByPrincipal();
+		
+		result.setName(editActorForm.getName());
+		result.setSurname(editActorForm.getSurname());
+		result.setEmail(editActorForm.getEmail());
+		result.setId(editActorForm.getId());
+		result.setAddress(editActorForm.getAddress());
+		result.setVersion(editActorForm.getVersion());
+		result.setPhone(editActorForm.getPhone());
+	
+		
+		this.validator.validate(editActorForm, binding);
+
 		return result;
 	}
 

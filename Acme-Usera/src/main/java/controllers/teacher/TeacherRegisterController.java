@@ -16,6 +16,7 @@ import controllers.AbstractController;
 import domain.ContactInfo;
 import domain.Teacher;
 import forms.ActorFormTeacher;
+import forms.EditActorForm;
 
 
 @Controller
@@ -60,14 +61,110 @@ public class TeacherRegisterController extends AbstractController {
 				this.contactInfoService.save(contactInfo);
 				result = new ModelAndView("redirect:../");
 			} catch (final DataIntegrityViolationException oops) {
-				binding.rejectValue("userAccount.username", "user.username.error");
+				binding.rejectValue("userAccount.username", "actor.username.error");
 				result = this.createEditModelAndView(actorFormTeacher);
 				result.addObject("permiso", true);
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(actorFormTeacher, "user.commit.error");
+				result = this.createEditModelAndView(actorFormTeacher, "actor.commit.error");
 			}
 		return result;
 	}
+	
+	
+	@RequestMapping(value="/display", method = RequestMethod.GET)
+	public ModelAndView display(){
+		ModelAndView result;
+		Teacher principal;
+		
+		principal = this.teacherService.findByPrincipal();
+		
+		result = new ModelAndView("actor/display");
+		result.addObject("actor", principal);
+		
+		return result;
+	}
+	
+	@RequestMapping(value="/edit", method=RequestMethod.GET)
+	public ModelAndView edit(){
+		ModelAndView result;
+		EditActorForm editActorForm;
+		Teacher principal;
+		
+		editActorForm = new EditActorForm();
+		principal = this.teacherService.findByPrincipal();
+			
+		editActorForm = this.teacherService.construct(editActorForm, principal);
+		
+		result = this.createEditModelAndView(editActorForm);
+		
+		return result;
+		
+	}
+	
+	@RequestMapping(value="/edit", method=RequestMethod.POST, params="save")
+	public ModelAndView edit(final EditActorForm editActorForm, BindingResult binding){
+		ModelAndView result;
+		Teacher teacher;
+		
+		if(!editActorForm.getName().isEmpty() && !editActorForm.getSurname().isEmpty() && !editActorForm.getEmail().isEmpty())
+			teacher = this.teacherService.reconstruct(editActorForm, binding);
+		else{
+			result = this.createEditModelAndView(editActorForm, "actor.commit.error");
+			return result;
+		}
+			
+		
+		teacher = this.teacherService.reconstruct(editActorForm, binding);
+		
+		if(binding.hasErrors()){
+			result = this.createEditModelAndView(editActorForm);
+		}else{
+			try{
+				this.teacherService.save(teacher);
+				result = new ModelAndView("redirect:/teacher/display.do");
+			}catch (Throwable oops){
+				result = this.createEditModelAndView(editActorForm);
+			}
+		}
+		
+		return result;
+	}
+	
+	protected ModelAndView createEditModelAndView(EditActorForm editActorForm) {
+		ModelAndView result;
+		
+		result = this.createEditModelAndView(editActorForm, null);
+		
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(EditActorForm editActorForm,
+			String message) {
+		ModelAndView result;
+		String requestURI;
+		Teacher principal;
+		Boolean permiso;
+		
+		permiso = false;
+		
+		principal = this.teacherService.findByPrincipal();
+		
+		if(principal.getId() == editActorForm.getId()){
+			permiso = true;
+		}
+		
+		requestURI = "student/student/editProfile.do";
+		
+		result = new ModelAndView("actor/edit");
+		result.addObject("editActorForm", editActorForm);
+		result.addObject("message", message);
+		result.addObject("requestURI", requestURI);
+		result.addObject("permiso", permiso);
+		
+		
+		return result;
+	}
+
 
 	protected ModelAndView createEditModelAndView(final ActorFormTeacher actorFormTeacher) {
 		ModelAndView result;

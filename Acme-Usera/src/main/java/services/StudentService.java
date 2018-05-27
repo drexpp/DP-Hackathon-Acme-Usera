@@ -25,6 +25,7 @@ import domain.Student;
 import domain.Subscription;
 import domain.Tutorial;
 import forms.ActorForm;
+import forms.EditActorForm;
 
 @Service
 @Transactional
@@ -170,4 +171,40 @@ public class StudentService {
 		
 	}
 
+	public EditActorForm construct(EditActorForm editActorForm,
+			Student principal) {
+		
+		editActorForm.setId(principal.getId());
+		editActorForm.setVersion(principal.getVersion());
+		editActorForm.setName(principal.getName());
+		editActorForm.setSurname(principal.getSurname());
+		editActorForm.setEmail(principal.getEmail());
+		editActorForm.setPhone(principal.getPhone());
+		editActorForm.setAddress(principal.getAddress());
+		
+		
+		return editActorForm;
+	}
+
+	public Student reconstruct(EditActorForm editActorForm,
+			BindingResult binding) {
+		Student result;
+		
+		result = this.findByPrincipal();
+		
+		result.setName(editActorForm.getName());
+		result.setSurname(editActorForm.getSurname());
+		result.setEmail(editActorForm.getEmail());
+		result.setId(editActorForm.getId());
+		result.setAddress(editActorForm.getAddress());
+		result.setVersion(editActorForm.getVersion());
+		result.setPhone(editActorForm.getPhone());
+	
+		
+		this.validator.validate(editActorForm, binding);
+
+		
+		return result;
+	}
+	
 }

@@ -121,7 +121,22 @@
 				</a>
 				<ul>
 					<li class="arrow"></li>
+					<security:authorize access="hasRole('ADMIN')">
+					<li><a href="admin/display.do"><spring:message code="master.page.personalProfile" /> </a></li>
+						<li><a href="admin/edit.do"><spring:message code="master.page.personalProfile.edit" /></a></li>
+					</security:authorize>
+					<security:authorize access="hasRole('SPONSOR')">
+					<li><a href="sponsor/display.do"><spring:message code="master.page.personalProfile" /> </a></li>
+						<li><a href="sponsor/edit.do"><spring:message code="master.page.personalProfile.edit" /></a></li>
+					</security:authorize>
+					<security:authorize access="hasRole('TEACHER')">
+					<li><a href="teacher/display.do"><spring:message code="master.page.personalProfile" /> </a></li>
+						<li><a href="teacher/edit.do"><spring:message code="master.page.personalProfile.edit" /></a></li>
+					</security:authorize>
+					<security:authorize access="hasRole('STUDENT')">
 					<li><a href="student/display.do"><spring:message code="master.page.personalProfile" /> </a></li>
+						<li><a href="student/edit.do"><spring:message code="master.page.personalProfile.edit" /></a></li>
+					</security:authorize>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>
 			</li>
