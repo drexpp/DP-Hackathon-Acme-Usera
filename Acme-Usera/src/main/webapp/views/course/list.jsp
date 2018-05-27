@@ -151,13 +151,19 @@
 
 <!-- Exam -->
 	<display:column>
-	<security:authorize access="hasRole('TEACHER') || hasRole('STUDENT')">
-		<jstl:if test="${row.exam != null && row.isClosed == false}">
+	<security:authorize access="hasRole('TEACHER')" var="isTeacher"/>
+	<security:authorize access="hasRole('STUDENT')" var="isStudent"/>
+		<jstl:if test="${isStudent && row.exam != null && row.isClosed == false && subscribed.contains(row)}">
 			<a href="exam/display.do?examId=${row.exam.id}"> <spring:message
 			code="course.exam" />
 			</a>
 		</jstl:if>
-	</security:authorize>
+		<jstl:if test="${isTeacher && row.exam != null && row.isClosed == false}">
+			<a href="exam/display.do?examId=${row.exam.id}"> <spring:message
+			code="course.exam" />
+			</a>
+		</jstl:if>
+		
 	<security:authorize access="hasRole('TEACHER')">
 		<jstl:if test="${row.exam == null}">
 			<a href="exam/teacher/create.do?courseId=${row.id}"> <spring:message
