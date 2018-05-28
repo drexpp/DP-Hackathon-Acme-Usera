@@ -42,9 +42,8 @@
 				
 	<input type="button" name="cancel"
 		value="${cancelQuestion}"
-		onclick="javascript: relativeRedir('course/list.do');" />
+		onclick="javascript: relativeRedir('forum/display.do?forumId=${questionForm.forum.id}');" />
 	<br />
-
 
 </form:form>
 

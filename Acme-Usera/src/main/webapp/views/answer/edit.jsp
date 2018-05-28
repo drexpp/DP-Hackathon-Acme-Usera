@@ -40,9 +40,8 @@
 	
 	<input type="button" name="cancel"
 		value="${cancelAnswer}"
-		onclick="javascript: relativeRedir('course/list.do');" />
+		onclick="javascript: relativeRedir('question/display.do?questionId=${answerForm.question.id}');" />
 	<br />
-
 
 </form:form>
 

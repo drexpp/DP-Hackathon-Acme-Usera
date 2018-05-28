@@ -154,10 +154,12 @@ public class QuestionStudentController {
 		public ModelAndView delete(@RequestParam final int questionId, RedirectAttributes redir) {
 		ModelAndView result;
 		Question question;
+		Student principal = this.studentService.findByPrincipal();
 		
-		question = this.questionService.findOne(questionId);
+		question = this.questionService.findOne(questionId);	
 
 		try {
+			Assert.isTrue(question.getStudent().getId()==principal.getId());
 			this.questionService.delete(question);
 			result = new ModelAndView("redirect:../../forum/display.do?forumId="+question.getForum().getId());
 			String successfulMessage = "question.commit.ok";
