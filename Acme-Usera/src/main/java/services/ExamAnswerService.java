@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.Admin;
+import domain.Exam;
 import domain.ExamPaper;
 import domain.ExamAnswer;
+import domain.ExamQuestion;
 import domain.Student;
 
 import repositories.ExamAnswerRepository;
@@ -24,6 +27,9 @@ public class ExamAnswerService {
 
 			@Autowired
 			private StudentService				studentService;
+			
+			@Autowired
+			private AdminService				adminService;
 	
 			
 	public ExamAnswer create() {
@@ -72,6 +78,25 @@ public class ExamAnswerService {
 
 		return result;
 
+	}
+
+	public void deleteByAdmin(final ExamAnswer examAnswer) {
+		Admin principal;
+
+		Assert.notNull(examAnswer);
+
+		principal = this.adminService.findByPrincipal();
+
+		Assert.notNull(principal);
+		
+		ExamPaper examen = examAnswer.getExamPaper();
+		Collection<ExamAnswer> examAnswers = new ArrayList<ExamAnswer>(examen.getExamAnswer());
+		examAnswers.remove(examAnswer);
+		examen.setExamAnswer(examAnswers);
+		
+		this.examAnswerRepository.delete(examAnswer);
+	
+		
 	}
 	
 }

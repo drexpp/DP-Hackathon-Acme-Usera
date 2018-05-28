@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.Admin;
 import domain.Exam;
+import domain.ExamPaper;
 import domain.ExamQuestion;
 import domain.Teacher;
 
@@ -24,6 +26,9 @@ public class ExamQuestionService {
 			
 			@Autowired
 			private TeacherService				teacherService;
+			
+			@Autowired
+			private AdminService				adminService;
 	
 			
 	public ExamQuestion create() {
@@ -78,6 +83,28 @@ public class ExamQuestionService {
 		}	
 		
 		return result;
+	}
+	
+	
+	
+	
+	public void deleteByAdmin(final ExamQuestion examQuestion) {
+		Admin principal;
+
+		Assert.notNull(examQuestion);
+
+		principal = this.adminService.findByPrincipal();
+
+		Assert.notNull(principal);
+		
+		Exam examen = examQuestion.getExam();
+		Collection<ExamQuestion> examQuestions = new ArrayList<ExamQuestion>(examen.getExamQuestions());
+		examQuestions.remove(examQuestion);
+		examen.setExamQuestions(examQuestions);
+		
+		this.examQuestionRepository.delete(examQuestion);
+	
+		
 	}
 	
 	

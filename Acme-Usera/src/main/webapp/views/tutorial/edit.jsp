@@ -25,8 +25,11 @@
 	<form:hidden path="student"/>
 	<form:hidden path="teacher"/>
 	
+		<spring:message code="tutorial.pattern" var="pattern"  />
 	
-<acme:textbox code="tutorial.start.time" path="startTime"/>
+	
+<acme:textbox code="tutorial.start.time" path="startTime" placeholder="dd/MM/yyyy HH:mm"/>
+
 
 	<spring:message code="tutorial.save" var="savetutorial"  />
 	<spring:message code="tutorial.confirm.delete" var="confirmDeletetutorial"  />

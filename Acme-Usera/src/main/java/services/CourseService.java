@@ -42,6 +42,9 @@ public class CourseService {
 	private AdminService			adminService;
 	
 	@Autowired
+	private ExamService			examService;
+	
+	@Autowired
 	private LessonService			lessonService;
 	
 	@Autowired
@@ -130,8 +133,10 @@ public class CourseService {
 			updated2.remove(course);
 			t.setCoursesJoined(updated2);
 		}
+		if (course.getExam() != null){
+		this.examService.deleteByAdmin(course.getExam());
 		
-		
+		}
 		Teacher teacher = course.getCreator();
 		final Collection<Course> courses = teacher.getCoursesCreated();
 		final Collection<Course> updated2 = new ArrayList<Course>(courses);
