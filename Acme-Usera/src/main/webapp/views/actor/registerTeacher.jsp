@@ -21,7 +21,7 @@ function Terms(){
 	alert("${terms}");
 }
 </script>
-<form:form action="${formURL}" modelAttribute="actorForm" >
+<form:form action="${formURL}" modelAttribute="actorFormTeacher" >
 
 
 	<form:hidden path="id"/>

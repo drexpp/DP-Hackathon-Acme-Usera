@@ -60,3 +60,12 @@ h4{
 .titles{
 	color : black;
 }
+
+.redCell {
+	background-color: rgba(255, 0, 0, 0.6);
+}
+
+.greenCell {
+	background-color: rgba(0, 255, 0, 0.33);
+}
+

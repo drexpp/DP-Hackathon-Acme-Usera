@@ -14,7 +14,6 @@ import domain.ExamPaper;
 import domain.Student;
 
 import repositories.CertificationRepository;
-import repositories.CourseRepository;
 
 @Service
 @Transactional
@@ -27,13 +26,6 @@ public class CertificationService {
 
 	@Autowired
 	private AdminService			adminService;
-	
-	@Autowired
-	private ExamService			examService;
-	
-	@Autowired
-	private StudentService	studentService;
-	
 	
 	public CertificationService() {
 		super();

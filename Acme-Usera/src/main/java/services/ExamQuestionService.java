@@ -10,7 +10,6 @@ import org.springframework.util.Assert;
 
 import domain.Admin;
 import domain.Exam;
-import domain.ExamPaper;
 import domain.ExamQuestion;
 import domain.Teacher;
 

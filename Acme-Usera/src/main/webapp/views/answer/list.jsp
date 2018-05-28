@@ -15,18 +15,18 @@
 
 <display:table name="answers" id="row" requestURI="answer${uri}/list.do" class="displaytag">
 	<spring:message code="answer.text" var="textHeader" />
-	<display:column property="text" title="${textHeader}" sortable="true" />
+	<display:column property="text" title="${textHeader}"/>
 	<spring:message code="answer.format" var="format" />
 	<spring:message code="answer.moment" var="momentHeader" />
-	<display:column property="moment" title="${momentHeader}" format="${format}" sortable="true" />
+	<display:column property="moment" title="${momentHeader}" format="${format}" />
 	<spring:message code="answer.photoURL" var="photoURLHeader" />
-	<display:column property="photoURL" title="${photoURLHeader}" sortable="false" />
+	<display:column property="photoURL" title="${photoURLHeader}" />
 	<spring:message code="answer.isSolution" var="isSolutionHeader" />
-	<display:column property="isSolution" title="${isSolutionHeader}" sortable="true" />
+	<display:column property="isSolution" title="${isSolutionHeader}"/>
 	<spring:message code="answer.question" var="questionHeader" />
-	<display:column property="question.title" title="${questionHeader}" sortable="true" />
+	<display:column property="question.title" title="${questionHeader}" />
 	<spring:message code="answer.actor" var="actorHeader" />
-	<display:column property="actor.name" title="${actorHeader}" sortable="true" />
+	<display:column property="actor.name" title="${actorHeader}" />
 
 </display:table>
 

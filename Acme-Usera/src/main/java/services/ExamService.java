@@ -95,7 +95,6 @@ public class ExamService {
 		
 		public void deleteByAdmin(final Exam exam) {
 			Admin principal;
-			Exam result;
 			Assert.notNull(exam);
 
 			principal = this.adminService.findByPrincipal();

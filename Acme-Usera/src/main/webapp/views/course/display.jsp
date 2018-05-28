@@ -72,9 +72,9 @@
 
 <display:table name="lessons" id="row" requestURI="course/display.do?courseId=${course.id}" class="displaytag">
 <spring:message code="course.title" var="titleHeader" />
-	<display:column property="title" title="${titleHeader}" sortable="true" />
+	<display:column property="title" title="${titleHeader}"   />
 	<spring:message code="course.description" var="description" />
-	<display:column property="description" title="${description}" sortable="false" />
+	<display:column property="description" title="${description}"/>
 	<spring:message code="lesson.display" var="display" />
 	<display:column>
 	<a href="lesson/display.do?lessonId=${row.id}"> <jstl:out value="${display}"></jstl:out>
@@ -128,10 +128,10 @@
 <display:table name="course.teachers" id="tutor" requestURI="course/display.do?courseId=${course.id}" class="displaytag">
 <!-- Name -->
 <spring:message code ="teacher.name" var="teacherName"/>
-<display:column property="name" title="${teacherName}" sortable="true" />
+<display:column property="name" title="${teacherName}"   />
 <!-- Surname -->
 <spring:message code ="teacher.surname" var="teacherSurname"/>
-<display:column property="surname" title="${teacherSurname}" sortable="true" />
+<display:column property="surname" title="${teacherSurname}"   />
 <!-- Create Tutorial -->
 <display:column>    
 <spring:message code="tutorial.create" var="createTutorial" />
@@ -153,10 +153,10 @@
 <display:table name="course.teachers" id="tutor" requestURI="course/display.do?courseId=${course.id}" class="displaytag">
 <!-- Name -->
 <spring:message code ="teacher.name" var="teacherName"/>
-<display:column property="name" title="${teacherName}" sortable="true" />
+<display:column property="name" title="${teacherName}"   />
 <!-- Surname -->
 <spring:message code ="teacher.surname" var="teacherSurname"/>
-<display:column property="surname" title="${teacherSurname}" sortable="true" />
+<display:column property="surname" title="${teacherSurname}"   />
 <!-- Create Tutorial -->
 <jstl:if test="${principal.equals(course.creator)}">
 <display:column>    

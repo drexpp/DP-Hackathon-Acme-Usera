@@ -53,6 +53,11 @@
 				
 					<a href="message/actor/edit.do?messageId=${row.id}"><jstl:out value="${edit}"/></a>
 				</display:column>
+				
+				<spring:message code="folder.reply" var="reply"/>
+				<display:column>
+					<a href="message/actor/create.do?userToReply=${row.sender.userAccount.username}"><jstl:out value="${reply}"/></a>
+				</display:column>
 	</display:table>
 	<br/>
 	<br/>

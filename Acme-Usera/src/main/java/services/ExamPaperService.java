@@ -12,7 +12,6 @@ import domain.Admin;
 import domain.Exam;
 import domain.ExamAnswer;
 import domain.ExamPaper;
-import domain.ExamQuestion;
 import domain.Student;
 
 import repositories.ExamPaperRepository;
@@ -93,7 +92,6 @@ public class ExamPaperService {
 
 	public void deleteByAdmin(final ExamPaper examPaper) {
 		Admin principal;
-		ExamPaper result;
 		Assert.notNull(examPaper);
 		
 	//	Assert.isTrue(principal.getLessons().containAll(examPaper.getExam().getCourse().getLessons()));

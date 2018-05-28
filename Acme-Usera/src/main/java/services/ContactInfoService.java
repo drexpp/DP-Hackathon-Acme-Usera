@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Validator;
 
 import repositories.ContactInfoRepository;
 import domain.ContactInfo;
@@ -18,9 +17,6 @@ public class ContactInfoService {
 	// Managed Repository
 	@Autowired
 	private ContactInfoRepository contactInfoRepository;
-
-	@Autowired
-	private Validator		validator;
 
 
 	// Supporting services
@@ -65,8 +61,6 @@ public class ContactInfoService {
 		contactInfo.setComments(actorFormTeacher.getComments());
 		contactInfo.setLinks(actorFormTeacher.getLinks());
 		
-		this.validator.validate(actorFormTeacher, binding);
-	
 		return contactInfo;
 	}
 

@@ -9,10 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import domain.Admin;
-import domain.Exam;
 import domain.ExamPaper;
 import domain.ExamAnswer;
-import domain.ExamQuestion;
 import domain.Student;
 
 import repositories.ExamAnswerRepository;

@@ -43,14 +43,14 @@
 <display:table name="examQuestions" id="row" requestURI="exam/display.do" class="displaytag">
 
 	<spring:message code="examQuestion.number" var="numberHeader" />
-	<display:column property="number" title="${numberHeader}" sortable="true" />
+	<display:column property="number" title="${numberHeader}"  />
 	<spring:message code="examQuestion.statement" var="statementHeader" />
 	<display:column property="statement" title="${statementHeader}" />
 	<spring:message code="examQuestion.maxScore" var="maxScoreHeader" />
 	<display:column property="maxScore" title="${maxScoreHeader}" />
 	<spring:message code="examQuestion.photoURL" var="photoURLHeader" />
 	<spring:message code="examQuestion.pictureError" var="pictureError" />
-	<display:column title="${examURLHeader}" sortable="false" > <img src="${row.photoURL}" alt="${pictureError}"  width="200" height="200"> </display:column>
+	<display:column title="${examURLHeader}"  > <img src="${row.photoURL}" alt="${pictureError}"  width="200" height="200"> </display:column>
 	<security:authorize access="hasRole('TEACHER')">
 		<spring:message code="examQuestion.answer" var="answerHeader" />
 		<display:column property="answer" title="${answerHeader}" />
