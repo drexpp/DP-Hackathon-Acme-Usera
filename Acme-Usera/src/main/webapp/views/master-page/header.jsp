@@ -35,6 +35,12 @@
 			</li>
 		</security:authorize>
 		
+		<security:authorize access="isAuthenticated()">
+		
+				<li><a class="fNiv" href="http://localhost:8080"><spring:message code="master.page.chat" /></a></li>
+	
+		</security:authorize>
+		
 		<security:authorize access="hasAnyRole('STUDENT', 'SPONSOR', 'TEACHER', 'ADMIN')">
 			<li><a href="folder/actor/list.do"><spring:message code="master.page.mail" /></a>
 			</li>

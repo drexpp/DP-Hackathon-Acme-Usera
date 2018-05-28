@@ -17,7 +17,7 @@
 <display:table name="questions" id="row" requestURI="question/student/list.do" class="displaytag">
 	
 	<spring:message code="question.title" var="titleHeader" />
-	<display:column property="title" title="${titleHeader}" sortable="true" >
+	<display:column property="title" title="${titleHeader}"  >
 	<jstl:choose>
 				<jstl:when test="${not empty row.answers}">
 					<a href="question/display.do?articleId=${row.id}">
@@ -33,14 +33,14 @@
 	<spring:message code="question.pictureError" var="pictureError" />
 	
 	<spring:message code="question.question" var="questionHeader" />
-	<display:column property="question" title="${questionHeader}" sortable="true" />
+	<display:column property="question" title="${questionHeader}" />
 	<spring:message code="question.format" var="format" />
 	<spring:message code="question.moment" var="momentHeader" />
-	<display:column property="moment" title="${momentHeader}" format="${format}" sortable="true" />
+	<display:column property="moment" title="${momentHeader}" format="${format}" />
 	<spring:message code="question.photoURL" var="photoURLHeader" />
-	<display:column title="${photoURLHeader}" sortable="false"> <img src="${row.photoURL}" alt="${pictureError}"  width="200" height="200"> </display:column>
+	<display:column title="${photoURLHeader}"> <img src="${row.photoURL}" alt="${pictureError}"  width="200" height="200"> </display:column>
 	<spring:message code="question.isAnswered" var="isAnsweredHeader" />
-	<display:column property="isAnswered" title="${isAnsweredHeader}" sortable="true" />
+	<display:column property="isAnswered" title="${isAnsweredHeader}"  />
 	<spring:message code="question.student" var="studentHeader" />
 	<display:column title="${studentHeader}"  > 
 		<a href="student/display.do?studentId=${row.student.id}">

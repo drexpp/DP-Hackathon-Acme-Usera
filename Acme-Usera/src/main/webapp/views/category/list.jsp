@@ -42,7 +42,7 @@
 	<!-- Attributes -->
 
 	<spring:message code="category.name" var="nameHeader" />
-	<display:column property="name" title="${nameHeader}" sortable="true" />
+	<display:column property="name" title="${nameHeader}"   />
 
 
 	<spring:message code="category.parents" var="parentsHeader" />

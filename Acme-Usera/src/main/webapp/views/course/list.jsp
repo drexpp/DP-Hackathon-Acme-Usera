@@ -22,22 +22,19 @@
 	<!-- title -->
 	<spring:message code="course.title"
 		var="title" />
-	<display:column property="title" title="${title}"
-		sortable="true" />
+	<display:column property="title" title="${title}" />
 		
 		
 	<!-- description -->
 	<spring:message code="course.description"
 		var="description" />
-	<display:column property="description" title="${description}"
-		sortable="false" />
+	<display:column property="description" title="${description}"/>
 
 	<!-- image -->
 	<spring:message code="course.pictureURL"
 		var="pictureURL" />
 	<spring:message code="course.pictureError" var="pictureError" />
-	<display:column title="${pictureURL}"
-		sortable="false" >
+	<display:column title="${pictureURL}">
 		<jstl:if test="${row.photoURL != '' }">
 		<img src="${row.photoURL}" alt="${pictureError}"  width="200" height="200"> 
 		</jstl:if>
@@ -83,8 +80,7 @@
 	<!-- Category -->
 	<spring:message code="course.category"
 		var="category" />
-	<display:column property="category.name" title="${category}"
-		sortable="true" />
+	<display:column property="category.name" title="${category}" />
 	
 		
 	<!-- Display -->

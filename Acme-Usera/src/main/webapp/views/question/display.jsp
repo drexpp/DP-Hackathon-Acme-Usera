@@ -23,8 +23,16 @@
 
 <h2> <jstl:out value="${question.title}"> </jstl:out> </h2>
 
-<table class="displayStyle">
+<jstl:choose>
+		<jstl:when test="${question.isAnswered}">
+			<jstl:set var="background" value="greenCell"/>
+		</jstl:when>
+		<jstl:otherwise>
+			<jstl:set var="background" value="redCell"/>
+		</jstl:otherwise>
+</jstl:choose>
 
+<table class="displayStyle">
 
 <tr>
 <td> <strong> <spring:message code="question.question" /> : </strong> </td>
@@ -44,7 +52,7 @@
 <td> <img src="${question.photoURL}" alt="${pictureError}"  width="200" height="200"/>   </td>
 </tr>
 
-<tr>
+<tr class="${background}">
 <td> <strong> <spring:message code="question.isAnswered" /> : </strong> </td>
 <td> <jstl:out value="${question.isAnswered}"></jstl:out> </td>
 </tr>
@@ -60,34 +68,45 @@
 
 
 <spring:message code="question.answers" var="answers"/> 
-<h3> <jstl:out value="${answers}"> </jstl:out> </h3>
+<h3 class="titles"> <jstl:out value="${answers}"> </jstl:out> </h3>
 
 
 
 <display:table name="answers" id="row" requestURI="question/display.do" class="displaytag">
-
+	<jstl:choose>
+		<jstl:when test="${row.isSolution}">
+			<jstl:set var="background" value="greenCell"/>
+		</jstl:when>
+		<jstl:otherwise>
+			<jstl:set var="background" value="redCell"/>
+		</jstl:otherwise>
+	</jstl:choose>
+	
 	<security:authorize access="hasRole('ADMIN')">
 		<spring:message code="question.confirm" var="confirmQuestion"  />
-		<display:column>
+		<display:column class="${background}">
 				<a href="answer/admin/delete.do?answerId=${row.id}" onclick="return confirm('${confirmQuestion}')"><spring:message code ="question.delete" /></a>
 		</display:column>
 	</security:authorize>
 	
 	<security:authorize access="hasRole('STUDENT')">
 		<spring:message code="question.confirm" var="confirmQuestion"  />
-		<display:column>
+		<display:column class="${background}">
 				<a href="answer/student/delete.do?answerId=${row.id}" onclick="return confirm('${confirmQuestion}')"><spring:message code ="question.delete" /></a>
 		</display:column>
 	</security:authorize>
 	<spring:message code="answer.text" var="textHeader" />
-	<display:column property="text" title="${textHeader}" sortable="true" />
+	<display:column class="${background}" property="text" title="${textHeader}"/>
+	
 	<spring:message code="answer.format" var="format" />
 	<spring:message code="answer.moment" var="momentHeader" />
-	<display:column property="moment" title="${momentHeader}" format="${format}"  sortable="true" />
+	<display:column class="${background}" property="moment" title="${momentHeader}" format="${format}"/>
+	
 	<spring:message code="answer.photoURL" var="photoURLHeader" />
-	<display:column title="${photoURLHeader}" sortable="false" > <img src="${row.photoURL}" alt="${pictureError}"  width="200" height="200"> </display:column>
+	<display:column class="${background}" title="${photoURLHeader}"> <img src="${row.photoURL}" alt="${pictureError}"  width="200" height="200"> </display:column>
+	
 	<spring:message code="answer.isSolution" var="isSolutionHeader" />
-	<display:column title="${isSolutionHeader}" >
+	<display:column class="${background}" title="${isSolutionHeader}" >
 	
 	<security:authorize access="hasRole('TEACHER')">
 
@@ -97,37 +116,44 @@
 			<a href="answer/teacher/solution.do?answerId=${row.id}"> <spring:message
 			code="answer.setSolutionFalse" />
 		</a>
+		<br>
 		</jstl:when>
 		 
 		<jstl:otherwise>
 			<a href="answer/teacher/solution.do?answerId=${row.id}"> <spring:message
 			code="answer.setSolutionTrue" />
 		</a>
+		<br>
 		</jstl:otherwise>
 		</jstl:choose>
 	</jstl:if>
 	</security:authorize>
+	
 
 	<jstl:choose>
 		<jstl:when test="${row.isSolution == true}">
 			<spring:message code="answer.solutionTrue" var="solutionTrue" />
 			<jstl:out value="${solutionTrue}"/>
+			<br>
 		</jstl:when>
 		
 		<jstl:otherwise>
 				<spring:message code="answer.solutionFalse" var="solutionFalse" />
 			<jstl:out value="${solutionFalse}"/>
+			<br>
 		</jstl:otherwise>
 	</jstl:choose>
 	</display:column>
 	<spring:message code="answer.actor" var="actorHeader" />
-	<display:column title="${actorHeader}"  > 
+	<display:column class="${background}" title="${actorHeader}"  > 
 		<a href="student/display.do?studentId=${row.actor.id}">
 			<jstl:out value="${row.actor.name} ${row.actor.surname}"/>
 		</a>
 	</display:column>
 
 </display:table>
+<br>
+<br>
 
 <security:authorize access="hasRole('STUDENT')">
 <jstl:if test="${question.isAnswered == false}">

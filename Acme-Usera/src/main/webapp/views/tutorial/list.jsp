@@ -15,7 +15,7 @@
 
 
 
-<display:table pagesize="5" class="displaytag" 
+<display:table class="displaytag" 
 	name="tutorials" requestURI="tutorial/list.do" id="row">
 	
 	
@@ -23,8 +23,7 @@
 	<spring:message code="tutorial.pattern" var ="pattern"/>
 	<spring:message code="tutorial.start.time"
 		var="startTime" />
-	<display:column title="${startTime}"
-		sortable="true">
+	<display:column title="${startTime}">
 	<fmt:formatDate value="${row.startTime}" pattern="${pattern}"/>	
 		</display:column>
 		
@@ -32,8 +31,7 @@
 	<!-- student -->
 	<spring:message code="tutorial.student"
 		var="student" />
-	<display:column property="student.name" title="${student}"
-		sortable="true" />
+	<display:column property="student.name" title="${student}"/>
 </security:authorize>
 
 
@@ -41,8 +39,7 @@
 	<!-- teacher -->
 	<spring:message code="tutorial.teacher"
 		var="teacher" />
-	<display:column property="teacher.name" title="${teacher}"
-		sortable="true" />
+	<display:column property="teacher.name" title="${teacher}"/>
 </security:authorize>
 	
 
@@ -60,3 +57,15 @@
 </security:authorize>	
 	
 </display:table>
+<script>
+$(document).ready( function () {	
+	
+	
+    $('#row').dataTable( {
+    	"language": {
+        	"url": '${tableLang}'
+    	},
+		"lengthMenu": [ 5, 10, 25, 50, 100 ]
+    } );
+} );
+</script>

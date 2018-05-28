@@ -72,9 +72,7 @@ public class MessageService {
 
 		message.setMoment(moment);
 		message.setSender(principal);
-		Assert.isTrue(message.getRecipient().getId() != principal.getId());
-		Assert.isTrue(message.getSender().getId() == principal.getId());
-
+	
 		folder = this.folderService.findInBoxFolderActor(message.getRecipient());
 		Assert.notNull(folder);
 		message.setFolder(folder);
@@ -86,7 +84,6 @@ public class MessageService {
 		copy.setSubject(message.getSubject());
 		copy.setBody(message.getBody());
 		copy.setMoment(message.getMoment());
-		copy.setPriority(message.getPriority());
 		copy.setRecipient(message.getRecipient());
 		copy.setSender(message.getSender());
 		copy.setFolder(this.folderService.findOutBoxFolderActor(principal));
@@ -176,7 +173,7 @@ public class MessageService {
 
 	public void broadcast(final MailMessage m) {
 		Admin principle;
-		String subject, body, priority;
+		String subject, body;
 		Collection<Actor> actors;
 		Date currentMoment;
 		MailMessage outboxMessage;
@@ -188,7 +185,7 @@ public class MessageService {
 
 		subject = m.getSubject();
 		body = m.getBody();
-		priority = m.getPriority();
+
 
 		currentMoment = new Date(System.currentTimeMillis() - 1);
 
@@ -198,7 +195,6 @@ public class MessageService {
 				final MailMessage message = new MailMessage();
 				message.setSubject(subject);
 				message.setBody(body);
-				message.setPriority(priority);
 				message.setSender(principle);
 				message.setRecipient(actor);
 				message.setMoment(currentMoment);
@@ -210,7 +206,6 @@ public class MessageService {
 		outboxMessage = new MailMessage();
 		outboxMessage.setSubject(subject);
 		outboxMessage.setBody(body);
-		outboxMessage.setPriority(priority);
 		outboxMessage.setSender(principle);
 		outboxMessage.setMoment(currentMoment);
 		outboxMessage.setFolder(this.folderService.findOutBoxFolderActor(principle));
@@ -235,7 +230,6 @@ public class MessageService {
 		result = new MailMessage();
 		result.setSender(actor);
 		result.setRecipient(actor);
-		result.setPriority("NORMAL");
 		result.setMoment(moment);
 		result.setFolder(this.folderService.findInBoxFolderActor(actor));
 		result.setBody(body);

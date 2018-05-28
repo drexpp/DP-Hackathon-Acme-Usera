@@ -39,14 +39,17 @@
 	
 	<%-- Mostrado para elegir en el input el destinatario del mensaje, cuando es un mensaje broadcast de un administrador este input no se muestra puesto que el destinatario son todos los actores del sistema--%>
 	<jstl:if test="${!broadcast}">
-	<form:label path="recipient">
-		<spring:message code="message.recipient.userAccount" />:
-	</form:label>
-	<form:select path="recipient" >
-	<form:option label="----" value="0" />
-	<form:options items="${recipients}" itemLabel="userAccount.username" itemValue="id" />
-	</form:select>
-	<form:errors cssClass="error" path="recipient" />
+		<span>
+		<form:label path="recipient">
+			<spring:message code="message.recipient.userAccount" />:
+		</form:label>
+		<form:select path="recipient" >
+		<form:option label="----" value="0" />
+		<form:options items="${recipients}" itemLabel="userAccount.username" itemValue="id" />
+		</form:select>
+		<form:errors cssClass="error" path="recipient" />
+		<i>(<jstl:out value = "${userToReply}" />)</i>
+	</span>
 	<br>
 	<br>
 	</jstl:if>
@@ -64,15 +67,6 @@
 	</form:label>
 	<form:textarea path="body" />
 	<form:errors cssClass="error" path="body" />
-	<br>
-	<br>
-	
-	<form:label path="priority">
-		<spring:message code="message.priority" />:
-	</form:label>
-	<form:radiobutton path="priority" value="HIGH"/><spring:message code="message.priority.high" />
-	<form:radiobutton path="priority" value="NORMAL" checked="checked" /><spring:message code="message.priority.normal" />
-	<form:radiobutton path="priority" value="LOW"/><spring:message code="message.priority.low" />
 	<br>
 	<br>
 	
@@ -105,7 +99,6 @@
 	<form:hidden path="sender" />
 	<form:hidden path="moment" />
 	<form:hidden path="recipient" />
-	<form:hidden path="priority" />
 	<form:hidden path="subject" />
 	<form:hidden path="body" />
 	

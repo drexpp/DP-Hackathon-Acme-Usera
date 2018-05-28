@@ -49,18 +49,18 @@ public class MessageActorController extends AbstractController {
 	// Creation ---------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
+	public ModelAndView create(@RequestParam (value="userToReply", required= false) final String userToReply) {
 		final ModelAndView result;
 		MailMessage mailMessage;
 
 		mailMessage = this.messageService.create();
 
-		result = this.createEditModelAndView(mailMessage);
+		result = this.createEditModelAndView(mailMessage, null,userToReply);
 
 		return result;
 
 	}
-
+	
 	// Edition
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
@@ -163,7 +163,7 @@ public class MessageActorController extends AbstractController {
 		moment = mailMessage.getMoment();
 		folder = mailMessage.getFolder();
 		sender = mailMessage.getSender();
-		recipients = this.actorService.findAllMinusPrincipal();
+		recipients = this.actorService.findAll();
 		folders = this.folderService.findAllByPrincipal();
 
 		result = new ModelAndView("message/edit");
@@ -180,6 +180,56 @@ public class MessageActorController extends AbstractController {
 		result.addObject("message", messageCode);
 
 		return result;
+	}
+	
+	private ModelAndView createEditModelAndView(MailMessage mailMessage,
+			String messageCode, String userToReply) {
+		final ModelAndView result;
+		Date moment;
+		Folder folder;
+		Actor sender;
+		Collection<Actor> recipients;
+		Collection<Folder> folders;
+		boolean permission = false;
+		Actor principal;
 
+		principal = this.actorService.findByPrincipal();
+						
+		if (mailMessage.getId() == 0)
+			permission = true;
+		else {
+			for (final MailMessage mens : principal.getReceivedMessages())
+				if (mens.getId() == mailMessage.getId()) {
+					permission = true;
+					break;
+				}
+			if (!permission)
+				for (final MailMessage mens : principal.getSentMessages())
+					if (mens.getId() == mailMessage.getId()) {
+						permission = true;
+						break;
+					}
+		}
+
+		moment = mailMessage.getMoment();
+		folder = mailMessage.getFolder();
+		sender = mailMessage.getSender();
+		recipients = this.actorService.findAll();
+		folders = this.folderService.findAllByPrincipal();
+
+		result = new ModelAndView("message/edit");
+		result.addObject("moment", moment);
+		result.addObject("folder", folder);
+		result.addObject("sender", sender);
+		result.addObject("mailMessage", mailMessage);
+		result.addObject("recipients", recipients);
+		result.addObject("folders", folders);
+		result.addObject("requestURI", "message/actor/edit.do");
+		result.addObject("broadcast", false);
+		result.addObject("permission", permission);
+		result.addObject("userToReply", userToReply);
+		result.addObject("message", messageCode);
+
+		return result;
 	}
 }

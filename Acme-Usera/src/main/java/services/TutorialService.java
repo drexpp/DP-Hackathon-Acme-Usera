@@ -101,7 +101,6 @@ public class TutorialService {
 		message.setBody("The tutorial of the student " + tutorialToDelete.getStudent().getName() + " with the teacher "
 				+ tutorialToDelete.getTeacher().getName() + " has been refused / La tutoría del estudiante " + tutorialToDelete.getStudent().getName() + " con el profesor "
 						+ tutorialToDelete.getTeacher().getName() + " ha sido rechazada");
-		message.setPriority("HIGH");
 		message.setRecipient(tutorialToDelete.getStudent());
 		this.mailMessageService.save(message);
 		
