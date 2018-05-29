@@ -37,7 +37,7 @@
 				
 	<input type="button" name="cancel"
 		value="${cancelExam}"
-		onclick="javascript: relativeRedir('course/display.do?courseId=${examForm.course.id}');" />
+		onclick="javascript: relativeRedir('course/list.do');" />
 	<br />
 
 

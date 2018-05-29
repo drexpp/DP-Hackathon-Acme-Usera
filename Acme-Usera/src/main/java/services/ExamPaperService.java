@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.Admin;
 import domain.Exam;
 import domain.ExamAnswer;
 import domain.ExamPaper;
@@ -25,6 +26,19 @@ public class ExamPaperService {
 
 				@Autowired
 				private StudentService				studentService;
+				
+				@Autowired
+				private AdminService				adminService;
+				
+				@Autowired
+				private ExamAnswerService				examAnswerService;
+				
+				@Autowired
+				private CertificationService				certificationService;
+				
+				
+				
+
 	
 	
 				
@@ -74,6 +88,35 @@ public class ExamPaperService {
 
 		return result;
 
-	}			
+	}
+
+	public void deleteByAdmin(final ExamPaper examPaper) {
+		Admin principal;
+		Assert.notNull(examPaper);
+		
+	//	Assert.isTrue(principal.getLessons().containAll(examPaper.getExam().getCourse().getLessons()));
+		
+		principal = this.adminService.findByPrincipal();
+
+		Assert.notNull(principal);
+		
+		Exam examen = examPaper.getExam();
+		Collection<ExamPaper> examPapers = new ArrayList<ExamPaper>(examen.getExamPaper());
+		examPapers.remove(examPaper);
+		examen.setExamPaper(examPapers);
+		
+		Collection<ExamAnswer> examAnswers = new ArrayList<ExamAnswer>(examPaper.getExamAnswer());
+		for(ExamAnswer eA : examAnswers){
+			this.examAnswerService.deleteByAdmin(eA);
+		}
+		if (examPaper.getCertification() != null) {
+
+			this.certificationService.deleteByAdmin(examPaper
+					.getCertification());
+
+		}
+		this.examPaperRepository.delete(examPaper);
+
+	}	
 				
 }

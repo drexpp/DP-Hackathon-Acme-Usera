@@ -10,6 +10,7 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
+import domain.Admin;
 import domain.Course;
 import domain.Exam;
 import domain.ExamPaper;
@@ -30,6 +31,15 @@ public class ExamService {
 		
 		@Autowired
 		private TeacherService				teacherService;
+		
+		@Autowired
+		private ExamQuestionService				examQuestionService;
+		
+		@Autowired
+		private ExamPaperService				examPaperService;
+		
+		@Autowired
+		private AdminService				adminService;
 		
 		@Autowired
 		private Validator	validator;
@@ -81,6 +91,35 @@ public class ExamService {
 			return result;
 		}
 	
+		
+		
+		public void deleteByAdmin(final Exam exam) {
+			Admin principal;
+			Assert.notNull(exam);
+
+			principal = this.adminService.findByPrincipal();
+
+			Assert.notNull(principal);
+			
+			Course course = exam.getCourse();
+			course.setExam(null);
+			
+			Collection<ExamQuestion> examQuestions = new ArrayList<ExamQuestion>(exam.getExamQuestions());
+			Collection<ExamPaper> examPaper = new ArrayList<ExamPaper>(exam.getExamPaper());
+			
+			for (ExamQuestion eq : examQuestions){
+				this.examQuestionService.deleteByAdmin(eq);
+			}
+			
+			for(ExamPaper eP :examPaper){
+				this.examPaperService.deleteByAdmin(eP);
+			}
+			
+			this.examRepository.delete(exam);
+
+			
+		}
+		
 		public Exam findOne(final int examId) {
 			Exam result = this.examRepository.findOne(examId);
 			Assert.notNull(result);

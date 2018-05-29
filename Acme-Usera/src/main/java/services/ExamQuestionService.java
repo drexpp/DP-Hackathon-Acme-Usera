@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.Admin;
 import domain.Exam;
 import domain.ExamQuestion;
 import domain.Teacher;
@@ -24,6 +25,9 @@ public class ExamQuestionService {
 			
 			@Autowired
 			private TeacherService				teacherService;
+			
+			@Autowired
+			private AdminService				adminService;
 	
 			
 	public ExamQuestion create() {
@@ -65,7 +69,7 @@ public class ExamQuestionService {
 	
 		if(examQuestion.getId() == 0){
 			Exam exam = result.getExam();
-			Integer puntuacion = exam.getMark();
+			Integer puntuacion = result.getMaxScore();
 			Integer cantidad = exam.getExamQuestions().size()+1;
 			Integer total = 0;
 			Collection<ExamQuestion> toUpdate = exam.getExamQuestions();
@@ -73,7 +77,9 @@ public class ExamQuestionService {
 			toUpdate.add(result);
 			exam.setExamQuestions(updated);
 			
-			puntuacion = puntuacion + examQuestion.getMaxScore();
+			for(ExamQuestion examquestion: exam.getExamQuestions()){
+				puntuacion = puntuacion + examquestion.getMaxScore();
+			}
 			if(cantidad != 0){
 				total = puntuacion/cantidad;
 			}
@@ -83,6 +89,28 @@ public class ExamQuestionService {
 		}	
 		
 		return result;
+	}
+	
+	
+	
+	
+	public void deleteByAdmin(final ExamQuestion examQuestion) {
+		Admin principal;
+
+		Assert.notNull(examQuestion);
+
+		principal = this.adminService.findByPrincipal();
+
+		Assert.notNull(principal);
+		
+		Exam examen = examQuestion.getExam();
+		Collection<ExamQuestion> examQuestions = new ArrayList<ExamQuestion>(examen.getExamQuestions());
+		examQuestions.remove(examQuestion);
+		examen.setExamQuestions(examQuestions);
+		
+		this.examQuestionRepository.delete(examQuestion);
+	
+		
 	}
 	
 	
