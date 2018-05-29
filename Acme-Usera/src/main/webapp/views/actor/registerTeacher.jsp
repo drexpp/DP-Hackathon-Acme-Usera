@@ -40,7 +40,7 @@ function Terms(){
 	<form:label path="phone">
 		<spring:message code="actor.phone" />
 	</form:label>	
-	<form:input path="phone" pattern="\\+?([0-9]{9})?"/>	
+	<form:input oninput="setCustomValidity('')" id="phone" path="phone" pattern="\\+?([0-9]{9})?"/>	
 	<form:errors path="phone" cssClass="error" />
 	<br />
 	<br />
@@ -157,5 +157,15 @@ function Terms(){
 <spring:message code="actor.permision" />
 </jstl:otherwise>
 </jstl:choose>
+
+<spring:message code="actor.invalidPhone" var="errorMessage"/>
+<input id="messageInternationalized" type="hidden" value="${errorMessage}"/>
+<script>
+var input = document.getElementById('phone');
+var messageInternationalized = $("#messageInternationalized").val();
+input.oninvalid = function(event) {
+    event.target.setCustomValidity(messageInternationalized);
+};
+</script>
 
 
