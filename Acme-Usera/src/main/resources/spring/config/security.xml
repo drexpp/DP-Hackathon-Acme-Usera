@@ -193,6 +193,7 @@
 		<security:intercept-url pattern="/tutorial/student/edit.do" access="hasRole('STUDENT')" /> 
 		<security:intercept-url pattern="/tutorial/list.do" access="hasAnyRole('STUDENT','TEACHER')" /> 
 		<security:intercept-url pattern="/tutorial/teacher/refuse.do" access="hasRole('TEACHER')" /> 
+		<security:intercept-url pattern="/tutorial/teacher/accept.do" access="hasRole('TEACHER')" /> 
 			<!-- Tutorial -->
 		<security:intercept-url pattern="/dashboard/admin/display.do" access="hasRole('ADMIN')" /> 
 		

@@ -48,19 +48,22 @@
 <security:authorize access="hasRole('TEACHER')">
 <jsp:useBean id="now" class="java.util.Date"/>
 	<display:column>
-		<jstl:if test="${principal.tutorials.contains(row) and row.startTime gt now and not row.student.tutorials.contains(row)}">
+	<jstl:choose>
+		<jstl:when test="${principal.tutorials.contains(row) and row.startTime gt now and not row.student.tutorials.contains(row)}">
 			<a href="tutorial/teacher/refuse.do?tutorialId=${row.id}"> <spring:message
 				code="tutorial.refuse" />
 			</a>
 			<br>
-			
 			<a href="tutorial/teacher/accept.do?tutorialId=${row.id}"> <spring:message
 				code="tutorial.accept" />
 			</a>
-		</jstl:if>
+		</jstl:when>
+		<jstl:otherwise>
+			<spring:message code="tutorial.accepted"/>
+		</jstl:otherwise>
+	</jstl:choose>
 	</display:column>
 </security:authorize>	
-	
 </display:table>
 <script>
 $(document).ready( function () {	

@@ -2,6 +2,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,6 +85,8 @@ public class TutorialService {
 	
 	public void saveTutorialForStudent(final Tutorial tutorial){
 		Student principal;
+		Date now = new Date();
+		Assert.isTrue(tutorial.getStartTime().after(now));
 		
 		principal = tutorial.getStudent();
 		
@@ -98,6 +101,9 @@ public class TutorialService {
 		Teacher principal;
 		Assert.notNull(tutorialToDelete);
 		principal = this.teacherService.findByPrincipal();
+		
+		Date now = new Date();
+		Assert.isTrue(tutorialToDelete.getStartTime().after(now));
 
 		Assert.notNull(principal);
 		Assert.isTrue(tutorialToDelete.getTeacher().equals(principal));
