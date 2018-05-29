@@ -120,6 +120,7 @@
 
 <!-- Foro -->
 <security:authorize access="hasRole('TEACHER')" var="isTeacher"/>
+<security:authorize access="hasRole('ADMIN')" var="isAdmin"/>
 <jstl:choose>
 <jstl:when test="${isTeacher}">
 	<display:column>
@@ -133,7 +134,7 @@
 </jstl:when>
 <jstl:otherwise>
 	<display:column>
-	<jstl:if test="${accessForum.contains(row)}">
+	<jstl:if test="${accessForum.contains(row) || isAdmin}">
 		<a href="forum/display.do?forumId=${row.forum.id}"> <spring:message
 			code="course.forum" />
 		</a>

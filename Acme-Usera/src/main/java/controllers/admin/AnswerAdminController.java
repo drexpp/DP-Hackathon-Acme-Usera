@@ -39,13 +39,13 @@ public class AnswerAdminController {
 
 	
 		@RequestMapping(value = "/delete", method = RequestMethod.GET)
-		public ModelAndView delete(@RequestParam final int questionId, RedirectAttributes redir) {
+		public ModelAndView delete(@RequestParam final int answerId, RedirectAttributes redir) {
 		ModelAndView result;
 		Answer answer;
 		Admin principal;
 		principal = this.adminService.findByPrincipal();
 		Assert.notNull(principal);
-		answer = this.answerService.findOne(questionId);
+		answer = this.answerService.findOne(answerId);
 		Assert.notNull(answer);
 
 		try {
