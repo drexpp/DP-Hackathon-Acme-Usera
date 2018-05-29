@@ -36,7 +36,7 @@ public class Student extends Actor {
 	
 	//Relationships
 	@Valid
-	@OneToMany(mappedBy="student")
+	@OneToMany
 	public Collection<Tutorial> getTutorials() {
 		return tutorials;
 	}

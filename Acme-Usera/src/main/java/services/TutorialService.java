@@ -82,6 +82,17 @@ public class TutorialService {
 		return result;
 	}
 	
+	public void saveTutorialForStudent(final Tutorial tutorial){
+		Student principal;
+		
+		principal = tutorial.getStudent();
+		
+		Collection<Tutorial> toUpdate = principal.getTutorials();
+		Collection<Tutorial> updated = new ArrayList<Tutorial>(toUpdate);
+		updated.add(tutorial);
+		principal.setTutorials(updated);	
+	}
+	
 	
 	public void delete(final Tutorial tutorialToDelete) {
 		Teacher principal;
@@ -107,7 +118,7 @@ public class TutorialService {
 		Collection<Tutorial> toUpdate2 = tutorialToDelete.getTeacher().getTutorials();
 		Collection<Tutorial> updated2 = new ArrayList<Tutorial>(toUpdate2);
 		updated2.remove(tutorialToDelete);
-		tutorialToDelete.getTeacher().setTutorials(updated);
+		tutorialToDelete.getTeacher().setTutorials(updated2);
 		
 		
 		
