@@ -67,7 +67,6 @@ public class ActorFormTeacher extends DomainEntity {
 	}
 
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
-	@Pattern(regexp="\\+?([0-9]{9})?")
 	public String getContactPhone() {
 		return contactPhone;
 	}

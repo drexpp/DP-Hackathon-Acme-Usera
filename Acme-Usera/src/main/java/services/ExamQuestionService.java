@@ -69,14 +69,21 @@ public class ExamQuestionService {
 	
 		if(examQuestion.getId() == 0){
 			Exam exam = result.getExam();
-			Integer puntuacion = exam.getMark();
+			Integer puntuacion = result.getMaxScore();
+			Integer cantidad = exam.getExamQuestions().size()+1;
+			Integer total = 0;
 			Collection<ExamQuestion> toUpdate = exam.getExamQuestions();
 			Collection<ExamQuestion> updated = new ArrayList<ExamQuestion>(toUpdate);
 			toUpdate.add(result);
 			exam.setExamQuestions(updated);
 			
-			puntuacion = puntuacion + examQuestion.getMaxScore();
-			exam.setMark(puntuacion);
+			for(ExamQuestion examquestion: exam.getExamQuestions()){
+				puntuacion = puntuacion + examquestion.getMaxScore();
+			}
+			if(cantidad != 0){
+				total = puntuacion/cantidad;
+			}
+			exam.setMark(total);
 			
 			
 		}	

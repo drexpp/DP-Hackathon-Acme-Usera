@@ -10,9 +10,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.SafeHtml;
 
 @Entity
@@ -35,7 +35,7 @@ public class Exam extends DomainEntity {
 		this.title = title;
 	}
 	
-	@Min(value=0)
+	@Range(min = 0, max = 100)
 	public Integer getMark() {
 		return mark;
 	}

@@ -24,9 +24,7 @@
 		<value>/views/welcome/messages</value>
 		<value>/views/admin/messages</value>
 		<value>/views/actor/messages</value>
-		<value>/views/student/messages</value>
 		<value>/views/teacher/messages</value>
-		<value>/views/sponsor/messages</value>
 		<value>/views/category/messages</value>
 		<value>/views/course/messages</value>
 		<value>/views/lesson/messages</value>

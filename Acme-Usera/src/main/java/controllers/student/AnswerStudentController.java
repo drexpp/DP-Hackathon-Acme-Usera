@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import domain.Actor;
 import domain.Answer;
 import domain.Question;
 import domain.Student;
 import forms.AnswerForm;
+import services.ActorService;
 import services.AnswerService;
 import services.QuestionService;
 import services.StudentService;
@@ -36,6 +38,9 @@ public class AnswerStudentController {
 		
 		@Autowired
 		private StudentService	studentService;
+		
+		@Autowired
+		private ActorService	actorService;
 		
 		// Constructors
 
@@ -77,6 +82,7 @@ public class AnswerStudentController {
 			try{
 				question = this.questionService.findOne(questionId);
 				try{
+					Assert.isTrue(question.getIsAnswered()==false);
 					answer.setQuestion(question);
 					result = this.createEditModelAndView(answer);
 					if(question.getForum().getCourse().getIsClosed() == true){
@@ -85,7 +91,7 @@ public class AnswerStudentController {
 					result.addObject("permission", permission);
 				} catch (final Throwable oops) {
 					result = new ModelAndView("redirect:../../question/display.do?questionId="+question.getId());
-					redir.addFlashAttribute("message", "answer.permision");
+					redir.addFlashAttribute("message", "answer.permission");
 				}
 			}catch (Throwable oops) {
 				result = new ModelAndView("redirect:../../course/list.do");
@@ -137,7 +143,7 @@ public class AnswerStudentController {
 				result.addObject("permission", permission);
 			} catch (final Throwable oops) {
 				result = new ModelAndView("redirect:../../question/display.do?questionId="+answer.getQuestion().getId());
-				redir.addFlashAttribute("message", "answer.permision");
+				redir.addFlashAttribute("message", "answer.permission");
 
 			}
 		} catch (Throwable oops) {
@@ -154,10 +160,12 @@ public class AnswerStudentController {
 		public ModelAndView delete(@RequestParam final int answerId, RedirectAttributes redir) {
 		ModelAndView result;
 		Answer answer;
+		Actor principal = this.actorService.findByPrincipal();
 		
 		answer = this.answerService.findOne(answerId);
 
 		try {
+			Assert.isTrue(answer.getActor().getId()==principal.getId());
 			this.answerService.delete(answer);
 			result = new ModelAndView("redirect:../../question/display.do?questionId="+answer.getQuestion().getId());
 			String successfulMessage = "answer.commit.ok";

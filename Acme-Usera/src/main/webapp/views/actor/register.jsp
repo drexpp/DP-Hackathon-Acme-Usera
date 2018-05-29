@@ -35,17 +35,9 @@ function Terms(){
 	
 	<acme:textbox code="actor.email" path="email"/>
 	<br />
-	
-	<!-- Input del form con el formato antiguo para permitir el pattern -->
-	<form:label path="phone">
-		<spring:message code="actor.phone" />
-	</form:label>	
-	<form:input path="phone" pattern="\\+?([0-9]{9})?"/>	
-	<form:errors path="phone" cssClass="error" />
-	<br />
-	<br />
-	<acme:textbox code="actor.address" path="address"/>
-	<br />
+		
+	<acme:textbox oninput="setCustomValidity('')" id="phone" code="actor.phone" path="phone" pattern="\\+?([0-9]{9})?"/>
+	<br/>
 	
 	<spring:message code="actor.dateBirth.placeholder" var="datePlaceHolder"/>
 	<acme:textbox code="actor.dateBirth" path="dateBirth" placeholder="${datePlaceHolder}"/>
@@ -80,5 +72,13 @@ function Terms(){
 <spring:message code="actor.permision" />
 </jstl:otherwise>
 </jstl:choose>
-
+<spring:message code="actor.invalidPhone" var="errorMessage"/>
+<input id="messageInternationalized" type="hidden" value="${errorMessage}"/>
+<script>
+var input = document.getElementById('phone');
+var messageInternationalized = $("#messageInternationalized").val();
+input.oninvalid = function(event) {
+    event.target.setCustomValidity(messageInternationalized);
+};
+</script>
 

@@ -5,7 +5,9 @@ package forms;
 
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -19,7 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import domain.DomainEntity;
 
-public class EditActorForm extends DomainEntity {
+public class EditActorTeacherForm extends DomainEntity {
 
 	private String		name;
 	private String		surname;
@@ -27,6 +29,48 @@ public class EditActorForm extends DomainEntity {
 	private String		phone;
 	private String		address;
 	private Date		dateBirth;
+	private String		skype;
+	private String		contactPhone;
+	private List<String> comments;
+	private List<String> links;
+	
+	
+	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
+	public String getSkype() {
+		return skype;
+	}
+	public void setSkype(String skype) {
+		this.skype = skype;
+	}
+	
+	@ElementCollection
+	@NotNull
+	public List<String> getComments() {
+		return comments;
+	}
+	public void setComments(List<String> comments) {
+		this.comments = comments;
+	}
+	
+	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
+	@Pattern(regexp="\\+?([0-9]{9})?")
+	public String getContactPhone() {
+		return contactPhone;
+	}
+	public void setContactPhone(String contactPhone) {
+		this.contactPhone = contactPhone;
+	}
+	
+	@ElementCollection
+	@NotNull
+	public List<String> getLinks() {
+		return links;
+	}
+	public void setLinks(List<String> links) {
+		this.links = links;
+	}
+	
+	
 
 
 

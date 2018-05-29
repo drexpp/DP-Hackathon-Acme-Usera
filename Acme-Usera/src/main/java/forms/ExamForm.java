@@ -5,9 +5,9 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.SafeHtml;
 import domain.Course;
 import domain.DomainEntity;
@@ -30,7 +30,7 @@ public class ExamForm extends DomainEntity {
 		this.title = title;
 	}
 	
-	@Min(value=0)
+	@Range(min = 0, max = 100)
 	public Integer getMark() {
 		return mark;
 	}
