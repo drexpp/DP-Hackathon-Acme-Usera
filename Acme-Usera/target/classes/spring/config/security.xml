@@ -63,9 +63,10 @@
 		<security:intercept-url pattern="/course/admin/delete.do" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/course/teacher/join.do" access="hasRole('TEACHER')" />
 		<security:intercept-url pattern="/course/teacher/remove.do" access="hasRole('TEACHER')" />
+		<security:intercept-url pattern="/course/teacher/close.do" access="hasRole('TEACHER')" />
 		<security:intercept-url pattern="/course/teacher/create.do" access="hasRole('TEACHER')" />
-		<security:intercept-url pattern="/course/display.do" access="hasAnyRole('TEACHER','STUDENT')" />
-		<security:intercept-url pattern="/course/myCourses.do" access="hasAnyRole('TEACHER','STUDENT')" />   
+		<security:intercept-url pattern="/course/display.do" access="hasAnyRole('TEACHER','STUDENT','SPONSOR')" />
+		<security:intercept-url pattern="/course/myCourses.do" access="hasAnyRole('TEACHER','STUDENT','SPONSOR')" />   
 
 		<security:intercept-url pattern="/category/list.do"
 			access="permitAll" />
@@ -184,7 +185,7 @@
 		<security:intercept-url pattern="/lesson/teacher/edit.do" access="hasRole('TEACHER')" /> 
 		<security:intercept-url pattern="/lesson/teacher/create.do" access="hasRole('TEACHER')" /> 
 		<security:intercept-url pattern="/lesson/teacher/delete.do" access="hasRole('TEACHER')" /> 		
-		<security:intercept-url pattern="/lesson/display.do" access="hasAnyRole('TEACHER','STUDENT')" /> 
+		<security:intercept-url pattern="/lesson/display.do" access="hasAnyRole('TEACHER','STUDENT','SPONSOR')" /> 
 		<security:intercept-url pattern="/lesson/student/read.do" access="hasRole('STUDENT')" /> 
 		
 		<!-- Tutorial -->
