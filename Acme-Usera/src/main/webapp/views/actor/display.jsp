@@ -70,6 +70,5 @@
 </tr>
 
 </security:authorize>
- 
- 
+  
 </table>

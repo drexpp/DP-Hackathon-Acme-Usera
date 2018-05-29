@@ -16,7 +16,7 @@ import controllers.AbstractController;
 import domain.ContactInfo;
 import domain.Teacher;
 import forms.ActorFormTeacher;
-import forms.EditActorForm;
+import forms.EditActorTeacherForm;
 
 
 @Controller
@@ -78,8 +78,8 @@ public class TeacherRegisterController extends AbstractController {
 		
 		principal = this.teacherService.findByPrincipal();
 		
-		result = new ModelAndView("actor/display");
-		result.addObject("actor", principal);
+		result = new ModelAndView("actor/displayTeacher");
+		result.addObject("teacher", principal);
 		
 		return result;
 	}
@@ -87,79 +87,85 @@ public class TeacherRegisterController extends AbstractController {
 	@RequestMapping(value="/edit", method=RequestMethod.GET)
 	public ModelAndView edit(){
 		ModelAndView result;
-		EditActorForm editActorForm;
+		EditActorTeacherForm editActorTeacherForm;
 		Teacher principal;
 		
-		editActorForm = new EditActorForm();
+		editActorTeacherForm = new EditActorTeacherForm();
 		principal = this.teacherService.findByPrincipal();
 			
-		editActorForm = this.teacherService.construct(editActorForm, principal);
+		editActorTeacherForm = this.teacherService.construct(editActorTeacherForm, principal);
 		
-		result = this.createEditModelAndView(editActorForm);
+		result = this.createEditModelAndView(editActorTeacherForm);
 		
 		return result;
 		
 	}
 	
 	@RequestMapping(value="/edit", method=RequestMethod.POST, params="save")
-	public ModelAndView edit(final EditActorForm editActorForm, BindingResult binding){
+	public ModelAndView edit(final EditActorTeacherForm editActorTeacherForm, BindingResult binding){
 		ModelAndView result;
 		Teacher teacher;
 		
-		if(!editActorForm.getName().isEmpty() && !editActorForm.getSurname().isEmpty() && !editActorForm.getEmail().isEmpty())
-			teacher = this.teacherService.reconstruct(editActorForm, binding);
-		else{
-			result = this.createEditModelAndView(editActorForm, "actor.commit.error");
-			return result;
-		}
-			
+	
 		
-		teacher = this.teacherService.reconstruct(editActorForm, binding);
+		teacher = this.teacherService.reconstruct(editActorTeacherForm, binding);
 		
 		if(binding.hasErrors()){
-			result = this.createEditModelAndView(editActorForm);
+			result = this.createEditModelAndView(editActorTeacherForm);
 		}else{
 			try{
 				this.teacherService.save(teacher);
 				result = new ModelAndView("redirect:/teacher/display.do");
 			}catch (Throwable oops){
-				result = this.createEditModelAndView(editActorForm);
+				result = this.createEditModelAndView(editActorTeacherForm, "actor.commit.error");
 			}
 		}
 		
 		return result;
 	}
 	
-	protected ModelAndView createEditModelAndView(EditActorForm editActorForm) {
+	protected ModelAndView createEditModelAndView(EditActorTeacherForm editActorTeacherForm) {
 		ModelAndView result;
 		
-		result = this.createEditModelAndView(editActorForm, null);
+		result = this.createEditModelAndView(editActorTeacherForm, null);
 		
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(EditActorForm editActorForm,
+	protected ModelAndView createEditModelAndView(EditActorTeacherForm editActorTeacherForm,
 			String message) {
 		ModelAndView result;
 		String requestURI;
 		Teacher principal;
+		Integer elementsLength;
 		Boolean permiso;
 		
 		permiso = false;
+		if(editActorTeacherForm.getComments().size() == 0)
+			elementsLength = 0;
+		else
+			elementsLength = editActorTeacherForm.getComments().size()-1;
+		
+		if(editActorTeacherForm.getLinks().size() == 0)
+			elementsLength = 0;
+		else
+			elementsLength = editActorTeacherForm.getLinks().size()-1;
+		
 		
 		principal = this.teacherService.findByPrincipal();
 		
-		if(principal.getId() == editActorForm.getId()){
+		if(principal.getId() == editActorTeacherForm.getId()){
 			permiso = true;
 		}
 		
 		requestURI = "student/student/editProfile.do";
 		
-		result = new ModelAndView("actor/edit");
-		result.addObject("editActorForm", editActorForm);
+		result = new ModelAndView("actor/editTeacher");
+		result.addObject("editActorTeacherForm", editActorTeacherForm);
 		result.addObject("message", message);
 		result.addObject("requestURI", requestURI);
 		result.addObject("permiso", permiso);
+		result.addObject("elementsLength", elementsLength);
 		
 		
 		return result;

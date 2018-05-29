@@ -35,13 +35,11 @@
 	<acme:textbox code="actor.email" path="email"/>
 	<br />
 	
-	<!-- Input del form con el formato antiguo para permitir el pattern -->
-	<form:label path="phone">
-		<spring:message code="actor.phone" />
-	</form:label>	
-	<form:input oninput="setCustomValidity('')" id="phone" path="phone" pattern="\\+?([0-9]{9})?"/>	
-	<form:errors path="phone" cssClass="error" />
+	<acme:textbox code="actor.dateBirth" path="dateBirth"/>
 	<br />
+	
+	<!-- Input del form con el formato antiguo para permitir el pattern -->
+	<acme:textbox oninput="setCustomValidity('')" id="phone" path="phone" pattern="\\+?([0-9]{9})?" code="actor.phone"/>
 	<br />
 	<acme:textbox code="actor.address" path="address"/>
 	<br />

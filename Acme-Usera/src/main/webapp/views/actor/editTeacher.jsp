@@ -1,27 +1,27 @@
+<%--
+ * 
+ *
+ * Copyright (C) 2017 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ --%>
 
-<%@page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
-<%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@taglib prefix="jstl"	uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-<%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <jstl:choose>
 <jstl:when test="${permiso}">
 
-<spring:message code="actor.terms" var="terms"/>
-
-<script type="text/javascript">
-function Terms(){
-	alert("${terms}");
-}
-</script>
-<form:form action="${formURL}" modelAttribute="actorFormTeacher" >
+<form:form action="${formURL}" modelAttribute="editActorTeacherForm" >
 
 
 	<form:hidden path="id"/>
@@ -36,45 +36,26 @@ function Terms(){
 	<acme:textbox code="actor.email" path="email"/>
 	<br />
 	
-	<!-- Input del form con el formato antiguo para permitir el pattern -->
+	<acme:textbox code="actor.dateBirth" path="dateBirth"/>
+	<br />
+	
 	<acme:textbox oninput="setCustomValidity('')" id="phone" path="phone" pattern="\\+?([0-9]{9})?" code="actor.phone"/>
 	<br />
 	<acme:textbox code="actor.address" path="address"/>
 	<br />
-	
-	<spring:message code="actor.dateBirth.placeholder" var="datePlaceHolder"/>
-	<acme:textbox code="actor.dateBirth" path="dateBirth" placeholder="${datePlaceHolder}"/>
-	<br />
-	
-	
-	<acme:textbox code="actor.username" path="userAccount.username"/>
-	<br />
-	
-	<acme:password code="actor.password" path="userAccount.password"/>
-	<br />
-	
-	<acme:password code="actor.confirmPassword" path="confirmPassword"/>
-	<br/>
-	<br/>
-	
 	<fieldset>
 		
 	<h3 class="titles"><spring:message code="actor.contactInfo"/></h3>
-	
-	
+		
 	<acme:textbox code="actor.skype" path="skype"/>
-	<br />
-	
-	<acme:textbox code="actor.contactPhone" path="contactPhone"/>
-	<br />
+	<br>
+	<acme:textbox oninput="setCustomValidity('')" id="contactPhone" code="actor.contactPhone" path="contactPhone" pattern="\\+?([0-9]{9})?"/>
 	
 	<fieldset>
 	<legend> <form:label path="comments"> <spring:message code="actor.comments" />: </form:label> </legend>
-
 		<div id="list1">
 		<table class="displayStyle">
-			
-			<jstl:forEach begin="0" end="0" var="comments" varStatus="i" step="1">
+			<jstl:forEach begin="0" end="${elementsLength}" var="comments" varStatus="i" step="1">
 	  			 <tr class="list-item">
 			<td> <form:input path="comments[${i.index}]" /></td>
 	    		<td>	<a href="#" onclick="event.preventDefault();"
@@ -103,7 +84,7 @@ function Terms(){
 		<table class="displayStyle">
 
 			
-			<jstl:forEach begin="0" end="0" var="links" varStatus="i" step="1">
+			<jstl:forEach begin="0" end="${elementsLength}" var="links" varStatus="i" step="1">
 	  			 <tr class="list-item">
 			<td> <form:input path="links[${i.index}]" /></td>
 	    		<td>	<a href="#" onclick="event.preventDefault();"
@@ -121,15 +102,8 @@ function Terms(){
 
 	</fieldset>
 	</fieldset>
-	<br/>
-	<br/>
 	
-	<spring:message code ="actor.check"/>
-	<form:checkbox path="check"/>
-	<form:errors path="check" cssClass="error" />
-	<br />
 	
-	<br />
 
 	<input type="submit" name="save" id="save"
 		value="<spring:message code="actor.save" />" />&nbsp; 
@@ -137,14 +111,6 @@ function Terms(){
 		value="<spring:message code="actor.cancel" />"
 		onclick="javascript: relativeRedir('');" />
 	<br />
-	<script>
-    $(document).ready(function() {
-        $("#list1").dynamiclist();
-    });
-    $(document).ready(function() {
-        $("#list2").dynamiclist();
-    });
-</script>
 </form:form>
 
 </jstl:when>
@@ -152,9 +118,8 @@ function Terms(){
 <spring:message code="actor.permision" />
 </jstl:otherwise>
 </jstl:choose>
-
 <spring:message code="actor.invalidPhone" var="errorMessage"/>
-<input id="messageInternationalized" type="hidden" value="${errorMessage}"/>
+<input id="messageInternationalized" type ="hidden" value="${errorMessage}"/>
 <script>
 var input = document.getElementById('phone');
 var messageInternationalized = $("#messageInternationalized").val();
@@ -162,5 +127,18 @@ input.oninvalid = function(event) {
     event.target.setCustomValidity(messageInternationalized);
 };
 </script>
-
-
+<script>
+var input = document.getElementById('contactPhone');
+var messageInternationalized = $("#messageInternationalized").val();
+input.oninvalid = function(event) {
+    event.target.setCustomValidity(messageInternationalized);
+};
+</script>
+<script>
+$(document).ready(function() {
+    $("#list1").dynamiclist();
+});
+$(document).ready(function() {
+    $("#list2").dynamiclist();
+});
+</script>

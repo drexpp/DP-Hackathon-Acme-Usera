@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
@@ -16,6 +17,7 @@ import repositories.TeacherRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.ContactInfo;
 import domain.Exam;
 import domain.Lesson;
 import domain.MailMessage;
@@ -23,7 +25,7 @@ import domain.Course;
 import domain.Teacher;
 import domain.Tutorial;
 import forms.ActorFormTeacher;
-import forms.EditActorForm;
+import forms.EditActorTeacherForm;
 
 @Service
 @Transactional
@@ -127,6 +129,7 @@ public class TeacherService {
 		teacher.setId(actorFormTeacher.getId());
 		teacher.setAddress(actorFormTeacher.getAddress());
 		teacher.setVersion(actorFormTeacher.getVersion());
+		teacher.setDateBirth(actorFormTeacher.getDateBirth());
 		teacher.setPhone(actorFormTeacher.getPhone());
 		teacher.setUserAccount(actorFormTeacher.getUserAccount());
 		final Collection<Authority> authorities = new ArrayList<Authority>();
@@ -153,37 +156,62 @@ public class TeacherService {
 		
 	}
 
-	public EditActorForm construct(EditActorForm editActorForm,
+	public EditActorTeacherForm construct(EditActorTeacherForm editActorTeacherForm,
 			Teacher principal) {
 		
-		editActorForm.setId(principal.getId());
-		editActorForm.setVersion(principal.getVersion());
-		editActorForm.setName(principal.getName());
-		editActorForm.setSurname(principal.getSurname());
-		editActorForm.setEmail(principal.getEmail());
-		editActorForm.setPhone(principal.getPhone());
-		editActorForm.setAddress(principal.getAddress());
+		editActorTeacherForm.setId(principal.getId());
+		editActorTeacherForm.setVersion(principal.getVersion());
+		editActorTeacherForm.setName(principal.getName());
+		editActorTeacherForm.setSurname(principal.getSurname());
+		editActorTeacherForm.setEmail(principal.getEmail());
+		editActorTeacherForm.setPhone(principal.getPhone());
+		editActorTeacherForm.setAddress(principal.getAddress());
+		editActorTeacherForm.setDateBirth(principal.getDateBirth());
+		
+		editActorTeacherForm.setSkype(principal.getContactInfo().getSkype());
+		editActorTeacherForm.setContactPhone(principal.getContactInfo().getContactPhone());
+		editActorTeacherForm.setComments(principal.getContactInfo().getComments());
+		editActorTeacherForm.setLinks(principal.getContactInfo().getLinks());
 		
 		
-		return editActorForm;
+		return editActorTeacherForm;
 	}
 
-	public Teacher reconstruct(EditActorForm editActorForm,
+	public Teacher reconstruct(EditActorTeacherForm editActorTeacherForm,
 			BindingResult binding) {
 		Teacher result;
+		ContactInfo contactInfo;
 		
 		result = this.findByPrincipal();
+		contactInfo = result.getContactInfo();
+		contactInfo.setSkype(editActorTeacherForm.getSkype());
+		contactInfo.setContactPhone(editActorTeacherForm.getContactPhone());
+		if(editActorTeacherForm.getComments().get(0).equals("")){
+			List<String> commentsEmpty;
+			commentsEmpty = new ArrayList<String>();
+			contactInfo.setComments(commentsEmpty);
+		}else
+			contactInfo.setComments(editActorTeacherForm.getComments());
 		
-		result.setName(editActorForm.getName());
-		result.setSurname(editActorForm.getSurname());
-		result.setEmail(editActorForm.getEmail());
-		result.setId(editActorForm.getId());
-		result.setAddress(editActorForm.getAddress());
-		result.setVersion(editActorForm.getVersion());
-		result.setPhone(editActorForm.getPhone());
-	
+		if(editActorTeacherForm.getLinks().get(0).equals("")){
+			List<String> linksEmpty;
+			linksEmpty = new ArrayList<String>();
+			contactInfo.setLinks(linksEmpty);
+		}else
+			contactInfo.setLinks(editActorTeacherForm.getLinks());
 		
-		this.validator.validate(editActorForm, binding);
+		result.setName(editActorTeacherForm.getName());
+		result.setSurname(editActorTeacherForm.getSurname());
+		result.setEmail(editActorTeacherForm.getEmail());
+		result.setDateBirth(editActorTeacherForm.getDateBirth());
+		result.setId(editActorTeacherForm.getId());
+		result.setAddress(editActorTeacherForm.getAddress());
+		result.setVersion(editActorTeacherForm.getVersion());
+		result.setPhone(editActorTeacherForm.getPhone());
+		
+		result.setContactInfo(contactInfo);
+		
+		this.validator.validate(editActorTeacherForm, binding);
 
 		
 		return result;

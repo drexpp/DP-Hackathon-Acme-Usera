@@ -181,6 +181,7 @@ public class StudentService {
 		editActorForm.setEmail(principal.getEmail());
 		editActorForm.setPhone(principal.getPhone());
 		editActorForm.setAddress(principal.getAddress());
+		editActorForm.setDateBirth(principal.getDateBirth());
 		
 		
 		return editActorForm;
@@ -198,6 +199,7 @@ public class StudentService {
 		result.setId(editActorForm.getId());
 		result.setAddress(editActorForm.getAddress());
 		result.setVersion(editActorForm.getVersion());
+		result.setDateBirth(editActorForm.getDateBirth());
 		result.setPhone(editActorForm.getPhone());
 	
 		
