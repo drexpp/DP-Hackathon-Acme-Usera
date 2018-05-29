@@ -49,10 +49,6 @@ public class TutorialStudentController extends AbstractController{
 			result = new ModelAndView("redirect:/course/list.do");	
 			redir.addFlashAttribute("message", "course.permision"); 
 		}
-		
-
-
-
 		return result;
 	}
 
@@ -62,14 +58,14 @@ public class TutorialStudentController extends AbstractController{
 		ModelAndView result;
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(tutorial);
-		} else
+		} else{
 			try {
 				this.tutorialService.save(tutorial);
 				result = new ModelAndView("redirect:/course/list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(tutorial,"tutorial.commit.error");
 			}
-
+		}
 		return result;
 	}
 	

@@ -74,17 +74,23 @@ public class TutorialService {
 		
 		result = this.tutorialRepository.save(tutorialToSave);
 		
-		Collection<Tutorial> toUpdate = principal.getTutorials();
-		Collection<Tutorial> updated = new ArrayList<Tutorial>(toUpdate);
-		updated.add(result);
-		principal.setTutorials(updated);
-		
 		Collection<Tutorial> toUpdate2 = result.getTeacher().getTutorials();
 		Collection<Tutorial> updated2 = new ArrayList<Tutorial>(toUpdate2);
 		updated2.add(result);
-		result.getTeacher().setTutorials(updated);
+		result.getTeacher().setTutorials(updated2);
 		
 		return result;
+	}
+	
+	public void saveTutorialForStudent(final Tutorial tutorial){
+		Student principal;
+		
+		principal = tutorial.getStudent();
+		
+		Collection<Tutorial> toUpdate = principal.getTutorials();
+		Collection<Tutorial> updated = new ArrayList<Tutorial>(toUpdate);
+		updated.add(tutorial);
+		principal.setTutorials(updated);	
 	}
 	
 	
@@ -112,7 +118,7 @@ public class TutorialService {
 		Collection<Tutorial> toUpdate2 = tutorialToDelete.getTeacher().getTutorials();
 		Collection<Tutorial> updated2 = new ArrayList<Tutorial>(toUpdate2);
 		updated2.remove(tutorialToDelete);
-		tutorialToDelete.getTeacher().setTutorials(updated);
+		tutorialToDelete.getTeacher().setTutorials(updated2);
 		
 		
 		
