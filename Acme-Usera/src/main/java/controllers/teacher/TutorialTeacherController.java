@@ -29,10 +29,6 @@ public class TutorialTeacherController extends AbstractController{
 	
 	@Autowired
 	private TeacherService	teacherService;
-	
-	
-
-
 
 	// Constructors
 
@@ -65,8 +61,21 @@ public class TutorialTeacherController extends AbstractController{
 		ModelAndView result;
 		try{
 			Tutorial tutorial = this.tutorialService.findOne(tutorialId);
+			Teacher principal;
+			principal = this.teacherService.findByPrincipal();
+			if(principal.getId() != tutorial.getTeacher().getId()){
+				result = new ModelAndView("redirect:/tutorial/list.do");
+				redir.addFlashAttribute("message", "course.permision"); 
+				return result;
+			}
+			
 			Date now = new Date();
 			Assert.isTrue(tutorial.getStartTime().after(now));
+			if(tutorial.getStudent().getTutorials().contains(tutorial)){
+				result = new ModelAndView("redirect:/tutorial/list.do");
+				redir.addFlashAttribute("message", "course.permision"); 
+				return result;
+			}
 			
 			this.tutorialService.saveTutorialForStudent(tutorial);
 			result = new ModelAndView("redirect:/tutorial/list.do");	
