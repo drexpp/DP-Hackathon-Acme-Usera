@@ -102,6 +102,29 @@ public class CourseTeacherController extends AbstractController{
 	}
 	
 	
+	//Close
+	
+	@RequestMapping(value = "/close", method = RequestMethod.GET)
+	public ModelAndView close(@RequestParam final int courseId, final RedirectAttributes redir) {
+		ModelAndView result;
+	
+			try {
+				Course course = this.courseService.findOne(courseId);
+				Teacher teacher = this.teacherService.findByPrincipal();
+				Assert.isTrue(teacher.getCoursesCreated().contains(course));
+				Assert.isTrue(course.getIsClosed() == false);
+				this.courseService.CloseCourse(course);
+				result = new ModelAndView("redirect:/course/list.do");
+			} catch (final Throwable oops) {
+				String errorMessage = "course.commit.error";
+				result = new ModelAndView("redirect:/course/list.do");
+				redir.addFlashAttribute("message",errorMessage);
+			}
+
+		return result;
+	}
+	
+	
 	// Edition ----------------------------------------------------------------
 
 			@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
