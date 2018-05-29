@@ -196,7 +196,13 @@
 			<!-- Tutorial -->
 		<security:intercept-url pattern="/dashboard/admin/display.do" access="hasRole('ADMIN')" /> 
 		
-	
+		
+		<!-- Ranking -->
+		<security:intercept-url pattern="/ranking/list.do" access="isAuthenticated()"/>
+		
+		
+		
+		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 

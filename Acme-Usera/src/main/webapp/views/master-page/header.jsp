@@ -46,6 +46,11 @@
 			</li>
 		</security:authorize>
 		
+		<security:authorize access="hasAnyRole('STUDENT', 'SPONSOR', 'TEACHER', 'ADMIN')">
+			<li><a href="ranking/list.do"><spring:message code="master.page.ranking" /></a>
+			</li>
+		</security:authorize>
+		
 		<security:authorize access="hasRole('ADMIN')">
 			<li><a class="fNiv"><spring:message	code="master.page.administrator" /></a>
 				<ul>

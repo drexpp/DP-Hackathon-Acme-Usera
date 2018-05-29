@@ -16,6 +16,7 @@ import repositories.StudentRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Actor;
 import domain.Certification;
 import domain.Course;
 import domain.Lesson;
@@ -42,7 +43,11 @@ public class StudentService {
 	private FolderService folderService;
 
 	@Autowired
+	private ActorService  actorService;
+
+	@Autowired
 	private Validator		validator;
+	
 
 
 	// Supporting services
@@ -205,6 +210,18 @@ public class StudentService {
 		
 		this.validator.validate(editActorForm, binding);
 
+		
+		return result;
+	}
+	
+	public Collection<Student> findStudentsRankedByPoints(){
+		Collection<Student> result;
+		Actor principal;
+		
+		principal = this.actorService.findByPrincipal();
+		Assert.notNull(principal);
+		
+		result = this.studentRepository.findStudentsRankedByScore();
 		
 		return result;
 	}

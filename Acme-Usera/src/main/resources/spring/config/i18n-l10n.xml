@@ -45,6 +45,7 @@
 		<value>/views/exam/messages</value>
 		<value>/views/examQuestion/messages</value>
 		<value>/views/admin/messages</value>
+		<value>/views/ranking/messages</value>
 
 
 	</util:list>
