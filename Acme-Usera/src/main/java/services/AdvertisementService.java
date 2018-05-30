@@ -183,6 +183,14 @@ public class AdvertisementService {
 		return advertisements;
 	}
 	
+	public Collection<Advertisement> findBySponsorId(final Integer sponsorId){
+		Collection<Advertisement> result;
+		
+		result = this.advertisementRepository.findBySponsorId(sponsorId);
+		
+		return result;
+	}
+	
 
 	public Advertisement findRandomAdvertisement(Course course) {
 		Advertisement result = null;

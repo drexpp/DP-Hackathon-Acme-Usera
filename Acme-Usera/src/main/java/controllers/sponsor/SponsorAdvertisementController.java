@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import controllers.AbstractController;
 import domain.Advertisement;
 import domain.Course;
+import domain.Sponsor;
 import forms.AdvertisementForm;
 
 import services.AdvertisementService;
@@ -70,11 +71,11 @@ public class SponsorAdvertisementController extends AbstractController {
 	public ModelAndView listPlacedAds(){
 		ModelAndView result;
 		Collection<Advertisement> advertisements;
-		 
+		Sponsor principal;
 		
-		this.sponsorService.findByPrincipal();
+		principal = this.sponsorService.findByPrincipal();
 		
-		advertisements = this.advertisementService.findAll();
+		advertisements = this.advertisementService.findBySponsorId(principal.getId());
 		
 		result = new ModelAndView("advertisement/list");
 		result.addObject("advertisements", advertisements);
