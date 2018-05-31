@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.ExamQuestionRepository;
+import domain.Admin;
 import domain.Exam;
 import domain.ExamQuestion;
 import domain.Teacher;
-
-import repositories.ExamQuestionRepository;
 
 @Service
 @Transactional
@@ -24,14 +24,18 @@ public class ExamQuestionService {
 			
 			@Autowired
 			private TeacherService				teacherService;
+			
+			@Autowired
+			private AdminService				adminService;
 	
 			
 	public ExamQuestion create() {
 		Teacher principal;
-		ExamQuestion exam = new ExamQuestion();
+		ExamQuestion examQuestion = new ExamQuestion();
 		principal = this.teacherService.findByPrincipal();
 		Assert.notNull(principal);
-		return exam;
+		examQuestion.setNumber(0);
+		return examQuestion;
 	}
 	
 	public Collection<ExamQuestion> findAll() {
@@ -43,6 +47,8 @@ public class ExamQuestionService {
 	public ExamQuestion save(final ExamQuestion examQuestion) {
 		Teacher principal;
 		ExamQuestion result;
+		Integer number = 0;
+
 		Assert.notNull(examQuestion);
 
 		principal = this.teacherService.findByPrincipal();
@@ -53,18 +59,57 @@ public class ExamQuestionService {
 		Assert.isTrue(principal.getCoursesJoined().contains(examQuestion.getExam().getCourse()));
 		}
 		
-	
+		Exam examen = examQuestion.getExam();
+		
+		number = examen.getExamQuestions().size()+1;
+		examQuestion.setNumber(number);
+		
 		result = this.examQuestionRepository.save(examQuestion);
 	
 		if(examQuestion.getId() == 0){
 			Exam exam = result.getExam();
+			Integer puntuacion = result.getMaxScore();
+			Integer cantidad = exam.getExamQuestions().size()+1;
+			Integer total = 0;
 			Collection<ExamQuestion> toUpdate = exam.getExamQuestions();
 			Collection<ExamQuestion> updated = new ArrayList<ExamQuestion>(toUpdate);
 			toUpdate.add(result);
 			exam.setExamQuestions(updated);
+			
+			for(ExamQuestion examquestion: exam.getExamQuestions()){
+				puntuacion = puntuacion + examquestion.getMaxScore();
+			}
+			if(cantidad != 0){
+				total = puntuacion/cantidad;
+			}
+			exam.setMark(total);
+			
+			
 		}	
 		
 		return result;
+	}
+	
+	
+	
+	
+	public void deleteByAdmin(final ExamQuestion examQuestion) {
+		Admin principal;
+
+		Assert.notNull(examQuestion);
+
+		principal = this.adminService.findByPrincipal();
+
+		Assert.notNull(principal);
+		
+		Exam examen = examQuestion.getExam();
+		Collection<ExamQuestion> examQuestions = new ArrayList<ExamQuestion>(examen.getExamQuestions());
+		examQuestions.remove(examQuestion);
+		examen.setExamQuestions(examQuestions);
+		
+		this.examQuestionRepository.delete(examQuestion);
+	
+		
 	}
 	
 	
@@ -74,6 +119,14 @@ public class ExamQuestionService {
 
 		return result;
 
+	}
+	
+	
+	public Collection<ExamQuestion> findAnsweredQuestions(int examPaperId){
+		
+		Collection<ExamQuestion> res = this.examQuestionRepository.findAnsweredQuestions(examPaperId);
+		return res;
+		
 	}
 	
 }

@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
@@ -16,13 +17,15 @@ import repositories.TeacherRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.ContactInfo;
 import domain.Exam;
 import domain.Lesson;
 import domain.MailMessage;
 import domain.Course;
 import domain.Teacher;
 import domain.Tutorial;
-import forms.ActorForm;
+import forms.ActorFormTeacher;
+import forms.EditActorTeacherForm;
 
 @Service
 @Transactional
@@ -118,32 +121,100 @@ public class TeacherService {
 		return result;
 	}
 
-	public Teacher reconstruct(final ActorForm actorForm, final BindingResult binding) {
+	public Teacher reconstruct(final ActorFormTeacher actorFormTeacher, final BindingResult binding) {
 		final Teacher teacher = this.create();
-		teacher.setName(actorForm.getName());
-		teacher.setSurname(actorForm.getSurname());
-		teacher.setEmail(actorForm.getEmail());
-		teacher.setId(actorForm.getId());
-		teacher.setAddress(actorForm.getAddress());
-		teacher.setVersion(actorForm.getVersion());
-		teacher.setPhone(actorForm.getPhone());
-		teacher.setUserAccount(actorForm.getUserAccount());
+		teacher.setName(actorFormTeacher.getName());
+		teacher.setSurname(actorFormTeacher.getSurname());
+		teacher.setEmail(actorFormTeacher.getEmail());
+		teacher.setId(actorFormTeacher.getId());
+		teacher.setAddress(actorFormTeacher.getAddress());
+		teacher.setVersion(actorFormTeacher.getVersion());
+		teacher.setDateBirth(actorFormTeacher.getDateBirth());
+		teacher.setPhone(actorFormTeacher.getPhone());
+		teacher.setUserAccount(actorFormTeacher.getUserAccount());
 		final Collection<Authority> authorities = new ArrayList<Authority>();
 		final Authority auth = new Authority();
 		auth.setAuthority("TEACHER");
 		authorities.add(auth);
 		teacher.getUserAccount().setAuthorities(authorities);
-
-		this.validator.validate(actorForm, binding);
-		if (!(actorForm.getConfirmPassword().equals((actorForm.getUserAccount().getPassword()))) || actorForm.getConfirmPassword() == null)
-			binding.rejectValue("confirmPassword", "user.passwordMiss");
-		if ((actorForm.getCheck() == false))
-			binding.rejectValue("check", "user.uncheck");
+		
+		this.validator.validate(actorFormTeacher, binding);
+		if (!(actorFormTeacher.getConfirmPassword().equals((actorFormTeacher.getUserAccount().getPassword()))) || actorFormTeacher.getConfirmPassword() == null)
+			binding.rejectValue("confirmPassword", "student.passwordMiss");
+		if ((actorFormTeacher.getCheck() == false))
+			binding.rejectValue("check", "student.uncheck");
 		return teacher;
 	}
 
 	public void flush() {
 		this.teacherRepository.flush();
 	}
+	
+	public Collection<Teacher> findTutorsByStudent (Integer studentId){
+		Collection<Teacher> res = this.teacherRepository.findTutorsByStudent(studentId);
+		return res;
+		
+	}
 
+	public EditActorTeacherForm construct(EditActorTeacherForm editActorTeacherForm,
+			Teacher principal) {
+		
+		editActorTeacherForm.setId(principal.getId());
+		editActorTeacherForm.setVersion(principal.getVersion());
+		editActorTeacherForm.setName(principal.getName());
+		editActorTeacherForm.setSurname(principal.getSurname());
+		editActorTeacherForm.setEmail(principal.getEmail());
+		editActorTeacherForm.setPhone(principal.getPhone());
+		editActorTeacherForm.setAddress(principal.getAddress());
+		editActorTeacherForm.setDateBirth(principal.getDateBirth());
+		
+		editActorTeacherForm.setSkype(principal.getContactInfo().getSkype());
+		editActorTeacherForm.setContactPhone(principal.getContactInfo().getContactPhone());
+		editActorTeacherForm.setComments(principal.getContactInfo().getComments());
+		editActorTeacherForm.setLinks(principal.getContactInfo().getLinks());
+		
+		
+		return editActorTeacherForm;
+	}
+
+	public Teacher reconstruct(EditActorTeacherForm editActorTeacherForm,
+			BindingResult binding) {
+		Teacher result;
+		ContactInfo contactInfo;
+		
+		result = this.findByPrincipal();
+		contactInfo = result.getContactInfo();
+		contactInfo.setSkype(editActorTeacherForm.getSkype());
+		contactInfo.setContactPhone(editActorTeacherForm.getContactPhone());
+		if(editActorTeacherForm.getComments().get(0).equals("")){
+			List<String> commentsEmpty;
+			commentsEmpty = new ArrayList<String>();
+			contactInfo.setComments(commentsEmpty);
+		}else
+			contactInfo.setComments(editActorTeacherForm.getComments());
+		
+		if(editActorTeacherForm.getLinks().get(0).equals("")){
+			List<String> linksEmpty;
+			linksEmpty = new ArrayList<String>();
+			contactInfo.setLinks(linksEmpty);
+		}else
+			contactInfo.setLinks(editActorTeacherForm.getLinks());
+		
+		result.setName(editActorTeacherForm.getName());
+		result.setSurname(editActorTeacherForm.getSurname());
+		result.setEmail(editActorTeacherForm.getEmail());
+		result.setDateBirth(editActorTeacherForm.getDateBirth());
+		result.setId(editActorTeacherForm.getId());
+		result.setAddress(editActorTeacherForm.getAddress());
+		result.setVersion(editActorTeacherForm.getVersion());
+		result.setPhone(editActorTeacherForm.getPhone());
+		
+		result.setContactInfo(contactInfo);
+		
+		this.validator.validate(editActorTeacherForm, binding);
+
+		
+		return result;
+	}
+	
 }

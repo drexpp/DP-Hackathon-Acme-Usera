@@ -9,6 +9,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.URL;
 
@@ -33,6 +34,7 @@ public class ExamQuestion extends DomainEntity {
 		this.statement = statement;
 	}
 	@NotNull
+	@Range(min = 0, max = 100)
 	public Integer getMaxScore() {
 		return maxScore;
 	}
@@ -47,7 +49,7 @@ public class ExamQuestion extends DomainEntity {
 		this.photoURL = photoURL;
 	}
 	@NotNull
-	@Min(value=1)
+	@Min(value=0)
 	public Integer getNumber() {
 		return number;
 	}

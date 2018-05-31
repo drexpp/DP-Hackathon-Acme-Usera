@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.SubscriptionRepository;
 import domain.Admin;
@@ -34,6 +35,9 @@ public class SubscriptionService {
 
 	@Autowired
 	private AdminService					adminService;
+	
+	@Autowired
+	private Validator		validator;
 
 	// Constructors
 	public SubscriptionService() {
@@ -61,6 +65,7 @@ public class SubscriptionService {
 		principal = this.studentService.findByPrincipal();
 
 		Assert.notNull(principal);
+		subscription.setStudent(principal);
 		Assert.isTrue(subscription.getCourse().getIsClosed() == false);
 		Collection<Course> subscribed = this.courseService.selectCoursesSubscriptedByUser(principal.getId());
 		Assert.isTrue(!subscribed.contains(subscription.getCourse()));
@@ -104,17 +109,19 @@ public class SubscriptionService {
 	public void delete (Subscription subcription){
 		Admin admin = this.adminService.findByPrincipal();
 		Assert.notNull(admin);
-		Collection<Subscription> update,update2;
+		Collection<Subscription> toUpdate,toUpdate2,updated,updated2;
 		
 		Student c = subcription.getStudent();
-		update = c.getSubscriptions();
-		update.remove(subcription);
-		subcription.getStudent().setSubscriptions(update);
+		toUpdate = c.getSubscriptions();
+		updated = new ArrayList<Subscription>(toUpdate);
+		updated.remove(subcription);
+		subcription.getStudent().setSubscriptions(updated);
 		
 		Course news = subcription.getCourse();
-		update2 = news.getSubscriptions();
-		update2.remove(subcription);
-		subcription.getCourse().setSubscriptions(update2);
+		toUpdate2 = news.getSubscriptions();
+		updated2 = new ArrayList<Subscription>(toUpdate2);
+		updated2.remove(subcription);
+		subcription.getCourse().setSubscriptions(updated2);
 		
 		this.subscriptionRepository.delete(subcription);
 		
@@ -171,5 +178,17 @@ public class SubscriptionService {
 	public Subscription findByStudentAndCourseint (int studentId, int courseId){
 		Subscription res = this.subscriptionRepository.findByStudentAndCourse(studentId, courseId);
 		return res;
+	}
+
+	public Subscription checkSubscriptionType(Subscription subscription, BindingResult binding) {
+		Student principal = this.studentService.findByPrincipal();
+		Assert.notNull(principal);
+		if (subscription.getSubscriptionType().equals(Subscription.FREE)){
+			subscription.setCreditCard(null);
+		} else {
+			this.checkDate(subscription.getCreditCard(), binding);
+		}
+		validator.validate(subscription, binding);
+		return subscription;
 	}
 }

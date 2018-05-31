@@ -15,6 +15,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -128,6 +129,7 @@ public class Course extends DomainEntity {
 	}
 	@ManyToOne(optional = false)
 	@Valid
+	@NotNull
 	public Category getCategory() {
 		return category;
 	}
@@ -153,7 +155,7 @@ public class Course extends DomainEntity {
 	public void setAdvertisements(Collection<Advertisement> advertisements) {
 		this.advertisements = advertisements;
 	}
-	@OneToOne(optional = false)
+	@OneToOne(optional = false, mappedBy="course")
 	@Valid
 	public Forum getForum() {
 		return forum;

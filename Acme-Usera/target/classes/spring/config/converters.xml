@@ -26,6 +26,39 @@
 		<bean class="converters.StringToCategoryConverter"/>
 		<bean class="converters.CourseToStringConverter"/>
 		<bean class="converters.StringToCourseConverter"/>
+		<bean class="converters.CurriculumToStringConverter"/>
+		<bean class="converters.StringToCurriculumConverter"/>
+		<bean class="converters.EducationRecordToStringConverter"/>
+		<bean class="converters.StringToEducationRecordConverter"/>
+		<bean class="converters.MiscellaneousRecordToStringConverter"/>
+		<bean class="converters.StringToMiscellaneousRecordConverter"/>
+		<bean class="converters.PersonalRecordToStringConverter"/>
+		<bean class="converters.StringToPersonalRecordConverter"/>
+		<bean class="converters.ProfessionalRecordToStringConverter"/>
+		<bean class="converters.StringToProfessionalRecordConverter"/>
+		<bean class="converters.TeacherToStringConverter"/>
+		<bean class="converters.StringToTeacherConverter"/>
+		<bean class="converters.ForumToStringConverter"/>
+		<bean class="converters.StringToForumConverter"/>
+		<bean class="converters.QuestionToStringConverter"/>
+		<bean class="converters.StringToQuestionConverter"/>
+		<bean class="converters.AnswerToStringConverter"/>
+		<bean class="converters.StringToAnswerConverter"/>
+		<bean class="converters.StringToActorConverter"/>
+		<bean class="converters.ActorToStringConverter"/>
+		<bean class="converters.StringToFolderConverter"/>
+		<bean class="converters.FolderToStringConverter"/>
+		<bean class="converters.StudentToStringConverter"/>
+		<bean class="converters.StringToStudentConverter"/>
+		<bean class="converters.ExamToStringConverter"/>
+		<bean class="converters.StringToExamConverter"/>
+		<bean class="converters.ExamQuestionToStringConverter"/>
+		<bean class="converters.StringToExamQuestionConverter"/>
+		<bean class="converters.ExamPaperToStringConverter"/>
+		<bean class="converters.StringToExamPaperConverter"/>
+		<bean class="converters.ExamAnswerToStringConverter"/>
+		<bean class="converters.StringToExamAnswerConverter"/>
+
 		
 	</util:list>
 	

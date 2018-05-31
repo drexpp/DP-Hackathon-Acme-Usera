@@ -7,12 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
+import domain.Admin;
 import domain.Course;
 import domain.Exam;
 import domain.ExamPaper;
 import domain.ExamQuestion;
 import domain.Teacher;
+import forms.ExamForm;
 
 import repositories.ExamRepository;
 
@@ -28,12 +32,27 @@ public class ExamService {
 		@Autowired
 		private TeacherService				teacherService;
 		
+		@Autowired
+		private ExamQuestionService				examQuestionService;
+		
+		@Autowired
+		private ExamPaperService				examPaperService;
+		
+		@Autowired
+		private AdminService				adminService;
+		
+		@Autowired
+		private Validator	validator;
+		
+		
+		
 		public Exam create() {
 			Teacher principal;
 			Exam exam = new Exam();;
 			principal = this.teacherService.findByPrincipal();
 			exam.setTeacher(principal);
 			Assert.notNull(principal);
+			exam.setMark(0);
 			exam.setExamPaper(new ArrayList<ExamPaper>());
 			exam.setExamQuestions(new ArrayList<ExamQuestion>());
 
@@ -72,6 +91,35 @@ public class ExamService {
 			return result;
 		}
 	
+		
+		
+		public void deleteByAdmin(final Exam exam) {
+			Admin principal;
+			Assert.notNull(exam);
+
+			principal = this.adminService.findByPrincipal();
+
+			Assert.notNull(principal);
+			
+			Course course = exam.getCourse();
+			course.setExam(null);
+			
+			Collection<ExamQuestion> examQuestions = new ArrayList<ExamQuestion>(exam.getExamQuestions());
+			Collection<ExamPaper> examPaper = new ArrayList<ExamPaper>(exam.getExamPaper());
+			
+			for (ExamQuestion eq : examQuestions){
+				this.examQuestionService.deleteByAdmin(eq);
+			}
+			
+			for(ExamPaper eP :examPaper){
+				this.examPaperService.deleteByAdmin(eP);
+			}
+			
+			this.examRepository.delete(exam);
+
+			
+		}
+		
 		public Exam findOne(final int examId) {
 			Exam result = this.examRepository.findOne(examId);
 			Assert.notNull(result);
@@ -85,6 +133,35 @@ public class ExamService {
 			Assert.notNull(principal);
 			Collection<Exam> res = this.examRepository.selectAllExamOfCoursedJoinedByTeacher(teacherId);
 			return res;
+		}
+		
+		
+		public Exam reconstruct(ExamForm examForm, BindingResult binding) {
+			Exam exam = this.create();
+			if (examForm.getId() == 0){
+				exam = this.create();
+
+			} else {
+				exam = this.findOne(examForm.getId());
+			}
+			exam.setTitle(examForm.getTitle());
+			exam.setMark(0);
+			exam.setCourse(examForm.getCourse());
+			
+			 
+			validator.validate(examForm, binding);
+			
+			return exam;
+		}
+
+
+		public ExamForm reconstructForm(Exam exam) {
+			ExamForm examForm = new ExamForm();
+			examForm.setTitle(exam.getTitle());
+			examForm.setId(exam.getId());
+			examForm.setVersion(exam.getVersion());
+			examForm.setCourse(exam.getCourse());
+			return examForm;
 		}
 		
 		

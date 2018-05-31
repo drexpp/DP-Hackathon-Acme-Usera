@@ -20,6 +20,7 @@ import domain.Advertisement;
 import domain.MailMessage;
 import domain.Sponsor;
 import forms.ActorForm;
+import forms.EditActorForm;
 
 @Service
 @Transactional
@@ -119,6 +120,7 @@ public class SponsorService {
 		sponsor.setVersion(actorForm.getVersion());
 		sponsor.setPhone(actorForm.getPhone());
 		sponsor.setUserAccount(actorForm.getUserAccount());
+		sponsor.setDateBirth(actorForm.getDateBirth());
 		final Collection<Authority> authorities = new ArrayList<Authority>();
 		final Authority auth = new Authority();
 		auth.setAuthority("SPONSOR");
@@ -127,14 +129,53 @@ public class SponsorService {
 
 		this.validator.validate(actorForm, binding);
 		if (!(actorForm.getConfirmPassword().equals((actorForm.getUserAccount().getPassword()))) || actorForm.getConfirmPassword() == null)
-			binding.rejectValue("confirmPassword", "user.passwordMiss");
+			binding.rejectValue("confirmPassword", "student.passwordMiss");
 		if ((actorForm.getCheck() == false))
-			binding.rejectValue("check", "user.uncheck");
+			binding.rejectValue("check", "student.uncheck");
 		return sponsor;
 	}
 
 	public void flush() {
 		this.sponsorRepository.flush();
+	}
+
+
+	public EditActorForm construct(EditActorForm editActorForm,
+			Sponsor principal) {
+		
+		editActorForm.setId(principal.getId());
+		editActorForm.setVersion(principal.getVersion());
+		editActorForm.setName(principal.getName());
+		editActorForm.setSurname(principal.getSurname());
+		editActorForm.setEmail(principal.getEmail());
+		editActorForm.setPhone(principal.getPhone());
+		editActorForm.setAddress(principal.getAddress());
+		editActorForm.setDateBirth(principal.getDateBirth());
+		
+		
+		return editActorForm;
+	}
+
+	public Sponsor reconstruct(EditActorForm editActorForm,
+			BindingResult binding) {
+		Sponsor result;
+		
+		result = this.findByPrincipal();
+		
+		result.setName(editActorForm.getName());
+		result.setSurname(editActorForm.getSurname());
+		result.setEmail(editActorForm.getEmail());
+		result.setId(editActorForm.getId());
+		result.setAddress(editActorForm.getAddress());
+		result.setVersion(editActorForm.getVersion());
+		result.setPhone(editActorForm.getPhone());
+		result.setDateBirth(editActorForm.getDateBirth());
+	
+		
+		this.validator.validate(editActorForm, binding);
+
+		
+		return result;
 	}
 
 }

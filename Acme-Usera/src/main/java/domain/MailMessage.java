@@ -11,7 +11,6 @@ import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
-import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
@@ -24,7 +23,6 @@ public class MailMessage extends DomainEntity {
 	private Date	moment;
 	private String	subject;
 	private String	body;
-	private String	priority;
 	private Actor	sender;
 	private Actor	recipient;
 	private Folder	folder;
@@ -57,15 +55,6 @@ public class MailMessage extends DomainEntity {
 	}
 	public void setBody(final String body) {
 		this.body = body;
-	}
-
-	@NotBlank
-	@Pattern(regexp = "^HIGH|NORMAL|LOW$")
-	public String getPriority() {
-		return this.priority;
-	}
-	public void setPriority(final String priority) {
-		this.priority = priority;
 	}
 
 	@NotNull

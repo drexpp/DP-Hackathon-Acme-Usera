@@ -23,8 +23,32 @@
 		<value>/views/security/messages</value>		
 		<value>/views/welcome/messages</value>
 		<value>/views/admin/messages</value>
-		<value>/views/user/messages</value>
+		<value>/views/actor/messages</value>
+		<value>/views/teacher/messages</value>
 		<value>/views/category/messages</value>
+		<value>/views/course/messages</value>
+		<value>/views/lesson/messages</value>
+		<value>/views/curriculum/messages</value>
+		<value>/views/educationRecord/messages</value>
+		<value>/views/miscellaneousRecord/messages</value>
+		<value>/views/professionalRecord/messages</value>
+		<value>/views/advertisement/messages</value>
+		<value>/views/forum/messages</value>
+		<value>/views/question/messages</value>
+		<value>/views/answer/messages</value>
+		<value>/views/folder/messages</value>
+		<value>/views/datatables/messages</value>
+		<value>/views/message/messages</value>
+		<value>/views/subscription/messages</value>
+		<value>/views/customisation/messages</value>
+		<value>/views/tutorial/messages</value>
+		<value>/views/exam/messages</value>
+		<value>/views/examQuestion/messages</value>
+		<value>/views/examPaper/messages</value>
+		<value>/views/examAnswer/messages</value>
+		<value>/views/admin/messages</value>
+		<value>/views/ranking/messages</value>
+
 
 	</util:list>
 

@@ -29,10 +29,10 @@ public class Folder extends DomainEntity {
 		this.name = name;
 	}
 
-	public boolean getIsSystem() {
+	public Boolean getIsSystem() {
 		return this.isSystem;
 	}
-	public void setIsSystem(final boolean isSystem) {
+	public void setIsSystem(final Boolean isSystem) {
 		this.isSystem = isSystem;
 	}
 

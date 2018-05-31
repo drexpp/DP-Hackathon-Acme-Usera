@@ -16,8 +16,8 @@ import org.hibernate.validator.constraints.SafeHtml;
 public class ContactInfo extends DomainEntity {
 
 	private String		skype;
-	private List<String> comments;
 	private String		contactPhone;
+	private List<String> comments;
 	private List<String> links;
 	
 	
@@ -39,7 +39,7 @@ public class ContactInfo extends DomainEntity {
 	}
 	
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
-	@Pattern(regexp="\\+?([0-9]+)?")
+	@Pattern(regexp="\\+?([0-9]{9})?")
 	public String getContactPhone() {
 		return contactPhone;
 	}

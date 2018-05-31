@@ -16,13 +16,17 @@ import repositories.StudentRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Actor;
 import domain.Certification;
+import domain.Course;
+import domain.Lesson;
 import domain.MailMessage;
 import domain.Question;
 import domain.Student;
 import domain.Subscription;
 import domain.Tutorial;
 import forms.ActorForm;
+import forms.EditActorForm;
 
 @Service
 @Transactional
@@ -33,10 +37,17 @@ public class StudentService {
 	private StudentRepository	studentRepository;
 	
 	@Autowired
+	private CourseService	courseService;
+	
+	@Autowired
 	private FolderService folderService;
 
 	@Autowired
+	private ActorService  actorService;
+
+	@Autowired
 	private Validator		validator;
+	
 
 
 	// Supporting services
@@ -55,6 +66,7 @@ public class StudentService {
 		result.setScore(0);
 		result.setSubscriptions(new ArrayList<Subscription>());
 		result.setTutorials(new ArrayList<Tutorial>());
+		result.setLessons(new ArrayList<Lesson>());
 		result.setCertifications(new ArrayList<Certification>());
 		result.setQuestions(new ArrayList<Question>());
 		result.setReceivedMessages(new ArrayList<MailMessage>());
@@ -125,23 +137,93 @@ public class StudentService {
 		student.setAddress(actorForm.getAddress());
 		student.setVersion(actorForm.getVersion());
 		student.setPhone(actorForm.getPhone());
+		student.setDateBirth(actorForm.getDateBirth());
 		student.setUserAccount(actorForm.getUserAccount());
 		final Collection<Authority> authorities = new ArrayList<Authority>();
 		final Authority auth = new Authority();
-		auth.setAuthority("TEACHER");
+		auth.setAuthority("STUDENT");
 		authorities.add(auth);
 		student.getUserAccount().setAuthorities(authorities);
 
 		this.validator.validate(actorForm, binding);
 		if (!(actorForm.getConfirmPassword().equals((actorForm.getUserAccount().getPassword()))) || actorForm.getConfirmPassword() == null)
-			binding.rejectValue("confirmPassword", "user.passwordMiss");
+			binding.rejectValue("confirmPassword", "student.passwordMiss");
 		if ((actorForm.getCheck() == false))
-			binding.rejectValue("check", "user.uncheck");
+			binding.rejectValue("check", "student.uncheck");
 		return student;
 	}
 
 	public void flush() {
 		this.studentRepository.flush();
 	}
+	
+	public String checkSubscription (Course course){
+		String subscriptionType = null;
+		Student principal = this.findByPrincipal();
+		Assert.notNull(principal);
+		Collection<Course> freeCourses = this.courseService.findCoursesSubscribedFreeByUser(principal.getId());
+		Collection<Course> standardCourses = this.courseService.findCoursesSubscribedStandardByUser(principal.getId());
+		Collection<Course> premiumCourses = this.courseService.findCoursesSubscribedPremiumByUser(principal.getId());
+		if(freeCourses.contains(course)){
+			subscriptionType = "FREE";
+		} else if (standardCourses.contains(course)){
+			subscriptionType = "STANDARD";
+		} else if (premiumCourses.contains(course)){
+			subscriptionType = "PREMIUM";
+		}
+		
+		return subscriptionType;
+		
+	}
 
+	public EditActorForm construct(EditActorForm editActorForm,
+			Student principal) {
+		
+		editActorForm.setId(principal.getId());
+		editActorForm.setVersion(principal.getVersion());
+		editActorForm.setName(principal.getName());
+		editActorForm.setSurname(principal.getSurname());
+		editActorForm.setEmail(principal.getEmail());
+		editActorForm.setPhone(principal.getPhone());
+		editActorForm.setAddress(principal.getAddress());
+		editActorForm.setDateBirth(principal.getDateBirth());
+		
+		
+		return editActorForm;
+	}
+
+	public Student reconstruct(EditActorForm editActorForm,
+			BindingResult binding) {
+		Student result;
+		
+		result = this.findByPrincipal();
+		
+		result.setName(editActorForm.getName());
+		result.setSurname(editActorForm.getSurname());
+		result.setEmail(editActorForm.getEmail());
+		result.setId(editActorForm.getId());
+		result.setAddress(editActorForm.getAddress());
+		result.setVersion(editActorForm.getVersion());
+		result.setDateBirth(editActorForm.getDateBirth());
+		result.setPhone(editActorForm.getPhone());
+	
+		
+		this.validator.validate(editActorForm, binding);
+
+		
+		return result;
+	}
+	
+	public Collection<Student> findStudentsRankedByPoints(){
+		Collection<Student> result;
+		Actor principal;
+		
+		principal = this.actorService.findByPrincipal();
+		Assert.notNull(principal);
+		
+		result = this.studentRepository.findStudentsRankedByScore();
+		
+		return result;
+	}
+	
 }
