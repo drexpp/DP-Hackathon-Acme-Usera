@@ -11,16 +11,14 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
+import repositories.ExamPaperRepository;
 import domain.Actor;
 import domain.Admin;
 import domain.Exam;
 import domain.ExamAnswer;
 import domain.ExamPaper;
 import domain.Student;
-import domain.Teacher;
 import forms.ExamPaperForm;
-
-import repositories.ExamPaperRepository;
 
 @Service
 @Transactional
@@ -35,9 +33,6 @@ public class ExamPaperService {
 				
 				@Autowired
 				private StudentService				studentService;
-				
-				@Autowired
-				private TeacherService				teacherService;
 				
 				@Autowired
 				private AdminService				adminService;

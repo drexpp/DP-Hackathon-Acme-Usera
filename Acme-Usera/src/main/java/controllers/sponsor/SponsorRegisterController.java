@@ -96,13 +96,6 @@ public class SponsorRegisterController extends AbstractController {
 		ModelAndView result;
 		Sponsor sponsor;
 		
-		if(!editActorForm.getName().isEmpty() && !editActorForm.getSurname().isEmpty() && !editActorForm.getEmail().isEmpty())
-			sponsor = this.sponsorService.reconstruct(editActorForm, binding);
-		else{
-			result = this.createEditModelAndView(editActorForm, "actor.commit.error");
-			return result;
-		}
-			
 		
 		sponsor = this.sponsorService.reconstruct(editActorForm, binding);
 		

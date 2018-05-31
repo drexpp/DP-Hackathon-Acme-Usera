@@ -3,8 +3,11 @@ package services;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.springframework.util.Assert;
 
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
+
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import domain.Student;
 
 import forms.ActorForm;
+import forms.EditActorForm;
 
 import security.UserAccount;
 import utilities.AbstractTest;
@@ -111,5 +115,65 @@ public class StudentServiceTest extends AbstractTest {
 		
 		return actorForm;
 	}
+	
+	@Test
+	public void driverEditPersonalInfoStudent(){
+		Object testingData[][] = {
+				//Test 1 positivo, probando el editar el perfil de un estudiante con un nuevo nombre y apellido.
+				{"student1","student1","newName1", "newSurname1",null},
+				//Test 2 negativo, probando el editar el perfil de un estudiante con el "Nombre" vacio
+				{"student1","student1","", "newSurname2", ConstraintViolationException.class},
+				//Test 3 negativo, probando el editar el perfil de un estudiante con el "Apellido" vacio
+				{"student1","student1","newName3", "",ConstraintViolationException.class}
+				
+		};
+		for(int i = 0; i < testingData.length; i++){
+			this.startTransaction();
+			templateEditPersonalInfoStudent(((String) testingData[i][0]), super.getEntityId((String) testingData[i][1]),((String) testingData[i][2]),((String) testingData[i][3]),((Class<?>) testingData[i][4]));
+			this.rollbackTransaction();
+		}
+	}
 
+
+	protected void templateEditPersonalInfoStudent(String studentAccount, int studentId, String newName,
+			String newSurname, Class<?> expected) {
+		Class<?> caught;
+		caught = null;
+		BindingResult binding;
+		EditActorForm editActorForm;
+		binding = null;
+		Student principal;
+		super.authenticate(studentAccount);
+		//Obteniendo el editActorForm a partir del estudiante (como se haría en el controlador y servicio).
+		principal = this.studentService.findOne(studentId);
+		editActorForm = generateAndEditActorFormFromStudent(principal, newName, newSurname);
+		
+		try{
+			Student studentToSave;
+			Student studentSaved;
+			studentToSave = this.studentService.reconstruct(editActorForm, binding);
+			studentSaved = this.studentService.save(studentToSave);
+			Assert.isTrue(studentSaved.getName().equals(newName));
+			Assert.isTrue(studentSaved.getSurname().equals(newSurname));
+		}catch(Throwable oops){
+			caught = oops.getClass();
+		}
+		
+		checkExceptions(expected, caught);
+	}
+
+
+	protected EditActorForm generateAndEditActorFormFromStudent(Student principal, String newName, String newSurname) {
+		EditActorForm result = new EditActorForm();
+		
+		result.setId(principal.getId());
+		result.setName(newName);
+		result.setSurname(newSurname);
+		result.setAddress(principal.getAddress());
+		result.setDateBirth(principal.getDateBirth());
+		result.setPhone(principal.getPhone());
+		result.setEmail(principal.getEmail());
+		
+		return result;
+	}
 }

@@ -1,8 +1,5 @@
 package controllers.student;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -13,21 +10,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import domain.Actor;
-import domain.Answer;
-import domain.ExamAnswer;
-import domain.ExamPaper;
-import domain.Question;
-import domain.Student;
-import forms.AnswerForm;
-import forms.ExamAnswerForm;
-import services.ActorService;
-import services.AnswerService;
 import services.ExamAnswerService;
 import services.ExamPaperService;
-import services.QuestionService;
 import services.StudentService;
-import services.TeacherService;
+import domain.ExamAnswer;
+import domain.ExamPaper;
+import forms.ExamAnswerForm;
 
 @Controller
 @RequestMapping("/examAnswer/student")
@@ -44,12 +32,7 @@ public class ExamAnswerStudentController {
 		
 		@Autowired
 		private StudentService	studentService;
-		
-		@Autowired
-		private TeacherService	teacherService;
-		
-		@Autowired
-		private ActorService	actorService;
+
 		
 		// Constructors
 
@@ -114,7 +97,7 @@ public class ExamAnswerStudentController {
 			ExamAnswer examAnswer;
 			Boolean permission = true;
 			ExamAnswerForm examAnswerForm;
-			final Student principal = this.studentService.findByPrincipal();
+			this.studentService.findByPrincipal();
 			
 		try{
 			examAnswer = this.examAnswerService.findOne(examAnswerId);
