@@ -8,13 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.ExamQuestionRepository;
 import domain.Admin;
 import domain.Exam;
-import domain.ExamAnswer;
 import domain.ExamQuestion;
 import domain.Teacher;
-
-import repositories.ExamQuestionRepository;
 
 @Service
 @Transactional

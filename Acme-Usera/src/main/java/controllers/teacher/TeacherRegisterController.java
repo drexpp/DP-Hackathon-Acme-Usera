@@ -105,9 +105,7 @@ public class TeacherRegisterController extends AbstractController {
 	public ModelAndView edit(final EditActorTeacherForm editActorTeacherForm, BindingResult binding){
 		ModelAndView result;
 		Teacher teacher;
-		
-	
-		
+				
 		teacher = this.teacherService.reconstruct(editActorTeacherForm, binding);
 		
 		if(binding.hasErrors()){

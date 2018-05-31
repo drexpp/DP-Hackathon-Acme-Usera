@@ -5,20 +5,17 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 
-import org.springframework.validation.Validator;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.QuestionRepository;
 import domain.Actor;
 import domain.Admin;
 import domain.Answer;
-import domain.ExamAnswer;
-import domain.ExamQuestion;
 import domain.Forum;
 import domain.Question;
 import domain.Student;

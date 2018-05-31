@@ -31,20 +31,5 @@ public class ProfileController extends AbstractController {
 
 	// Action-2 ---------------------------------------------------------------		
 
-	@RequestMapping("/action-2")
-	public ModelAndView action2() {
-		ModelAndView result;
-
-		result = new ModelAndView("profile/action-2");
-
-		return result;
-	}
-
-	// Action-2 ---------------------------------------------------------------		
-
-	@RequestMapping("/action-3")
-	public ModelAndView action3() {
-		throw new RuntimeException("Oops! An *expected* exception was thrown. This is normal behaviour.");
-	}
 
 }

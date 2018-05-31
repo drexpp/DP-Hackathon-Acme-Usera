@@ -13,14 +13,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import domain.Actor;
 import domain.Course;
-import domain.ExamAnswer;
 import domain.ExamPaper;
 import domain.ExamQuestion;
 import domain.Student;
 import domain.Teacher;
 import services.ActorService;
 import services.CourseService;
-import services.ExamAnswerService;
 import services.ExamPaperService;
 import services.ExamQuestionService;
 

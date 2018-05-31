@@ -10,14 +10,12 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
+import repositories.ExamAnswerRepository;
 import domain.Admin;
-import domain.Exam;
-import domain.ExamPaper;
 import domain.ExamAnswer;
+import domain.ExamPaper;
 import domain.Student;
 import forms.ExamAnswerForm;
-
-import repositories.ExamAnswerRepository;
 
 @Service
 @Transactional

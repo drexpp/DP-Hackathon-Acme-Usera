@@ -11,18 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import controllers.AbstractController;
-
-import domain.Exam;
-import domain.ExamPaper;
-import domain.Question;
-import domain.Student;
-import forms.ExamPaperForm;
-import forms.QuestionForm;
-import services.CourseService;
 import services.ExamPaperService;
 import services.ExamService;
 import services.StudentService;
+import controllers.AbstractController;
+import domain.Exam;
+import domain.ExamPaper;
+import domain.Student;
+import forms.ExamPaperForm;
 
 @Controller
 @RequestMapping("/examPaper/student")

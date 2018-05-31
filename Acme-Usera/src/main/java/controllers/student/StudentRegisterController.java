@@ -91,15 +91,7 @@ public class StudentRegisterController extends AbstractController {
 	public ModelAndView edit(final EditActorForm editActorForm, BindingResult binding){
 		ModelAndView result;
 		Student student;
-		
-		if(!editActorForm.getName().isEmpty() && !editActorForm.getSurname().isEmpty() && !editActorForm.getEmail().isEmpty())
-			student = this.studentService.reconstruct(editActorForm, binding);
-		else{
-			result = this.createEditModelAndView(editActorForm, "actor.commit.error");
-			return result;
-		}
-			
-		
+					
 		student = this.studentService.reconstruct(editActorForm, binding);
 		
 		if(binding.hasErrors()){
