@@ -15,7 +15,6 @@ import domain.Actor;
 import domain.Admin;
 import domain.ExamAnswer;
 import domain.ExamPaper;
-import domain.ExamQuestion;
 import domain.Student;
 import forms.ExamAnswerForm;
 
@@ -35,9 +34,6 @@ public class ExamAnswerService {
 			
 			@Autowired
 			private ExamPaperService			examPaperService;
-			
-			@Autowired
-			private ExamQuestionService			examQuestionService;
 			
 			@Autowired
 			private AdminService				adminService;
@@ -105,8 +101,6 @@ public class ExamAnswerService {
 		ExamPaper examPaper = result.getExamPaper();
 
 		cantidad = examPaper.getExamAnswer().size();
-
-		Collection<ExamQuestion>answered = this.examQuestionService.findAnsweredQuestions(examPaper.getId());
 		
 		if(examAnswer.getId() == 0){
 			puntuacion = 0;

@@ -54,15 +54,7 @@ public class AdminProfileController {
 	public ModelAndView edit(final EditActorForm editActorForm, BindingResult binding){
 		ModelAndView result;
 		Admin admin;
-		
-		if(!editActorForm.getName().isEmpty() && !editActorForm.getSurname().isEmpty() && !editActorForm.getEmail().isEmpty())
-			admin = this.adminService.reconstruct(editActorForm, binding);
-		else{
-			result = this.createEditModelAndView(editActorForm, "actor.commit.error");
-			return result;
-		}
-			
-		
+				
 		admin = this.adminService.reconstruct(editActorForm, binding);
 		
 		if(binding.hasErrors()){

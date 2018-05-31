@@ -84,16 +84,18 @@ public class TutorialService {
 	}
 	
 	public void saveTutorialForStudent(final Tutorial tutorial){
-		Student principal;
+		Teacher principal = this.teacherService.findByPrincipal();
+		Assert.isTrue(tutorial.getTeacher().equals(principal));
+		Student student;
 		Date now = new Date();
 		Assert.isTrue(tutorial.getStartTime().after(now));
 		
-		principal = tutorial.getStudent();
+		student = tutorial.getStudent();
 		
-		Collection<Tutorial> toUpdate = principal.getTutorials();
+		Collection<Tutorial> toUpdate = student.getTutorials();
 		Collection<Tutorial> updated = new ArrayList<Tutorial>(toUpdate);
 		updated.add(tutorial);
-		principal.setTutorials(updated);	
+		student.setTutorials(updated);	
 	}
 	
 	
