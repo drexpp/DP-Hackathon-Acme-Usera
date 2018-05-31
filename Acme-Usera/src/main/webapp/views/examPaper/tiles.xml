@@ -16,6 +16,11 @@
        
 <tiles-definitions>
 
+	<definition name="examPaper/list" extends="master.page">
+		<put-attribute name="title" value="List of exam papers" />
+		<put-attribute name="body" value="/views/examPaper/list.jsp" />
+	</definition>
+	
 	<definition name="examPaper/display" extends="master.page">
 		<put-attribute name="title" value="Display exam paper" />
 		<put-attribute name="body" value="/views/examPaper/display.jsp" />

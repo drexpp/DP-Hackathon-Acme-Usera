@@ -21,18 +21,15 @@ import domain.Teacher;
 import services.ActorService;
 import services.CourseService;
 import services.ExamAnswerService;
-import services.ExamPaperService;
 import services.ExamQuestionService;
 
 @Controller
-@RequestMapping("/examPaper")
-public class ExamPaperController extends AbstractController{
+@RequestMapping("/examAnswer")
+public class ExamAnswerController extends AbstractController{
 	
 	
 	// Services
 
-			@Autowired
-			private ExamPaperService	examPaperService;
 			
 			@Autowired
 			private ExamAnswerService	examAnswerService;
@@ -49,7 +46,7 @@ public class ExamPaperController extends AbstractController{
 		
 			// Constructors
 
-			public ExamPaperController() {
+			public ExamAnswerController() {
 				super();
 			}
 			
@@ -57,17 +54,19 @@ public class ExamPaperController extends AbstractController{
 			
 			//Display
 			@RequestMapping(value = "/display", method = RequestMethod.GET)
-			public ModelAndView display(@RequestParam final int examPaperId, RedirectAttributes redir) {
+			public ModelAndView display(@RequestParam final int examAnswerId, RedirectAttributes redir) {
 				ModelAndView result = new ModelAndView();
+				ExamAnswer examAnswer;
 				ExamPaper examPaper;
 				Collection<ExamQuestion> examQuestions;
 				Actor principal;
 
 				try{
-					examPaper = this.examPaperService.findOne(examPaperId);
+					examAnswer = this.examAnswerService.findOne(examAnswerId);
+					examPaper = examAnswer.getExamPaper();
 					principal = this.actorService.findByPrincipal();
 					examQuestions = examPaper.getExam().getExamQuestions();
-					result = new ModelAndView("examPaper/display");
+					result = new ModelAndView("examAnswer/display");
 				
 					if(principal instanceof Teacher){
 						Teacher principalT = (Teacher) principal;
@@ -80,6 +79,7 @@ public class ExamPaperController extends AbstractController{
 						Collection<ExamQuestion> answered	 = this.examQuestionService.findAnsweredQuestions(examPaper.getId());
 						result.addObject("answered", answered);
 					} 
+					result.addObject("examAnswer", examAnswer);
 					result.addObject("examPaper", examPaper);
 					result.addObject("principal", principal);
 					result.addObject("examQuestions", examQuestions);
@@ -92,7 +92,5 @@ public class ExamPaperController extends AbstractController{
 				return result;
 
 		}
-			
-		
 
 }

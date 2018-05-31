@@ -27,7 +27,7 @@
 	
 <acme:textarea code="examQuestion.statement" path="statement"/>
 
-<acme:textbox code="examQuestion.maxScore" path="maxScore"/>
+<acme:textbox code="examQuestion.maxScore" path="maxScore" placeholder="100"/>
 
 <acme:textbox code="examQuestion.photoURL" path="photoURL"/>
 

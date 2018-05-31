@@ -174,9 +174,19 @@
 			access="hasRole('TEACHER')" />	
 		<security:intercept-url pattern="/examPaper/teacher/edit.do"
 			access="hasRole('TEACHER')" />
+		<security:intercept-url pattern="/examPaper/teacher/list.do"
+			access="hasRole('TEACHER')" />
+		<security:intercept-url pattern="/examAnswer/teacher/evaluate.do"
+			access="hasRole('TEACHER')" />
+		<security:intercept-url pattern="/examAnswer/teacher/display.do"
+			access="hasRole('TEACHER')" />	
+		<security:intercept-url pattern="/examAnswer/teacher/edit.do"
+			access="hasRole('TEACHER')" />	
 		<security:intercept-url pattern="/examPaper/student/edit.do"
 			access="hasRole('STUDENT')" />
 		<security:intercept-url pattern="/examPaper/student/create.do"
+			access="hasRole('STUDENT')" />	
+		<security:intercept-url pattern="/examPaper/student/finish.do"
 			access="hasRole('STUDENT')" />	
 		<security:intercept-url pattern="/examPaper/display.do"
 			access="permitAll" />	
@@ -184,7 +194,8 @@
 			access="hasRole('STUDENT')" />	
 		<security:intercept-url pattern="/examAnswer/student/edit.do"
 			access="hasRole('STUDENT')" />	
-			
+		<security:intercept-url pattern="/examAnswer/display.do"
+			access="permitAll" />		
 			
 		<!-- Advertisement -->
 		<security:intercept-url pattern="/advertisement/sponsor/**" access="hasRole('SPONSOR')" /> 

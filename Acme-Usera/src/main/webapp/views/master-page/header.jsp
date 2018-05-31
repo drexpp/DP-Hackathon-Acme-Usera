@@ -85,6 +85,8 @@
 								code="master.page.teacher.curriculum" /></a></li>
 					<li><a href="tutorial/list.do"><spring:message
 									code="master.page.my.tutorials" /></a></li>
+					<li><a href="examPaper/teacher/list.do"><spring:message
+									code="master.page.examPapers" /></a></li>
 
 				</ul></li>
 		</security:authorize>

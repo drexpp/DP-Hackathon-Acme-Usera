@@ -1,6 +1,7 @@
 package controllers.student;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -83,6 +84,32 @@ public class ExamPaperStudentController extends AbstractController{
 				return result;
 			}
 			
+			//Finish exam
+			@RequestMapping(value = "/finish", method = RequestMethod.GET)
+			public ModelAndView evaluate(@RequestParam final int examPaperId, RedirectAttributes redir) {
+				ModelAndView result = new ModelAndView();
+				ExamPaper examPaper;
+				Student principal;
+				
+				try{
+					examPaper = this.examPaperService.findOne(examPaperId);
+					principal = this.studentService.findByPrincipal();
+					examPaper.setIsFinished(true);
+					examPaper=this.examPaperService.save(examPaper);
+					
+					result = new ModelAndView("examPaper/display");
+					
+					result.addObject("examPaper", examPaper);
+					result.addObject("principal", principal);
+					
+				}catch (Throwable oops){
+					result = new ModelAndView("redirect:/course/list.do");	
+					redir.addFlashAttribute("message", "examPaper.permission"); 
+				}
+					
+				return result;
+
+			}
 			
 			// Edition ----------------------------------------------------------------
 
@@ -102,34 +129,7 @@ public class ExamPaperStudentController extends AbstractController{
 					}
 
 				return result;
-				}
-				
-		/*			
-			@RequestMapping(value = "/edit", method = RequestMethod.GET)
-			public ModelAndView edit(@RequestParam final int examPaperId, final RedirectAttributes redir) {
-				ModelAndView result;
-				ExamPaper examPaper;
-				Boolean permission = true;
-				QuestionForm questionForm;
-				final Student principal = this.studentService.findByPrincipal();
-				question = this.questionService.findOne(questionId);
-				try {
-					Assert.isTrue(question.getStudent().equals(principal));
-					questionForm = this.questionService.reconstructForm(question);
-					result = this.createEditModelAndView(questionForm);
-					if(question.getForum().getCourse().getIsClosed() == true){
-						permission = false;
-					}
-					result.addObject("permission", permission);
-					} catch (final Throwable oops) {
-					result = new ModelAndView("redirect:../../forum/display.do?forumId="+question.getForum().getId());
-					redir.addFlashAttribute("message", "question.permision");
-				}
-
-					return result;
-
-				}		
-			*/
+			}
 			
 			
 			private ModelAndView createEditModelAndView(ExamPaperForm examPaperForm) {

@@ -11,9 +11,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.ExamAnswerRepository;
+import domain.Actor;
 import domain.Admin;
 import domain.ExamAnswer;
 import domain.ExamPaper;
+import domain.ExamQuestion;
 import domain.Student;
 import forms.ExamAnswerForm;
 
@@ -29,7 +31,13 @@ public class ExamAnswerService {
 			private StudentService				studentService;
 			
 			@Autowired
+			private ActorService				actorService;
+			
+			@Autowired
 			private ExamPaperService			examPaperService;
+			
+			@Autowired
+			private ExamQuestionService			examQuestionService;
 			
 			@Autowired
 			private AdminService				adminService;
@@ -70,12 +78,15 @@ public class ExamAnswerService {
 	
 	
 	public ExamAnswer save(final ExamAnswer examAnswer) {
-		Student principal;
+		Actor principal;
 		ExamAnswer result;
-		Integer number = 0;
+		Integer puntuacion;
+		Integer cantidad;
+		Integer total = 0;
+		
 		Assert.notNull(examAnswer);
 
-		principal = this.studentService.findByPrincipal();
+		principal = this.actorService.findByPrincipal();
 
 		Assert.notNull(principal);
 		
@@ -83,18 +94,43 @@ public class ExamAnswerService {
 		
 		ExamPaper examen = examAnswer.getExamPaper();
 		
-		number = examen.getExamAnswer().size()+1;
-		examAnswer.setNumber(number);
+		if(examAnswer.getId()==0){
+			Integer number = 0;
+			number = examen.getExamAnswer().size()+1;
+			examAnswer.setNumber(number);
+		}
 	
 		result = this.examAnswerRepository.save(examAnswer);
 	
+		ExamPaper examPaper = result.getExamPaper();
+
+		cantidad = examPaper.getExamAnswer().size();
+
+		Collection<ExamQuestion>answered = this.examQuestionService.findAnsweredQuestions(examPaper.getId());
+		
 		if(examAnswer.getId() == 0){
-			ExamPaper exam = result.getExamPaper();
-			Collection<ExamAnswer> toUpdate = exam.getExamAnswer();
+			puntuacion = 0;
+			examPaper.setMark(puntuacion);
+			
+			Collection<ExamAnswer> toUpdate = examPaper.getExamAnswer();
 			Collection<ExamAnswer> updated = new ArrayList<ExamAnswer>(toUpdate);
 			toUpdate.add(result);
-			exam.setExamAnswer(updated);
+			examPaper.setExamAnswer(updated);
+			
+			
 		}	
+		puntuacion = result.getMark();
+		
+	
+		for(ExamAnswer examanswer: examPaper.getExamAnswer()){
+			puntuacion = puntuacion + examanswer.getMark();
+		}
+		
+		
+		if(cantidad != 0){
+			total = puntuacion/cantidad;
+		}
+		examPaper.setMark(total);
 		
 		return result;
 	}
@@ -124,6 +160,12 @@ public class ExamAnswerService {
 		
 		this.examAnswerRepository.delete(examAnswer);
 		
+	}
+	
+	public ExamAnswer findExamAnswerByNumbers(int number, int examPaperId){
+		ExamAnswer result;
+		result = this.examAnswerRepository.findExamAnswerByNumbers(number, examPaperId);
+		return result;
 	}
 	
 	public ExamAnswer reconstruct(ExamAnswerForm examAnswerForm, BindingResult binding) {

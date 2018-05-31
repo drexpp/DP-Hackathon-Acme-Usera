@@ -30,7 +30,7 @@
 
 <tr>
 <td> <strong> <spring:message code="examPaper.mark" /> : </strong> </td>
-<td> <jstl:out value="${exam.mark}"></jstl:out></td>
+<td> <jstl:out value="${examPaper.mark}"></jstl:out></td>
 </tr>
 
 
@@ -60,15 +60,25 @@
 	<security:authorize access="hasRole('STUDENT')">
 		<spring:message code="examPaper.answer" var="examAnswerHeader" />
 		<display:column>
-		<jstl:if test="${!answered.contains(row) }">
+		<jstl:if test="${!answered.contains(row) and examPaper.isFinished == false}">
 				<a href="examAnswer/student/create.do?examPaperId=${examPaper.id}"> <spring:message code="examAnswer.create"/></a>
 		</jstl:if>
 		</display:column>
 	</security:authorize>
-	
+	<security:authorize access="hasRole('TEACHER')">
+		<spring:message code="examPaper.evaluation" var="examAnswerHeader" />
+		<display:column>
+			<a href="examAnswer/teacher/evaluate.do?examQuestionId=${row.id}&&examPaperId=${examPaper.id}"> <spring:message code="examPaper.evaluation"/></a>
+		</display:column>
+	</security:authorize>
 
 </display:table>
 
+<security:authorize access="hasRole('STUDENT')">
+<jstl:if test="${examPaper.isFinished == false}">
+<a href="examPaper/student/finish.do?examPaperId=${examPaper.id}"> <spring:message code="examPaper.final"/></a>
+</jstl:if>
+</security:authorize>
 
 <spring:message code="datatables.locale.lang" var="tableLang"/>
 <spring:message code="datatables.moment.format" var="tableFormatMoment"/>

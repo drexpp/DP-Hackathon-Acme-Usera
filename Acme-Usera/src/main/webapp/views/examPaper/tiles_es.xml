@@ -16,6 +16,11 @@
        
 <tiles-definitions>
 	
+	<definition name="examPaper/list" extends="master.page">
+		<put-attribute name="title" value="Lista de exámenes respondidos" />
+		<put-attribute name="body" value="/views/examPaper/list.jsp" />
+	</definition>
+	
 	<definition name="examPaper/display" extends="master.page">
 		<put-attribute name="title" value="Mostrar examen" />
 		<put-attribute name="body" value="/views/examPaper/display.jsp" />
