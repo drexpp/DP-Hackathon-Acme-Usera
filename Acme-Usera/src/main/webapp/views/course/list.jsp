@@ -49,7 +49,7 @@
 	<jstl:when test="${isTeacher}">
 		<jstl:choose>
 		<jstl:when test="${row.isClosed == false and principal.coursesCreated.contains(row)}">
-			<a href="course/user/close.do?courseId=${row.id}"> <spring:message
+			<a href="course/teacher/close.do?courseId=${row.id}"> <spring:message
 			code="course.makeClose" />
 		</a>
 		</jstl:when>
@@ -86,6 +86,7 @@
 	<!-- Display -->
 <security:authorize access="hasRole('TEACHER')" var="isTeacher"/>
 <security:authorize access="hasRole('STUDENT')" var="isStudent"/>
+<security:authorize access="hasRole('SPONSOR')" var="isSponsor"/>
 <security:authorize access="isAuthenticated()">
 	<display:column>
 	<jstl:choose>
@@ -111,6 +112,14 @@
 	<a href="subscription/student/create.do?courseId=${row.id}"> <spring:message
 			code="course.subscribe" />
 		</a>
+	</jstl:when>
+	
+		<jstl:when test="${isSponsor}">
+		<jstl:if test="${coursesWithAds.contains(row) }">
+	<a href="course/display.do?courseId=${row.id}"> <spring:message
+			code="course.display" />
+		</a>
+		</jstl:if>
 	</jstl:when>
 	
 	

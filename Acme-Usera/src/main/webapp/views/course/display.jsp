@@ -57,7 +57,7 @@
 
 <tr>
 <td> <strong> <spring:message code="course.creator" /> : </strong> </td>
-<td> <a href="teacher/display.do?teacherId=${row.creator.id}"> <jstl:out value="${ course.creator.name}"></jstl:out>
+<td> <a href="teacher/display.do?teacherId=${course.creator.id}"> <jstl:out value="${ course.creator.name}"></jstl:out>
 		</a>  </td>
 </tr>
 
@@ -134,9 +134,11 @@
 <display:column property="surname" title="${teacherSurname}"   />
 <!-- Create Tutorial -->
 <display:column>    
+<jstl:if test="${course.isClosed == false }">
 <spring:message code="tutorial.create" var="createTutorial" />
 <a href="tutorial/student/create.do?teacherId=${tutor.id}"> 
 	<jstl:out value="${createTutorial}"></jstl:out>	</a>
+</jstl:if>
 </display:column>
 </display:table>
 

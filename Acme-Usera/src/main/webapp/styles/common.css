@@ -69,3 +69,28 @@ h4{
 	background-color: rgba(0, 255, 0, 0.33);
 }
 
+.displayRanking{
+	margin:auto !important;
+	table-layout:fixed;
+}
+
+#ranking-img{
+	width:200px;
+	height: 200px;
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 2%;
+}
+
+.ranking0 td:first-child, .ranking0 td:nth-child(2){
+	background-color:rgba(239, 196, 0, 0.8);
+}
+
+.ranking1 td:first-child, .ranking1 td:nth-child(2){
+	background-color:rgba(95, 121, 130, 0.79);
+}
+
+.ranking2 td:first-child, .ranking2 td:nth-child(2){
+	background-color:rgba(198, 121, 63, 0.91);
+}

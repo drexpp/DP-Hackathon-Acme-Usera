@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import domain.Actor;
+import domain.Sponsor;
 import domain.Advertisement;
 import domain.Course;
 import domain.Lesson;
@@ -72,6 +73,11 @@ public class CourseController extends AbstractController{
 				result.addObject("accessForum", accessForum);
 				result.addObject("subscribed",subscribed);
 			}
+			
+			if(principal instanceof Sponsor){
+				Collection<Course> coursesWithAds = this.courseService.findCoursesWithAdsPlacedBySponsor();
+				result.addObject("coursesWithAds", coursesWithAds);
+			}
 
 			return result;
 
@@ -82,17 +88,23 @@ public class CourseController extends AbstractController{
 			ModelAndView result = new ModelAndView();
 			Collection<Course> courses = new ArrayList<Course>();
 			Actor principal = this.actorService.findByPrincipal();
+			result = new ModelAndView("course/list");
 			if (principal instanceof Student){
 				Student student = (Student) principal;
 				courses = this.courseService.selectCoursesSubscriptedByUser(student.getId());
-				
+				Collection<Course> accessForum = this.courseService.findCoursesStandardAndPremium(principal.getId());
+				result.addObject("accessForum", accessForum);
 				Collection<Course> subscribed = this.courseService.selectCoursesSubscriptedByUser(principal.getId());
 				result.addObject("subscribed",subscribed);
 			} else if (principal instanceof Teacher){
 				Teacher teacher = (Teacher) principal;
 				courses = teacher.getCoursesJoined();
+			} else if (principal instanceof Sponsor){
+				Collection<Course> coursesWithAds = this.courseService.findCoursesWithAdsPlacedBySponsor();
+				courses = coursesWithAds;
+				result.addObject("coursesWithAds", coursesWithAds);
+				
 			}
-			result = new ModelAndView("course/list");
 			result.addObject("courses", courses);
 			result.addObject("principal",principal);
 
@@ -117,6 +129,15 @@ public class CourseController extends AbstractController{
 					advertChoosen = this.advertisementService.findRandomAdvertisement(course);
 					result = new ModelAndView("course/display");
 					
+					if (principal instanceof Student) {
+						String subscriptionType = this.studentService.checkSubscription(course);
+						result.addObject("subscriptionType", subscriptionType);
+						if(subscriptionType.equals("FREE")){
+						} 
+					} else {
+						result.addObject("advert", advertChoosen);
+					}
+					
 					if(principal instanceof Teacher){
 						Teacher principalT = (Teacher) principal;
 						Assert.isTrue(principalT.getCoursesJoined().contains(course));
@@ -130,8 +151,13 @@ public class CourseController extends AbstractController{
 				if(subscriptionType.equals("FREE")){
 					result.addObject("advert", advertChoosen);
 				}
+			
+		
 				
-			} 
+			} else if (principal instanceof Sponsor){
+				Collection<Course> coursesWithAds = this.courseService.findCoursesWithAdsPlacedBySponsor();
+				Assert.isTrue(coursesWithAds.contains(course));
+			}
 					result.addObject("lessons", lessons);
 					result.addObject("course", course);
 					result.addObject("principal", principal);

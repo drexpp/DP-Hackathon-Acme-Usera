@@ -15,6 +15,7 @@ import domain.Actor;
 import domain.Advertisement;
 import domain.Course;
 import domain.Lesson;
+import domain.Sponsor;
 import domain.Student;
 import domain.Teacher;
 
@@ -64,19 +65,26 @@ public class LessonController extends AbstractController{
 				advertChoosen = this.advertisementService.findRandomAdvertisement(lesson.getCourse());
 				result = new ModelAndView("lesson/display");
 				
+				if (principal instanceof Student) {
+					Collection<Course> subscribed = this.courseService.selectCoursesSubscriptedByUser(principal.getId()); 
+					Assert.isTrue(subscribed.contains(lesson.getCourse()));
+					Collection<Course> subFree = this.courseService.findCoursesSubscribedFreeByUser(principal.getId());
+					if (subFree.contains(lesson.getCourse())){
+						result.addObject("advert", advertChoosen);
+					}
+				} else {
+					result.addObject("advert", advertChoosen);	
+				}
 				if(principal instanceof Teacher){
 					Teacher principalT = (Teacher) principal;
 					Assert.isTrue(principalT.getCoursesJoined().contains(lesson.getCourse()));
-					result.addObject("advert", advertChoosen);
-		}
-		if (principal instanceof Student) {
-			Collection<Course> subscribed = this.courseService.selectCoursesSubscriptedByUser(principal.getId()); 
-			Assert.isTrue(subscribed.contains(lesson.getCourse()));
-			Collection<Course> subFree = this.courseService.findCoursesSubscribedFreeByUser(principal.getId());
-			if (subFree.contains(lesson.getCourse())){
-				result.addObject("advert", advertChoosen);
-			}
 		} 
+		 else if (principal instanceof Sponsor){
+			Collection<Course> coursesWithAds = this.courseService.findCoursesWithAdsPlacedBySponsor();
+			Assert.isTrue(coursesWithAds.contains(lesson.getCourse()));
+		} else {
+			
+		}
 				result.addObject("lesson", lesson);
 				result.addObject("principal", principal);
 			

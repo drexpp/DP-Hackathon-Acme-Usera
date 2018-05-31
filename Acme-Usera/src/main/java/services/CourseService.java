@@ -18,6 +18,7 @@ import domain.Admin;
 import domain.Advertisement;
 import domain.Forum;
 import domain.Lesson;
+import domain.Sponsor;
 import domain.Student;
 import domain.Subscription;
 import domain.Teacher;
@@ -37,6 +38,9 @@ public class CourseService {
 	// Supporting services
 	@Autowired
 	private TeacherService				teacherService;
+	
+	@Autowired
+	private SponsorService				sponsorService;
 
 	@Autowired
 	private AdminService			adminService;
@@ -236,6 +240,13 @@ public class CourseService {
 		return result;
 	}
 	
+	public void CloseCourse (Course course){
+		Teacher principal = this.teacherService.findByPrincipal();
+		Assert.isTrue(course.getCreator().equals(principal));
+		Assert.isTrue(course.getIsClosed() == false);
+		course.setIsClosed(true);
+		this.flush();
+	}
 	
 	
 	public Collection<Course> findCourseByCategory(Integer categoryId){
@@ -320,5 +331,13 @@ public class CourseService {
 		Collection<Course> result;
 		result = this.courseRepository.findCoursesWithExamPaperFromStudent(studentId);
 		return result;
+	}
+	
+	public Collection<Course> findCoursesWithAdsPlacedBySponsor(){
+		Sponsor principal = this.sponsorService.findByPrincipal();
+		Assert.notNull(principal);
+		Collection<Course> res = new ArrayList<Course>(this.courseRepository.findCoursesWithAdsPlacedBySponsor(principal.getId()));
+		return res;
+		
 	}
 }

@@ -137,7 +137,7 @@ public class TeacherService {
 		auth.setAuthority("TEACHER");
 		authorities.add(auth);
 		teacher.getUserAccount().setAuthorities(authorities);
-
+		
 		this.validator.validate(actorFormTeacher, binding);
 		if (!(actorFormTeacher.getConfirmPassword().equals((actorFormTeacher.getUserAccount().getPassword()))) || actorFormTeacher.getConfirmPassword() == null)
 			binding.rejectValue("confirmPassword", "student.passwordMiss");

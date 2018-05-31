@@ -46,6 +46,7 @@
 		<value>/views/examPaper/tiles.xml</value>
 		<value>/views/examAnswer/tiles.xml</value>
 		<value>/views/admin/tiles.xml</value>
+		<value>/views/ranking/tiles.xml</value>
 
 
 

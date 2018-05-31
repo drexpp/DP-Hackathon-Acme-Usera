@@ -32,5 +32,10 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	
 	@Query("select distinct c from Student s join s.examPapers eP join eP.exam ex join ex.course c where s.id = ?1")
 	public Collection<Course> findCoursesWithExamPaperFromStudent(Integer studentId);
+	
+	@Query("select distinct c from Sponsor s join s.advertisements ads join ads.courses c where s.id = ?1")	
+    public Collection<Course> findCoursesWithAdsPlacedBySponsor(Integer idSponsor);
+	
+
 
 }
