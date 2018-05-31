@@ -197,6 +197,11 @@
 				<ref bean="certification1" />
 			</list>
 		</property>	
+		<property name="examPapers">
+			<list>
+				<ref bean="examPaper1" />
+			</list>
+		</property>	
 		<property name="answers">
 			<list>
 			</list>
@@ -251,6 +256,11 @@
 			<list>
 			</list>
 		</property>	
+		<property name="examPapers">
+			<list>
+				<ref bean="examPaper3" />
+			</list>
+		</property>	
 		<property name="answers">
 			<list>
 				<ref bean="answer1"/>
@@ -302,6 +312,11 @@
 		</property>	
 		<property name="certifications">
 			<list>
+			</list>
+		</property>	
+		<property name="examPapers">
+			<list>
+				<ref bean="examPaper2" />
 			</list>
 		</property>	
 		<property name="answers">
@@ -1318,6 +1333,7 @@
 	<bean class="domain.ExamPaper" id="examPaper1">
 	<property name="moment" value="2017/05/13 18:45" />
 	<property name="mark" value="100"/>
+	<property name="isFinished" value="false"/>
 	<property name="exam" ref="exam1"/>
 	<property name="certification" ref="certification1"/> 
 	<property name="examAnswer">
@@ -1325,24 +1341,28 @@
 			<ref bean="examAnswer1" />
 		</list>
 	</property>
+	<property name="student" ref="student1"/>
 	</bean>
 	
 		<!-- Exam Paper 2 -->
 	<bean class="domain.ExamPaper" id="examPaper2">
 	<property name="moment" value="2017/05/13 18:45" />
 	<property name="mark" value="20"/>
+	<property name="isFinished" value="true"/>
 	<property name="exam" ref="exam2"/> 
 	<property name="examAnswer">
 		<list>
 			<ref bean="examAnswer2" />
 		</list>
 	</property>
+	<property name="student" ref="student3"/>
 	</bean>
 	
 			<!-- Exam Paper 3 -->
 	<bean class="domain.ExamPaper" id="examPaper3">
 	<property name="moment" value="2017/05/13 18:45" />
 	<property name="mark" value="85"/>
+	<property name="isFinished" value="true"/>
 	<property name="exam" ref="exam2"/> 
 	<property name="examAnswer">
 		<list>
@@ -1350,6 +1370,7 @@
 			<ref bean="examAnswer4" />
 		</list>
 	</property>
+	<property name="student" ref="student2"/>
 	</bean>
 	
 <!-- CERTIFICATIONS -->

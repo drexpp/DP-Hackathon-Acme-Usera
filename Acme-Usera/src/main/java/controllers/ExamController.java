@@ -14,12 +14,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import domain.Actor;
 import domain.Course;
 import domain.Exam;
+import domain.ExamPaper;
 import domain.ExamQuestion;
 import domain.Student;
 import domain.Teacher;
 
 import services.ActorService;
 import services.CourseService;
+import services.ExamPaperService;
 import services.ExamService;
 
 @Controller
@@ -38,6 +40,9 @@ public class ExamController extends AbstractController{
 			@Autowired
 			private CourseService	courseService;
 			
+			@Autowired
+			private ExamPaperService	examPaperService;
+			
 			// Constructors
 
 			public ExamController() {
@@ -52,6 +57,8 @@ public class ExamController extends AbstractController{
 				ModelAndView result = new ModelAndView();
 				Exam exam;
 				Collection<ExamQuestion>examQuestions;
+				Collection<Course> coursesWithExamPaperFromStudent;
+				ExamPaper examPaper;
 				Actor principal;
 
 				try{
@@ -65,7 +72,13 @@ public class ExamController extends AbstractController{
 				}
 				if (principal instanceof Student) {
 					Collection<Course> subscribed = this.courseService.selectCoursesSubscriptedByUser(principal.getId()); 
+					coursesWithExamPaperFromStudent = this.courseService.findCoursesWithExamPaperFromStudent(principal.getId());
+					examPaper = this.examPaperService.findExamPaperFromCourseAndStudent(principal.getId(), exam.getCourse().getId());
 					Assert.isTrue(subscribed.contains(exam.getCourse()));
+					result.addObject("subscribed", subscribed);
+					result.addObject("coursesWithExamPaperFromStudent", coursesWithExamPaperFromStudent);
+					result.addObject("examPaper", examPaper);
+
 				} 
 				result.addObject("exam", exam);
 				result.addObject("examQuestions", examQuestions);

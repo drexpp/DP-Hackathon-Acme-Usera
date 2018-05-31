@@ -13,8 +13,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,11 +24,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class ExamPaper extends DomainEntity {
 	
-	private	Date	moment;
-	private Integer mark;
-	private Exam exam;
-	private Certification certification;
-	private Collection<ExamAnswer> examAnswer;
+	private	Date					moment;
+	private Integer					mark;
+	private Boolean 				isFinished;
+	private Exam 					exam;
+	private Certification 			certification;
+	private Collection<ExamAnswer> 	examAnswer;
+	private Student 				student;
+	
 	
 	@Past
 	@Temporal(TemporalType.TIMESTAMP)
@@ -44,6 +49,15 @@ public class ExamPaper extends DomainEntity {
 	}
 	public void setMark(Integer mark) {
 		this.mark = mark;
+	}
+	
+	@NotNull
+	public Boolean getIsFinished() {
+		return this.isFinished;
+	}
+
+	public void setIsFinished(final Boolean isFinished) {
+		this.isFinished = isFinished;
 	}
 	
 	
@@ -75,6 +89,12 @@ public class ExamPaper extends DomainEntity {
 		this.examAnswer = examAnswer;
 	}
 
-	
-	
+	@Valid
+	@ManyToOne(optional = false)
+	public Student getStudent(){
+		return student;
+	}
+	public void setStudent(Student student){
+		this.student = student;
+	}
 }

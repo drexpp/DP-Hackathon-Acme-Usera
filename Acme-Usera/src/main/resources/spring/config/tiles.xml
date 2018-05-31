@@ -43,6 +43,8 @@
 		<value>/views/tutorial/tiles.xml</value>
 		<value>/views/exam/tiles.xml</value>
 		<value>/views/examQuestion/tiles.xml</value>
+		<value>/views/examPaper/tiles.xml</value>
+		<value>/views/examAnswer/tiles.xml</value>
 		<value>/views/admin/tiles.xml</value>
 
 

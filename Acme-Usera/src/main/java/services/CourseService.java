@@ -315,4 +315,10 @@ public class CourseService {
 			all.addAll(subscribedStandard);
 			return all;
 	}
+	
+	public Collection<Course> findCoursesWithExamPaperFromStudent(Integer studentId){
+		Collection<Course> result;
+		result = this.courseRepository.findCoursesWithExamPaperFromStudent(studentId);
+		return result;
+	}
 }

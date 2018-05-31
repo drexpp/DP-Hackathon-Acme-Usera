@@ -59,7 +59,17 @@
 </display:table>
 
 <security:authorize access="hasRole('STUDENT')">
-<a href="examPaper/student/evaluate.do?examId=${exam.id}"> <spring:message code="exam.examPaper.evaluate"/></a>
+	
+		<jstl:choose>
+			<jstl:when test="${not coursesWithExamPaperFromStudent.contains(exam.course) and examPaper == null}">
+				<a href="examPaper/student/create.do?examId=${exam.id}"> <spring:message code="exam.examPaper.doExam"/></a>
+			</jstl:when>
+
+			<jstl:otherwise>
+				<a href="examPaper/display.do?examPaperId=${examPaper.id}"> <spring:message code="exam.examPaper.evaluate"/></a>
+			</jstl:otherwise>
+		 </jstl:choose>
+		
 </security:authorize>
 
 <security:authorize access="hasRole('TEACHER')">

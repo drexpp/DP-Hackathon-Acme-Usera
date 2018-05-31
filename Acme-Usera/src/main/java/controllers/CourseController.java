@@ -106,6 +106,7 @@ public class CourseController extends AbstractController{
 					ModelAndView result = new ModelAndView();
 					Course course;
 					Collection<Lesson> lessons;
+					Collection<Course> coursesWithExamPaperFromStudent;
 					Advertisement advertChoosen;
 					Actor principal;
 
@@ -123,7 +124,9 @@ public class CourseController extends AbstractController{
 			}
 			if (principal instanceof Student) {
 				String subscriptionType = this.studentService.checkSubscription(course);
+				coursesWithExamPaperFromStudent = this.courseService.findCoursesWithExamPaperFromStudent(principal.getId());
 				result.addObject("subscriptionType", subscriptionType);
+				result.addObject("coursesWithExamPaperFromStudent", coursesWithExamPaperFromStudent);
 				if(subscriptionType.equals("FREE")){
 					result.addObject("advert", advertChoosen);
 				}

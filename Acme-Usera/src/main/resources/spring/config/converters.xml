@@ -54,6 +54,10 @@
 		<bean class="converters.StringToExamConverter"/>
 		<bean class="converters.ExamQuestionToStringConverter"/>
 		<bean class="converters.StringToExamQuestionConverter"/>
+		<bean class="converters.ExamPaperToStringConverter"/>
+		<bean class="converters.StringToExamPaperConverter"/>
+		<bean class="converters.ExamAnswerToStringConverter"/>
+		<bean class="converters.StringToExamAnswerConverter"/>
 
 		
 	</util:list>

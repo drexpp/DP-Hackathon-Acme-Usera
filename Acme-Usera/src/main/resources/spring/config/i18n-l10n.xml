@@ -44,6 +44,8 @@
 		<value>/views/tutorial/messages</value>
 		<value>/views/exam/messages</value>
 		<value>/views/examQuestion/messages</value>
+		<value>/views/examPaper/messages</value>
+		<value>/views/examAnswer/messages</value>
 		<value>/views/admin/messages</value>
 
 

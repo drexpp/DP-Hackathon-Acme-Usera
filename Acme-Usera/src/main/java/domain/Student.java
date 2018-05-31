@@ -21,6 +21,7 @@ public class Student extends Actor {
 	private Collection<Question> questions;
 	private Collection<Subscription> subscriptions;
 	private Collection<Certification> certifications;
+	private Collection<ExamPaper> examPapers;
 
 	
 
@@ -83,7 +84,15 @@ public class Student extends Actor {
 		this.certifications = certifications;
 	}
 
-	
+	@Valid
+	@OneToMany(mappedBy="student")
+	public Collection<ExamPaper> getExamPapers() {
+		return examPapers;
+	}
+
+	public void setExamPapers(Collection<ExamPaper> examPapers) {
+		this.examPapers = examPapers;
+	}
 	
 	
 }

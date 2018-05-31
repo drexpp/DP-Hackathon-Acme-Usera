@@ -7,11 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import domain.Admin;
+import domain.Exam;
 import domain.ExamPaper;
 import domain.ExamAnswer;
 import domain.Student;
+import forms.ExamAnswerForm;
 
 import repositories.ExamAnswerRepository;
 
@@ -27,15 +31,38 @@ public class ExamAnswerService {
 			private StudentService				studentService;
 			
 			@Autowired
+			private ExamPaperService			examPaperService;
+			
+			@Autowired
 			private AdminService				adminService;
+			
+			@Autowired
+			private Validator					validator;
 	
 			
-	public ExamAnswer create() {
+	public ExamAnswer create(final int examPaperId) {
 		Student principal;
-		ExamAnswer exam = new ExamAnswer();
+		ExamPaper examPaper;
+		ExamAnswer examAnswer = new ExamAnswer();
+		
+		examPaper = this.examPaperService.findOne(examPaperId);
+		principal = this.studentService.findByPrincipal();
+		examAnswer.setExamPaper(examPaper);
+		examAnswer.setMark(0);
+		examAnswer.setNumber(0);
+		Assert.notNull(principal);
+		return examAnswer;
+	}
+	
+	public ExamAnswerForm createForm() {
+		Student principal;
+		ExamAnswerForm examAnswerForm;
+
 		principal = this.studentService.findByPrincipal();
 		Assert.notNull(principal);
-		return exam;
+		examAnswerForm = new ExamAnswerForm();
+
+		return examAnswerForm;
 	}
 	
 	public Collection<ExamAnswer> findAll() {
@@ -47,6 +74,7 @@ public class ExamAnswerService {
 	public ExamAnswer save(final ExamAnswer examAnswer) {
 		Student principal;
 		ExamAnswer result;
+		Integer number = 0;
 		Assert.notNull(examAnswer);
 
 		principal = this.studentService.findByPrincipal();
@@ -55,6 +83,10 @@ public class ExamAnswerService {
 		
 //		Assert.isTrue(principal.getLessons().containAll(examPaper.getExam().getCourse().getLessons()));
 		
+		ExamPaper examen = examAnswer.getExamPaper();
+		
+		number = examen.getExamAnswer().size()+1;
+		examAnswer.setNumber(number);
 	
 		result = this.examAnswerRepository.save(examAnswer);
 	
@@ -93,8 +125,36 @@ public class ExamAnswerService {
 		examen.setExamAnswer(examAnswers);
 		
 		this.examAnswerRepository.delete(examAnswer);
-	
 		
 	}
+	
+	public ExamAnswer reconstruct(ExamAnswerForm examAnswerForm, BindingResult binding) {
+		final ExamPaper examPaper = this.examPaperService.findOne(examAnswerForm.getExamPaper().getId());
+		final ExamAnswer examAnswer = this.create(examPaper.getId());
+		
+		examAnswer.setId(examAnswerForm.getId());
+		examAnswer.setVersion(examAnswerForm.getVersion());
+		examAnswer.setMark(0);
+		examAnswer.setText(examAnswerForm.getText());
+		examAnswer.setNumber(examAnswerForm.getNumber());
+		examAnswer.setExamPaper(examPaper);
+		this.validator.validate(examPaper, binding);
+		
+		return examAnswer;
+	}
+
+	public ExamAnswerForm reconstructForm(final ExamAnswer examAnswer) {
+		ExamAnswerForm result;
+		
+		result = this.createForm();
+		result.setId(examAnswer.getId());
+		result.setVersion(examAnswer.getVersion());
+		result.setText(examAnswer.getText());
+		result.setNumber(examAnswer.getNumber());
+		result.setExamPaper(examAnswer.getExamPaper());
+
+		return result;
+	}
+	
 	
 }
