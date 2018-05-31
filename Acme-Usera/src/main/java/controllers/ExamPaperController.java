@@ -13,13 +13,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import domain.Actor;
 import domain.Course;
+import domain.ExamAnswer;
 import domain.ExamPaper;
 import domain.ExamQuestion;
 import domain.Student;
 import domain.Teacher;
 import services.ActorService;
 import services.CourseService;
+import services.ExamAnswerService;
 import services.ExamPaperService;
+import services.ExamQuestionService;
 
 @Controller
 @RequestMapping("/examPaper")
@@ -30,6 +33,9 @@ public class ExamPaperController extends AbstractController{
 
 			@Autowired
 			private ExamPaperService	examPaperService;
+			
+			@Autowired
+			private ExamQuestionService	examQuestionService;
 			
 			@Autowired
 			private CourseService	courseService;
@@ -68,6 +74,8 @@ public class ExamPaperController extends AbstractController{
 					if (principal instanceof Student) {
 						Collection<Course> subscribed = this.courseService.selectCoursesSubscriptedByUser(principal.getId()); 
 						Assert.isTrue(subscribed.contains(examPaper.getExam().getCourse()));						
+						Collection<ExamQuestion> answered	 = this.examQuestionService.findAnsweredQuestions(examPaper.getId());
+						result.addObject("answered", answered);
 					} 
 					result.addObject("examPaper", examPaper);
 					result.addObject("principal", principal);

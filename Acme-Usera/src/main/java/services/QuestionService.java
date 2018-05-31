@@ -17,6 +17,8 @@ import repositories.QuestionRepository;
 import domain.Actor;
 import domain.Admin;
 import domain.Answer;
+import domain.ExamAnswer;
+import domain.ExamQuestion;
 import domain.Forum;
 import domain.Question;
 import domain.Student;
@@ -223,4 +225,6 @@ public class QuestionService {
 		result.setForum(question.getForum());
 		return result;
 	}
+	
+
 }

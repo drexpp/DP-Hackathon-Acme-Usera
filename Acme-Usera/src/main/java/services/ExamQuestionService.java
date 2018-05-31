@@ -10,6 +10,7 @@ import org.springframework.util.Assert;
 
 import domain.Admin;
 import domain.Exam;
+import domain.ExamAnswer;
 import domain.ExamQuestion;
 import domain.Teacher;
 
@@ -120,6 +121,14 @@ public class ExamQuestionService {
 
 		return result;
 
+	}
+	
+	
+	public Collection<ExamQuestion> findAnsweredQuestions(int examPaperId){
+		
+		Collection<ExamQuestion> res = this.examQuestionRepository.findAnsweredQuestions(examPaperId);
+		return res;
+		
 	}
 	
 }

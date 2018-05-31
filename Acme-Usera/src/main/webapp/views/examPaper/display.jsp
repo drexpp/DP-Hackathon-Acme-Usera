@@ -60,7 +60,9 @@
 	<security:authorize access="hasRole('STUDENT')">
 		<spring:message code="examPaper.answer" var="examAnswerHeader" />
 		<display:column>
+		<jstl:if test="${!answered.contains(row) }">
 				<a href="examAnswer/student/create.do?examPaperId=${examPaper.id}"> <spring:message code="examAnswer.create"/></a>
+		</jstl:if>
 		</display:column>
 	</security:authorize>
 	
