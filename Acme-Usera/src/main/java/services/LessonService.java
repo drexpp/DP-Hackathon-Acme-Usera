@@ -108,6 +108,10 @@ public class LessonService {
 			principal = this.teacherService.findByPrincipal();
 
 			Assert.notNull(principal);
+			
+			Assert.isTrue(lessonToSave.getCourse().getIsClosed() == false);
+			Assert.isTrue(principal.getCoursesJoined().contains(lessonToSave.getCourse()));
+			
 			if(lessonToSave.getId()==0){
 				Assert.isTrue(lessonToSave.getTeacher().equals(principal));
 			}
@@ -132,7 +136,7 @@ public class LessonService {
 			updated2.add(result);
 			teacher.setLessons(updated2);
 
-			
+			this.flush();
 			
 			return result;
 		}
@@ -204,6 +208,12 @@ public class LessonService {
 	        String res = "https://www.youtube.com/embed/" + youtubeId;
 			
 			return res;
+		}
+
+
+		public void flush() {
+		this.lessonRepository.flush();
+			
 		}
 	
 }
