@@ -58,7 +58,7 @@ h4{
 }
 
 .titles{
-	color : black;
+	color : black !important;
 }
 
 .redCell {
@@ -93,4 +93,8 @@ h4{
 
 .ranking2 td:first-child, .ranking2 td:nth-child(2){
 	background-color:rgba(198, 121, 63, 0.91);
+}
+
+.greenText {
+	color: rgba(100, 197, 139, 1) !important;
 }
