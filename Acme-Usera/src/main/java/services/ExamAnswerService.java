@@ -76,7 +76,7 @@ public class ExamAnswerService {
 	public ExamAnswer save(final ExamAnswer examAnswer) {
 		Actor principal;
 		ExamAnswer result;
-		Integer puntuacion;
+		Integer puntuacion = 0;
 		Integer cantidad;
 		Integer total = 0;
 		
@@ -113,7 +113,6 @@ public class ExamAnswerService {
 			
 			
 		}	
-		puntuacion = result.getMark();
 		
 	
 		for(ExamAnswer examanswer: examPaper.getExamAnswer()){
