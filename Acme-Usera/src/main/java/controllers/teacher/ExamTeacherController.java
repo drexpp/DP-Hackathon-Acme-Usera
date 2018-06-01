@@ -1,5 +1,6 @@
 package controllers.teacher;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -111,8 +112,29 @@ public class ExamTeacherController extends AbstractController{
 		return result;
 
 	}		
-	
-	
+/*	
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam final int questionId) {
+		ModelAndView result;
+		Rende r = new Rende();
+		Collection<Question> res = new ArrayList<Question>();
+		Boolean permisos = false;
+		try {
+			final Question question = this.questionService.findOne(questionId);
+			r = question.getRende();
+			res = r.getQuestions();
+			res.remove(question);
+			this.questionService.delete(question);
+			permisos = true;
+			final String message = "question.deleted";
+			result = this.CreateListModelAndView(res, message, permisos);
+		} catch (final Throwable oops) {
+			result = this.CreateListModelAndView(res, "question.commit.error", false);
+		}
+
+		return result;
+	}
+*/	
 	
 
 	private ModelAndView createEditModelAndView(ExamForm examForm) {

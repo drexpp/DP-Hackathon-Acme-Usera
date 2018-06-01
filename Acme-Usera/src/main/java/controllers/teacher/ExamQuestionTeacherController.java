@@ -1,6 +1,7 @@
 
 package controllers.teacher;
 
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,11 +68,11 @@ public class ExamQuestionTeacherController extends AbstractController {
 	}
 	// Edition
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int examId) {
+	public ModelAndView edit(@RequestParam final int examQuestionId) {
 		ModelAndView result;
 		ExamQuestion examQuestion;
 
-		examQuestion = this.examQuestionService.findOne(examId);
+		examQuestion = this.examQuestionService.findOne(examQuestionId);
 		Assert.notNull(examQuestion);
 		result = this.createEditModelAndView(examQuestion);
 
@@ -91,6 +92,30 @@ public class ExamQuestionTeacherController extends AbstractController {
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(examQuestion, "examQuestion.commit.error");
 			}
+		return result;
+	}
+	
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final ExamQuestion examQuestion , RedirectAttributes redir){
+		ModelAndView result;
+		ExamQuestion examquestion;
+		Teacher principal;
+		
+		principal = this.teacherService.findByPrincipal();
+		examquestion = this.examQuestionService.findOne(examQuestion.getId());
+		
+		if(examquestion.getExam().getTeacher() != principal){
+			result = new ModelAndView("redirect:../../exam/display.do?examId="+ examQuestion.getExam().getId());
+			redir.addFlashAttribute("message", "examQuestion.permision"); 
+		}else{
+			try{
+				this.examQuestionService.delete(examquestion);
+				result = new ModelAndView("redirect:../../exam/display.do?examId="+ examQuestion.getExam().getId());
+			}catch(Throwable oops){
+				String message = "service.commit.error";
+				result = this.createEditModelAndView(examQuestion, message);
+			}
+		}
 		return result;
 	}
 
