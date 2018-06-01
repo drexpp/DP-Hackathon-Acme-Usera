@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import domain.Actor;
+import domain.Exam;
 import domain.Sponsor;
 import domain.Advertisement;
 import domain.Course;
@@ -23,6 +24,7 @@ import domain.Teacher;
 import services.ActorService;
 import services.AdvertisementService;
 import services.CourseService;
+import services.ExamService;
 import services.StudentService;
 
 @Controller
@@ -37,6 +39,9 @@ public class CourseController extends AbstractController{
 		
 		@Autowired
 		private ActorService	actorService;
+		
+		@Autowired
+		private ExamService		examService;
 		
 		@Autowired
 		private StudentService	studentService;
@@ -131,6 +136,8 @@ public class CourseController extends AbstractController{
 					
 					if (principal instanceof Student) {
 						String subscriptionType = this.studentService.checkSubscription(course);
+						Collection<Exam>exams = this.examService.selectExamsFromStudent(principal.getId());
+						result.addObject("exams", exams);
 						result.addObject("subscriptionType", subscriptionType);
 						if(subscriptionType.equals("FREE")){
 						} 

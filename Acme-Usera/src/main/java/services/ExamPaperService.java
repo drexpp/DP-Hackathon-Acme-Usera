@@ -162,6 +162,7 @@ public class ExamPaperService {
 		
 		if(examPaper.getExamAnswer().size() == examPaper.getExam().getExamQuestions().size()){
 			examPaper.setIsFinished(true);
+			this.save(examPaper);
 		}
 	}
 	

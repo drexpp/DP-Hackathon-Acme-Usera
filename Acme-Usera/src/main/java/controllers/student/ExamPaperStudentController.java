@@ -104,7 +104,8 @@ public class ExamPaperStudentController extends AbstractController{
 						
 						this.examPaperService.finish(examPaper);
 						
-						result = new ModelAndView("examPaper/display");
+						Assert.isTrue(examPaper.getExamAnswer().size() == examPaper.getExam().getExamQuestions().size());
+						result = new ModelAndView("redirect:../../course/list.do");
 						
 						result.addObject("examPaper", examPaper);
 						result.addObject("principal", principal);

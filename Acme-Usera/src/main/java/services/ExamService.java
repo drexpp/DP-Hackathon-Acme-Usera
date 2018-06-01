@@ -134,6 +134,11 @@ public class ExamService {
 			return res;
 		}
 		
+		public Collection<Exam> selectExamsFromStudent(int studentId){
+			Collection<Exam>res = this.examRepository.selectExamsFromStudent(studentId);
+			return res;
+		}
+		
 		
 		public Exam reconstruct(ExamForm examForm, BindingResult binding) {
 			Exam exam = this.create();
