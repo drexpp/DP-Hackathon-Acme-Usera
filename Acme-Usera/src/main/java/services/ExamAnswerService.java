@@ -16,6 +16,7 @@ import domain.Admin;
 import domain.ExamAnswer;
 import domain.ExamPaper;
 import domain.Student;
+import domain.Teacher;
 import forms.ExamAnswerForm;
 
 @Service
@@ -28,6 +29,9 @@ public class ExamAnswerService {
 
 			@Autowired
 			private StudentService				studentService;
+			
+			@Autowired
+			private TeacherService				teacherService;
 			
 			@Autowired
 			private ActorService				actorService;
@@ -144,6 +148,24 @@ public class ExamAnswerService {
 		Assert.notNull(examAnswer);
 
 		principal = this.adminService.findByPrincipal();
+
+		Assert.notNull(principal);
+		
+		ExamPaper examen = examAnswer.getExamPaper();
+		Collection<ExamAnswer> examAnswers = new ArrayList<ExamAnswer>(examen.getExamAnswer());
+		examAnswers.remove(examAnswer);
+		examen.setExamAnswer(examAnswers);
+		
+		this.examAnswerRepository.delete(examAnswer);
+		
+	}
+	
+	public void delete(final ExamAnswer examAnswer) {
+		Teacher principal;
+
+		Assert.notNull(examAnswer);
+
+		principal = this.teacherService.findByPrincipal();
 
 		Assert.notNull(principal);
 		

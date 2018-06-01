@@ -94,13 +94,21 @@ public class ExamPaperStudentController extends AbstractController{
 				try{
 					examPaper = this.examPaperService.findOne(examPaperId);
 					principal = this.studentService.findByPrincipal();
-					examPaper.setIsFinished(true);
-					examPaper=this.examPaperService.save(examPaper);
 					
-					result = new ModelAndView("examPaper/display");
+					try{
+						
+						this.examPaperService.finish(examPaper);
+						
+						result = new ModelAndView("examPaper/display");
+						
+						result.addObject("examPaper", examPaper);
+						result.addObject("principal", principal);
+						
+					}catch (Throwable oops){
+						result = new ModelAndView("redirect:../../examPaper/display.do?examPaperId="+examPaper.getId());
+						redir.addFlashAttribute("message", "examPaper.answerAll"); 
+					}
 					
-					result.addObject("examPaper", examPaper);
-					result.addObject("principal", principal);
 					
 				}catch (Throwable oops){
 					result = new ModelAndView("redirect:/course/list.do");	

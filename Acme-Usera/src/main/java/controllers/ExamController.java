@@ -74,7 +74,7 @@ public class ExamController extends AbstractController{
 					Collection<Course> subscribed = this.courseService.selectCoursesSubscriptedByUser(principal.getId()); 
 					coursesWithExamPaperFromStudent = this.courseService.findCoursesWithExamPaperFromStudent(principal.getId());
 					examPaper = this.examPaperService.findExamPaperFromCourseAndStudent(principal.getId(), exam.getCourse().getId());
-					Assert.isTrue(subscribed.contains(exam.getCourse()));
+					Assert.isTrue(subscribed.contains(exam.getCourse()) && examPaper.getIsFinished()==false);
 					result.addObject("subscribed", subscribed);
 					result.addObject("coursesWithExamPaperFromStudent", coursesWithExamPaperFromStudent);
 					result.addObject("examPaper", examPaper);

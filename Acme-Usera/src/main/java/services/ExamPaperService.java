@@ -155,6 +155,16 @@ public class ExamPaperService {
 		return result;
 	}
 	
+	public void finish(ExamPaper examPaper){
+		Student principal;
+		principal = this.studentService.findByPrincipal();
+		Assert.notNull(principal);
+		
+		if(examPaper.getExamAnswer().size() == examPaper.getExam().getExamQuestions().size()){
+			examPaper.setIsFinished(true);
+		}
+	}
+	
 	public void flush(){
 		this.examPaperRepository.flush();
 	}

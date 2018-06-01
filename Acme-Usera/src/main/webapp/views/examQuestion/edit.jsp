@@ -24,10 +24,9 @@
 	<form:hidden path="version" />
 	<form:hidden path="exam" />
 	<form:hidden path="number"/>
+	<form:hidden path="maxScore"/>
 	
 <acme:textarea code="examQuestion.statement" path="statement"/>
-
-<acme:textbox code="examQuestion.maxScore" path="maxScore" placeholder="100"/>
 
 <acme:textbox code="examQuestion.photoURL" path="photoURL"/>
 
@@ -35,12 +34,14 @@
 
 
 	<spring:message code="examQuestion.save" var="saveExamQuestion"  />
-	<spring:message code="examQuestion.delete" var="deleteExamQuestion"  />
-	<spring:message code="examQuestion.confirm.delete" var="confirmDeleteExamQuestion"  />
 	<spring:message code="examQuestion.cancel" var="cancelExamQuestion"  />
 	
 	<input type="submit" id="submit" name="save"
 		value="${saveExamQuestion}" />&nbsp; 
+		<jstl:if test="${examQuestion.id != 0}">
+			<input type="submit" name="delete" value="<spring:message code="examQuestion.delete" />"
+				onclick="return confirm('<spring:message code="examQuestion.confirm.delete" />')" />&nbsp;
+		</jstl:if>
 				
 	<input type="button" name="cancel"
 		value="${cancelExamQuestion}"

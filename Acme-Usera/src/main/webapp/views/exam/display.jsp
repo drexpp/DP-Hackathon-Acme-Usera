@@ -42,6 +42,11 @@
 
 <display:table name="examQuestions" id="row" requestURI="exam/display.do" class="displaytag">
 
+	<security:authorize access="hasRole('TEACHER')">
+		<display:column>
+				<a href="examQuestion/teacher/edit.do?examQuestionId=${row.id}"> <spring:message code="examQuestion.edit"/></a>
+		</display:column>
+	</security:authorize>
 	<spring:message code="examQuestion.number" var="numberHeader" />
 	<display:column property="number" title="${numberHeader}"  />
 	<spring:message code="examQuestion.statement" var="statementHeader" />
@@ -59,7 +64,7 @@
 </display:table>
 
 <security:authorize access="hasRole('STUDENT')">
-	
+	<jstl:if test="${examPaper.isFinished == false}">
 		<jstl:choose>
 			<jstl:when test="${not coursesWithExamPaperFromStudent.contains(exam.course) and examPaper == null}">
 				<a href="examPaper/student/create.do?examId=${exam.id}"> <spring:message code="exam.examPaper.doExam"/></a>
@@ -69,7 +74,7 @@
 				<a href="examPaper/display.do?examPaperId=${examPaper.id}"> <spring:message code="exam.examPaper.evaluate"/></a>
 			</jstl:otherwise>
 		 </jstl:choose>
-		
+	</jstl:if>	
 </security:authorize>
 
 <security:authorize access="hasRole('TEACHER')">
