@@ -5,16 +5,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 
 import domain.Sponsor;
 import forms.ActorForm;
+import forms.EditActorForm;
 
 import security.UserAccount;
 import utilities.AbstractTest;
@@ -95,6 +98,67 @@ public class SponsorServiceTest extends AbstractTest {
 		actorForm.setCheck(checkTerms);	
 		
 		return actorForm;
+	}
+	
+	@Test
+	public void driverEditPersonalInfoSponsor(){
+		Object testingData[][] = {
+				//Test 1 positivo, probando el editar el perfil de un sponsor con un nuevo nombre y apellido.
+				{"sponsor1","sponsor1","newName1", "newSurname1",null},
+				//Test 2 negativo, probando el editar el perfil de un sponsor con el "Nombre" vacio
+				{"sponsor1","sponsor1","", "newSurname2", ConstraintViolationException.class},
+				//Test 3 negativo, probando el editar el perfil de un sponsor con el "Apellido" vacio
+				{"sponsor1","sponsor1","newName3", "",ConstraintViolationException.class}
+				
+		};
+		for(int i = 0; i < testingData.length; i++){
+			this.startTransaction();
+			templateEditPersonalInfoSponsor(((String) testingData[i][0]), super.getEntityId((String) testingData[i][1]),((String) testingData[i][2]),((String) testingData[i][3]),((Class<?>) testingData[i][4]));
+			this.rollbackTransaction();
+		}
+	}
+
+
+	protected void templateEditPersonalInfoSponsor(String SponsorAccount, int SponsorId, String newName,
+			String newSurname, Class<?> expected) {
+		Class<?> caught;
+		caught = null;
+		BindingResult binding;
+		EditActorForm editActorForm;
+		binding = null;
+		Sponsor principal;
+		super.authenticate(SponsorAccount);
+		//Obteniendo el editActorForm a partir del sponsor (como se haría en el controlador y servicio).
+		principal = this.sponsorService.findOne(SponsorId);
+		editActorForm = generateAndEditActorFormFromSponsor(principal, newName, newSurname);
+		
+		try{
+			Sponsor sponsorToSave;
+			Sponsor sponsorSaved;
+			sponsorToSave = this.sponsorService.reconstruct(editActorForm, binding);
+			sponsorSaved = this.sponsorService.save(sponsorToSave);
+			Assert.isTrue(sponsorSaved.getName().equals(newName));
+			Assert.isTrue(sponsorSaved.getSurname().equals(newSurname));
+		}catch(Throwable oops){
+			caught = oops.getClass();
+		}
+		
+		checkExceptions(expected, caught);
+	}
+
+
+	protected EditActorForm generateAndEditActorFormFromSponsor(Sponsor principal, String newName, String newSurname) {
+		EditActorForm result = new EditActorForm();
+		
+		result.setId(principal.getId());
+		result.setName(newName);
+		result.setSurname(newSurname);
+		result.setAddress(principal.getAddress());
+		result.setDateBirth(principal.getDateBirth());
+		result.setPhone(principal.getPhone());
+		result.setEmail(principal.getEmail());
+		
+		return result;
 	}
 
 }
