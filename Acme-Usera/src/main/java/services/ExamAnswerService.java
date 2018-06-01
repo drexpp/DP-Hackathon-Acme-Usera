@@ -13,6 +13,7 @@ import org.springframework.validation.Validator;
 import repositories.ExamAnswerRepository;
 import domain.Actor;
 import domain.Admin;
+import domain.Certification;
 import domain.ExamAnswer;
 import domain.ExamPaper;
 import domain.Student;
@@ -37,6 +38,9 @@ public class ExamAnswerService {
 			
 			@Autowired
 			private AdminService				adminService;
+			
+			@Autowired
+			private CertificationService		certificationService;
 			
 			@Autowired
 			private Validator					validator;
@@ -113,6 +117,7 @@ public class ExamAnswerService {
 			
 			
 		}	
+	
 		
 	
 		for(ExamAnswer examanswer: examPaper.getExamAnswer()){
@@ -124,6 +129,19 @@ public class ExamAnswerService {
 			total = puntuacion/cantidad;
 		}
 		examPaper.setMark(total);
+		
+		
+		if(total >= 50){
+			if(examPaper.getCertification() == null){
+				Certification newCertification;
+				
+				newCertification = this.certificationService.create();
+				newCertification.setExamPaper(examPaper);
+				newCertification.setStudent(examPaper.getStudent());
+
+				this.certificationService.save(newCertification);
+			}
+		}
 		
 		return result;
 	}

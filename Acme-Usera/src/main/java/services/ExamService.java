@@ -82,10 +82,9 @@ public class ExamService {
 		
 			result = this.examRepository.save(exam);
 			if(exam.getId() == 0){
-			Course course = result.getCourse();
-			course.setExam(result);
-			
-		}
+				Course course = result.getCourse();
+				course.setExam(result);
+			}
 			
 			
 			return result;

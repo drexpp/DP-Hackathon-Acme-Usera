@@ -225,6 +225,8 @@
 		<security:intercept-url pattern="/ranking/list.do" access="isAuthenticated()"/>
 		
 		
+		<!-- Certificatoin -->
+		<security:intercept-url pattern="/examPaper/student/certification.do" access="hasRole('STUDENT')"/>
 		
 		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
