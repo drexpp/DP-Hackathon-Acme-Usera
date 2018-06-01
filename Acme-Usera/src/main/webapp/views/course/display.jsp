@@ -29,8 +29,20 @@
 
 <h2> <jstl:out value="${course.title}"> </jstl:out> </h2>
 <spring:message code="subscription.subscriptionType" var ="subscriptionTypeHeader"/> 
-<strong> <jstl:out value="${subscriptionTypeHeader}"></jstl:out>: ${subscriptionType} </strong>
+<strong> <jstl:out value="${subscriptionTypeHeader}"></jstl:out>:
+<jstl:if test="${subscriptionType == 'FREE'}">
+<spring:message code="subscription.subscriptionType.free"/>
+</jstl:if>
 
+<jstl:if test="${subscriptionType == 'STANDARD'}">
+<spring:message code="subscription.subscriptionType.standard"/>
+</jstl:if>
+
+<jstl:if test="${subscriptionType == 'PREMIUM'}">
+<spring:message code="subscription.subscriptionType.premium"/>
+</jstl:if>
+
+</strong>
 <br/>
 <br/>
 
@@ -185,7 +197,7 @@
 <spring:message code="course.exam" var="exam"/> 
 <h3> <jstl:out value="${exam}"> </jstl:out> </h3>
 <security:authorize access="hasRole('STUDENT')">
-	<jstl:if test="${not coursesWithExamPaperFromStudent.contains(course) && course.exam != null}">
+	<jstl:if test="${not coursesWithExamPaperFromStudent.contains(course) && course.exam != null && principal.lessons.containsAll(course.lessons) }">
 		<a href="examPaper/student/create.do?examId=${course.exam.id}"> <spring:message code="exam.examPaper.evaluate"/></a>
 	</jstl:if>		
 </security:authorize>

@@ -81,7 +81,16 @@
 		
 	
 	<spring:message code="question.isAnswered" var="isAnsweredHeader" />
-	<display:column class="${background}" property="isAnswered" title="${isAnsweredHeader}" />
+	<display:column class="${background}" title="${isAnsweredHeader}" >
+	
+	<jstl:if test="${row.isAnswered == true }">
+<td class="${background}"> <spring:message code="question.answered" /></td>
+</jstl:if>
+<jstl:if test="${row.isAnswered == false }">
+<td class="${background}"> <spring:message code="question.not.answered" /> </td>
+</jstl:if>
+	
+	</display:column>
 	
 	
 	<spring:message code="question.student" var="studentHeader" />
@@ -107,7 +116,9 @@
 </jstl:choose>
 
 <security:authorize access="hasRole('STUDENT')">
+<jstl:if test="${forum.course.isClosed == false }">
 <a href="question/student/create.do?forumId=${forum.id}"> <spring:message code="forum.question.create"/></a>
+</jstl:if>
 </security:authorize>	
 
 

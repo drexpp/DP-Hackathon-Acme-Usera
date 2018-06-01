@@ -54,7 +54,12 @@
 
 <tr class="${background}">
 <td> <strong> <spring:message code="question.isAnswered" /> : </strong> </td>
-<td> <jstl:out value="${question.isAnswered}"></jstl:out> </td>
+<jstl:if test="${question.isAnswered == true }">
+<td> <spring:message code="question.answered" /></td>
+</jstl:if>
+<jstl:if test="${question.isAnswered == false }">
+<td> <spring:message code="question.not.answered" /> </td>
+</jstl:if>
 </tr>
 
 
@@ -158,7 +163,7 @@
 <br>
 
 <security:authorize access="hasRole('STUDENT')">
-<jstl:if test="${question.isAnswered == false}">
+<jstl:if test="${question.isAnswered == false and question.forum.course.isClosed == false}">
 <a href="answer/student/create.do?questionId=${question.id}"> <spring:message code="question.answer.create"/></a>
 </jstl:if>
 </security:authorize>
