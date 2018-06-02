@@ -97,7 +97,7 @@
 	<security:authorize access="hasRole('STUDENT')">
 		<spring:message code="question.confirm" var="confirmQuestion"  />
 		<display:column class="${background}">
-			<jstl:if test="${principal.answers.contains(row)}">
+			<jstl:if test="${principal.answers.contains(row) && row.question.forum.course.isClosed == false}">
 				<a href="answer/student/delete.do?answerId=${row.id}" onclick="return confirm('${confirmQuestion}')"><spring:message code ="question.delete" /></a>
 			</jstl:if>
 		</display:column>

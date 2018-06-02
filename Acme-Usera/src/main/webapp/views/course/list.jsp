@@ -171,7 +171,7 @@
 		</jstl:if>
 		
 	<security:authorize access="hasRole('TEACHER')">
-		<jstl:if test="${row.exam == null}">
+		<jstl:if test="${row.exam == null && row.isClosed == false}">
 			<a href="exam/teacher/create.do?courseId=${row.id}"> <spring:message
 			code="course.createExam" />
 			</a>

@@ -1155,7 +1155,6 @@
 		</list>
 	</property>
 	<property name="category" ref="category2"/>
-	<property name="exam" ref="exam1"/>
 	<property name="advertisements">
 		<list>
 			<ref bean="advertisement1" />
@@ -1164,6 +1163,7 @@
 		</list>
 	</property>
 	<property name="forum" ref="forum1" />
+	<property name="exam" ref="exam1"/>
 	</bean>
 	
 	

@@ -102,4 +102,46 @@ public class AnswerServiceTest extends AbstractTest{
 		this.checkExceptions(expected, caught);
 	}
 	
+	@Test
+	public void DeleteAnswerTestDriver() {
+	
+		
+		
+		final Object testingData[][] = {
+			
+				//TEST POSITIVO: Borrar una respuesta de la que soy dueño y cuyo curso no está cerrado
+				{"student2", "answer1", null },
+			 
+				//TESTS NEGATIVOS:
+				{"student2", "answer2", IllegalArgumentException.class}, //Intentar borrar una respuesta de la que no soy dueño
+			 
+				{"student2", "answer4",IllegalArgumentException.class} //Intentar borrar una pregunta de la que sí soy dueño pero cuyo curso sí está cerrado
+			
+		};
+		this.startTransaction();
+		for (int i = 0; i < testingData.length; i++){
+			this.startTransaction();
+			this.DeleteAnswerTestDriver((String) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][2]);
+			this.rollbackTransaction();
+		}
+	}
+	
+	
+	protected void DeleteAnswerTestDriver(final String username, final String answerId, final Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+		try {
+			super.authenticate(username);
+			Answer answerToCreate = this.answerService.findOne(this.getEntityId(answerId));
+			this.answerService.delete(answerToCreate);
+			this.answerService.flush();
+			unauthenticate();
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+	}
+	
 }
