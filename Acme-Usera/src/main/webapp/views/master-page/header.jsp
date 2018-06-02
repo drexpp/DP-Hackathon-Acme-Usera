@@ -24,17 +24,21 @@
 		
 		<security:authorize access="permitAll">
 			<li class="fNiv"><a class="fNiv"><spring:message code="master.page.courses" /></a>
-			<security:authorize access="hasAnyRole('TEACHER','STUDENT','SPONSOR')"> 
+			
 			<ul>
 					<li class="arrow"></li>
 					<li><a href="course/list.do"><spring:message code="master.page.all.courses" /></a></li>
+					
+					<security:authorize access="hasAnyRole('TEACHER','STUDENT','SPONSOR')"> 
 					<li><a href="course/myCourses.do"><spring:message code="master.page.my.courses" /></a></li>
+					</security:authorize>
+					
 
 						
 				</ul>
 			</security:authorize>
 			</li>
-		</security:authorize>
+
 		
 		<security:authorize access="isAuthenticated()">
 		
