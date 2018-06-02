@@ -128,11 +128,13 @@
 </security:authorize>	
 
 <!-- Foro -->
+<spring:message
+			code="course.forum" var ="forumHeader"/>
 <security:authorize access="hasRole('TEACHER')" var="isTeacher"/>
 <security:authorize access="hasRole('ADMIN')" var="isAdmin"/>
 <jstl:choose>
 <jstl:when test="${isTeacher}">
-	<display:column>
+	<display:column title="${forumHeader}" >
 	<jstl:if test="${principal.coursesJoined.contains(row) && row.isClosed == false}">
 		<a href="forum/display.do?forumId=${row.forum.id}"> <spring:message
 			code="course.forum" />
@@ -142,7 +144,7 @@
 
 </jstl:when>
 <jstl:otherwise>
-	<display:column>
+	<display:column title="${forumHeader}" >
 	<jstl:if test="${accessForum.contains(row) || isAdmin}">
 		<a href="forum/display.do?forumId=${row.forum.id}"> <spring:message
 			code="course.forum" />
@@ -156,7 +158,9 @@
 
 
 <!-- Exam -->
-	<display:column>
+<spring:message
+			code="course.exam" var="examHeader" />
+	<display:column title="${examHeader}">
 	<security:authorize access="hasRole('TEACHER')" var="isTeacher"/>
 	<security:authorize access="hasRole('STUDENT')" var="isStudent"/>
 		<jstl:if test="${isStudent && row.exam != null && row.isClosed == false && subscribed.contains(row)}">
@@ -164,14 +168,14 @@
 			code="course.exam" />
 			</a>
 		</jstl:if>
-		<jstl:if test="${isTeacher && row.exam != null && row.isClosed == false}">
+		<jstl:if test="${isTeacher && row.exam != null && row.isClosed == false && principal.coursesJoined.contains(row)}">
 			<a href="exam/display.do?examId=${row.exam.id}"> <spring:message
 			code="course.exam" />
 			</a>
 		</jstl:if>
 		
 	<security:authorize access="hasRole('TEACHER')">
-		<jstl:if test="${row.exam == null && row.isClosed == false}">
+		<jstl:if test="${row.exam == null && row.isClosed == false && principal.coursesJoined.contains(row)}">
 			<a href="exam/teacher/create.do?courseId=${row.id}"> <spring:message
 			code="course.createExam" />
 			</a>
