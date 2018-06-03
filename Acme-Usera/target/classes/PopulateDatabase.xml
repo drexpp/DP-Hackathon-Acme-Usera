@@ -846,7 +846,7 @@
 	
 	<bean class="domain.CreditCard" id="creditCard1">
 		<property name="holderName" value="Manuel Esteban" />
-		<property name="brandName" value="MasterCard" />
+		<property name="brandName" value="Mastercard" />
 		<property name="number" value="342737357334600"  />
 		<property name="expirationMonth" value="11" />
 		<property name="expirationYear" value="25" />
@@ -880,6 +880,7 @@
 		<property name="bannerEn" value = "Welcome to Acme-Usera" />
 		<property name="standardPrice" value = "30" />
 		<property name="premiumPrice" value = "70" />
+		<property name="conversionRate" value = "0.01" />
 	</bean>
 
 	

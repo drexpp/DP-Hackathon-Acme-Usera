@@ -25,7 +25,8 @@
 	<form:hidden path="course" />
 	<form:hidden path="mark"/>
 	
-<acme:textbox code="exam.title" path="title"/>		
+<acme:textbox code="exam.title" path="title"/>	
+<br>	
 
 	<spring:message code="exam.save" var="saveExam"  />
 	<spring:message code="exam.delete" var="deleteExam"  />

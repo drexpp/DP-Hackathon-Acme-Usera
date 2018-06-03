@@ -5,6 +5,7 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -16,6 +17,16 @@ public class Customisation extends DomainEntity {
 	private String bannerEn;
 	private Integer standardPrice;
 	private Integer premiumPrice;
+	private Double	conversionRate;
+	
+	@NotNull
+	@Max(1)
+	public Double getConversionRate() {
+		return conversionRate;
+	}
+	public void setConversionRate(Double conversionRate) {
+		this.conversionRate = conversionRate;
+	}
 	
 	@NotBlank
 	public String getBannerEs() {

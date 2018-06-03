@@ -78,6 +78,20 @@
 <td class="right-display">  <jstl:out value="${actor.address}" /> &nbsp; </td>
 </tr>
 
-</security:authorize>
-  
+</security:authorize>  
 </table>
+
+<security:authorize access="hasRole('STUDENT')">
+<jstl:if test="${principal.id == student.id }">
+<tr>
+<td class ="left-display"> <strong> <spring:message code="actor.certifications" /> : </strong> </td>
+	<td class="right-display">  
+		<jstl:forEach items="${actor.certifications}" var="certification">
+			<ul>
+				<li><a href="examPaper/student/certification.do?certificationId=${certification.id}"><jstl:out value="${certification.examPaper.exam.course.title}"/></a></li>
+			</ul>
+		</jstl:forEach>
+	</td>
+</tr>
+</jstl:if>
+</security:authorize>

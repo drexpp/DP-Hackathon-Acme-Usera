@@ -76,7 +76,8 @@
 		 </jstl:choose>
 	</jstl:if>	
 </security:authorize>
-
+<br>
+<br>
 <security:authorize access="hasRole('TEACHER')">
 <a href="examQuestion/teacher/create.do?examId=${exam.id}"> <spring:message code="examQuestion.create"/></a>
 </security:authorize>

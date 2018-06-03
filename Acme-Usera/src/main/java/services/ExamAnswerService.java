@@ -94,7 +94,6 @@ public class ExamAnswerService {
 
 		Assert.notNull(principal);
 		Assert.isTrue(principal instanceof Student || principal instanceof Teacher);
-		Assert.isTrue(examAnswer.getExamPaper().getIsFinished() == false);
 		
 		ExamPaper examen = examAnswer.getExamPaper();
 		

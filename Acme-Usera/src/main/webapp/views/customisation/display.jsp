@@ -40,9 +40,14 @@
 		<td> <jstl:out value="${customisation.standardPrice}" /> </td>
 	</tr>
 	
-		<tr>
+	<tr>
 		<td> <strong> <spring:message code="customisation.premiumPrice" /> : </strong> </td>
 		<td> <jstl:out value="${customisation.premiumPrice}" /> </td>
+	</tr>
+	
+	<tr>
+		<td> <strong> <spring:message code="customisation.conversionRate" /> : </strong> </td>
+		<td> <jstl:out value="${customisation.conversionRate}" /> </td>
 	</tr>
 
 </table>

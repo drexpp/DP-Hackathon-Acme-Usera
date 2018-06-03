@@ -98,3 +98,7 @@ h4{
 .greenText {
 	color: rgba(100, 197, 139, 1) !important;
 }
+
+.redText{
+	color: rgba(255, 20, 20, 0.8)
+}

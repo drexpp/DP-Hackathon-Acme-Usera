@@ -78,7 +78,7 @@
 
 
 <spring:message code="course.lessons" var="lessons"/> 
-<h3> <jstl:out value="${lessons}"> </jstl:out> </h3>
+<h3 class="titles"> <jstl:out value="${lessons}"> </jstl:out> </h3>
 
 
 
@@ -136,7 +136,7 @@
 <jstl:if test="${subscriptionType.equals('PREMIUM') }">
 
 <spring:message code="course.tutors" var="teachers"/> 
-<h3> <jstl:out value="${teachers}"> </jstl:out> </h3>
+<h3 class="titles"> <jstl:out value="${teachers}"> </jstl:out> </h3>
 <display:table name="course.teachers" id="tutor" requestURI="course/display.do?courseId=${course.id}" class="displaytag">
 <!-- Name -->
 <spring:message code ="teacher.name" var="teacherName"/>
@@ -163,7 +163,7 @@
 <security:authorize access="hasRole('TEACHER')">
 
 <spring:message code="course.tutors" var="teachers"/> 
-<h3> <jstl:out value="${teachers}"> </jstl:out> </h3>
+<h3 class="titles"> <jstl:out value="${teachers}"> </jstl:out> </h3>
 <display:table name="course.teachers" id="tutor" requestURI="course/display.do?courseId=${course.id}" class="displaytag">
 <!-- Name -->
 <spring:message code ="teacher.name" var="teacherName"/>
@@ -195,7 +195,7 @@
 
 <!-- Exam -->
 <spring:message code="course.exam" var="exam"/> 
-<h3> <jstl:out value="${exam}"> </jstl:out> </h3>
+<h3 class="titles"> <jstl:out value="${exam}"> </jstl:out> </h3>
 <security:authorize access="hasRole('STUDENT')">
 	<jstl:if test="${not coursesWithExamPaperFromStudent.contains(course) && course.exam != null && principal.lessons.containsAll(course.lessons) }">
 		<a href="examPaper/student/create.do?examId=${course.exam.id}"> <spring:message code="exam.examPaper.evaluate"/></a>
