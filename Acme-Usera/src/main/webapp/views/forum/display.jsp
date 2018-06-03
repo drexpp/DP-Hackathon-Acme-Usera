@@ -84,10 +84,10 @@
 	<display:column class="${background}" title="${isAnsweredHeader}" >
 	
 	<jstl:if test="${row.isAnswered == true }">
-<td class="${background}"> <spring:message code="question.answered" /></td>
+<spring:message code="question.answered" />
 </jstl:if>
 <jstl:if test="${row.isAnswered == false }">
-<td class="${background}"> <spring:message code="question.not.answered" /> </td>
+<spring:message code="question.not.answered" /> 
 </jstl:if>
 	
 	</display:column>
