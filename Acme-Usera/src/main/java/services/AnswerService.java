@@ -125,6 +125,10 @@ public class AnswerService {
 			updated.remove(answer);
 			actor.setAnswers(updated);
 			
+			if(answer.getIsSolution() == true){
+				answer.getQuestion().setIsAnswered(false);
+			}
+			
 			this.answerRepository.delete(answer);
 		}
 	}
