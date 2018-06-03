@@ -12,7 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.ExamPaperRepository;
-import domain.Actor;
 import domain.Admin;
 import domain.Exam;
 import domain.ExamAnswer;
@@ -27,9 +26,6 @@ public class ExamPaperService {
 	// Managed Repository
 				@Autowired
 				private ExamPaperRepository			examPaperRepository;
-
-				@Autowired
-				private ActorService				actorService;
 				
 				@Autowired
 				private StudentService				studentService;
@@ -88,15 +84,16 @@ public class ExamPaperService {
 	
 	
 	public ExamPaper save(final ExamPaper examPaper) {
-		Actor principal;
+		Student principal;
 		ExamPaper result;
 		Assert.notNull(examPaper);
 		
 	//	Assert.isTrue(principal.getLessons().containAll(examPaper.getExam().getCourse().getLessons()));
 		
-		principal = this.actorService.findByPrincipal();
+		principal = this.studentService.findByPrincipal();
 
 		Assert.notNull(principal);
+		Assert.isTrue(examPaper.getExam().getCourse().getIsClosed() == false);
 		
 		result = this.examPaperRepository.save(examPaper);
 	
@@ -107,7 +104,10 @@ public class ExamPaperService {
 			toUpdate.add(result);
 			exam.setExamPaper(updated);
 			
+			result.setStudent(principal);
 			
+			result.setCertification(null);
+		
 		}	
 		
 		return result;
@@ -162,6 +162,7 @@ public class ExamPaperService {
 		
 		if(examPaper.getExamAnswer().size() == examPaper.getExam().getExamQuestions().size()){
 			examPaper.setIsFinished(true);
+			this.save(examPaper);
 		}
 	}
 	

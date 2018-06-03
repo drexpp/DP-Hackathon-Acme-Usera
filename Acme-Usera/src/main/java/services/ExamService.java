@@ -71,19 +71,31 @@ public class ExamService {
 			Exam result;
 			Assert.notNull(exam);
 
+
 			principal = this.teacherService.findByPrincipal();
 
 			Assert.notNull(principal);
 			
-			if (exam.getId() != 0){
 			Assert.isTrue(principal.getCoursesJoined().contains(exam.getCourse()));
-			}
+			Assert.isTrue(exam.getCourse().getIsClosed() == false);
+			Assert.isTrue(exam.getCourse().getExam() == null);
 			
-		
+			
 			result = this.examRepository.save(exam);
+			
 			if(exam.getId() == 0){
+				/*
 				Course course = result.getCourse();
 				course.setExam(result);
+				*/
+				exam.getCourse().setExam(result);
+			
+				
+				Teacher teacher = result.getTeacher();
+				Collection<Exam> toUpdate2 = teacher.getExams();
+				Collection<Exam> updated2 = new ArrayList<Exam> (toUpdate2);
+				updated2.add(result);
+				teacher.setExams(updated2);
 			}
 			
 			
@@ -134,6 +146,11 @@ public class ExamService {
 			return res;
 		}
 		
+		public Collection<Exam> selectExamsFromStudent(int studentId){
+			Collection<Exam>res = this.examRepository.selectExamsFromStudent(studentId);
+			return res;
+		}
+		
 		
 		public Exam reconstruct(ExamForm examForm, BindingResult binding) {
 			Exam exam = this.create();
@@ -161,6 +178,11 @@ public class ExamService {
 			examForm.setVersion(exam.getVersion());
 			examForm.setCourse(exam.getCourse());
 			return examForm;
+		}
+
+
+		public void flush() {
+			this.examRepository.flush();
 		}
 		
 		

@@ -199,7 +199,10 @@
 <security:authorize access="hasRole('STUDENT')">
 	<jstl:if test="${not coursesWithExamPaperFromStudent.contains(course) && course.exam != null && principal.lessons.containsAll(course.lessons) }">
 		<a href="examPaper/student/create.do?examId=${course.exam.id}"> <spring:message code="exam.examPaper.evaluate"/></a>
-	</jstl:if>		
+	</jstl:if>	
+	<jstl:if test="${exams.contains(course.exam)}">
+		<a href="exam/display.do?examId=${course.exam.id}"> <spring:message code="exam.examPaper.showMyExamPaper"/></a>
+	</jstl:if>	
 </security:authorize>
 
 <spring:message code="datatables.locale.lang" var="tableLang"/>

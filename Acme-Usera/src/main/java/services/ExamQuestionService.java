@@ -62,9 +62,8 @@ public class ExamQuestionService {
 
 		Assert.notNull(principal);
 		
-		if (examQuestion.getId() != 0){
 		Assert.isTrue(principal.getCoursesJoined().contains(examQuestion.getExam().getCourse()));
-		}
+		Assert.isTrue(examQuestion.getExam().getCourse().getIsClosed() == false);
 		
 		Exam examen = examQuestion.getExam();
 		
@@ -105,6 +104,8 @@ public class ExamQuestionService {
 		ExamAnswer examAnswer;
 		final Teacher principal = this.teacherService.findByPrincipal();
 		Assert.notNull(principal);
+		
+		Assert.isTrue(principal.getCoursesJoined().contains(examQuestion.getExam().getCourse()));
 
 		final Exam exam = examQuestion.getExam();
 		final Collection<ExamQuestion> examQuestions = exam.getExamQuestions();
@@ -161,6 +162,10 @@ public class ExamQuestionService {
 		Collection<ExamQuestion> res = this.examQuestionRepository.findAnsweredQuestions(examPaperId);
 		return res;
 		
+	}
+
+	public void flush() {
+		this.examQuestionRepository.flush();
 	}
 	
 }
