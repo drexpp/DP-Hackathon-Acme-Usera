@@ -163,13 +163,7 @@
 	<display:column title="${examHeader}">
 	<security:authorize access="hasRole('TEACHER')" var="isTeacher"/>
 	<security:authorize access="hasRole('STUDENT')" var="isStudent"/>
-		<jstl:if test="${isStudent && row.exam != null && row.isClosed == false && subscribed.contains(row)}">
-		<jstl:if test="${principal.lessons.containsAll(row.lessons) }">
-			<a href="exam/display.do?examId=${row.exam.id}"> <spring:message
-			code="course.exam" />
-			</a>
-			</jstl:if>
-		</jstl:if>
+		
 		<jstl:if test="${isTeacher && row.exam != null && row.isClosed == false && principal.coursesJoined.contains(row)}">
 			<a href="exam/display.do?examId=${row.exam.id}"> <spring:message
 			code="course.exam" />

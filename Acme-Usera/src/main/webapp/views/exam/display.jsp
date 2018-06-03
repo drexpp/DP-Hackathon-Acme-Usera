@@ -66,7 +66,7 @@
 <security:authorize access="hasRole('STUDENT')">
 	<jstl:if test="${examPaper.isFinished == false}">
 		<jstl:choose>
-			<jstl:when test="${not coursesWithExamPaperFromStudent.contains(exam.course) and examPaper == null}">
+			<jstl:when test="${not coursesWithExamPaperFromStudent.contains(exam.course) and examPaper == null and principal.lessons.containsAll(exam.course.lessons)}">
 				<a href="examPaper/student/create.do?examId=${exam.id}"> <spring:message code="exam.examPaper.doExam"/></a>
 			</jstl:when>
 
