@@ -57,8 +57,9 @@ public class TeacherRegisterController extends AbstractController {
 			result.addObject("permiso", true);
 		} else
 			try {
-				this.teacherService.save(teacher);
-				this.contactInfoService.save(contactInfo);
+				Teacher resultTeacher;
+				resultTeacher = this.teacherService.save(teacher);
+				this.contactInfoService.save(contactInfo, resultTeacher);
 				result = new ModelAndView("redirect:../");
 			} catch (final DataIntegrityViolationException oops) {
 				binding.rejectValue("userAccount.username", "actor.username.error");
@@ -90,12 +91,14 @@ public class TeacherRegisterController extends AbstractController {
 		EditActorTeacherForm editActorTeacherForm;
 		Teacher principal;
 		
+		
 		editActorTeacherForm = new EditActorTeacherForm();
 		principal = this.teacherService.findByPrincipal();
 			
 		editActorTeacherForm = this.teacherService.construct(editActorTeacherForm, principal);
 		
 		result = this.createEditModelAndView(editActorTeacherForm);
+		
 		
 		return result;
 		
@@ -135,19 +138,20 @@ public class TeacherRegisterController extends AbstractController {
 		ModelAndView result;
 		String requestURI;
 		Teacher principal;
-		Integer elementsLength;
 		Boolean permiso;
+		Integer elementsLengthComments;
+		Integer elementsLengthLinks;
 		
 		permiso = false;
 		if(editActorTeacherForm.getComments().size() == 0)
-			elementsLength = 0;
+			elementsLengthComments = 0;
 		else
-			elementsLength = editActorTeacherForm.getComments().size()-1;
+			elementsLengthComments = editActorTeacherForm.getComments().size()-1;
 		
 		if(editActorTeacherForm.getLinks().size() == 0)
-			elementsLength = 0;
+			elementsLengthLinks = 0;
 		else
-			elementsLength = editActorTeacherForm.getLinks().size()-1;
+			elementsLengthLinks = editActorTeacherForm.getLinks().size()-1;
 		
 		
 		principal = this.teacherService.findByPrincipal();
@@ -163,7 +167,8 @@ public class TeacherRegisterController extends AbstractController {
 		result.addObject("message", message);
 		result.addObject("requestURI", requestURI);
 		result.addObject("permiso", permiso);
-		result.addObject("elementsLength", elementsLength);
+		result.addObject("elementsLengthComments", elementsLengthComments);
+		result.addObject("elementsLengthLinks", elementsLengthLinks);
 		
 		
 		return result;

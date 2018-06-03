@@ -54,14 +54,11 @@
 <td class="right-display"> <fmt:formatDate value="${teacher.dateBirth}" pattern="${format}"/> &nbsp; </td>
 </tr>
 
-<security:authorize access="hasAnyRole('ADMIN', 'STUDENT', 'SPONSOR', 'TEACHER')">
-
-<jstl:if test="${principal.id == student.id }">
+<security:authorize access="hasRole('TEACHER')">
 <tr>
 <td class ="left-display"> <strong> <spring:message code="actor.address" /> : </strong> </td>
 <td class="right-display">  <jstl:out value="${teacher.address}" /> &nbsp; </td>
 </tr>
-</jstl:if>
 </security:authorize>
 
 <security:authorize access="hasRole('ADMIN')">
@@ -77,7 +74,7 @@
 <table class="displayStyle" >
 
 <security:authorize access="hasRole('TEACHER')">
-	<h3 class="titles"><jstl:out value="actor.contactInfo" /></h3>
+	<h3 class="titles"><spring:message code="actor.contactInfo" /></h3>
 
 	<tr>
 		<td class ="left-display"> <strong> <spring:message code="actor.skype" /> : </strong> </td>
