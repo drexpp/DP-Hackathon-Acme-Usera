@@ -36,7 +36,9 @@
 
 <acme:textbox code="subscription.creditCard.holder" path="creditCard.holderName"/>
 
-<acme:textbox code="subscription.creditCard.brand" path="creditCard.brandName"/>
+<spring:message code= "subscription.creditCard.placeholder" var="creditCardPlaceholder"/>
+<spring:message code= "subscription.creditCard.pattern" var="creditCardPattern"/>
+<acme:textbox code="subscription.creditCard.brand" pattern="${creditCardPattern}" placeholder="${creditCardPlaceholder}" path="creditCard.brandName"/>
 
 <acme:textbox code="subscription.creditCard.number" path="creditCard.number"/>
 

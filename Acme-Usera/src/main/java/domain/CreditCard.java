@@ -37,7 +37,7 @@ public class CreditCard {
 	}
 
 	@NotBlank
-	@Pattern(regexp = "^[a-zA-Z ]*$")
+	@Pattern(regexp = "^Mastercard|Visa|American Express|Other|Otra$")
 	@Size(min = 1, max = 50)
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
 	public String getBrandName() {

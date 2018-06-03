@@ -63,6 +63,15 @@
 </jstl:if>
 </security:authorize>
 
+<security:authorize access="hasRole('SPONSOR')">
+<jstl:if test="${principal.id == sponsor.id }">
+<tr>
+<td class ="left-display"> <strong> <spring:message code="actor.address" /> : </strong> </td>
+<td class="right-display">  <jstl:out value="${actor.address}" /> &nbsp; </td>
+</tr>
+</jstl:if>
+</security:authorize>
+
 <security:authorize access="hasRole('ADMIN')">
 <tr>
 <td class ="left-display"> <strong> <spring:message code="actor.address" /> : </strong> </td>

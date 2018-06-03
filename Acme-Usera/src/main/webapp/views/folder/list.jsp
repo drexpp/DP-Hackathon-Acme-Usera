@@ -63,12 +63,6 @@
 	<br/>
 	
 	<a href="message/actor/create.do"><spring:message code="folder.writeMessage" /></a>
-	<br/>
-	
-	<security:authorize access="hasRole('ADMIN')">
-	<a href="message/admin/create.do"><spring:message code="folder.broadCastMessage" /></a>
-	<br>
-	</security:authorize>
 	</div>
 </div>
 

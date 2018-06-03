@@ -1,6 +1,9 @@
 package services;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,6 +11,7 @@ import org.springframework.validation.BindingResult;
 
 import repositories.ContactInfoRepository;
 import domain.ContactInfo;
+import domain.Teacher;
 import forms.ActorFormTeacher;
 
 @Service
@@ -36,12 +40,12 @@ public class ContactInfoService {
 		return result;
 	}
 
-	public ContactInfo save(final ContactInfo contactInfo) {
+	public ContactInfo save(final ContactInfo contactInfo, final Teacher teacher) {
 		ContactInfo result;
 		
 		
 		result = this.contactInfoRepository.save(contactInfo);
-		
+		teacher.setContactInfo(result);
 		
 		return result;
 	}
@@ -57,9 +61,24 @@ public class ContactInfoService {
 		final ContactInfo contactInfo = this.create();
 		
 		contactInfo.setSkype(actorFormTeacher.getSkype());
+		if(actorFormTeacher.getLinks().get(0).equals("")){
+			List<String> linksEmpty;
+			linksEmpty = new ArrayList<String>();
+			contactInfo.setLinks(linksEmpty);
+		}else
+			contactInfo.setLinks(actorFormTeacher.getLinks());
+		
+		if(actorFormTeacher.getComments().get(0).equals("")){
+			List<String> commentsEmpty;
+			commentsEmpty = new ArrayList<String>();
+			contactInfo.setComments(commentsEmpty);
+		}else
+			contactInfo.setComments(actorFormTeacher.getComments());
+		
+			
 		contactInfo.setContactPhone(actorFormTeacher.getContactPhone());
-		contactInfo.setComments(actorFormTeacher.getComments());
-		contactInfo.setLinks(actorFormTeacher.getLinks());
+		
+		
 		
 		return contactInfo;
 	}
