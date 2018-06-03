@@ -68,13 +68,18 @@ public class ExamQuestionTeacherController extends AbstractController {
 	}
 	// Edition
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int examQuestionId) {
+	public ModelAndView edit(@RequestParam final int examQuestionId, RedirectAttributes redir) {
 		ModelAndView result;
 		ExamQuestion examQuestion;
+		try{
+			examQuestion = this.examQuestionService.findOne(examQuestionId);
+			Assert.notNull(examQuestion);
+			result = this.createEditModelAndView(examQuestion);
+		} catch (Throwable oops){
+			result = new ModelAndView("redirect:/course/list.do");	
+			redir.addFlashAttribute("message", "examQuestion.permision");
+		}
 
-		examQuestion = this.examQuestionService.findOne(examQuestionId);
-		Assert.notNull(examQuestion);
-		result = this.createEditModelAndView(examQuestion);
 
 		return result;
 	}
@@ -133,6 +138,7 @@ public class ExamQuestionTeacherController extends AbstractController {
 		Teacher principal;
 
 		principal = this.teacherService.findByPrincipal();
+		Assert.isTrue(principal.getCoursesJoined().contains(examQuestion.getExam().getCourse()));
 
 		result = new ModelAndView("examQuestion/edit");
 		result.addObject("examQuestion", examQuestion);

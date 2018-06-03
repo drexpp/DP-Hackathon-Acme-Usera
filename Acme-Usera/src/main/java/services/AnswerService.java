@@ -105,10 +105,13 @@ public class AnswerService {
 
 		Assert.notNull(answer);
 		Assert.isTrue(answer.getId() != 0);
+		Assert.isTrue(answer.getQuestion().getForum().getCourse().getIsClosed() == false);
+
 		
 		principal = this.studentService.findByPrincipal();
 		Assert.notNull(principal);
 		
+		Assert.isTrue(principal.getAnswers().contains(answer) || principal.getQuestions().contains(answer.getQuestion()));
 		if(principal.getAnswers().contains(answer) || principal.getQuestions().contains(answer.getQuestion())){ //si soy el creador de esa respuesta
 			final Question question = answer.getQuestion();
 			final Collection<Answer> answer1 = question.getAnswers();

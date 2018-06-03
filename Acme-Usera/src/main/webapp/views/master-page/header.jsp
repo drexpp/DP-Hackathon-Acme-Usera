@@ -37,7 +37,7 @@
 						
 				</ul>
 			</security:authorize>
-			</li>
+		
 
 		
 		<security:authorize access="isAuthenticated()">

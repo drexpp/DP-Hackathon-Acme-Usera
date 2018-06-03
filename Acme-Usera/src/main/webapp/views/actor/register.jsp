@@ -38,6 +38,8 @@ function Terms(){
 		
 	<acme:textbox oninput="setCustomValidity('')" id="phone" code="actor.phone" path="phone" pattern="\\+?([0-9]{9})?"/>
 	<br/>
+	<acme:textbox code="actor.address" path="address"/>
+	<br />
 	
 	<spring:message code="actor.dateBirth.placeholder" var="datePlaceHolder"/>
 	<acme:textbox code="actor.dateBirth" path="dateBirth" placeholder="${datePlaceHolder}"/>

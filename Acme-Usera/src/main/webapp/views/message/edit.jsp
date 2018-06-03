@@ -40,18 +40,19 @@
 	<%-- Mostrado para elegir en el input el destinatario del mensaje, cuando es un mensaje broadcast de un administrador este input no se muestra puesto que el destinatario son todos los actores del sistema--%>
 	<jstl:if test="${!broadcast}">
 		<span>
-		<form:label path="recipient">
-			<spring:message code="message.recipient.userAccount" />:
-		</form:label>
-		<form:select path="recipient" >
-		<form:option label="----" value="0" />
-		<form:options items="${recipients}" itemLabel="userAccount.username" itemValue="id" />
-		</form:select>
-		<form:errors cssClass="error" path="recipient" />
-		<i>(<jstl:out value = "${userToReply}" />)</i>
-	</span>
-	<br>
-	<br>
+			<form:label path="recipient">
+				<spring:message code="message.recipient.userAccount" />:
+			</form:label>
+			<form:select path="recipient" >
+			<form:option label="----" value="0" />
+			<form:options items="${recipients}" itemLabel="userAccount.username" itemValue="id" />
+			</form:select>
+			<form:errors cssClass="error" path="recipient" />
+			
+			<i>(<jstl:out value = "${userToReply}" />)</i>
+		</span>
+		<br>
+		<br>
 	</jstl:if>
 	
 	<form:label path="subject">

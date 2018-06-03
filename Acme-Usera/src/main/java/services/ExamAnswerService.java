@@ -93,8 +93,13 @@ public class ExamAnswerService {
 		principal = this.actorService.findByPrincipal();
 
 		Assert.notNull(principal);
+		Assert.isTrue(principal instanceof Student || principal instanceof Teacher);
+		if (principal instanceof Student){
+			Assert.isTrue(examAnswer.getExamPaper().getIsFinished() == false);	
+		} else {
+			Assert.isTrue(examAnswer.getExamPaper().getIsFinished() == true);	
+		}
 		
-//		Assert.isTrue(principal.getLessons().containAll(examPaper.getExam().getCourse().getLessons()));
 		
 		ExamPaper examen = examAnswer.getExamPaper();
 		
@@ -132,8 +137,9 @@ public class ExamAnswerService {
 		if(cantidad != 0){
 			total = puntuacion/cantidad;
 		}
-		examPaper.setMark(total);
-		
+		if(principal instanceof Teacher){
+				examPaper.setMark(total);
+		}
 		
 		if(total >= 50){
 			if(examPaper.getCertification() == null){
@@ -227,6 +233,10 @@ public class ExamAnswerService {
 		result.setExamPaper(examAnswer.getExamPaper());
 
 		return result;
+	}
+
+	public void flush() {
+		this.examAnswerRepository.flush();
 	}
 	
 

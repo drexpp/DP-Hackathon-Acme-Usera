@@ -67,6 +67,7 @@ public class ExamAnswerTeacherController extends AbstractController{
 					examAnswer = this.examAnswerService.findExamAnswerByNumbers(examQuestion.getNumber(), examPaperId);
 					principal = this.teacherService.findByPrincipal();
 					examQuestions = examPaper.getExam().getExamQuestions();		
+					Assert.isTrue(principal.getCoursesJoined().contains(examAnswer.getExamPaper().getExam().getCourse()));
 					
 					result = new ModelAndView("examAnswer/display");
 					
@@ -76,7 +77,7 @@ public class ExamAnswerTeacherController extends AbstractController{
 					result.addObject("examQuestions", examQuestions);
 					
 				}catch (Throwable oops){
-					result = new ModelAndView("redirect:/course/list.do");	
+					result = new ModelAndView("redirect:/examPaper/teacher/list.do");	
 					redir.addFlashAttribute("message", "examPaper.permission"); 
 				}
 					
@@ -86,13 +87,17 @@ public class ExamAnswerTeacherController extends AbstractController{
 
 			// Edition
 			@RequestMapping(value = "/edit", method = RequestMethod.GET)
-			public ModelAndView edit(@RequestParam final int examAnswerId) {
+			public ModelAndView edit(@RequestParam final int examAnswerId, RedirectAttributes redir) {
 				ModelAndView result;
 				ExamAnswer examAnswer;
-
+				try{
 				examAnswer = this.examAnswerService.findOne(examAnswerId);
 				Assert.notNull(examAnswer);
 				result = this.createEditModelAndView(examAnswer);
+				} catch (Throwable oops){
+					result = new ModelAndView("redirect:/examPaper/teacher/list.do");	
+					redir.addFlashAttribute("message", "examPaper.permission"); 
+				}
 
 				return result;
 			}
@@ -127,6 +132,7 @@ public class ExamAnswerTeacherController extends AbstractController{
 				Teacher principal;
 
 				principal = this.teacherService.findByPrincipal();
+				Assert.isTrue(principal.getCoursesJoined().contains(examAnswer.getExamPaper().getExam().getCourse()));
 
 				result = new ModelAndView("examAnswer/edit");
 				result.addObject("examAnswer", examAnswer);
