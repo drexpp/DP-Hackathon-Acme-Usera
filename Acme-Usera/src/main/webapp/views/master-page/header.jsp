@@ -15,7 +15,7 @@
 
 
 <div>
-	<a href="/Acme-Usera"><img src="images/logo.png" alt="Sample Co., Inc." /></a>
+	<a href="/Acme-Usera"><img id="img-logo" src="images/logo.png" alt="Sample Co., Inc." /></a>
 </div>
 
 <div>

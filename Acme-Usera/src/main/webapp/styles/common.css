@@ -23,7 +23,7 @@
  }
  
  body {
- 	background: #b8daff !important;
+ 	background: rgba(170,222,255,1) !important;
  }
 
 .error {
@@ -101,4 +101,9 @@ h4{
 
 .redText{
 	color: rgba(255, 20, 20, 0.8)
+}
+
+#img-logo {
+	width: 400px;
+	heigth: 400px;
 }
