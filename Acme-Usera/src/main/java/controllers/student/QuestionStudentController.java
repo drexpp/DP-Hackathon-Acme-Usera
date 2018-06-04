@@ -13,15 +13,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import services.CourseService;
+import services.ForumService;
+import services.QuestionService;
+import services.StudentService;
 import domain.Course;
 import domain.Forum;
 import domain.Question;
 import domain.Student;
 import forms.QuestionForm;
-import services.CourseService;
-import services.ForumService;
-import services.QuestionService;
-import services.StudentService;
 
 @Controller
 @RequestMapping("/question/student")

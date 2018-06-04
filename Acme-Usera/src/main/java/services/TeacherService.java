@@ -18,10 +18,10 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.ContactInfo;
+import domain.Course;
 import domain.Exam;
 import domain.Lesson;
 import domain.MailMessage;
-import domain.Course;
 import domain.Teacher;
 import domain.Tutorial;
 import forms.ActorFormTeacher;
@@ -140,9 +140,9 @@ public class TeacherService {
 		
 		this.validator.validate(actorFormTeacher, binding);
 		if (!(actorFormTeacher.getConfirmPassword().equals((actorFormTeacher.getUserAccount().getPassword()))) || actorFormTeacher.getConfirmPassword() == null)
-			binding.rejectValue("confirmPassword", "student.passwordMiss");
+			binding.rejectValue("confirmPassword", "actor.passwordMiss");
 		if ((actorFormTeacher.getCheck() == false))
-			binding.rejectValue("check", "student.uncheck");
+			binding.rejectValue("check", "actor.uncheck");
 		return teacher;
 	}
 

@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import services.CourseService;
 import services.ExamService;
 import services.TeacherService;
-
 import controllers.AbstractController;
 import domain.Course;
 import domain.Exam;

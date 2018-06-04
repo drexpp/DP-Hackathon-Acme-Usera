@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import services.TutorialService;
 import services.TeacherService;
-
+import services.TutorialService;
 import controllers.AbstractController;
-import domain.Tutorial;
 import domain.Teacher;
+import domain.Tutorial;
 
 @Controller
 @RequestMapping("/tutorial/teacher")

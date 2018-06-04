@@ -9,13 +9,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import controllers.AbstractController;
-
-import domain.Course;
-import domain.Admin;
-
-import services.CourseService;
 import services.AdminService;
+import services.CourseService;
+import controllers.AbstractController;
+import domain.Admin;
+import domain.Course;
 
 @Controller
 @RequestMapping("/course/admin")

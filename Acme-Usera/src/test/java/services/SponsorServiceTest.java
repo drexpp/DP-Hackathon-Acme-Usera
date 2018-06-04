@@ -15,12 +15,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 
+import security.UserAccount;
+import utilities.AbstractTest;
 import domain.Sponsor;
 import forms.ActorForm;
 import forms.EditActorForm;
-
-import security.UserAccount;
-import utilities.AbstractTest;
 
 
 @ContextConfiguration(locations = {

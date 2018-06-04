@@ -11,11 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import utilities.AbstractTest;
 import domain.Advertisement;
 import domain.Course;
 import domain.CreditCard;
-
-import utilities.AbstractTest;
 
 
 @ContextConfiguration(locations = {

@@ -10,11 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
-import domain.Answer;
-import domain.Teacher;
 import services.AnswerService;
 import services.TeacherService;
+import domain.Answer;
+import domain.Teacher;
 
 @Controller
 @RequestMapping("/answer/teacher")

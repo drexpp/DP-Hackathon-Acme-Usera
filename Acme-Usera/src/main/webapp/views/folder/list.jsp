@@ -56,7 +56,7 @@
 				
 				<spring:message code="folder.reply" var="reply"/>
 				<display:column>
-					<a href="message/actor/create.do?userToReply=${row.sender.userAccount.username}"><jstl:out value="${reply}"/></a>
+					<a href="message/actor/create.do?actorId=${row.sender.id}"><jstl:out value="${reply}"/></a>
 				</display:column>
 	</display:table>
 	<br/>

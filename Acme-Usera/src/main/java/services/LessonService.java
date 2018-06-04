@@ -13,14 +13,13 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
+import repositories.LessonRepository;
 import domain.Admin;
 import domain.Course;
 import domain.Lesson;
 import domain.Student;
 import domain.Teacher;
 import forms.LessonForm;
-
-import repositories.LessonRepository;
 
 @Service
 @Transactional

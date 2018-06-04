@@ -17,8 +17,6 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 
-
-
 import domain.DomainEntity;
 
 public class EditActorTeacherForm extends DomainEntity {

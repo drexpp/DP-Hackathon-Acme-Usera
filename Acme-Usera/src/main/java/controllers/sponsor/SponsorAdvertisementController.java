@@ -11,15 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.AdvertisementService;
+import services.CourseService;
+import services.SponsorService;
 import controllers.AbstractController;
 import domain.Advertisement;
 import domain.Course;
 import domain.Sponsor;
 import forms.AdvertisementForm;
-
-import services.AdvertisementService;
-import services.CourseService;
-import services.SponsorService;
 
 @Controller
 @RequestMapping("advertisement/sponsor")

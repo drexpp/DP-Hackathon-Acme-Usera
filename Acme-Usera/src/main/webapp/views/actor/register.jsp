@@ -74,13 +74,10 @@ function Terms(){
 <spring:message code="actor.permision" />
 </jstl:otherwise>
 </jstl:choose>
-<spring:message code="actor.invalidPhone" var="errorMessage"/>
-<input id="messageInternationalized" type="hidden" value="${errorMessage}"/>
 <script>
 var input = document.getElementById('phone');
-var messageInternationalized = $("#messageInternationalized").val();
 input.oninvalid = function(event) {
-    event.target.setCustomValidity(messageInternationalized);
+    event.target.setCustomValidity('<spring:message code="actor.invalidPhone"/>');
 };
 </script>
 

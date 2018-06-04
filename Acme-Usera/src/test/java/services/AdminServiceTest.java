@@ -1,22 +1,19 @@
 package services;
 
-import org.springframework.util.Assert;
-
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
-
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 
+import utilities.AbstractTest;
 import domain.Admin;
 import forms.EditActorForm;
-
-import utilities.AbstractTest;
 
 
 @ContextConfiguration(locations = {

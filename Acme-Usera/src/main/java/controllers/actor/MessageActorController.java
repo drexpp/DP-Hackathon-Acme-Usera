@@ -49,13 +49,13 @@ public class MessageActorController extends AbstractController {
 	// Creation ---------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam (value="userToReply", required= false) final String userToReply) {
+	public ModelAndView create(@RequestParam (value="actorId", required= false) final Integer actorId) {
 		final ModelAndView result;
 		MailMessage mailMessage;
 
 		mailMessage = this.messageService.create();
 
-		result = this.createEditModelAndView(mailMessage, null,userToReply);
+		result = this.createEditModelAndView(mailMessage, null, actorId);
 
 		return result;
 
@@ -86,7 +86,7 @@ public class MessageActorController extends AbstractController {
 				this.messageService.save(mailMessage);
 				result = new ModelAndView("redirect:/folder/actor/list.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(mailMessage, "message.commit.error");
+				result = this.createEditModelAndView(mailMessage, "message.commit.error", null);
 			}
 
 		return result;
@@ -103,7 +103,7 @@ public class MessageActorController extends AbstractController {
 				this.messageService.move(mailMessage, mailMessage.getFolder());
 				result = new ModelAndView("redirect:/folder/actor/list.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(mailMessage, "message.commit.error");
+				result = this.createEditModelAndView(mailMessage, "message.commit.error", null);
 			}
 
 		return result;
@@ -117,7 +117,7 @@ public class MessageActorController extends AbstractController {
 			this.messageService.delete(mailMessage);
 			result = new ModelAndView("redirect:/folder/actor/list.do");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(mailMessage, "message.commit.error");
+			result = this.createEditModelAndView(mailMessage, "message.commit.error", null);
 		}
 
 		return result;
@@ -127,63 +127,15 @@ public class MessageActorController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final MailMessage mensaje) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(mensaje, null);
+		result = this.createEditModelAndView(mensaje, null, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final MailMessage mailMessage, final String messageCode) {
-		final ModelAndView result;
-		Date moment;
-		Folder folder;
-		Actor sender;
-		Collection<Actor> recipients;
-		Collection<Folder> folders;
-		boolean permission = false;
-		Actor principal;
 
-		principal = this.actorService.findByPrincipal();
-
-		if (mailMessage.getId() == 0)
-			permission = true;
-		else {
-			for (final MailMessage mens : principal.getReceivedMessages())
-				if (mens.getId() == mailMessage.getId()) {
-					permission = true;
-					break;
-				}
-			if (!permission)
-				for (final MailMessage mens : principal.getSentMessages())
-					if (mens.getId() == mailMessage.getId()) {
-						permission = true;
-						break;
-					}
-		}
-
-		moment = mailMessage.getMoment();
-		folder = mailMessage.getFolder();
-		sender = mailMessage.getSender();
-		recipients = this.actorService.findAll();
-		folders = this.folderService.findAllByPrincipal();
-
-		result = new ModelAndView("message/edit");
-		result.addObject("moment", moment);
-		result.addObject("folder", folder);
-		result.addObject("sender", sender);
-		result.addObject("mailMessage", mailMessage);
-		result.addObject("recipients", recipients);
-		result.addObject("folders", folders);
-		result.addObject("requestURI", "message/actor/edit.do");
-		result.addObject("broadcast", false);
-		result.addObject("permission", permission);
-
-		result.addObject("message", messageCode);
-
-		return result;
-	}
 	
 	private ModelAndView createEditModelAndView(MailMessage mailMessage,
-			String messageCode, String userToReply) {
+			String messageCode, Integer actorId) {
 		final ModelAndView result;
 		Date moment;
 		Folder folder;
@@ -192,9 +144,15 @@ public class MessageActorController extends AbstractController {
 		Collection<Folder> folders;
 		boolean permission = false;
 		Actor principal;
-
+		Actor senderMessageTo;
+		senderMessageTo = null;
+		
 		principal = this.actorService.findByPrincipal();
-						
+		
+		if(actorId != null){
+			senderMessageTo = this.actorService.findOne(actorId);
+		}
+		
 		if (mailMessage.getId() == 0)
 			permission = true;
 		else {
@@ -227,7 +185,7 @@ public class MessageActorController extends AbstractController {
 		result.addObject("requestURI", "message/actor/edit.do");
 		result.addObject("broadcast", false);
 		result.addObject("permission", permission);
-		result.addObject("userToReply", userToReply);
+		result.addObject("senderMessageTo", senderMessageTo);
 		result.addObject("message", messageCode);
 
 		return result;
