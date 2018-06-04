@@ -140,7 +140,9 @@
 <display:table name="course.teachers" id="tutor" requestURI="course/display.do?courseId=${course.id}" class="displaytag">
 <!-- Name -->
 <spring:message code ="teacher.name" var="teacherName"/>
-<display:column property="name" title="${teacherName}"   />
+<display:column title="${teacherName}"  >
+<a href="teacher/display.do?teacherId=${tutor.id}"> <jstl:out value="${tutor.name}"></jstl:out></a>
+</display:column>>
 <!-- Surname -->
 <spring:message code ="teacher.surname" var="teacherSurname"/>
 <display:column property="surname" title="${teacherSurname}"   />
@@ -167,7 +169,11 @@
 <display:table name="course.teachers" id="tutor" requestURI="course/display.do?courseId=${course.id}" class="displaytag">
 <!-- Name -->
 <spring:message code ="teacher.name" var="teacherName"/>
-<display:column property="name" title="${teacherName}"   />
+<display:column title="${teacherName}"  >
+
+<a href="teacher/display.do?teacherId=${tutor.id}"> <jstl:out value="${tutor.name}"></jstl:out>
+		</a>
+</display:column>
 <!-- Surname -->
 <spring:message code ="teacher.surname" var="teacherSurname"/>
 <display:column property="surname" title="${teacherSurname}"   />
@@ -186,13 +192,6 @@
 
 </security:authorize>
 
-<jstl:if test="${advert != null}">
-	<spring:message code ="course.imageBannerNotFound" var = "imageBannerNotFound"></spring:message>
-	<a href="${advert.targetURL}">
-		<img src="${advert.bannerURL}" alt="${imageBanner}">
-	</a>
-</jstl:if>
-
 <!-- Exam -->
 <spring:message code="course.exam" var="exam"/> 
 <h3 class="titles"> <jstl:out value="${exam}"> </jstl:out> </h3>
@@ -204,6 +203,13 @@
 		<a href="exam/display.do?examId=${course.exam.id}"> <spring:message code="exam.examPaper.showMyExamPaper"/></a>
 	</jstl:if>	
 </security:authorize>
+
+<jstl:if test="${advert != null}">
+	<spring:message code ="course.imageBannerNotFound" var = "imageBannerNotFound"></spring:message>
+	<a href="${advert.targetURL}">
+		<img src="${advert.bannerURL}" alt="${imageBanner}">
+	</a>
+</jstl:if>
 
 <spring:message code="datatables.locale.lang" var="tableLang"/>
 <spring:message code="datatables.moment.format" var="tableFormatMoment"/>

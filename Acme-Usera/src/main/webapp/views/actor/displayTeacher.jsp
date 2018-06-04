@@ -73,7 +73,7 @@
 
 <table class="displayStyle" >
 
-<security:authorize access="hasRole('TEACHER')">
+
 	<h3 class="titles"><spring:message code="actor.contactInfo" /></h3>
 
 	<tr>
@@ -121,5 +121,4 @@
 			</jstl:choose>
 		</td>
 	</tr>
-</security:authorize>
 </table>

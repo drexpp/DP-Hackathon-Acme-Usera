@@ -3,10 +3,12 @@ package controllers.teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import services.ContactInfoService;
@@ -73,17 +75,24 @@ public class TeacherRegisterController extends AbstractController {
 	
 	
 	@RequestMapping(value="/display", method = RequestMethod.GET)
-	public ModelAndView display(){
+	public ModelAndView display(final Integer teacherId,RedirectAttributes redir){
 		ModelAndView result;
-		Teacher principal;
-		
-		principal = this.teacherService.findByPrincipal();
-		
+		Teacher teacher;
+		try{
+		teacher = this.teacherService.findOne(teacherId);
+		Assert.notNull(teacher);
 		result = new ModelAndView("actor/displayTeacher");
-		result.addObject("teacher", principal);
+		result.addObject("teacher", teacher);
+		} catch(Throwable oops){
+		result = new ModelAndView("redirect:/");
+		redir.addFlashAttribute("message", "lesson.permision");
+		}
 		
 		return result;
 	}
+	
+	
+	
 	
 	@RequestMapping(value="/edit", method=RequestMethod.GET)
 	public ModelAndView edit(){
@@ -116,7 +125,7 @@ public class TeacherRegisterController extends AbstractController {
 		}else{
 			try{
 				this.teacherService.save(teacher);
-				result = new ModelAndView("redirect:/teacher/display.do");
+				result = new ModelAndView("redirect:/teacher/teacher/display.do");
 			}catch (Throwable oops){
 				result = this.createEditModelAndView(editActorTeacherForm, "actor.commit.error");
 			}

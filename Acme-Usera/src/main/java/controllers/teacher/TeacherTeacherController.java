@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import services.TeacherService;
 import controllers.AbstractController;
 import domain.Actor;
@@ -66,6 +68,22 @@ public class TeacherTeacherController extends AbstractController {
 			}
 		return result;
 	}
+	
+	@RequestMapping(value="/display", method = RequestMethod.GET)
+	public ModelAndView display(RedirectAttributes redir){
+		ModelAndView result;
+		Teacher principal;
+		try{
+		principal = this.teacherService.findByPrincipal();
+		result = new ModelAndView("actor/displayTeacher");
+		result.addObject("teacher", principal);
+		} catch (Throwable oops){
+		result = new ModelAndView("redirect:/..");
+		redir.addFlashAttribute("message", "lesson.permision");	
+		}
+		return result;
+	}
+	
 	// Ancillary methods ------------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final Teacher teacher) {
