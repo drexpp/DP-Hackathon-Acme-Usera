@@ -148,7 +148,7 @@
 						<li><a href="sponsor/edit.do"><spring:message code="master.page.personalProfile.edit" /></a></li>
 					</security:authorize>
 					<security:authorize access="hasRole('TEACHER')">
-					<li><a href="teacher/display.do"><spring:message code="master.page.personalProfile" /> </a></li>
+					<li><a href="teacher/teacher/display.do"><spring:message code="master.page.personalProfile" /> </a></li>
 						<li><a href="teacher/edit.do"><spring:message code="master.page.personalProfile.edit" /></a></li>
 					</security:authorize>
 					<security:authorize access="hasRole('STUDENT')">

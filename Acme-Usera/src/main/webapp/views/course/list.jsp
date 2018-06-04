@@ -87,6 +87,7 @@
 <security:authorize access="hasRole('TEACHER')" var="isTeacher"/>
 <security:authorize access="hasRole('STUDENT')" var="isStudent"/>
 <security:authorize access="hasRole('SPONSOR')" var="isSponsor"/>
+<security:authorize access="hasRole('ADMIN')" var="isAdmin"/>
 <security:authorize access="isAuthenticated()">
 	<display:column>
 	<jstl:choose>
@@ -120,6 +121,12 @@
 			code="course.display" />
 		</a>
 		</jstl:if>
+	</jstl:when>
+	
+	<jstl:when test="${isAdmin}">
+	<a href="course/display.do?courseId=${row.id}"> <spring:message
+			code="course.display" />
+		</a>
 	</jstl:when>
 	
 	

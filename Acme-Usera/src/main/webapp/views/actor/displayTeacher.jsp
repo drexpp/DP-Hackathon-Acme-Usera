@@ -71,11 +71,9 @@
 
 </table>
 
+<h3 class="titles"><spring:message code="actor.contactInfo" /></h3>
+
 <table class="displayStyle" >
-
-<security:authorize access="hasRole('TEACHER')">
-	<h3 class="titles"><spring:message code="actor.contactInfo" /></h3>
-
 	<tr>
 		<td class ="left-display"> <strong> <spring:message code="actor.skype" /> : </strong> </td>
 		<td class="right-display">  <jstl:out value="${teacher.contactInfo.skype}" /> &nbsp; </td>
@@ -121,5 +119,4 @@
 			</jstl:choose>
 		</td>
 	</tr>
-</security:authorize>
 </table>
