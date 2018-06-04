@@ -3,15 +3,15 @@ package controllers.teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import services.ContactInfoService;
 import services.TeacherService;
-
 import controllers.AbstractController;
 import domain.ContactInfo;
 import domain.Teacher;
@@ -57,8 +57,9 @@ public class TeacherRegisterController extends AbstractController {
 			result.addObject("permiso", true);
 		} else
 			try {
-				this.teacherService.save(teacher);
-				this.contactInfoService.save(contactInfo);
+				Teacher resultTeacher;
+				resultTeacher = this.teacherService.save(teacher);
+				this.contactInfoService.save(contactInfo, resultTeacher);
 				result = new ModelAndView("redirect:../");
 			} catch (final DataIntegrityViolationException oops) {
 				binding.rejectValue("userAccount.username", "actor.username.error");
@@ -72,17 +73,24 @@ public class TeacherRegisterController extends AbstractController {
 	
 	
 	@RequestMapping(value="/display", method = RequestMethod.GET)
-	public ModelAndView display(){
+	public ModelAndView display(final Integer teacherId,RedirectAttributes redir){
 		ModelAndView result;
-		Teacher principal;
-		
-		principal = this.teacherService.findByPrincipal();
-		
+		Teacher teacher;
+		try{
+		teacher = this.teacherService.findOne(teacherId);
+		Assert.notNull(teacher);
 		result = new ModelAndView("actor/displayTeacher");
-		result.addObject("teacher", principal);
+		result.addObject("teacher", teacher);
+		} catch(Throwable oops){
+		result = new ModelAndView("redirect:/");
+		redir.addFlashAttribute("message", "lesson.permision");
+		}
 		
 		return result;
 	}
+	
+	
+	
 	
 	@RequestMapping(value="/edit", method=RequestMethod.GET)
 	public ModelAndView edit(){
@@ -90,12 +98,14 @@ public class TeacherRegisterController extends AbstractController {
 		EditActorTeacherForm editActorTeacherForm;
 		Teacher principal;
 		
+		
 		editActorTeacherForm = new EditActorTeacherForm();
 		principal = this.teacherService.findByPrincipal();
 			
 		editActorTeacherForm = this.teacherService.construct(editActorTeacherForm, principal);
 		
 		result = this.createEditModelAndView(editActorTeacherForm);
+		
 		
 		return result;
 		
@@ -113,7 +123,7 @@ public class TeacherRegisterController extends AbstractController {
 		}else{
 			try{
 				this.teacherService.save(teacher);
-				result = new ModelAndView("redirect:/teacher/display.do");
+				result = new ModelAndView("redirect:/teacher/teacher/display.do");
 			}catch (Throwable oops){
 				result = this.createEditModelAndView(editActorTeacherForm, "actor.commit.error");
 			}
@@ -135,19 +145,20 @@ public class TeacherRegisterController extends AbstractController {
 		ModelAndView result;
 		String requestURI;
 		Teacher principal;
-		Integer elementsLength;
 		Boolean permiso;
+		Integer elementsLengthComments;
+		Integer elementsLengthLinks;
 		
 		permiso = false;
 		if(editActorTeacherForm.getComments().size() == 0)
-			elementsLength = 0;
+			elementsLengthComments = 0;
 		else
-			elementsLength = editActorTeacherForm.getComments().size()-1;
+			elementsLengthComments = editActorTeacherForm.getComments().size()-1;
 		
 		if(editActorTeacherForm.getLinks().size() == 0)
-			elementsLength = 0;
+			elementsLengthLinks = 0;
 		else
-			elementsLength = editActorTeacherForm.getLinks().size()-1;
+			elementsLengthLinks = editActorTeacherForm.getLinks().size()-1;
 		
 		
 		principal = this.teacherService.findByPrincipal();
@@ -163,7 +174,8 @@ public class TeacherRegisterController extends AbstractController {
 		result.addObject("message", message);
 		result.addObject("requestURI", requestURI);
 		result.addObject("permiso", permiso);
-		result.addObject("elementsLength", elementsLength);
+		result.addObject("elementsLengthComments", elementsLengthComments);
+		result.addObject("elementsLengthLinks", elementsLengthLinks);
 		
 		
 		return result;

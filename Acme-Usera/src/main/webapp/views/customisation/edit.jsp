@@ -29,6 +29,8 @@
 	<acme:textbox code="customisation.standardPrice" path="standardPrice"/>
 
 	<acme:textbox code="customisation.premiumPrice" path="premiumPrice"/>
+	
+	<acme:textbox code="customisation.conversionRate" path="conversionRate"/>
 
 	<spring:message code="customisation.save" var="save"/>	
 	

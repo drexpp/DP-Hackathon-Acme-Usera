@@ -24,17 +24,21 @@
 		
 		<security:authorize access="permitAll">
 			<li class="fNiv"><a class="fNiv"><spring:message code="master.page.courses" /></a>
-			<security:authorize access="hasAnyRole('TEACHER','STUDENT','SPONSOR')"> 
+			
 			<ul>
 					<li class="arrow"></li>
 					<li><a href="course/list.do"><spring:message code="master.page.all.courses" /></a></li>
+					
+					<security:authorize access="hasAnyRole('TEACHER','STUDENT','SPONSOR')"> 
 					<li><a href="course/myCourses.do"><spring:message code="master.page.my.courses" /></a></li>
+					</security:authorize>
+					
 
 						
 				</ul>
 			</security:authorize>
-			</li>
-		</security:authorize>
+		
+
 		
 		<security:authorize access="isAuthenticated()">
 		
@@ -144,7 +148,7 @@
 						<li><a href="sponsor/edit.do"><spring:message code="master.page.personalProfile.edit" /></a></li>
 					</security:authorize>
 					<security:authorize access="hasRole('TEACHER')">
-					<li><a href="teacher/display.do"><spring:message code="master.page.personalProfile" /> </a></li>
+					<li><a href="teacher/teacher/display.do"><spring:message code="master.page.personalProfile" /> </a></li>
 						<li><a href="teacher/edit.do"><spring:message code="master.page.personalProfile.edit" /></a></li>
 					</security:authorize>
 					<security:authorize access="hasRole('STUDENT')">

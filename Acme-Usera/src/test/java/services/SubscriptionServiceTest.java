@@ -7,11 +7,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import domain.CreditCard;
-
-import domain.Subscription;
-
 import utilities.AbstractTest;
+import domain.CreditCard;
+import domain.Subscription;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:spring/junit.xml"})

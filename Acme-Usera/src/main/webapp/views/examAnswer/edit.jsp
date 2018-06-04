@@ -29,6 +29,7 @@
 	<form:hidden path="number"/>
 	
 <acme:textbox code="examAnswer.text" path="text"/>
+<br>
 
 	<spring:message code="examAnswer.save" var="saveAnswer"  />
 	<spring:message code="examAnswer.cancel" var="cancelAnswer"  />
@@ -65,7 +66,7 @@
 	<form:hidden path="text"/>
 	
 <acme:textbox code="examAnswer.mark" path="mark"/>
-
+<br>
 	<spring:message code="examAnswer.save" var="saveAnswer"  />
 	<spring:message code="examAnswer.cancel" var="cancelAnswer"  />
 	

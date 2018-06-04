@@ -349,6 +349,7 @@
 		<property name="surname" value="Pérez" />
 		<property name="email" value="franciscoPerez@email.com"/>
 		<property name="phone" value="666777222"/>	
+		<property name="dateBirth" value = "05/10/1975"/>
 		<property name="address" value="Calle Marzo nº15"/>
 		<property name="userAccount" ref="userAccount5"/>
 		<property name="contactInfo" ref="contactInfo1"/>
@@ -408,6 +409,7 @@
 		<property name="surname" value="López" />
 		<property name="email" value="maricarmenLopez@email.com"/>
 		<property name="phone" value="658993285"/>	
+		<property name="dateBirth" value = "05/10/1975"/>
 		<property name="address" value="Calle Mayo 26"/>
 		<property name="userAccount" ref="userAccount6"/>
 		<property name="contactInfo" ref="contactInfo2"/>
@@ -466,6 +468,7 @@
 		<property name="surname" value="Fito" />
 		<property name="email" value="juanaFito@email.com"/>
 		<property name="phone" value="+654445634"/>	
+		<property name="dateBirth" value = "05/10/1975"/>
 		<property name="address" value="Calle de los Mares"/>
 		<property name="userAccount" ref="userAccount7"/>
 		<property name="contactInfo"> <null/></property>
@@ -518,6 +521,7 @@
 		<property name="surname" value="Estéban" />
 		<property name="email" value="manuEsteban@email.com"/>
 		<property name="phone" value="699887767"/>	
+		<property name="dateBirth" value = "05/10/1975"/>
 		<property name="address" value="Plaza de los Palomares"/>
 		<property name="userAccount" ref="userAccount8"/>
 		<property name="folders">
@@ -549,6 +553,7 @@
 		<property name="surname" value="Morón" />
 		<property name="email" value="violetaMoron@email.com"/>
 		<property name="phone" value="655437865"/>	
+		<property name="dateBirth" value = "05/10/1975"/>
 		<property name="address" value="Avenida de los Gitanos"/>
 		<property name="userAccount" ref="userAccount9"/>
 		<property name="folders">
@@ -841,7 +846,7 @@
 	
 	<bean class="domain.CreditCard" id="creditCard1">
 		<property name="holderName" value="Manuel Esteban" />
-		<property name="brandName" value="MasterCard" />
+		<property name="brandName" value="Mastercard" />
 		<property name="number" value="342737357334600"  />
 		<property name="expirationMonth" value="11" />
 		<property name="expirationYear" value="25" />
@@ -875,6 +880,7 @@
 		<property name="bannerEn" value = "Welcome to Acme-Usera" />
 		<property name="standardPrice" value = "30" />
 		<property name="premiumPrice" value = "70" />
+		<property name="conversionRate" value = "0.01" />
 	</bean>
 
 	
@@ -1150,7 +1156,6 @@
 		</list>
 	</property>
 	<property name="category" ref="category2"/>
-	<property name="exam" ref="exam1"/>
 	<property name="advertisements">
 		<list>
 			<ref bean="advertisement1" />
@@ -1159,6 +1164,7 @@
 		</list>
 	</property>
 	<property name="forum" ref="forum1" />
+	<property name="exam" ref="exam1"/>
 	</bean>
 	
 	

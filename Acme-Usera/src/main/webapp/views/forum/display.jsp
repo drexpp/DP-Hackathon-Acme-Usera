@@ -47,7 +47,7 @@
 	<security:authorize access="hasRole('STUDENT')">
 		<spring:message code="question.confirm" var="confirmQuestion"  />
 		<display:column class="${background}">
-			<jstl:if test="${principal.questions.contains(row)}">
+			<jstl:if test="${principal.questions.contains(row) && row.forum.course.isClosed == false}">
 				<a href="question/student/delete.do?questionId=${row.id}" onclick="return confirm('${confirmQuestion}')"><spring:message code ="question.delete" /></a>
 			</jstl:if>
 		</display:column>
@@ -81,7 +81,16 @@
 		
 	
 	<spring:message code="question.isAnswered" var="isAnsweredHeader" />
-	<display:column class="${background}" property="isAnswered" title="${isAnsweredHeader}" />
+	<display:column class="${background}" title="${isAnsweredHeader}" >
+	
+	<jstl:if test="${row.isAnswered == true }">
+<spring:message code="question.answered" />
+</jstl:if>
+<jstl:if test="${row.isAnswered == false }">
+<spring:message code="question.not.answered" /> 
+</jstl:if>
+	
+	</display:column>
 	
 	
 	<spring:message code="question.student" var="studentHeader" />
@@ -107,7 +116,9 @@
 </jstl:choose>
 
 <security:authorize access="hasRole('STUDENT')">
+<jstl:if test="${forum.course.isClosed == false }">
 <a href="question/student/create.do?forumId=${forum.id}"> <spring:message code="forum.question.create"/></a>
+</jstl:if>
 </security:authorize>	
 
 

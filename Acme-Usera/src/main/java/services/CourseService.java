@@ -5,25 +5,23 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 
-import org.springframework.validation.Validator;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.CourseRepository;
 import domain.Admin;
 import domain.Advertisement;
+import domain.Course;
 import domain.Forum;
 import domain.Lesson;
 import domain.Sponsor;
 import domain.Student;
 import domain.Subscription;
 import domain.Teacher;
-
-import domain.Course;
 import forms.CourseForm;
 
 

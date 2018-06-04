@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.URL;
+
 import domain.DomainEntity;
 import domain.Question;
 

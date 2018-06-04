@@ -16,6 +16,7 @@ import repositories.QuestionRepository;
 import domain.Actor;
 import domain.Admin;
 import domain.Answer;
+import domain.Course;
 import domain.Forum;
 import domain.Question;
 import domain.Student;
@@ -36,6 +37,9 @@ public class QuestionService {
 	
 	@Autowired
 	private ActorService				actorService;
+	
+	@Autowired
+	private CourseService				courseService;
 	
 	@Autowired
 	private ForumService				forumService;
@@ -62,13 +66,15 @@ public class QuestionService {
 		Student principal;
 		Forum forum;
 		Question question = new Question();
-
 		principal = this.studentService.findByPrincipal();
 		forum = this.forumService.findOne(forumId);
 		Assert.notNull(principal);
+		Assert.isTrue(forum.getCourse().getIsClosed() == false);
 		question.setStudent(principal);
 		question.setMoment(new Date(System.currentTimeMillis()-1));
 		question.setAnswers(new ArrayList<Answer>());
+		Collection<Course> subs = this.courseService.findCoursesStandardAndPremium(principal.getId());
+		Assert.isTrue(subs.contains(forum.getCourse()));
 		question.setForum(forum);
 		
 		return question;
@@ -97,7 +103,7 @@ public class QuestionService {
 
 		Assert.notNull(question);
 		Assert.isTrue(question.getId() != 0);
-		
+		Assert.isTrue(question.getForum().getCourse().getIsClosed() == false);
 		principal = this.studentService.findByPrincipal();
 		Assert.notNull(principal);
 		

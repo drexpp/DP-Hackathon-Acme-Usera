@@ -97,8 +97,6 @@ Double AvgTutorialsTeacher();
 @Query("select stddev(s.tutorials.size) from Teacher s")
 Double StandardDesviationTutorialsTeacher();
 
-//5.El ratio de alumnos con puntuación seguimiento en rango 1, rango 2, rango 3 y rango 4.
-//TODO
 
 //Ratio of Students with score = 0
 

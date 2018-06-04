@@ -36,7 +36,9 @@
 
 <acme:textbox code="subscription.creditCard.holder" path="creditCard.holderName"/>
 
-<acme:textbox code="subscription.creditCard.brand" path="creditCard.brandName"/>
+<spring:message code= "subscription.creditCard.placeholder" var="creditCardPlaceholder"/>
+<spring:message code= "subscription.creditCard.pattern" var="creditCardPattern"/>
+<acme:textbox code="subscription.creditCard.brand" pattern="${creditCardPattern}" placeholder="${creditCardPlaceholder}" path="creditCard.brandName"/>
 
 <acme:textbox code="subscription.creditCard.number" path="creditCard.number"/>
 
@@ -52,15 +54,15 @@
 	<br>
 	<br>
 <div class="precioStandard">
-<h4> <spring:message code="subscription.subscriptionType.price.base" />: ${customisation.standardPrice }<spring:message code="subscription.subscriptionType.coin" />:</h4>
-<h4><spring:message code="subscription.subscriptionType.points" />: ${principal.score}</h4>
-<h3><spring:message code="subscription.subscriptionType.total" />: ${customisation.standardPrice - 0.01*principal.score}<spring:message code="subscription.subscriptionType.coin" />: </h3>
+<h4 class="titles"> <spring:message code="subscription.subscriptionType.price.base" /> : ${customisation.standardPrice } <spring:message code="subscription.subscriptionType.coin" /></h4>
+<h4 class="redText"><spring:message code="subscription.subscriptionType.points" /> : ${principal.score}</h4>
+<h3 class="greenText"><spring:message code="subscription.subscriptionType.total" /> : ${customisation.standardPrice - (customisation.conversionRate*principal.score)} <spring:message code="subscription.subscriptionType.coin" /> </h3>
 </div>
 
 <div class="precioPremium">
-<h4> <spring:message code="subscription.subscriptionType.price.base" />: ${customisation.premiumPrice }<spring:message code="subscription.subscriptionType.coin" />:</h4>
-<h4><spring:message code="subscription.subscriptionType.points" />: ${principal.score}</h4>
-<h3><spring:message code="subscription.subscriptionType.total" />: ${customisation.premiumPrice - 0.01*principal.score}<spring:message code="subscription.subscriptionType.coin" />: </h3>
+<h4 class="titles"> <spring:message code="subscription.subscriptionType.price.base" /> : ${customisation.premiumPrice } <spring:message code="subscription.subscriptionType.coin" /></h4>
+<h4 class="redText"><spring:message code="subscription.subscriptionType.points" /> : ${principal.score}</h4>
+<h3 class="greenText"><spring:message code="subscription.subscriptionType.total" /> : ${customisation.premiumPrice - (customisation.conversionRate*principal.score)} <spring:message code="subscription.subscriptionType.coin" /> </h3>
 </div>
 
 	<spring:message code="subscription.save" var="savesubscription"  />

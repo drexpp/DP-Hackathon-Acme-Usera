@@ -3,6 +3,8 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -87,6 +89,7 @@ public class CategoryService {
 		Admin principal;
 		Collection<Category> parentCategories;
 		Collection<Category> childCategories;
+		Boolean isNameUniqueRoot;
 		Category root;
 
 		Assert.notNull(category);
@@ -98,6 +101,25 @@ public class CategoryService {
 		root = this.findRootCategory();
 
 		Assert.isTrue(category.getId() != root.getId());
+		
+		final Set<Category> forbiddenNamesCategories = new HashSet<Category>();
+
+		parentCategories = new ArrayList<Category>(category.getParentCategories());
+		for (final Category parent : parentCategories) {
+			final Collection<Category> children = parent.getChildCategories();
+			forbiddenNamesCategories.addAll(children);
+		}
+
+		isNameUniqueRoot = true;
+
+		forbiddenNamesCategories.remove(category);
+
+		for (final Category cat : forbiddenNamesCategories)
+			if (cat.getName().equals(category.getName())) {
+				isNameUniqueRoot = false;
+				break;
+			}
+		Assert.isTrue(isNameUniqueRoot);
 
 		result = this.categoryRepository.save(category);
 		Assert.notNull(result);

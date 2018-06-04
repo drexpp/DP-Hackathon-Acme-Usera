@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.SafeHtml;
+
 import domain.Course;
 import domain.DomainEntity;
 @Entity

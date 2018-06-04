@@ -2,10 +2,8 @@ package forms;
 
 import java.util.Collection;
 
-
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.SafeHtml;
-
 
 import domain.Course;
 import domain.CreditCard;

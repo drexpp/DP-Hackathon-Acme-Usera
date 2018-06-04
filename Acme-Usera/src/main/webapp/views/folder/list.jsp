@@ -56,19 +56,13 @@
 				
 				<spring:message code="folder.reply" var="reply"/>
 				<display:column>
-					<a href="message/actor/create.do?userToReply=${row.sender.userAccount.username}"><jstl:out value="${reply}"/></a>
+					<a href="message/actor/create.do?actorId=${row.sender.id}"><jstl:out value="${reply}"/></a>
 				</display:column>
 	</display:table>
 	<br/>
 	<br/>
 	
 	<a href="message/actor/create.do"><spring:message code="folder.writeMessage" /></a>
-	<br/>
-	
-	<security:authorize access="hasRole('ADMIN')">
-	<a href="message/admin/create.do"><spring:message code="folder.broadCastMessage" /></a>
-	<br>
-	</security:authorize>
 	</div>
 </div>
 

@@ -13,15 +13,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import services.ActorService;
+import services.AnswerService;
+import services.CourseService;
+import services.QuestionService;
+import services.StudentService;
 import domain.Actor;
 import domain.Answer;
+import domain.Course;
 import domain.Question;
 import domain.Student;
 import forms.AnswerForm;
-import services.ActorService;
-import services.AnswerService;
-import services.QuestionService;
-import services.StudentService;
 
 @Controller
 @RequestMapping("/answer/student")
@@ -41,6 +43,9 @@ public class AnswerStudentController {
 		
 		@Autowired
 		private ActorService	actorService;
+		
+		@Autowired
+		private CourseService	courseService;
 		
 		// Constructors
 
@@ -84,6 +89,11 @@ public class AnswerStudentController {
 				try{
 					Assert.isTrue(question.getIsAnswered()==false);
 					answer.setQuestion(question);
+					
+					Student principal = this.studentService.findByPrincipal();
+					Collection<Course> subs = this.courseService.findCoursesStandardAndPremium(principal.getId());
+					Assert.isTrue(subs.contains(question.getForum().getCourse()));
+					
 					result = this.createEditModelAndView(answer);
 					if(question.getForum().getCourse().getIsClosed() == true){
 						permission = false;

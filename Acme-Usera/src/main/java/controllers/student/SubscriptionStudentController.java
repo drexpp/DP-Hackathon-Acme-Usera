@@ -17,7 +17,6 @@ import services.CourseService;
 import services.CustomisationService;
 import services.StudentService;
 import services.SubscriptionService;
-
 import controllers.AbstractController;
 import domain.Course;
 import domain.Customisation;

@@ -30,29 +30,29 @@
 	<form:hidden path="sender" />
 	<form:hidden path="moment" />
 	<form:hidden path="folder" />
-	
-	
-	<jstl:if test="${broadcast}">
-	<form:hidden path="recipient" value="${recipient.id}" />
-	
-	</jstl:if>
+
 	
 	<%-- Mostrado para elegir en el input el destinatario del mensaje, cuando es un mensaje broadcast de un administrador este input no se muestra puesto que el destinatario son todos los actores del sistema--%>
-	<jstl:if test="${!broadcast}">
-		<span>
-		<form:label path="recipient">
+
+
+		<form:label path="recipient" readonly = "readonly">
 			<spring:message code="message.recipient.userAccount" />:
 		</form:label>
-		<form:select path="recipient" >
-		<form:option label="----" value="0" />
-		<form:options items="${recipients}" itemLabel="userAccount.username" itemValue="id" />
+	
+		<form:select path="recipient">
+		<jstl:if test="${senderMessageTo == null}">
+			<form:option label="-----" value="0"/>
+			<form:options items="${recipients}" itemLabel="userAccount.username" itemValue="id" />
+		</jstl:if>
+		<jstl:if test="${senderMessageTo != null}">
+			<form:option label="${senderMessageTo.userAccount.username}" value="${senderMessageTo.id}"/>
+		</jstl:if>
+		
 		</form:select>
 		<form:errors cssClass="error" path="recipient" />
-		<i>(<jstl:out value = "${userToReply}" />)</i>
-	</span>
-	<br>
-	<br>
-	</jstl:if>
+		<br>
+		<br>
+
 	
 	<form:label path="subject">
 		<spring:message code="message.subject" />:
@@ -77,15 +77,9 @@
 	
 	<acme:cancel url="folder/actor/list.do" code="message.cancel"/>
 	<br />
-
 	
-
 </form:form>
 </jstl:if>
-
-
-
-
 
 
 <jstl:if test="${permission }">

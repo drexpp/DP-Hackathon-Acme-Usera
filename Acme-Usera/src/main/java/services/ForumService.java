@@ -8,13 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.ForumRepository;
 import domain.Admin;
 import domain.Course;
 import domain.Forum;
 import domain.Question;
 import domain.Teacher;
-
-import repositories.ForumRepository;
 
 @Service
 @Transactional

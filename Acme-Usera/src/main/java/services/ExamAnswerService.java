@@ -13,9 +13,11 @@ import org.springframework.validation.Validator;
 import repositories.ExamAnswerRepository;
 import domain.Actor;
 import domain.Admin;
+import domain.Certification;
 import domain.ExamAnswer;
 import domain.ExamPaper;
 import domain.Student;
+import domain.Teacher;
 import forms.ExamAnswerForm;
 
 @Service
@@ -30,6 +32,9 @@ public class ExamAnswerService {
 			private StudentService				studentService;
 			
 			@Autowired
+			private TeacherService				teacherService;
+			
+			@Autowired
 			private ActorService				actorService;
 			
 			@Autowired
@@ -37,6 +42,9 @@ public class ExamAnswerService {
 			
 			@Autowired
 			private AdminService				adminService;
+			
+			@Autowired
+			private CertificationService		certificationService;
 			
 			@Autowired
 			private Validator					validator;
@@ -76,7 +84,7 @@ public class ExamAnswerService {
 	public ExamAnswer save(final ExamAnswer examAnswer) {
 		Actor principal;
 		ExamAnswer result;
-		Integer puntuacion;
+		Integer puntuacion = 0;
 		Integer cantidad;
 		Integer total = 0;
 		
@@ -85,8 +93,13 @@ public class ExamAnswerService {
 		principal = this.actorService.findByPrincipal();
 
 		Assert.notNull(principal);
-		
-//		Assert.isTrue(principal.getLessons().containAll(examPaper.getExam().getCourse().getLessons()));
+		Assert.isTrue(principal instanceof Student || principal instanceof Teacher);
+
+		if (principal instanceof Student){
+			Assert.isTrue(examAnswer.getExamPaper().getIsFinished() == false);	
+		} else {
+			Assert.isTrue(examAnswer.getExamPaper().getIsFinished() == true);	
+		}
 		
 		ExamPaper examen = examAnswer.getExamPaper();
 		
@@ -113,7 +126,7 @@ public class ExamAnswerService {
 			
 			
 		}	
-		puntuacion = result.getMark();
+	
 		
 	
 		for(ExamAnswer examanswer: examPaper.getExamAnswer()){
@@ -124,7 +137,21 @@ public class ExamAnswerService {
 		if(cantidad != 0){
 			total = puntuacion/cantidad;
 		}
-		examPaper.setMark(total);
+		if(principal instanceof Teacher){
+				examPaper.setMark(total);
+		}
+		
+		if(total >= 50){
+			if(examPaper.getCertification() == null){
+				Certification newCertification;
+				
+				newCertification = this.certificationService.create();
+				newCertification.setExamPaper(examPaper);
+				newCertification.setStudent(examPaper.getStudent());
+
+				this.certificationService.save(newCertification);
+			}
+		}
 		
 		return result;
 	}
@@ -144,6 +171,24 @@ public class ExamAnswerService {
 		Assert.notNull(examAnswer);
 
 		principal = this.adminService.findByPrincipal();
+
+		Assert.notNull(principal);
+		
+		ExamPaper examen = examAnswer.getExamPaper();
+		Collection<ExamAnswer> examAnswers = new ArrayList<ExamAnswer>(examen.getExamAnswer());
+		examAnswers.remove(examAnswer);
+		examen.setExamAnswer(examAnswers);
+		
+		this.examAnswerRepository.delete(examAnswer);
+		
+	}
+	
+	public void delete(final ExamAnswer examAnswer) {
+		Teacher principal;
+
+		Assert.notNull(examAnswer);
+
+		principal = this.teacherService.findByPrincipal();
 
 		Assert.notNull(principal);
 		
@@ -188,6 +233,10 @@ public class ExamAnswerService {
 		result.setExamPaper(examAnswer.getExamPaper());
 
 		return result;
+	}
+
+	public void flush() {
+		this.examAnswerRepository.flush();
 	}
 	
 

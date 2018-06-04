@@ -13,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import services.CourseService;
 import services.LessonService;
 import services.TeacherService;
-
 import controllers.AbstractController;
 import domain.Course;
 import domain.Lesson;

@@ -79,6 +79,13 @@
 <a href="examPaper/student/finish.do?examPaperId=${examPaper.id}"> <spring:message code="examPaper.final"/></a>
 </jstl:if>
 </security:authorize>
+<br>
+<br>
+<security:authorize access="hasRole('STUDENT')">
+<jstl:if test="${examPaper.certification != null}">
+	<a href="examPaper/student/certification.do?certificationId=${examPaper.certification.id}"> <spring:message code="examPaper.certification"/></a>
+</jstl:if>
+</security:authorize>
 
 <spring:message code="datatables.locale.lang" var="tableLang"/>
 <spring:message code="datatables.moment.format" var="tableFormatMoment"/>

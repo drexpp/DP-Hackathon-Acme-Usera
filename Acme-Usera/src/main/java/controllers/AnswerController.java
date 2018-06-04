@@ -8,11 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Actor;
-import domain.Answer;
-
 import services.ActorService;
 import services.AnswerService;
+import domain.Actor;
+import domain.Answer;
 
 @Controller
 @RequestMapping("/answer")

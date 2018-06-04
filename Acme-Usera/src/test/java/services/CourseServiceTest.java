@@ -8,11 +8,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import utilities.AbstractTest;
 import domain.Category;
 import domain.Course;
 import domain.Teacher;
-
-import utilities.AbstractTest;
 
 @ContextConfiguration(locations = {
 		"classpath:spring/junit.xml"

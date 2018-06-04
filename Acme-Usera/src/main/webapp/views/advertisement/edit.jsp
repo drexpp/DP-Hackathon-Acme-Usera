@@ -36,7 +36,8 @@
 		<acme:textbox code="advertisement.creditCard.holder" path="creditCard.holderName"/>
 		
 		<spring:message code= "advertisement.creditCard.placeholder" var="creditCardPlaceholder"/>
-		<acme:textbox code="advertisement.creditCard.brand" pattern="^Mastercard|Visa|American Express|Other|Otra$" placeholder="${creditCardPlaceholder}" path="creditCard.brandName"/>
+		<spring:message code= "advertisement.creditCard.pattern" var="creditCardPattern"/>
+		<acme:textbox code="advertisement.creditCard.brand" pattern="${creditCardPattern}" placeholder="${creditCardPlaceholder}" path="creditCard.brandName"/>
 
 		<acme:textbox code="advertisement.creditCard.number" path="creditCard.number"/>
 

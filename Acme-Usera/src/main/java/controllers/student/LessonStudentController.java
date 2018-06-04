@@ -9,7 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import services.LessonService;
-
 import controllers.AbstractController;
 import domain.Lesson;
 

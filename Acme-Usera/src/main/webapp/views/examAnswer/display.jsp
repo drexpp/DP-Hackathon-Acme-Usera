@@ -23,9 +23,6 @@
 
 
 
-<h2> <jstl:out value="${examAnswer.number}"> </jstl:out> </h2>
-
-
 <table class="displayStyle">
 
 <tr>

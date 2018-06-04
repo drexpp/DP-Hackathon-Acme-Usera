@@ -7,10 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.AdminService;
 import domain.Admin;
 import forms.EditActorForm;
-
-import services.AdminService;
 
 @Controller
 @RequestMapping("/admin")

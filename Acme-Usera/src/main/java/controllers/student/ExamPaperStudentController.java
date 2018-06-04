@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import services.CertificationService;
 import services.ExamPaperService;
 import services.ExamService;
 import services.StudentService;
 import controllers.AbstractController;
+import domain.Certification;
 import domain.Exam;
 import domain.ExamPaper;
 import domain.Student;
@@ -33,6 +35,9 @@ public class ExamPaperStudentController extends AbstractController{
 			
 			@Autowired
 			private ExamService			examService;
+			
+			@Autowired
+			private CertificationService	certificationService;
 			
 			@Autowired
 			private StudentService		studentService;
@@ -94,13 +99,22 @@ public class ExamPaperStudentController extends AbstractController{
 				try{
 					examPaper = this.examPaperService.findOne(examPaperId);
 					principal = this.studentService.findByPrincipal();
-					examPaper.setIsFinished(true);
-					examPaper=this.examPaperService.save(examPaper);
 					
-					result = new ModelAndView("examPaper/display");
+					try{
+						
+						this.examPaperService.finish(examPaper);
+						
+						Assert.isTrue(examPaper.getExamAnswer().size() == examPaper.getExam().getExamQuestions().size());
+						result = new ModelAndView("redirect:../../course/list.do");
+						
+						result.addObject("examPaper", examPaper);
+						result.addObject("principal", principal);
+						
+					}catch (Throwable oops){
+						result = new ModelAndView("redirect:../../examPaper/display.do?examPaperId="+examPaper.getId());
+						redir.addFlashAttribute("message", "examPaper.answerAll"); 
+					}
 					
-					result.addObject("examPaper", examPaper);
-					result.addObject("principal", principal);
 					
 				}catch (Throwable oops){
 					result = new ModelAndView("redirect:/course/list.do");	
@@ -110,6 +124,32 @@ public class ExamPaperStudentController extends AbstractController{
 				return result;
 
 			}
+			
+			@RequestMapping(value = "/certification", method = RequestMethod.GET)
+			public ModelAndView certification(@RequestParam final int certificationId, RedirectAttributes redir){
+				ModelAndView result;
+				Student principal;
+				Certification certification;
+				Boolean permiso;
+				
+				principal = this.studentService.findByPrincipal();
+				certification = this.certificationService.findById(certificationId);
+				
+				if(principal.getId() == certification.getStudent().getId()){
+					permiso = true;
+				}else{
+					permiso = false;
+				}
+				
+				
+				
+				result = new ModelAndView("certification/display");
+				result.addObject("certification", certification);
+				result.addObject("permiso", permiso);
+				
+				return result;
+			}
+			
 			
 			// Edition ----------------------------------------------------------------
 

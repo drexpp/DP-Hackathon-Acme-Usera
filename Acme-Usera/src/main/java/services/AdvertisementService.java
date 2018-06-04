@@ -13,14 +13,13 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
+import repositories.AdvertisementRepository;
 import domain.Admin;
 import domain.Advertisement;
 import domain.Course;
 import domain.CreditCard;
 import domain.Sponsor;
 import forms.AdvertisementForm;
-
-import repositories.AdvertisementRepository;
 
 
 @Transactional

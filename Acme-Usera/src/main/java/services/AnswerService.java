@@ -5,16 +5,18 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 
-import org.springframework.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
+
 import repositories.AnswerRepository;
 import domain.Actor;
 import domain.Admin;
 import domain.Answer;
+import domain.Course;
 import domain.Question;
 import domain.Student;
 import domain.Teacher;
@@ -43,6 +45,9 @@ public class AnswerService {
 	private TeacherService			teacherService;
 	
 	@Autowired
+	private CourseService			courseService;
+	
+	@Autowired
 	private QuestionService			questionService;
 	
 	@Autowired
@@ -65,9 +70,12 @@ public class AnswerService {
 		principal = this.actorService.findByPrincipal();
 		question = this.questionService.findOne(questionId);
 		Assert.notNull(principal);
-		
+		Assert.isTrue(question.getIsAnswered()==false);
+		Collection<Course> subs = this.courseService.findCoursesStandardAndPremium(principal.getId());
+		Assert.isTrue(subs.contains(question.getForum().getCourse()));
 		answer.setMoment(new Date(System.currentTimeMillis() - 1));
 		answer.setQuestion(question);
+		answer.setActor(principal);
 		
 		return answer;
 	}
@@ -98,10 +106,13 @@ public class AnswerService {
 
 		Assert.notNull(answer);
 		Assert.isTrue(answer.getId() != 0);
+		Assert.isTrue(answer.getQuestion().getForum().getCourse().getIsClosed() == false);
+
 		
 		principal = this.studentService.findByPrincipal();
 		Assert.notNull(principal);
 		
+		Assert.isTrue(principal.getAnswers().contains(answer) || principal.getQuestions().contains(answer.getQuestion()));
 		if(principal.getAnswers().contains(answer) || principal.getQuestions().contains(answer.getQuestion())){ //si soy el creador de esa respuesta
 			final Question question = answer.getQuestion();
 			final Collection<Answer> answer1 = question.getAnswers();
@@ -114,6 +125,10 @@ public class AnswerService {
 			updated = new ArrayList<Answer>(answer2);
 			updated.remove(answer);
 			actor.setAnswers(updated);
+			
+			if(answer.getIsSolution() == true){
+				answer.getQuestion().setIsAnswered(false);
+			}
 			
 			this.answerRepository.delete(answer);
 		}
@@ -162,6 +177,10 @@ public class AnswerService {
 		final Collection<Answer> update = new HashSet<>(principal.getAnswers());
 		update.add(result);
 		principal.setAnswers(update);
+		
+		final Collection<Answer> update2 = new HashSet<>(result.getQuestion().getAnswers());
+		update2.add(result);
+		result.getQuestion().setAnswers(update2);
 		
 		return result;
 	}

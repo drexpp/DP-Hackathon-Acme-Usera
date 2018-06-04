@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import services.ActorService;
+import services.AdvertisementService;
+import services.CourseService;
+import services.LessonService;
 import domain.Actor;
 import domain.Advertisement;
 import domain.Course;
@@ -18,11 +22,6 @@ import domain.Lesson;
 import domain.Sponsor;
 import domain.Student;
 import domain.Teacher;
-
-import services.ActorService;
-import services.AdvertisementService;
-import services.CourseService;
-import services.LessonService;
 
 @Controller
 @RequestMapping("/lesson")

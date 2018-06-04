@@ -2,6 +2,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,8 @@ import org.springframework.util.Assert;
 import repositories.ExamQuestionRepository;
 import domain.Admin;
 import domain.Exam;
+import domain.ExamAnswer;
+import domain.ExamPaper;
 import domain.ExamQuestion;
 import domain.Teacher;
 
@@ -21,6 +24,9 @@ public class ExamQuestionService {
 	// Managed Repository
 			@Autowired
 			private ExamQuestionRepository			examQuestionRepository;
+			
+			@Autowired
+			private ExamAnswerService 			examAnswerService;
 			
 			@Autowired
 			private TeacherService				teacherService;
@@ -35,6 +41,7 @@ public class ExamQuestionService {
 		principal = this.teacherService.findByPrincipal();
 		Assert.notNull(principal);
 		examQuestion.setNumber(0);
+		examQuestion.setMaxScore(100);
 		return examQuestion;
 	}
 	
@@ -55,14 +62,15 @@ public class ExamQuestionService {
 
 		Assert.notNull(principal);
 		
-		if (examQuestion.getId() != 0){
 		Assert.isTrue(principal.getCoursesJoined().contains(examQuestion.getExam().getCourse()));
-		}
+		Assert.isTrue(examQuestion.getExam().getCourse().getIsClosed() == false);
 		
 		Exam examen = examQuestion.getExam();
 		
-		number = examen.getExamQuestions().size()+1;
-		examQuestion.setNumber(number);
+		if(examQuestion.getId() == 0){ //Para que no se cambien los números si se edita.
+			number = examen.getExamQuestions().size()+1;
+			examQuestion.setNumber(number);
+		}
 		
 		result = this.examQuestionRepository.save(examQuestion);
 	
@@ -88,6 +96,33 @@ public class ExamQuestionService {
 		}	
 		
 		return result;
+	}
+	
+	public void delete(final ExamQuestion examQuestion) {
+		Assert.notNull(examQuestion);
+		List<ExamQuestion> updated;
+		ExamAnswer examAnswer;
+		final Teacher principal = this.teacherService.findByPrincipal();
+		Assert.notNull(principal);
+		
+		Assert.isTrue(principal.getCoursesJoined().contains(examQuestion.getExam().getCourse()));
+
+		final Exam exam = examQuestion.getExam();
+		final Collection<ExamQuestion> examQuestions = exam.getExamQuestions();
+		updated = new ArrayList<ExamQuestion>(examQuestions);
+		updated.remove(examQuestion);
+		exam.setExamQuestions(updated);
+		
+		
+		for(ExamPaper examPaper: examQuestion.getExam().getExamPaper()){
+			if(!(this.findAnsweredQuestions(examPaper.getId()).isEmpty())){
+				examAnswer = this.examAnswerService.findExamAnswerByNumbers(examQuestion.getNumber(), examPaper.getId());
+				this.examAnswerService.delete(examAnswer);
+			}
+		}
+		
+
+		this.examQuestionRepository.delete(examQuestion);
 	}
 	
 	
@@ -127,6 +162,10 @@ public class ExamQuestionService {
 		Collection<ExamQuestion> res = this.examQuestionRepository.findAnsweredQuestions(examPaperId);
 		return res;
 		
+	}
+
+	public void flush() {
+		this.examQuestionRepository.flush();
 	}
 	
 }

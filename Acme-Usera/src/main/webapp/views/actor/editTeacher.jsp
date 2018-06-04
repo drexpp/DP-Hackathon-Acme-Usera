@@ -55,7 +55,7 @@
 	<legend> <form:label path="comments"> <spring:message code="actor.comments" />: </form:label> </legend>
 		<div id="list1">
 		<table class="displayStyle">
-			<jstl:forEach begin="0" end="${elementsLength}" var="comments" varStatus="i" step="1">
+			<jstl:forEach begin="0" end="${elementsLengthComments}" var="comments" varStatus="i" step="1">
 	  			 <tr class="list-item">
 			<td> <form:input path="comments[${i.index}]" /></td>
 	    		<td>	<a href="#" onclick="event.preventDefault();"
@@ -84,7 +84,7 @@
 		<table class="displayStyle">
 
 			
-			<jstl:forEach begin="0" end="${elementsLength}" var="links" varStatus="i" step="1">
+			<jstl:forEach begin="0" end="${elementsLengthLinks}" var="links" varStatus="i" step="1">
 	  			 <tr class="list-item">
 			<td> <form:input path="links[${i.index}]" /></td>
 	    		<td>	<a href="#" onclick="event.preventDefault();"
@@ -102,7 +102,7 @@
 
 	</fieldset>
 	</fieldset>
-	
+	<br>
 	
 
 	<input type="submit" name="save" id="save"

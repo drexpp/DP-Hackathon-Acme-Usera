@@ -7,18 +7,21 @@ import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 
 import security.UserAccount;
 import utilities.AbstractTest;
 import domain.Teacher;
 import forms.ActorFormTeacher;
+import forms.EditActorTeacherForm;
 
 @ContextConfiguration(locations = {
 		"classpath:spring/junit.xml"
@@ -105,5 +108,70 @@ public class TeacherServiceTest extends AbstractTest {
 		actorFormTeacher.setLinks(links);
 		
 		return actorFormTeacher;
+	}
+	
+	@Test
+	public void driverEditPersonalInfoTeacher(){
+		Object testingData[][] = {
+				//Test 1 positivo, probando el editar el perfil de un profesor con un nuevo nombre y apellido.
+				{"teacher1","teacher1","newName1", "newSurname1",null},
+				//Test 2 negativo, probando el editar el perfil de un profesor con el "Nombre" vacio
+				{"teacher1","teacher1","", "newSurname2", ConstraintViolationException.class},
+				//Test 3 negativo, probando el editar el perfil de un profesor con el "Apellido" vacio
+				{"teacher1","teacher1","newName3", "",ConstraintViolationException.class}
+				
+		};
+		for(int i = 0; i < testingData.length; i++){
+			this.startTransaction();
+			templateEditPersonalInfoTeacher(((String) testingData[i][0]), super.getEntityId((String) testingData[i][1]),((String) testingData[i][2]),((String) testingData[i][3]),((Class<?>) testingData[i][4]));
+			this.rollbackTransaction();
+		}
+	}
+
+
+	protected void templateEditPersonalInfoTeacher(String teacherAccount, int teacherId, String newName,
+			String newSurname, Class<?> expected) {
+		Class<?> caught;
+		caught = null;
+		BindingResult binding;
+		EditActorTeacherForm editActorTeacherForm;
+		binding = null;
+		Teacher principal;
+		super.authenticate(teacherAccount);
+		//Obteniendo el editActorForm a partir del profesor (como se haría en el controlador y servicio).
+		principal = this.teacherService.findOne(teacherId);
+		editActorTeacherForm = generateAndEditActorFormFromTeacher(principal, newName, newSurname);
+		
+		try{
+			Teacher teacherToSave;
+			Teacher teacherSaved;
+			teacherToSave = this.teacherService.reconstruct(editActorTeacherForm, binding);
+			teacherSaved = this.teacherService.save(teacherToSave);
+			Assert.isTrue(teacherSaved.getName().equals(newName));
+			Assert.isTrue(teacherSaved.getSurname().equals(newSurname));
+		}catch(Throwable oops){
+			caught = oops.getClass();
+		}
+		
+		checkExceptions(expected, caught);
+	}
+
+
+	protected EditActorTeacherForm generateAndEditActorFormFromTeacher(Teacher principal, String newName, String newSurname) {
+		EditActorTeacherForm result = new EditActorTeacherForm();
+		
+		result.setId(principal.getId());
+		result.setName(newName);
+		result.setSurname(newSurname);
+		result.setAddress(principal.getAddress());
+		result.setDateBirth(principal.getDateBirth());
+		result.setPhone(principal.getPhone());
+		result.setEmail(principal.getEmail());
+		result.setComments(principal.getContactInfo().getComments());
+		result.setSkype(principal.getContactInfo().getSkype());
+		result.setLinks(principal.getContactInfo().getLinks());
+		result.setContactPhone(principal.getContactInfo().getContactPhone());
+		
+		return result;
 	}
 }

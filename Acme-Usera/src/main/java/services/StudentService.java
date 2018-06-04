@@ -147,9 +147,9 @@ public class StudentService {
 
 		this.validator.validate(actorForm, binding);
 		if (!(actorForm.getConfirmPassword().equals((actorForm.getUserAccount().getPassword()))) || actorForm.getConfirmPassword() == null)
-			binding.rejectValue("confirmPassword", "student.passwordMiss");
+			binding.rejectValue("confirmPassword", "actor.passwordMiss");
 		if ((actorForm.getCheck() == false))
-			binding.rejectValue("check", "student.uncheck");
+			binding.rejectValue("check", "actor.uncheck");
 		return student;
 	}
 

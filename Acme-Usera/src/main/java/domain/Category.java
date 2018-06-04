@@ -4,7 +4,6 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -24,7 +23,6 @@ public class Category extends DomainEntity {
 	
 	
 	@NotBlank
-	@Column(unique = true)
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
 	public String getName() {
 		return name;
