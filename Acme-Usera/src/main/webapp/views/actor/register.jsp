@@ -27,7 +27,7 @@ function Terms(){
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 
-	<acme:textbox code="actor.name" path="name"/>
+	<acme:textbox code="actor.name" id="name" path="name"/>
 	<br />
 	
 	<acme:textbox code="actor.surname" path="surname"/>
@@ -75,9 +75,5 @@ function Terms(){
 </jstl:otherwise>
 </jstl:choose>
 <script>
-var input = document.getElementById('phone');
-input.oninvalid = function(event) {
-    event.target.setCustomValidity('<spring:message code="actor.invalidPhone"/>');
-};
+var message = '<spring:message code="actor.invalidPhone"/>';
 </script>
-

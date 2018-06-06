@@ -34,11 +34,11 @@
 <fieldset>
  <legend><spring:message code="subscription.creditCard" /></legend>
 
-<acme:textbox code="subscription.creditCard.holder" path="creditCard.holderName"/>
+<acme:textbox code="subscription.creditCard.holder" id="holder" path="creditCard.holderName"/>
 
 <spring:message code= "subscription.creditCard.placeholder" var="creditCardPlaceholder"/>
 <spring:message code= "subscription.creditCard.pattern" var="creditCardPattern"/>
-<acme:textbox code="subscription.creditCard.brand" pattern="${creditCardPattern}" placeholder="${creditCardPlaceholder}" path="creditCard.brandName"/>
+<acme:textbox code="subscription.creditCard.brand" id="brand" pattern="${creditCardPattern}" placeholder="${creditCardPlaceholder}" oninput="setCustomValidity('')" path="creditCard.brandName"/>
 
 <acme:textbox code="subscription.creditCard.number" path="creditCard.number"/>
 
@@ -101,4 +101,7 @@ function clickPremium(){
 	$(".precioPremium").show();
 	$(".precioStandard").hide();
 }
+</script>
+<script>
+var message = '<spring:message code="subscription.invalidBrand"/>';
 </script>

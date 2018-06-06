@@ -24,6 +24,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
+
 <script type="text/javascript" src="scripts/jquery.js"></script>
 <script type="text/javascript" src="scripts/jquery-ui.js"></script>
 <script type="text/javascript" src="scripts/jmenu.js"></script>
@@ -94,4 +95,5 @@ function changeBackground(color) {
 	</div>
 
 </body>
+<script type="text/javascript" src="scripts/customMessages.js"></script>
 </html>

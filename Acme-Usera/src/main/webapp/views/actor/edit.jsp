@@ -26,7 +26,7 @@
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 
-	<acme:textbox code="actor.name" path="name"/>
+	<acme:textbox code="actor.name" id="name" path="name"/>
 	<br />
 	
 	<acme:textbox code="actor.surname" path="surname"/>
@@ -60,12 +60,6 @@
 <spring:message code="actor.permision" />
 </jstl:otherwise>
 </jstl:choose>
-<spring:message code="actor.invalidPhone" var="errorMessage"/>
-<input id="messageInternationalized" type ="hidden" value="${errorMessage}"/>
 <script>
-var input = document.getElementById('phone');
-var messageInternationalized = $("#messageInternationalized").val();
-input.oninvalid = function(event) {
-    event.target.setCustomValidity(messageInternationalized);
-};
+var message = '<spring:message code="actor.invalidPhone"/>';
 </script>
