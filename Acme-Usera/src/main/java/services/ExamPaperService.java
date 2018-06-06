@@ -57,6 +57,7 @@ public class ExamPaperService {
 		principal = this.studentService.findByPrincipal();
 		exam = this.examService.findOne(examId);
 		Assert.notNull(principal);
+		Assert.isTrue(this.findExamPaperFromCourseAndStudent(principal.getId(), exam.getCourse().getId()) == null);
 		examPaper.setMoment(new Date(System.currentTimeMillis()-1));
 		examPaper.setCertification(null);
 		examPaper.setExamAnswer(new ArrayList<ExamAnswer>());

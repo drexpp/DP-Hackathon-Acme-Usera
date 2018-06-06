@@ -27,6 +27,7 @@
 
 
 <%@ attribute name="oninput" required="false" %>
+<%@ attribute name="onsubmit" required="false" %>
 <%@ attribute name="pattern" required="false" %>
 <%@ attribute name="id" required="false" %>
 <%@ attribute name="placeholder" required="false" %>
@@ -43,5 +44,5 @@
 		<spring:message code="${code}" />
 	</form:label>	
 	<form:input path="${path}" readonly="${readonly}" placeholder="${placeholder}" pattern="${pattern}" id="${id}" oninput="${oninput}"/>	
-	<form:errors path="${path}" cssClass="error" />
+	<form:errors path="${path}" onsubmit="${onsubmit}" cssClass="error" />
 </div>	

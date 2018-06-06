@@ -33,11 +33,11 @@
 	<fieldset>
 		<legend><spring:message code="advertisement.creditCard"/></legend>
 		
-		<acme:textbox code="advertisement.creditCard.holder" path="creditCard.holderName"/>
+		<acme:textbox code="advertisement.creditCard.holder" id="holder" path="creditCard.holderName"/>
 		
 		<spring:message code= "advertisement.creditCard.placeholder" var="creditCardPlaceholder"/>
 		<spring:message code= "advertisement.creditCard.pattern" var="creditCardPattern"/>
-		<acme:textbox code="advertisement.creditCard.brand" pattern="${creditCardPattern}" placeholder="${creditCardPlaceholder}" path="creditCard.brandName"/>
+		<acme:textbox code="advertisement.creditCard.brand" id="brand" oninput="setCustomValidity('')" pattern="${creditCardPattern}" placeholder="${creditCardPlaceholder}" path="creditCard.brandName"/>
 
 		<acme:textbox code="advertisement.creditCard.number" path="creditCard.number"/>
 
@@ -55,3 +55,7 @@
 	<acme:cancel url="/advertisement/sponsor/list.do" code="advertisement.cancel"/>
 
 </form:form>
+
+<script>
+var message = '<spring:message code="subscription.invalidBrand"/>';
+</script>
