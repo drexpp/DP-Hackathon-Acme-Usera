@@ -151,6 +151,10 @@ public class ExamAnswerService {
 
 				this.certificationService.save(newCertification);
 			}
+		}else{
+			if(examPaper.getCertification() != null){
+				this.certificationService.deleteByTeaher(examPaper.getCertification());
+			}
 		}
 		
 		return result;
