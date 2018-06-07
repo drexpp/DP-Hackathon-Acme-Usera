@@ -196,7 +196,7 @@
 <spring:message code="course.exam" var="exam"/> 
 <h3 class="titles"> <jstl:out value="${exam}"> </jstl:out> </h3>
 <security:authorize access="hasRole('STUDENT')">
-	<jstl:if test="${not coursesWithExamPaperFromStudent.contains(course) && course.exam != null && principal.lessons.containsAll(course.lessons) }">
+	<jstl:if test="${not coursesWithExamPaperFromStudent.contains(course) && course.exam != null && principal.lessons.containsAll(course.lessons) && course.isClosed == false}">
 		<a href="examPaper/student/create.do?examId=${course.exam.id}"> <spring:message code="exam.examPaper.evaluate"/></a>
 	</jstl:if>	
 	<jstl:if test="${exams.contains(course.exam)}">

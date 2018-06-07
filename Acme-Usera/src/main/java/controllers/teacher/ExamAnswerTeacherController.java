@@ -63,6 +63,7 @@ public class ExamAnswerTeacherController extends AbstractController{
 				
 				try{
 					examPaper = this.examPaperService.findOne(examPaperId);
+					Assert.isTrue(examPaper.getIsFinished() == true);
 					examQuestion = this.examQuestionService.findOne(examQuestionId);
 					examAnswer = this.examAnswerService.findExamAnswerByNumbers(examQuestion.getNumber(), examPaperId);
 					principal = this.teacherService.findByPrincipal();
@@ -92,6 +93,7 @@ public class ExamAnswerTeacherController extends AbstractController{
 				ExamAnswer examAnswer;
 				try{
 				examAnswer = this.examAnswerService.findOne(examAnswerId);
+				Assert.isTrue(examAnswer.getExamPaper().getIsFinished() == true);
 				Assert.notNull(examAnswer);
 				result = this.createEditModelAndView(examAnswer);
 				} catch (Throwable oops){
