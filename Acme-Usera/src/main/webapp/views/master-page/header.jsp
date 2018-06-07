@@ -42,7 +42,7 @@
 		
 		<security:authorize access="isAuthenticated()">
 		
-				<li><a class="fNiv" href="http://localhost:8080"><spring:message code="master.page.chat" /></a></li>
+				<li><a class="fNiv" href="https://safe-atoll-72115.herokuapp.com/"><spring:message code="master.page.chat" /></a></li>
 	
 		</security:authorize>
 		
