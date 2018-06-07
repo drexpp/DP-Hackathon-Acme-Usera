@@ -144,7 +144,7 @@ public class CourseTeacherController extends AbstractController{
 			
 			
 			@RequestMapping(value = "/edit", method = RequestMethod.GET)
-			public ModelAndView edit(@RequestParam final int courseId, final RedirectAttributes redir) {
+			public ModelAndView edit(@RequestParam final int courseId) {
 				ModelAndView result;
 				Course course;
 				CourseForm courseForm;
@@ -158,7 +158,6 @@ public class CourseTeacherController extends AbstractController{
 					
 				} catch (final Throwable oops) {
 					result = new ModelAndView("redirect:/course/list.do");
-					redir.addFlashAttribute("message", "course.permision");
 
 				}
 
