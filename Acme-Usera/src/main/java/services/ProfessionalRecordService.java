@@ -119,6 +119,10 @@ public class ProfessionalRecordService {
 		return result;
 	}
 
+	public void flush() {
+		this.professionalRecordRepository.flush();
+	}
+
 	// Other business methods
 
 }

@@ -35,7 +35,7 @@ public class TeacherServiceTest extends AbstractTest {
 	
 	
 	@Test
-	public void driverRegisterSponsor(){
+	public void driverRegisterTeacher(){
 		Object testingData[][] = {
 				//Test 1 positivo, probando el registro de un usuario con todos sus campos
 				{"teacherPrueba1", "sur1","email@prueba.com", "111222333", "calle1", "30/10/1987",true,"prueba1", "prueba1pass", "prueba1pass", "skype1", "619110254", "comment1", "link1",null},
@@ -47,13 +47,13 @@ public class TeacherServiceTest extends AbstractTest {
 		};
 		for(int i = 0; i < testingData.length; i++){
 			this.startTransaction();
-			templateRegisterSponsor(((String) testingData[i][0]),((String) testingData[i][1]),((String) testingData[i][2]),((String) testingData[i][3]),((String) testingData[i][4]),((String) testingData[i][5]),((Boolean) testingData[i][6]),((String) testingData[i][7]),((String) testingData[i][8]),((String) testingData[i][9]),((String) testingData[i][10]),((String) testingData[i][11]),((String) testingData[i][12]),((String) testingData[i][13]) ,((Class<?>) testingData[i][14]));
+			templateRegisterTeacher(((String) testingData[i][0]),((String) testingData[i][1]),((String) testingData[i][2]),((String) testingData[i][3]),((String) testingData[i][4]),((String) testingData[i][5]),((Boolean) testingData[i][6]),((String) testingData[i][7]),((String) testingData[i][8]),((String) testingData[i][9]),((String) testingData[i][10]),((String) testingData[i][11]),((String) testingData[i][12]),((String) testingData[i][13]) ,((Class<?>) testingData[i][14]));
 			this.rollbackTransaction();
 		}
 	}
 
 
-	private void templateRegisterSponsor(String username,String surname, String email,String phone, String address, String dateBirth,Boolean checkTerms, String userAccountName, String userAccountPassword, String userAccountConfirmPassword, String skype, String contactPhone, String comment1, String link1, Class<?> expected) {
+	private void templateRegisterTeacher(String username,String surname, String email,String phone, String address, String dateBirth,Boolean checkTerms, String userAccountName, String userAccountPassword, String userAccountConfirmPassword, String skype, String contactPhone, String comment1, String link1, Class<?> expected) {
 		Class<?> caught = null;
 		Teacher teacher = this.teacherService.create();
 		

@@ -16,6 +16,7 @@ import domain.Admin;
 import domain.Certification;
 import domain.ExamPaper;
 import domain.Student;
+import domain.Teacher;
 
 @Service
 @Transactional
@@ -28,6 +29,9 @@ public class CertificationService {
 
 	@Autowired
 	private AdminService			adminService;
+	
+	@Autowired
+	private TeacherService			teacherService;
 	
 	public CertificationService() {
 		super();
@@ -53,7 +57,10 @@ public class CertificationService {
 		Assert.isTrue(certification.getStudent() != null);
 		Certification result;
 		Collection<Certification> oldList;
+		Teacher principal = this.teacherService.findByPrincipal();
 		
+		Assert.isTrue(certification.getExamPaper().getMark() >= 50);
+		Assert.notNull(principal);
 		result = this.certificationRepository.save(certification);
 		
 		certification.getExamPaper().setCertification(result);

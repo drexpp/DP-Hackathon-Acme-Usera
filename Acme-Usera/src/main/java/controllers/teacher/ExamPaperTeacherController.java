@@ -45,7 +45,9 @@ public class ExamPaperTeacherController extends AbstractController{
 				for(Exam exam: principal.getExams()) {
 					if(exam.getCourse().getIsClosed() == false){
 						for(ExamPaper examPaper : exam.getExamPaper())
+							if (examPaper.getIsFinished() == true){
 						examPapers.add(examPaper); //Listar los examPapers guardados en el sistema que no pertenecen a un curso cerrado.
+							}
 					}
 				}
 				

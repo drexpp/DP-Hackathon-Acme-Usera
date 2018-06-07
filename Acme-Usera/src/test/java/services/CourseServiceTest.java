@@ -33,9 +33,6 @@ public class CourseServiceTest extends AbstractTest{
 	@Test
 	public void ListCoursesAndCreateTestDriver() {
 	
-		
-		
-		
 		final Object testingData[][] = {
 			{//principal/categoryOfTheCourseToCreate/
 				//TEST POSITIVO: LISTAR Y CREAR UN CURSO CON LA CATEGORÍA 1 ASOCIADA

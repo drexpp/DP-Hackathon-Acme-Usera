@@ -113,6 +113,11 @@ public class ForumService {
 			this.forumRepository.delete(forumToDelete);
 	
 		}
+
+
+		public void flush() {
+			this.forumRepository.flush();
+		}
 			
 			
 			

@@ -123,4 +123,8 @@ public class CurriculumService {
 
 	}
 
+	public void flush() {
+		this.curriculumRepository.flush();
+	}
+
 }

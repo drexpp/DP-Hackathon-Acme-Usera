@@ -117,6 +117,10 @@ public class EducationRecordService {
 		return result;
 	}
 
+	public void flush() {
+		this.educationRecordRepository.flush();
+	}
+
 	// Other business methods
 
 }
