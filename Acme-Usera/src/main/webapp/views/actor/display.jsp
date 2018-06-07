@@ -80,17 +80,26 @@
 
 </security:authorize>  
 </table>
-
+<br>
 <security:authorize access="hasRole('STUDENT')">
 <jstl:if test="${principal.id == student.id }">
 <tr>
 <td class ="left-display"> <strong> <spring:message code="actor.certifications" /> : </strong> </td>
 	<td class="right-display">  
-		<jstl:forEach items="${actor.certifications}" var="certification">
-			<ul>
-				<li><a href="examPaper/student/certification.do?certificationId=${certification.id}"><jstl:out value="${certification.examPaper.exam.course.title}"/></a></li>
-			</ul>
-		</jstl:forEach>
+	<jstl:choose>
+		<jstl:when test="${not empty actor.certifications}">
+			<jstl:forEach items="${actor.certifications}" var="certification">
+				<ul>
+					<li><a href="examPaper/student/certification.do?certificationId=${certification.id}"><jstl:out value="${certification.examPaper.exam.course.title}"/></a></li>
+				</ul>
+			</jstl:forEach>
+		</jstl:when>
+		<jstl:otherwise>
+			<br>
+			<br>
+			<spring:message code="actor.certifications.empty"/>
+		</jstl:otherwise>
+	</jstl:choose>
 	</td>
 </tr>
 </jstl:if>

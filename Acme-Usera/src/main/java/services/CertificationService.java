@@ -88,6 +88,23 @@ public class CertificationService {
 			
 	}
 	
+	
+	public void deleteByTeaher(Certification certification){
+		Teacher principal = this.teacherService.findByPrincipal();
+		Assert.notNull(principal);
+		Assert.notNull(certification);
+		
+		Student student = certification.getStudent();
+		Collection<Certification> updated1 = new ArrayList<Certification>(student.getCertifications());
+		updated1.remove(certification);
+		student.setCertifications(updated1);
+		
+		ExamPaper exampaper = certification.getExamPaper();
+		exampaper.setCertification(null);
+		this.certificationRepository.delete(certification);
+			
+	}
+	
 	protected String generateTicker() {
 		String result;
 
