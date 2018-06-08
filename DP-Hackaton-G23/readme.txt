@@ -1,0 +1,9 @@
+-Los creadores de los cursos son los únicos que pueden cerrarlos.
+-Cuando cambias el mensaje de bienvenida, hay que actualizar la página para verlo correctamente.
+-Hemos solucionado de otro entregable lo de las categorías para que se puedan poner nombres iguales siempre y cuando no sean categorías hermanas.
+-Un profesor puede corregir los exámenes que él ha creado, y nadie más.
+-Respuesta perfecta es la respuesta que considera el profesor que sería la ideal que respondiera el alumno y le sirve de ayuda para comparar posteriormente cuando un alumno rellene el examen
+-Si soy el creador de la pregunta puedo eliminar mi pregunta (aunque contenga respuestas de otros).
+-En el listado de examPaper del teacher aparecen solo aquellos examPaper finalizados y cuyos cursos están sin cerrar.
+-Todas las preguntas de un examen y el mismo examen son sobre 100. Cuando un alumno realiza un examen (examPaper) la nota del mismo es la media de las notas de todas las preguntas del examen
+-La nota de un exampaper se puede cambiar siempre hasta que se cierre el curso. Si se edita una nota de aprobado a suspenso, se elimina la certificación asociada al alumno.
