@@ -20,13 +20,13 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<meta http-equiv="Refresh" content="10;url=/Acme-Usera/curriculum/teacher/create.do">
+<meta http-equiv="Refresh" content="10;url=curriculum/teacher/create.do">
 
 
 
 
 <h3><spring:message code="curriculum.youDontHaveCurriculum"/></h3>
-<h3><spring:message code="curriculum.orClick"/> <a href="/Acme-Usera/curriculum/teacher/create.do"><spring:message code="curriculum.here"/></a></h3>
+<h3><spring:message code="curriculum.orClick"/> <a href="curriculum/teacher/create.do"><spring:message code="curriculum.here"/></a></h3>
 
 
 
