@@ -118,9 +118,9 @@ public class TeacherServiceTest extends AbstractTest {
 				//Test 1 positivo, probando el editar el perfil de un profesor con un nuevo nombre y apellido.
 				{"teacher1","teacher1","newName1", "newSurname1",null},
 				//Test 2 negativo, probando el editar el perfil de un profesor con el "Nombre" vacio
-				{"teacher1","teacher1","", "newSurname2", ConstraintViolationException.class},
+				{"teacher1","teacher1","", "newSurname2", NullPointerException.class},
 				//Test 3 negativo, probando el editar el perfil de un profesor con el "Apellido" vacio
-				{"teacher1","teacher1","newName3", "",ConstraintViolationException.class}
+				{"teacher1","teacher1","newName3", "",NullPointerException.class}
 				
 		};
 		for(int i = 0; i < testingData.length; i++){
@@ -136,21 +136,24 @@ public class TeacherServiceTest extends AbstractTest {
 		Class<?> caught;
 		caught = null;
 		BindingResult binding;
-		EditActorTeacherForm editActorTeacherForm;
+		EditActorTeacherForm editActorTeacherForm = new EditActorTeacherForm();
 		binding = null;
 		Teacher principal;
+		try{
 		super.authenticate(teacherAccount);
 		//Obteniendo el editActorForm a partir del profesor (como se haría en el controlador y servicio).
 		principal = this.teacherService.findOne(teacherId);
-		editActorTeacherForm = generateAndEditActorFormFromTeacher(principal, newName, newSurname);
-		
-		try{
+		editActorTeacherForm = this.teacherService.construct(editActorTeacherForm, principal);
+			editActorTeacherForm.setName(newName);
+			editActorTeacherForm.setSurname(newSurname);
 			Teacher teacherToSave;
 			Teacher teacherSaved;
+			this.teacherService.flush();
 			teacherToSave = this.teacherService.reconstruct(editActorTeacherForm, binding);
 			teacherSaved = this.teacherService.save(teacherToSave);
 			Assert.isTrue(teacherSaved.getName().equals(newName));
 			Assert.isTrue(teacherSaved.getSurname().equals(newSurname));
+			super.unauthenticate();
 		}catch(Throwable oops){
 			caught = oops.getClass();
 		}
