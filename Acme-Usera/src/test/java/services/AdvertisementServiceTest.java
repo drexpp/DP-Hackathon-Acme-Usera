@@ -37,6 +37,7 @@ public class AdvertisementServiceTest extends AbstractTest {
 	
 	@Test
 	public void driverRegisterAdvertisementAndListSponsorAdvertisements(){
+		//UC15 - Crear un anuncio como patrocinador
 		Object testingData[][] = {
 				//Caso de test 1: POSITIVO. Comportamiento: Como se describe anteriormente.
 				{"sponsor1", "sponsor1","title1", "https://i.imgur.com/mz4KOzY.png", "https://i.imgur.com/mz4KOzY.png", "course1",null},

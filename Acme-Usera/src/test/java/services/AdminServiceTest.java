@@ -28,7 +28,7 @@ public class AdminServiceTest extends AbstractTest {
 
 	@Test
 	public void driverEditPersonalInfoAdmin(){
-		//UC11-Mostrar y editar información personal como administrador
+		//UC13-Mostrar y editar información personal como administrador
 		Object testingData[][] = {
 				//Test 1 positivo, probando el editar el perfil de un admin con un nuevo nombre y apellido.
 				{"admin","admin1","newName1", "newSurname1",null},

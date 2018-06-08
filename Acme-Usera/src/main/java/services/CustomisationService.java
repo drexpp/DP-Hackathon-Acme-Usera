@@ -46,6 +46,10 @@ public class CustomisationService {
 
 	public Customisation find() {
 		Customisation result;
+		Admin principal;
+
+		principal = this.adminService.findByPrincipal();
+		Assert.notNull(principal);
 
 		result = this.customisationRepository.findAll().get(0);
 		Assert.notNull(result);
@@ -69,5 +73,17 @@ public class CustomisationService {
 	}
 
 	// Other business methods
+	
+	public Customisation findOne(final int customisationId){
+		Customisation result;
+		Admin principal;
+		
+		principal = this.adminService.findByPrincipal();
+		Assert.notNull(principal);
+		
+		result = this.customisationRepository.findOne(customisationId);
+		
+		return result;
+	}
 
 }

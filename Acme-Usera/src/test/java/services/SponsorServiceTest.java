@@ -34,7 +34,7 @@ public class SponsorServiceTest extends AbstractTest {
 	
 	@Test
 	public void driverRegisterSponsor(){
-		//UC07-Registrar como patrocinador en el sistema
+		//UC08-Registrar como patrocinador en el sistema
 		Object testingData[][] = {
 				//Test 1 positivo, probando el registro de un usuario con todos sus campos
 				{"sponsorPrueba1", "sur1","email@prueba.com", "111222333", "calle1", "30/10/1987",true,"prueba1", "prueba1pass", "prueba1pass",null},
@@ -101,7 +101,7 @@ public class SponsorServiceTest extends AbstractTest {
 	
 	@Test
 	public void driverEditPersonalInfoSponsor(){
-		//UC10-Mostrar y editar información personal como patrocinador
+		//UC11-Mostrar y editar información personal como patrocinador
 		Object testingData[][] = {
 				//Test 1 positivo, probando el editar el perfil de un sponsor con un nuevo nombre y apellido.
 				{"sponsor1","sponsor1","newName1", "newSurname1",null},

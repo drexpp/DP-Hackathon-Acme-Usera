@@ -116,7 +116,7 @@ public class StudentServiceTest extends AbstractTest {
 	
 	@Test
 	public void driverEditPersonalInfoStudent(){
-		//UC09-Mostrar y editar información personal como estudiante
+		//UC10-Mostrar y editar información personal como estudiante
 		Object testingData[][] = {
 				//Test 1 positivo, probando el editar el perfil de un estudiante con un nuevo nombre y apellido.
 				{"student1","student1","newName1", "newSurname1",null},
