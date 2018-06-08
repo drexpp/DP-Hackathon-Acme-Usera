@@ -35,7 +35,7 @@ public class ExamPaperServiceTest  extends AbstractTest{
 		final Object testingData[][] = {
 			
 				//TEST POSITIVO: 
-				{"student1", "exam1", null}, //Comprobar que deja crear un examPaper del examen del curso 1 
+				{"student2", "exam1", null}, //Comprobar que deja crear un examPaper del examen del curso 1 
 			
 				//TESTS NEGATIVOS:
 				{"student3", "exam2", IllegalArgumentException.class}, //Intentar crear un examPaper sobre un curso cerrado
