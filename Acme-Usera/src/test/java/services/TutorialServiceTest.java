@@ -25,6 +25,9 @@ public class TutorialServiceTest extends AbstractTest {
 	
 	@Test
 	public void createTutorial(){
+		
+		//UC05 - Crear tutoría
+		
 		Object testingData[][] = {
 								//Tests POSITIVOS 
 								//
@@ -69,6 +72,8 @@ public class TutorialServiceTest extends AbstractTest {
 	
 	@Test
 	public void denyTutorial(){
+		
+		//UC05 (2) - Listar tutorías y denegarlas
 		Object testingData[][] = {
 
 								//Tests POSITIVOS 
@@ -108,6 +113,8 @@ public class TutorialServiceTest extends AbstractTest {
 	
 	@Test
 	public void aceptTutorial(){
+		//UC05 (2) - Listar tutorías y aceptarlas
+		
 		Object testingData[][] = {
 								//Tests POSITIVOS 
 								//

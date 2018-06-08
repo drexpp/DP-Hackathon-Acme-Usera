@@ -32,7 +32,7 @@ public class CourseServiceTest extends AbstractTest{
 	
 	@Test
 	public void ListCoursesAndCreateTestDriver() {
-	
+	//UC01 - Crear y listar curso
 		final Object testingData[][] = {
 			{//principal/categoryOfTheCourseToCreate/
 				//TEST POSITIVO: LISTAR Y CREAR UN CURSO CON LA CATEGORÍA 1 ASOCIADA
@@ -81,7 +81,7 @@ public class CourseServiceTest extends AbstractTest{
 	public void EditCourseTestDriver() {
 	
 		
-		
+		//UC02 - Editar cursos
 		
 		final Object testingData[][] = {
 			{
@@ -124,8 +124,7 @@ public class CourseServiceTest extends AbstractTest{
 	@Test
 	public void JoinRemoveAndCloseCourseTestDriver() {
 	
-		
-		
+		//UC02 Unirte a un curso como profesor y mostrar sus lecciones y UC02 (2) Cerrar un curso
 		
 		final Object testingData[][] = {
 			{
@@ -184,7 +183,7 @@ public class CourseServiceTest extends AbstractTest{
 	public void DeleteCourseTestDriver() {
 	
 		
-		
+		//UC06-Borrar cursos como administrador
 		
 		final Object testingData[][] = {
 			{

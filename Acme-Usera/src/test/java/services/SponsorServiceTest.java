@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.transaction.Transactional;
-import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,6 +34,7 @@ public class SponsorServiceTest extends AbstractTest {
 	
 	@Test
 	public void driverRegisterSponsor(){
+		//UC07-Registrar como patrocinador en el sistema
 		Object testingData[][] = {
 				//Test 1 positivo, probando el registro de un usuario con todos sus campos
 				{"sponsorPrueba1", "sur1","email@prueba.com", "111222333", "calle1", "30/10/1987",true,"prueba1", "prueba1pass", "prueba1pass",null},
@@ -101,13 +101,14 @@ public class SponsorServiceTest extends AbstractTest {
 	
 	@Test
 	public void driverEditPersonalInfoSponsor(){
+		//UC10-Mostrar y editar información personal como patrocinador
 		Object testingData[][] = {
 				//Test 1 positivo, probando el editar el perfil de un sponsor con un nuevo nombre y apellido.
 				{"sponsor1","sponsor1","newName1", "newSurname1",null},
 				//Test 2 negativo, probando el editar el perfil de un sponsor con el "Nombre" vacio
-				{"sponsor1","sponsor1","", "newSurname2", ConstraintViolationException.class},
+				{"sponsor1","sponsor1","", "newSurname2", NullPointerException.class},
 				//Test 3 negativo, probando el editar el perfil de un sponsor con el "Apellido" vacio
-				{"sponsor1","sponsor1","newName3", "",ConstraintViolationException.class}
+				{"sponsor1","sponsor1","newName3", "",NullPointerException.class}
 				
 		};
 		for(int i = 0; i < testingData.length; i++){

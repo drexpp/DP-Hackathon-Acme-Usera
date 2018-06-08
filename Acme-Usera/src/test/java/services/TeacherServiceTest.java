@@ -36,6 +36,7 @@ public class TeacherServiceTest extends AbstractTest {
 	
 	@Test
 	public void driverRegisterTeacher(){
+		//UC08-Registrar como profesor en el sistema
 		Object testingData[][] = {
 				//Test 1 positivo, probando el registro de un usuario con todos sus campos
 				{"teacherPrueba1", "sur1","email@prueba.com", "111222333", "calle1", "30/10/1987",true,"prueba1", "prueba1pass", "prueba1pass", "skype1", "619110254", "comment1", "link1",null},
@@ -112,6 +113,7 @@ public class TeacherServiceTest extends AbstractTest {
 	
 	@Test
 	public void driverEditPersonalInfoTeacher(){
+		//UC11-Mostrar y editar información personal como profesor
 		Object testingData[][] = {
 				//Test 1 positivo, probando el editar el perfil de un profesor con un nuevo nombre y apellido.
 				{"teacher1","teacher1","newName1", "newSurname1",null},

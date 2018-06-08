@@ -1,7 +1,6 @@
 package services;
 
 import javax.transaction.Transactional;
-import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,25 +27,26 @@ public class AdminServiceTest extends AbstractTest {
 	
 
 	@Test
-	public void driverEditPersonalInfoStudent(){
+	public void driverEditPersonalInfoAdmin(){
+		//UC11-Mostrar y editar información personal como administrador
 		Object testingData[][] = {
 				//Test 1 positivo, probando el editar el perfil de un admin con un nuevo nombre y apellido.
 				{"admin","admin1","newName1", "newSurname1",null},
 				//Test 2 negativo, probando el editar el perfil de un admin con el "Nombre" vacio
-				{"admin","admin1","", "newSurname2", ConstraintViolationException.class},
+				{"admin","admin1","", "newSurname2", NullPointerException.class},
 				//Test 3 negativo, probando el editar el perfil de un admin con el "Apellido" vacio
-				{"admin","admin1","newName3", "",ConstraintViolationException.class}
+				{"admin","admin1","newName3", "",NullPointerException.class}
 				
 		};
 		for(int i = 0; i < testingData.length; i++){
 			this.startTransaction();
-			templateEditPersonalInfoStudent(((String) testingData[i][0]), super.getEntityId((String) testingData[i][1]),((String) testingData[i][2]),((String) testingData[i][3]),((Class<?>) testingData[i][4]));
+			templateEditPersonalInfoAdmin(((String) testingData[i][0]), super.getEntityId((String) testingData[i][1]),((String) testingData[i][2]),((String) testingData[i][3]),((Class<?>) testingData[i][4]));
 			this.rollbackTransaction();
 		}
 	}
 
 
-	protected void templateEditPersonalInfoStudent(String adminAccount, int adminId, String newName,
+	protected void templateEditPersonalInfoAdmin(String adminAccount, int adminId, String newName,
 			String newSurname, Class<?> expected) {
 		Class<?> caught;
 		caught = null;
