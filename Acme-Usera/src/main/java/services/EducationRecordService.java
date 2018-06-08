@@ -72,8 +72,9 @@ public class EducationRecordService {
 		principal = this.teacherService.findByPrincipal();
 		Assert.notNull(principal);
 		Assert.notNull(principal.getCurriculum());
-
+		if (educationRecord.getEndDate() != null){
 		Assert.isTrue(educationRecord.getEndDate().after(educationRecord.getStartDate()));
+		}
 		educationsRecords = principal.getCurriculum().getEducationRecord();
 		result = this.educationRecordRepository.save(educationRecord);
 		Assert.notNull(result);

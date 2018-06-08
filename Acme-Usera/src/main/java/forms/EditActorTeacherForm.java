@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -84,6 +85,7 @@ public class EditActorTeacherForm extends DomainEntity {
 	}
 
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
+	@NotBlank
 	public String getName() {
 		return this.name;
 	}
@@ -93,6 +95,7 @@ public class EditActorTeacherForm extends DomainEntity {
 	}
 
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
+	@NotBlank
 	public String getSurname() {
 		return this.surname;
 	}
@@ -103,6 +106,7 @@ public class EditActorTeacherForm extends DomainEntity {
 
 
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
+	@NotBlank
 	public String getEmail() {
 		return this.email;
 	}

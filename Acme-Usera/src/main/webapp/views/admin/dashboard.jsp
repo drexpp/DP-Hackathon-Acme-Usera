@@ -490,7 +490,7 @@
 		</tr>
 		<tr>
 			<td><spring:message code="administrator.Top5StudentsWithMoreScore" /></td>
-			<td><a href="student/display.do?studentId=${course.id}"> ${course.name} </a></td>
+			<td>${course.name} ${course.surname} </td>
 		</tr>
 		
 		</jstl:if>
@@ -505,7 +505,7 @@
 		
 		<tr>
 			<td></td>
-			<td><a href="student/display.do?studentId=${course.id}"> ${course.name} </a></td>
+			<td>${course.name} ${course.surname}</td>
 		</tr>
 		
 		</jstl:if>

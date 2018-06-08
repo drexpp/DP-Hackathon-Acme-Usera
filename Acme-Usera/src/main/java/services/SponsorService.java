@@ -160,8 +160,11 @@ public class SponsorService {
 			BindingResult binding) {
 		Sponsor result;
 		
-		result = this.findByPrincipal();
+		result = new Sponsor();
 		
+		Sponsor principal = this.findByPrincipal();
+		
+		result.setId(principal.getId());
 		result.setName(editActorForm.getName());
 		result.setSurname(editActorForm.getSurname());
 		result.setEmail(editActorForm.getEmail());
@@ -170,6 +173,12 @@ public class SponsorService {
 		result.setVersion(editActorForm.getVersion());
 		result.setPhone(editActorForm.getPhone());
 		result.setDateBirth(editActorForm.getDateBirth());
+		result.setAdvertisements(principal.getAdvertisements());
+		result.setSentMessages(principal.getReceivedMessages());
+		result.setAnswers(principal.getAnswers());
+		result.setReceivedMessages(principal.getReceivedMessages());
+		result.setFolders(principal.getFolders());
+		result.setUserAccount(principal.getUserAccount());
 	
 		
 		this.validator.validate(editActorForm, binding);

@@ -195,9 +195,11 @@ public class StudentService {
 	public Student reconstruct(EditActorForm editActorForm,
 			BindingResult binding) {
 		Student result;
+		Student principal = this.findByPrincipal();
 		
-		result = this.findByPrincipal();
+		result = new Student();
 		
+		result.setId(principal.getId());
 		result.setName(editActorForm.getName());
 		result.setSurname(editActorForm.getSurname());
 		result.setEmail(editActorForm.getEmail());
@@ -206,6 +208,17 @@ public class StudentService {
 		result.setVersion(editActorForm.getVersion());
 		result.setDateBirth(editActorForm.getDateBirth());
 		result.setPhone(editActorForm.getPhone());
+		result.setTutorials(principal.getTutorials());
+		result.setScore(principal.getScore());
+		result.setLessons(principal.getLessons());
+		result.setSubscriptions(principal.getSubscriptions());
+		result.setExamPapers(principal.getExamPapers());
+		result.setCertifications(principal.getCertifications());
+		result.setSentMessages(principal.getReceivedMessages());
+		result.setAnswers(principal.getAnswers());
+		result.setReceivedMessages(principal.getReceivedMessages());
+		result.setFolders(principal.getFolders());
+		result.setUserAccount(principal.getUserAccount());
 	
 		
 		this.validator.validate(editActorForm, binding);

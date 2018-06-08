@@ -182,8 +182,10 @@ public class TeacherService {
 		Teacher result;
 		ContactInfo contactInfo;
 		
-		result = this.findByPrincipal();
-		contactInfo = result.getContactInfo();
+		Teacher principal = this.findByPrincipal();
+		
+		result = this.create();
+		contactInfo = principal.getContactInfo();
 		contactInfo.setSkype(editActorTeacherForm.getSkype());
 		contactInfo.setContactPhone(editActorTeacherForm.getContactPhone());
 		if(editActorTeacherForm.getComments().get(0).equals("")){
@@ -199,7 +201,7 @@ public class TeacherService {
 			contactInfo.setLinks(linksEmpty);
 		}else
 			contactInfo.setLinks(editActorTeacherForm.getLinks());
-		
+		result.setId(principal.getId());
 		result.setName(editActorTeacherForm.getName());
 		result.setSurname(editActorTeacherForm.getSurname());
 		result.setEmail(editActorTeacherForm.getEmail());
@@ -208,6 +210,17 @@ public class TeacherService {
 		result.setAddress(editActorTeacherForm.getAddress());
 		result.setVersion(editActorTeacherForm.getVersion());
 		result.setPhone(editActorTeacherForm.getPhone());
+		result.setTutorials(principal.getTutorials());
+		result.setCoursesCreated(principal.getCoursesCreated());
+		result.setCoursesJoined(principal.getCoursesJoined());
+		result.setCurriculum(principal.getCurriculum());
+		result.setContactInfo(principal.getContactInfo());
+		result.setLessons(principal.getLessons());
+		result.setSentMessages(principal.getReceivedMessages());
+		result.setAnswers(principal.getAnswers());
+		result.setReceivedMessages(principal.getReceivedMessages());
+		result.setFolders(principal.getFolders());
+		result.setUserAccount(principal.getUserAccount());
 		
 		result.setContactInfo(contactInfo);
 		

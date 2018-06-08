@@ -90,7 +90,7 @@ public class StudentRegisterController extends AbstractController {
 	public ModelAndView edit(final EditActorForm editActorForm, BindingResult binding){
 		ModelAndView result;
 		Student student;
-					
+			
 		student = this.studentService.reconstruct(editActorForm, binding);
 		
 		if(binding.hasErrors()){

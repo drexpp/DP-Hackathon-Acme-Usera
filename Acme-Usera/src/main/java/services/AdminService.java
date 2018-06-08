@@ -118,8 +118,11 @@ public class AdminService {
 			BindingResult binding) {
 		Admin result;
 		
-		result = this.findByPrincipal();
+		result = new Admin();
 		
+		Admin principal = this.findByPrincipal();
+		
+		result.setId(principal.getId());
 		result.setName(editActorForm.getName());
 		result.setSurname(editActorForm.getSurname());
 		result.setEmail(editActorForm.getEmail());
@@ -127,6 +130,11 @@ public class AdminService {
 		result.setAddress(editActorForm.getAddress());
 		result.setVersion(editActorForm.getVersion());
 		result.setPhone(editActorForm.getPhone());
+		result.setSentMessages(principal.getReceivedMessages());
+		result.setAnswers(principal.getAnswers());
+		result.setReceivedMessages(principal.getReceivedMessages());
+		result.setFolders(principal.getFolders());
+		result.setUserAccount(principal.getUserAccount());
 	
 		
 		this.validator.validate(editActorForm, binding);
