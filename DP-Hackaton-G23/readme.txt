@@ -1,9 +1,10 @@
--Los creadores de los cursos son los ˙nicos que pueden cerrarlos.
--Cuando cambias el mensaje de bienvenida, hay que actualizar la p·gina para verlo correctamente.
--Hemos solucionado de otro entregable lo de las categorÌas para que se puedan poner nombres iguales siempre y cuando no sean categorÌas hermanas.
--Un profesor puede corregir los ex·menes que Èl ha creado, y nadie m·s.
--Respuesta perfecta es la respuesta que considera el profesor que serÌa la ideal que respondiera el alumno y le sirve de ayuda para comparar posteriormente cuando un alumno rellene el examen
+-Los creadores de los cursos son los √∫nicos que pueden cerrarlos.
+-Cuando cambias el mensaje de bienvenida, hay que actualizar la p√°gina para verlo correctamente.
+-Hemos solucionado de otro entregable lo de las categor√≠as para que se puedan poner nombres iguales siempre y cuando no sean categor√≠as hermanas.
+-Un profesor puede corregir los ex√°menes que √©l ha creado, y nadie m√°s.
+-Respuesta perfecta es la respuesta que considera el profesor que ser√≠a la ideal que respondiera el alumno y le sirve de ayuda para comparar posteriormente cuando un alumno rellene el examen
 -Si soy el creador de la pregunta puedo eliminar mi pregunta (aunque contenga respuestas de otros).
--En el listado de examPaper del teacher aparecen solo aquellos examPaper finalizados y cuyos cursos est·n sin cerrar.
+-En el listado de examPaper del teacher aparecen solo aquellos examPaper finalizados y cuyos cursos est√°n sin cerrar.
 -Todas las preguntas de un examen y el mismo examen son sobre 100. Cuando un alumno realiza un examen (examPaper) la nota del mismo es la media de las notas de todas las preguntas del examen
--La nota de un exampaper se puede cambiar siempre hasta que se cierre el curso. Si se edita una nota de aprobado a suspenso, se elimina la certificaciÛn asociada al alumno.
+-La nota de un exampaper se puede cambiar siempre hasta que se cierre el curso. Si se edita una nota de aprobado a suspenso, se elimina la certificaci√≥n asociada al alumno.
+-A la hora de hacer el documento de costes, toggl no nos dejaba ordenar cronol√≥gicamente las tareas
