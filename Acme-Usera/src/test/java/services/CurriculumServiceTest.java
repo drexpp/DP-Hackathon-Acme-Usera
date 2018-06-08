@@ -32,7 +32,7 @@ public class CurriculumServiceTest extends AbstractTest{
 
 	@Test
 	public void CreateEditCurriculumTestDriver() {
-	
+		//UC19-Crear y editar curriculum
 		final Object testingData[][] = {
 			
 				//TEST POSITIVO: 

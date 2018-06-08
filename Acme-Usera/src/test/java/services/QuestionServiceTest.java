@@ -20,9 +20,7 @@ public class QuestionServiceTest extends AbstractTest{
 	@Test
 	public void ListQuestionsAndCreateTestDriver() {
 	
-		
-		
-		
+		//UC24 - Escribir una pregunta en el foro de un curso
 		final Object testingData[][] = {
 			{//principal/categoryOfTheQuestionToCreate/
 				//TEST POSITIVO: LISTAR Y CREAR UNA PREGUNTA EN EL FORO1 EN EL QUE EL ESTUDIANTE 1 TIENE ACCESO
@@ -64,7 +62,7 @@ public class QuestionServiceTest extends AbstractTest{
 	public void DeleteQuestionTestDriver() {
 	
 		
-		
+		//UC027-Eliminar una pregunta
 		
 		final Object testingData[][] = {
 			{//principal/categoryOfTheQuestionToCreate/

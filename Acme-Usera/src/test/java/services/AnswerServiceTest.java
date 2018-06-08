@@ -23,7 +23,7 @@ public class AnswerServiceTest extends AbstractTest{
 	public void ListAnswersAndCreateTestDriver() {
 	
 		
-		
+		//UC25 - Responder a una pregunta de un foro
 		
 		final Object testingData[][] = {
 			{//principal/categoryOfTheAnswerToCreate/
@@ -66,7 +66,7 @@ public class AnswerServiceTest extends AbstractTest{
 	public void ChangeIsSolutionTestDriver() {
 	
 		
-		
+		//UC026 - Validar una respuesta de usuario como profesor
 		
 		final Object testingData[][] = {
 			{//principal/categoryOfTheAnswerToCreate/
@@ -105,7 +105,7 @@ public class AnswerServiceTest extends AbstractTest{
 	@Test
 	public void DeleteAnswerTestDriver() {
 	
-		
+		//UC027 - Eliminar una respuesta
 		
 		final Object testingData[][] = {
 			

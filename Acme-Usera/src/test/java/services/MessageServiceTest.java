@@ -36,6 +36,7 @@ public class MessageServiceTest extends AbstractTest {
 	
 	@Test
 	public void writeMessageAndMove(){
+		//UC14 - Enviar un mensaje
 		final Object testingData[][] = {
 
 				//TEST POSITIVO

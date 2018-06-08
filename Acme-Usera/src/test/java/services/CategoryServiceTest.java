@@ -27,7 +27,7 @@ public class CategoryServiceTest extends AbstractTest {
 	@Test
 	public void driverListCategoriesAsAdmin(){
 /*
- 
+ 	UC28- Crear y editar una categoría
  */
 		
 		Object testingData[][]= {
